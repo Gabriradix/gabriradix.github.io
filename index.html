@@ -1,15 +1,200 @@
+<!DOCTYPE html>
+<html lang="it">
 
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Artist Portfolio Design</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Gabriele Radicello</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
 
-    <body>
-      <div id="root"></div>
-      <script type="module" src="/src/main.tsx"></script>
-    </body>
-  </html>
-  
+<body id="top">
+    <!-- Navigation -->
+    <nav id="nav" class="nav">
+        <div class="nav-container">
+            <button class="nav-logo" onclick="scrollToSection('top')">GR</button>
+
+            <div class="nav-links">
+                <button onclick="scrollToSection('gallery')">Galleria</button>
+                <button onclick="scrollToSection('about')">Chi Sono</button>
+                <button onclick="scrollToSection('contact')">Contatti</button>
+            </div>
+
+            <button class="nav-mobile-toggle" id="mobile-toggle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div class="nav-mobile" id="mobile-menu">
+            <button onclick="scrollToSection('gallery')">Galleria</button>
+            <button onclick="scrollToSection('about')">Chi Sono</button>
+            <button onclick="scrollToSection('contact')">Contatti</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-bg"></div>
+        <div class="hero-content fade-in-up">
+            <h1>Gabriele Radicello</h1>
+            <p>Artista Visivo specializzato in mixed media contemporanei, interazioni e
+                composizioni digitali</p>
+            <button class="hero-cta" onclick="scrollToSection('gallery')">
+                Esplora i Lavori
+                <svg class="arrow-down" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <polyline points="19 12 12 19 5 12"></polyline>
+                </svg>
+            </button>
+        </div>
+        <div class="hero-divider"></div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Opere Selezionate</h2>
+            </div>
+
+            <div class="gallery-filters" id="filters">
+                <button class="filter-btn active" data-category="All">Tutti</button>
+                <button class="filter-btn" data-category="Illustrazione">Illustrazione</button>
+                <button class="filter-btn" data-category="Installazioni">Installazioni</button>
+                <button class="filter-btn" data-category="Digital">Digitale</button>
+                <button class="filter-btn" data-category="Virtual World">Virtual World</button>
+            </div>
+
+            <div class="gallery-grid" id="gallery-grid"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="assets/aboutphoto.JPEG" alt="Gabriele Radicello nel suo studio" />
+                </div>
+
+                <div class="about-content">
+                    <h2>Chi Sono</h2>
+                    <div class="about-text">
+                        <p>Studio Nuove Tecnologie dell'Arte a Carrara e trasformo il digitale in esperienza estetica.
+                            Visual, net art, code art: il mio medium è il computer, il mio metodo è la sperimentazione
+                            pura.</p>
+                        <p>Oltre alla creazione audiovisiva, mi interesso e sperimento con l'animazione, i mondi
+                            virtuali, la modellazione, la stampa 3D e la grafica. Condivido la ricerca artistica con
+                            Marta Bravi, progettando insieme installazioni e opere multimediali.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="achievements-grid">
+                <div class="achievement-card">
+                    <svg class="achievement-icon" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                    <h3>Mostre</h3>
+                    <ul>
+                        <li>ABAC 2025</li>
+                    </ul>
+                </div>
+
+                <div class="achievement-card">
+                    <svg class="achievement-icon" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                    </svg>
+                    <h3>Formazione</h3>
+                    <ul>
+                        <li>Liceo artistico multimediale Viareggio</li>
+                        <li>Accademia di Belle Arti di Carrara</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contatti</h2>
+            </div>
+
+            <div class="contact-grid">
+                <a href="mailto:gabriele@radicello.it" class="contact-card">
+                    <svg class="contact-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <h3>Email</h3>
+                    <p>gabriele@radicello.it</p>
+                </a>
+
+                <a href="https://instagram.com/gabriradix" target="_blank" rel="noopener noreferrer"
+                    class="contact-card">
+                    <svg class="contact-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                    <h3>Instagram</h3>
+                    <p>@gabriradix</p>
+                </a>
+
+                <a href="https://x.com/gabriradix" target="_blank" rel="noopener noreferrer" class="contact-card">
+                    <svg class="contact-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4l11.733 16h4.267l-11.733 -16z"></path>
+                        <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path>
+                    </svg>
+                    <h3>X</h3>
+                    <p>@gabriradix</p>
+                </a>
+            </div>
+
+            <div class="footer">
+                <p>© 2025 Gabriele Radicello. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <button class="lightbox-close" id="lightbox-close">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="lightbox-content" id="lightbox-content"></div>
+    </div>
+
+    <script type="module" src="three-scene.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
