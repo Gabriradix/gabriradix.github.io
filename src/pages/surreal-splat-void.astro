@@ -10,16 +10,29 @@ const project = projects.find(p => p.title === "Surreal Splat Void");
   transparentHeader={true}
   brandColor={project?.brandColor || "#ffffff"}
 >
-  <div class="fixed inset-0 w-full h-full z-0">
+  <!-- Desktop Version -->
+  <div class="fixed inset-0 w-full h-full z-0 hidden md:block">
     <iframe
       src="/progetti/Web3D/index.html"
       class="w-full h-full border-none"
       allow="autoplay; fullscreen; vr"></iframe>
   </div>
 
+  <!-- Mobile Fallback -->
+  <div class="md:hidden fixed inset-0 flex flex-col items-center justify-center p-12 text-center bg-neutral-900 z-10">
+    <span class="text-6xl mb-8 opacity-50" style="font-family: 'Roboto', sans-serif;">√</span>
+    <h1 class="text-3xl font-medium mb-4" style="font-family: 'Apple Garamond Custom', serif;">Experience Not Supported</h1>
+    <p class="text-neutral-400 text-base leading-relaxed max-w-xs mx-auto">
+        "Surreal Splat Void" involves heavy 3D Gaussian Splatting and is currently only optimized for desktop viewing.
+    </p>
+    <a href="/" class="mt-10 text-xs uppercase tracking-[0.2em] text-neutral-500 hover:text-white transition-colors border-b border-neutral-800 pb-1">
+        Back to projects
+    </a>
+  </div>
+
   <script>
-    // Force compact header on mobile for this specific page
-    if (window.innerWidth < 768) {
+    // Force compact header on desktop for this immersive page
+    if (window.innerWidth >= 768) {
       window.postMessage('force-compact-header', '*');
     }
   </script>
