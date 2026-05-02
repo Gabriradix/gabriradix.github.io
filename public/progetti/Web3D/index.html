@@ -426,24 +426,24 @@
 
         <!-- Contenitore stile Mac OS X Aqua anni 2000 -->
         <div
-          class="z-10 flex flex-col items-center relative p-8 pb-10 bg-gradient-to-b from-[#f3f5f8] to-[#cdd5df] rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,1)] border border-[#8391a1] space-y-6 max-w-xl w-full"
+          class="z-10 flex flex-col items-center relative p-6 pb-8 md:p-8 md:pb-10 bg-gradient-to-b from-[#f3f5f8] to-[#cdd5df] rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,1)] border border-[#8391a1] space-y-4 md:space-y-6 max-w-[90%] md:max-w-xl w-full"
         >
           <!-- Mac Window Controls -->
           <div class="absolute top-3 left-3 flex space-x-2">
             <div
-              class="w-[14px] h-[14px] rounded-full bg-gradient-to-b from-[#ff8782] to-[#de2b2a] border border-[#ce1a17] shadow-inner"
+              class="w-[10px] h-[10px] md:w-[14px] md:h-[14px] rounded-full bg-gradient-to-b from-[#ff8782] to-[#de2b2a] border border-[#ce1a17] shadow-inner"
             ></div>
             <div
-              class="w-[14px] h-[14px] rounded-full bg-gradient-to-b from-[#ffdd56] to-[#df9b0f] border border-[#ce8a05] shadow-inner"
+              class="w-[10px] h-[10px] md:w-[14px] md:h-[14px] rounded-full bg-gradient-to-b from-[#ffdd56] to-[#df9b0f] border border-[#ce8a05] shadow-inner"
             ></div>
             <div
-              class="w-[14px] h-[14px] rounded-full bg-gradient-to-b from-[#5ce356] to-[#20ae1e] border border-[#169d14] shadow-inner"
+              class="w-[10px] h-[10px] md:w-[14px] md:h-[14px] rounded-full bg-gradient-to-b from-[#5ce356] to-[#20ae1e] border border-[#169d14] shadow-inner"
             ></div>
           </div>
 
           <!-- Titolo -->
           <h1
-            class="text-5xl mt-6 font-bold text-[#111] tracking-tight"
+            class="text-3xl md:text-5xl mt-4 md:mt-6 font-bold text-[#111] tracking-tight text-center"
             style="text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9)"
           >
             Surreal Splat Void
@@ -454,7 +454,7 @@
             @click="startExperience"
             :disabled="isLoading"
             :class="isLoading ? 'opacity-50 cursor-wait' : 'active:translate-y-[1px]'"
-            class="relative group mt-6 px-12 py-2 overflow-hidden rounded-[20px] font-bold text-white text-xl border border-[#0d3368] shadow-[0_3px_5px_rgba(0,0,0,0.4)] transition-opacity duration-300"
+            class="relative group mt-4 md:mt-6 px-8 md:px-12 py-2 overflow-hidden rounded-[20px] font-bold text-white text-lg md:text-xl border border-[#0d3368] shadow-[0_3px_5px_rgba(0,0,0,0.4)] transition-opacity duration-300"
           >
             <!-- Sfondo radiale blu scuro / medio -->
             <div
@@ -468,7 +468,7 @@
             <span
               class="relative z-10"
               style="text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6)"
-              x-text="isLoading ? 'Caricamento in corso...' : 'Inizia Esperienza'"
+              x-text="isLoading ? 'Caricamento...' : 'Inizia Esperienza'"
             ></span>
           </button>
         </div>

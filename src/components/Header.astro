@@ -53,12 +53,7 @@
         nav.classList.add("opacity-0", "pointer-events-none");
       } else {
         header.classList.remove("py-4");
-        // Re-add responsive classes
-        if (window.innerWidth < 768) {
-          header.classList.add("py-6");
-        } else {
-          header.classList.add("py-12");
-        }
+        header.classList.add("py-12");
         logo.classList.remove("scale-75");
         name.classList.remove(
           "opacity-0",
@@ -70,7 +65,10 @@
     }
   }
 
+  // Run on init
+  updateHeaderState();
   window.addEventListener("scroll", updateHeaderState);
+  window.addEventListener("resize", updateHeaderState);
 
   window.addEventListener("message", (event) => {
     if (event.data === 'force-compact-header') {

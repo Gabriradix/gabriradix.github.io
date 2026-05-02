@@ -16,4 +16,11 @@ const project = projects.find(p => p.title === "Surreal Splat Void");
       class="w-full h-full border-none"
       allow="autoplay; fullscreen; vr"></iframe>
   </div>
+
+  <script>
+    // Force compact header on mobile for this specific page
+    if (window.innerWidth < 768) {
+      window.postMessage('force-compact-header', '*');
+    }
+  </script>
 </BaseLayout>
