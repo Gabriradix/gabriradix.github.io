@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Simulacra - Gabriele Radicello">
+  <!-- Hero Section -->
+  <section class="relative h-screen w-full overflow-hidden flex items-center justify-center -mt-32">
+    <img 
+      src="/progetti/Simulacra/1.png" 
+      alt="Simulacra Background"
+      class="absolute inset-0 w-full h-full object-cover z-0 opacity-50"
+    />
+    <div class="absolute inset-0 bg-black/60 z-10 pointer-events-none"></div>
+    
+    <div class="relative z-20 text-center px-6 pointer-events-none">
+      <h1 
+        class="text-5xl md:text-8xl font-normal text-white tracking-tight" 
+        style="font-family: 'Apple Garamond Custom', serif;"
+      >
+        Simulacra
+      </h1>
+      <p class="mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto">
+        An interactive journey into oneself, in digital and dreamlike form.
+      </p>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="max-w-4xl mx-auto px-6 py-24 md:py-32 text-neutral-300 text-lg leading-8 text-left">
+    
+    <div class="mb-16 md:mb-24">
+      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Apple Garamond Custom', serif;">Concept</h2>
+      <div class="grid gap-8">
+        <p>
+          An immersive map inspired by the 'cube in the desert' psychological test. The experience unfolds as an introspective journey where the player navigates a surreal landscape generated within the Roblox environment.
+        </p>
+        <p>
+          The digital simulacra become the projection of the user's unconscious, breathing life into an environment where every spatial element corresponds to a psychological state. Playful interaction transforms into a tool for self-analysis and discovery.
+        </p>
+        <div class="mt-4">
+          <a href="https://www.roblox.com/it/games/127574761671806/Simulacra" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-3 border border-neutral-700 text-neutral-300 hover:bg-white hover:text-black transition-colors duration-300 font-medium tracking-wide text-sm uppercase">
+            Play on Roblox
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div class="border-t border-neutral-800 pt-16">
+      <h2 class="text-3xl font-normal text-neutral-50 mb-12" style="font-family: 'Apple Garamond Custom', serif;">Gallery</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <img src="/progetti/Simulacra/2.png" alt="Simulacra 1" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src="/progetti/Simulacra/3.png" alt="Simulacra 2" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src="/progetti/Simulacra/5.png" alt="Simulacra 3" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src="/progetti/Simulacra/7.png" alt="Simulacra 4" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src="/progetti/Simulacra/10.png" alt="Simulacra 5" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src="/progetti/Simulacra/13.png" alt="Simulacra 6" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+      </div>
+    </div>
+
+  </section>
+</BaseLayout>

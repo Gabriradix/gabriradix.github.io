@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Street Rendering | Gabriele Radicello</title>
+    <meta
+      name="description"
+      content="Un progetto di Gabriele Radicello che esplora i limiti delle macchine nella comprensione dello spazio e della realtà."
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Three.js Import Map -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <header class="header">
+      <a href="#" class="logo">STREET RENDERING</a>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <nav class="nav">
+        <a href="#project">Il Progetto</a>
+        <a href="#gallery">Galleria</a>
+        <a href="#contact">Contatti</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Hero / 3D Section -->
+      <section id="hero" class="hero-section">
+        <div id="loading-screen">
+          <div class="loader-content">
+            <div class="loader-text">LOADING ENVIRONMENT</div>
+            <div class="progress-bar">
+              <div class="progress" id="progress"></div>
+            </div>
+            <div class="percentage" id="percentage">0%</div>
+          </div>
+        </div>
+        <div id="canvas-container"></div>
+        <div class="hero-overlay">
+          <h1>STREET<br />RENDERING</h1>
+          <p class="subtitle">Esplorando i limiti della percezione digitale</p>
+        </div>
+      </section>
+
+      <!-- Project Description -->
+      <section id="project" class="content-section">
+        <div class="container">
+          <div class="text-block">
+            <h2>Il Limite della Macchina</h2>
+            <p>
+              Street Rendering indaga i limiti della percezione macchinica
+              trasformando immagini di Google Street View in un modello 3D
+              imperfetto tramite Gaussian Splatting. Attraverso una "street
+              photography" virtuale condotta da prospettive impossibili, il
+              progetto eleva le distorsioni e gli errori di ricostruzione a
+              linguaggio artistico, riflettendo sull'incapacità della tecnologia
+              di replicare fedelmente la realtà.
+            </p>
+          </div>
+          <div class="text-block">
+            <h2>L'Errore come Arte</h2>
+            <p>
+              All'interno di questo mondo ho realizzato una serie di fotografie
+              di street photography, scegliendo soggetti che evidenziassero il
+              contrasto tra ciò che viene restituito fedelmente e ciò che invece
+              si dissolve nell’errore.
+            </p>
+            <p>
+              Ho posizionato la macchina fotografica virtuale in punti di vista
+              impossibili da ottenere con Street View, ampliando le possibilità
+              di osservazione e al tempo stesso esasperando le imperfezioni
+              della tecnologia. L’opera diventa così una riflessione sul modo in
+              cui le macchine percepiscono e ricostruiscono il mondo, mettendone
+              in luce i limiti più che le capacità.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery Section -->
+      <section id="gallery" class="gallery-section">
+        <div class="container">
+          <!-- <div class="text-block" id="gallery-text"> -->
+          <h2
+            style="
+              font-size: 3rem;
+              margin-bottom: 2rem;
+              font-weight: 600;
+              letter-spacing: -1px;
+            "
+          >
+            Galleria
+          </h2>
+          <!-- </div> -->
+          <div class="gallery-grid">
+            <!-- Images will be populated here -->
+            <div class="gallery-item">
+              <img
+                src="assets/(1).PNG"
+                alt="Street Rendering 1"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="assets/(2).PNG"
+                alt="Street Rendering 2"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="assets/(3).PNG"
+                alt="Street Rendering 3"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="assets/(4).PNG"
+                alt="Street Rendering 4"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="assets/(5).PNG"
+                alt="Street Rendering 5"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="assets/(6).PNG"
+                alt="Street Rendering 6"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="assets/(7).PNG"
+                alt="Street Rendering 7"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="assets/(8).PNG"
+                alt="Street Rendering 8"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="assets/(9).PNG"
+                alt="Street Rendering 9"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="assets/(10).PNG"
+                alt="Street Rendering 10"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="assets/(11).PNG"
+                alt="Street Rendering 11"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="assets/(12).PNG"
+                alt="Street Rendering 12"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact" class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-brand">
+            <h3>Gabriele Radicello</h3>
+            <p>Street Rendering Project</p>
+          </div>
+          <div class="footer-links">
+            <a
+              href="https://instagram.com/gabriradix"
+              target="_blank"
+              class="social-link"
+              >Instagram</a
+            >
+            <a
+              href="https://x.com/gabriradix"
+              target="_blank"
+              class="social-link"
+              >X (Twitter)</a
+            >
+            <a href="#" target="_blank" class="social-link">Website</a>
+            <a href="mailto:gabriele@radicello.it" class="social-link">Email</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Gabriele Radicello. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox hidden">
+      <span class="lightbox-close">&times;</span>
+      <button class="lightbox-prev">&#10094;</button>
+      <img id="lightbox-img" src="" alt="Lightbox Image" />
+      <button class="lightbox-next">&#10095;</button>
+    </div>
+
+    <!-- Mobile Nav (Moved outside header for full screen backdrop) -->
+    <div class="mobile-nav">
+      <a href="#project">Il Progetto</a>
+      <a href="#gallery">Galleria</a>
+      <a href="#contact">Contatti</a>
+    </div>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

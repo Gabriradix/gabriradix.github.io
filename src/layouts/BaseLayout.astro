@@ -1,0 +1,177 @@
+---
+import Header from "../components/Header.astro";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  hideHeader?: boolean;
+  favicon?: string;
+  logoHoverColor?: string;
+  brandColor?: string;
+  transparentHeader?: boolean;
+}
+
+const { 
+  title = "Portfolio", 
+  description = "Portfolio of Gabriele Radicello",
+  hideHeader = false,
+  logoHoverColor,
+  brandColor,
+  transparentHeader = false
+} = Astro.props;
+
+// Standardized branding logic
+const finalLogoHover = brandColor || logoHoverColor;
+const faviconColor = brandColor || "#ffffff";
+
+// Dynamic SVG Favicon: a square with the site background and the √ symbol in the brand color
+// Dynamic SVG Favicon: a square with the site background and the √ symbol in the brand color
+const dynamicFavicon = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23171717'/%3E%3Ctext x='50' y='50' text-anchor='middle' dominant-baseline='central' font-size='70' fill='${encodeURIComponent(faviconColor)}' font-family='Roboto, sans-serif' font-weight='300'%3E√%3C/text%3E%3C/svg%3E`;
+
+const { favicon = dynamicFavicon } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href={favicon} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+    {finalLogoHover && (
+      <style is:global set:html={`header a:hover, header a:hover span, header a:hover div { color: ${finalLogoHover} !important; }`}></style>
+    )}
+    <style>
+      @font-face {
+        font-family: 'Apple Garamond Custom';
+        src: url('/fonts/AppleGaramond.ttf') format('truetype');
+        font-weight: bold;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: 'Helvetica Custom';
+        src: url('/fonts/Helvetica.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      /* Lightbox Styles */
+      #lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(10px);
+        cursor: zoom-out;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      #lightbox.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      #lightbox img {
+        max-width: 90vw;
+        max-height: 90vh;
+        object-fit: contain;
+        box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        transform: scale(0.9);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      #lightbox.active img {
+        transform: scale(1);
+      }
+      .gallery-img {
+        cursor: zoom-in;
+        transition: opacity 0.3s ease;
+      }
+      .gallery-img:hover {
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body 
+    class="bg-neutral-900 text-neutral-50 antialiased font-sans" 
+    style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
+  >
+    {!hideHeader && <Header />}
+
+    <main>
+      <slot />
+    </main>
+
+    <!-- Lightbox Overlay -->
+    <div id="lightbox" aria-hidden="true">
+      <img id="lightbox-img" src="" alt="Enlarged view" />
+    </div>
+
+    <script>
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      
+      let currentImageIndex = 0;
+      let galleryImages = [];
+
+      const updateGalleryImages = () => {
+        galleryImages = Array.from(document.querySelectorAll('.gallery-img'));
+      };
+
+      const showImage = (index) => {
+        if (galleryImages.length === 0) return;
+        if (index < 0) index = galleryImages.length - 1;
+        if (index >= galleryImages.length) index = 0;
+        currentImageIndex = index;
+        lightboxImg.src = galleryImages[currentImageIndex].src;
+      };
+
+      // Global click listener for gallery images
+      document.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target instanceof HTMLImageElement && target.classList.contains('gallery-img')) {
+          updateGalleryImages();
+          currentImageIndex = galleryImages.indexOf(target);
+          showImage(currentImageIndex);
+          
+          // Prevent page jitter by padding for scrollbar width
+          const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+          document.body.style.paddingRight = `${scrollbarWidth}px`;
+          document.body.style.overflow = 'hidden';
+          
+          lightbox.classList.add('active');
+        }
+      });
+
+      // Close lightbox
+      lightbox?.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (!lightbox?.classList.contains('active')) return;
+        
+        if (e.key === 'Escape') {
+          lightbox.click();
+        } else if (e.key === 'ArrowRight') {
+          showImage(currentImageIndex + 1);
+        } else if (e.key === 'ArrowLeft') {
+          showImage(currentImageIndex - 1);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <title>A Closer Look | Gabriele Radicello</title>
+  <meta name="description"
+    content="A Closer Look — a seguito del rilascio dei documenti riguardanti il caso Epstein da parte del dipartimento di giustizia americano." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <a href="#" class="logo">A CLOSER LOOK</a>
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="nav">
+      <a href="#about">About</a>
+      <a href="#gallery">Galleria</a>
+      <a href="#contact">Contatti</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+      <video class="hero-video" autoplay muted loop playsinline>
+        <source src="assets/Tdmovieout.0.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-overlay">
+        <h1>A CLOSER<br />LOOK</h1>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="content-section">
+      <div class="container">
+        <div class="text-block">
+          <h2>Concept</h2>
+          <p>
+            A seguito del rilascio dei documenti riguardanti il caso Epstein
+            da parte del Dipartimento di Giustizia americano, il mondo intero
+            è stato colto da un'onda di shock e incredulità. Questo progetto
+            vuole mettere a fuoco la tematica dei documenti redatti in modo
+            apparentemente casuale.
+          </p>
+          <p>
+            Mantenendo l'estetica ma ribaltando la dinamica della censura
+            attuata dal Dipartimento di Giustizia americano, A Closer Look
+            invita lo spettatore a svelare porzioni di immagini provenienti
+            dagli Epstein files attraverso l'interazione sviluppata con una
+            telecamera che riprende lo spettatore.
+          </p>
+          <h2>Struttura</h2>
+          <p>
+            Uno schermo mostra un'immagine nera. Non appena una persona si
+            avvicina allo schermo, viene ripresa da una telecamera e la sua
+            silhouette viene sovrapposta all'immagine nera, rivelado porzioni
+            di una serie infinita di immagini provenienti dal database degli
+            Epstein files che si alternano casualmente in rapida successione.
+          </p>
+          <p>
+            Per scelta estetica e per aggiungere un elemento di veridicità le
+            immagini sono accompagnate da una didascalia che riporta il nome
+            del file.
+          </p>
+          <p>
+            La parte visiva è accompagnata da una colonna sonora composta da
+            estratti audio e testimonianze provenienti dal database degli
+            Epstein files.
+          </p>
+          <h2>Tecnologia</h2>
+          <p>
+            Il progetto è sviluppato con Touchdesigner e utilizza un Kinect v2
+            per il rilevamento del movimento e la silhouette.
+
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+      <div class="container">
+        <!-- <h2>Galleria</h2> -->
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="assets/IMG_0010.JPG" alt="IMG_0010" loading="lazy" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/sample.png" alt="Sample" loading="lazy" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/IMG_0012.JPG" alt="IMG_0012" loading="lazy" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/IMG_0013.JPG" alt="IMG_0013" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section> 
+  </main>
+
+  <!-- Footer -->
+  <footer id="contact" class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>Gabriele Radicello</h3>
+          <p>A Closer Look</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://instagram.com/gabriradix" target="_blank" class="social-link">Instagram</a>
+          <a href="https://x.com/gabriradix" target="_blank" class="social-link">X (Twitter)</a>
+          <a href="https://gabriradix.github.io" target="_blank" class="social-link">Website</a>
+          <a href="mailto:gabriele@radicello.it" class="social-link">Email</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Gabriele Radicello.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox hidden">
+    <span class="lightbox-close">&times;</span>
+    <button class="lightbox-prev">&#10094;</button>
+    <img id="lightbox-img" src="" alt="Lightbox Image" />
+    <button class="lightbox-next">&#10095;</button>
+  </div>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav">
+    <a href="#about">About</a>
+    <a href="#gallery">Galleria</a>
+    <a href="#contact">Contatti</a>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+
+</html>

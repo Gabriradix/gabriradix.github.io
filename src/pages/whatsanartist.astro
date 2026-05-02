@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Whatsanartist - Gabriele Radicello">
+  <!-- Hero Section -->
+  <section class="relative h-screen w-full overflow-hidden flex items-center justify-center -mt-32">
+    <img 
+      src="/progetti/Whatsanartist/copertina.png" 
+      alt="Whatsanartist Background"
+      class="absolute inset-0 w-full h-full object-cover z-0 opacity-50"
+    />
+    <div class="absolute inset-0 bg-black/60 z-10 pointer-events-none"></div>
+    
+    <div class="relative z-20 text-center px-6 pointer-events-none">
+      <h1 
+        class="text-5xl md:text-8xl font-normal text-white tracking-tight" 
+        style="font-family: 'Apple Garamond Custom', serif;"
+      >
+        Whatsanartist
+      </h1>
+      <p class="mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto">
+        What is an artist in the digital era?
+      </p>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="max-w-4xl mx-auto px-6 py-24 md:py-32 text-neutral-300 text-lg leading-8 text-left">
+    
+    <div class="mb-16 md:mb-24">
+      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Apple Garamond Custom', serif;">Concept</h2>
+      <div class="grid gap-8">
+        <p>
+          An interactive web project exploring the artist's identity in the digital era. By posing a simple question to users—"What is an artist?"—the work collects a plurality of definitions, archiving and comparing them.
+        </p>
+        <p>
+          The project becomes a sociological and philosophical investigation into the perception of the creative role in contemporary society, demystifying the figure of the artist and letting the collective outline its boundaries.
+        </p>
+        <div class="mt-4">
+          <a href="https://whatsanartist.github.io/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-3 border border-neutral-700 text-neutral-300 hover:bg-white hover:text-black transition-colors duration-300 font-medium tracking-wide text-sm uppercase">
+            Visit the Website
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div class="border-t border-neutral-800 pt-16">
+      <h2 class="text-3xl font-normal text-neutral-50 mb-12" style="font-family: 'Apple Garamond Custom', serif;">Gallery</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <img src="/progetti/Whatsanartist/1.png" alt="Whatsanartist 1" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src="/progetti/Whatsanartist/IMG_5200.JPG" alt="Whatsanartist 2" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src="/progetti/Whatsanartist/IMG_5210.JPG" alt="Whatsanartist 3" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src="/progetti/Whatsanartist/IMG_5226.JPG" alt="Whatsanartist 4" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+      </div>
+    </div>
+
+  </section>
+</BaseLayout>

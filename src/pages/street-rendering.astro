@@ -1,0 +1,103 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Street Rendering - Gabriele Radicello">
+  <!-- Hero Section -->
+  <section
+    class="relative h-screen w-full overflow-hidden flex items-center justify-center -mt-32"
+  >
+    <!-- Interactive Point Cloud via iframe -->
+    <iframe
+      src="/progetti/Street Rendering/embed.html"
+      class="absolute inset-0 w-full h-full border-none z-0"
+      allow="autoplay; fullscreen; vr"></iframe>
+
+    <!-- Dark overlay for text readability, pointer-events-none to allow interacting with the iframe -->
+    <div class="absolute inset-0 bg-black/40 z-10 pointer-events-none"></div>
+
+    <div class="relative z-20 text-center px-6 pointer-events-none">
+      <h1
+        class="text-5xl md:text-8xl font-normal text-white tracking-tight"
+        style="font-family: 'Apple Garamond Custom', serif;"
+      >
+        Street Rendering
+      </h1>
+      <p class="mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto">
+        Exploring the limits of digital perception.
+      </p>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section
+    class="max-w-4xl mx-auto px-6 py-24 md:py-32 text-neutral-300 text-lg leading-8 text-left"
+  >
+    <div class="mb-16 md:mb-24">
+      <h2
+        class="text-3xl font-normal text-neutral-50 mb-8"
+        style="font-family: 'Apple Garamond Custom', serif;"
+      >
+        Concept
+      </h2>
+      <div class="grid gap-8">
+        <p>
+          Street Rendering investigates the limits of machine perception by
+          transforming Google Street View images into an imperfect 3D model
+          using Gaussian Splatting. Through a virtual "street photography"
+          conducted from impossible perspectives, the project elevates
+          distortions and reconstruction errors to an artistic language,
+          reflecting on technology's inability to faithfully replicate reality.
+        </p>
+      </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div class="border-t border-neutral-800 pt-16">
+      <h2
+        class="text-3xl font-normal text-neutral-50 mb-12"
+        style="font-family: 'Apple Garamond Custom', serif;"
+      >
+        Gallery
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <img
+          src="/progetti/Street Rendering/(6).PNG"
+          alt="Street Rendering 1"
+          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
+          loading="lazy"
+        />
+        <img
+          src="/progetti/Street Rendering/(1).PNG"
+          alt="Street Rendering 2"
+          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
+          loading="lazy"
+        />
+        <img
+          src="/progetti/Street Rendering/(2).PNG"
+          alt="Street Rendering 3"
+          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
+          loading="lazy"
+        />
+        <img
+          src="/progetti/Street Rendering/(5).PNG"
+          alt="Street Rendering 4"
+          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
+          loading="lazy"
+        />
+        <img
+          src="/progetti/Street Rendering/(9).PNG"
+          alt="Street Rendering 5"
+          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
+          loading="lazy"
+        />
+        <img
+          src="/progetti/Street Rendering/(10).PNG"
+          alt="Street Rendering 6"
+          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

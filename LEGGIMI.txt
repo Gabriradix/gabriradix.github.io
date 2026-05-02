@@ -1,0 +1,243 @@
+PROGETTO ASTRO + TAILWIND
+
+Questa cartella contiene un progetto Astro gia configurato con Tailwind CSS.
+
+La root del progetto coincide con questa cartella:
+
+Astro/
+
+Quindi non devi entrare in una sottocartella per lavorare.
+I comandi vanno lanciati direttamente da qui.
+
+
+COS'E QUESTO PROGETTO
+
+Astro e un framework per creare siti web veloci, pagine statiche, portfolio,
+blog, archivi e piccoli progetti editoriali.
+
+Tailwind CSS e una libreria CSS basata su classi di utilita.
+Invece di scrivere tutto il CSS a mano, puoi applicare classi direttamente
+agli elementi HTML, per esempio:
+
+class="text-5xl font-black text-cyan-300"
+
+Questo progetto contiene:
+
+src/pages/index.astro
+La home del sito.
+
+src/pages/about.astro
+Una seconda pagina, disponibile all'indirizzo /about.
+
+src/layouts/BaseLayout.astro
+Il layout condiviso tra le pagine.
+
+src/components/ProjectCard.astro
+Un componente riutilizzabile.
+
+src/data/projects.ts
+Una piccola lista di dati usata per generare le card nella home.
+
+src/styles/global.css
+Il file CSS globale. Qui viene importato Tailwind:
+
+@import "tailwindcss";
+
+public/
+La cartella per file statici e vecchi progetti HTML.
+Tutto quello che metti qui viene copiato nella root del sito finale.
+
+public/immagini/
+Cartella di esempio per immagini statiche.
+Un file come:
+
+public/immagini/esempio-portfolio.svg
+
+si richiama in una pagina cosi:
+
+<img src="/immagini/esempio-portfolio.svg" alt="Descrizione immagine">
+
+public/progetto-lezione-2/
+Esempio di vecchia cartella HTML linkabile dal progetto Astro.
+
+astro.config.mjs
+La configurazione di Astro. Qui e collegato il plugin Tailwind per Vite.
+
+
+REQUISITI
+
+Prima di lanciare il progetto devi avere Node.js installato.
+
+Per controllare, apri il terminale in questa cartella e scrivi:
+
+node -v
+npm -v
+
+Se entrambi i comandi mostrano un numero di versione, puoi continuare.
+
+Se uno dei due comandi non funziona, installa Node.js da:
+
+https://nodejs.org/
+
+Dopo l'installazione chiudi e riapri il terminale.
+
+
+COME LANCIARE QUESTO PROGETTO
+
+1. Apri il terminale.
+
+2. Entra nella cartella Astro, se non ci sei gia.
+
+3. Installa le dipendenze:
+
+npm install
+
+4. Avvia il server di sviluppo:
+
+npm run dev
+
+5. Apri nel browser l'indirizzo mostrato dal terminale.
+Di solito e:
+
+http://localhost:4321
+
+Se Astro mostra un altro indirizzo, usa quello.
+
+
+COME FERMARE IL SERVER
+
+Nel terminale dove hai lanciato npm run dev, premi:
+
+CTRL + C
+
+Se chiede conferma, premi:
+
+y
+
+e poi Invio.
+
+
+COME CREARE LA VERSIONE FINALE DEL SITO
+
+Quando il sito e pronto, lancia:
+
+npm run build
+
+Astro creera una cartella:
+
+dist/
+
+Per controllare la build in locale:
+
+npm run preview
+
+
+COME INSERIRE VECCHI PROGETTI HTML
+
+Se hai un progetto HTML gia fatto in una cartella, mettilo dentro:
+
+public/
+
+Esempio:
+
+public/progetto-lezione-2/
+
+Dentro quella cartella deve esserci almeno un file:
+
+index.html
+
+Quindi la struttura deve essere:
+
+public/progetto-lezione-2/index.html
+
+A quel punto il progetto sara raggiungibile dal browser a questo indirizzo:
+
+http://localhost:4321/progetto-lezione-2/
+
+Nel codice Astro puoi creare un link cosi:
+
+<a href="/progetto-lezione-2/">Apri progetto lezione 2</a>
+
+Nel progetto attuale i link della home sono generati dal file:
+
+src/data/projects.ts
+
+Per aggiungere un vecchio progetto alla home, aggiungi un oggetto nell'array:
+
+{
+  title: "Progetto lezione 2",
+  text: "Descrizione breve del progetto.",
+  href: "/progetto-lezione-2/",
+}
+
+Regola importante:
+il nome della cartella dentro public e il link devono coincidere.
+
+Esempio:
+
+public/mio-progetto/index.html
+
+si linka cosi:
+
+/mio-progetto/
+
+
+COME CREARE UN ALTRO PROGETTO ASTRO DA ZERO
+
+Apri il terminale nella cartella in cui vuoi creare il nuovo progetto.
+Per esempio, sul Desktop:
+
+Su macOS o Linux:
+
+cd ~/Desktop
+
+Su Windows PowerShell:
+
+cd $HOME\Desktop
+
+Poi crea il progetto Astro:
+
+npm create astro@latest
+
+Quando il terminale chiede il nome del progetto, puoi scrivere:
+
+mio-sito-astro
+
+Entra nella cartella:
+
+cd mio-sito-astro
+
+Aggiungi Tailwind:
+
+npx astro add tailwind --yes
+
+Avvia il progetto:
+
+npm run dev
+
+
+COMANDI RIASSUNTIVI PER QUESTO PROGETTO
+
+npm install
+npm run dev
+npm run build
+npm run preview
+
+
+COMANDI RIASSUNTIVI PER CREARE UN NUOVO PROGETTO
+
+npm create astro@latest
+cd mio-sito-astro
+npx astro add tailwind --yes
+npm run dev
+
+
+NOTE
+
+- Non cancellare package.json: contiene gli script e le dipendenze.
+- Non modificare node_modules: e una cartella generata da npm install.
+- Le pagine si creano dentro src/pages.
+- I componenti riutilizzabili si mettono di solito dentro src/components.
+- Le vecchie cartelle HTML statiche si mettono dentro public.
+- Il CSS globale e in src/styles/global.css.
+- Tailwind funziona perche global.css viene importato nel layout.

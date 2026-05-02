@@ -1,0 +1,14 @@
+---
+import ProjectCard from "../components/ProjectCard.astro";
+import { projects } from "../data/projects";
+import BaseLayout from "../layouts/BaseLayout.astro";
+// Force rebuild to pick up projects.ts changes
+---
+
+<BaseLayout title="Gabriele Radicello">
+  <main class="py-24 md:py-32 max-w-7xl mx-auto pl-6 md:pl-12">
+    <section class="flex flex-col gap-32">
+      {projects.map((project) => <ProjectCard {...project} />)}
+    </section>
+  </main>
+</BaseLayout>

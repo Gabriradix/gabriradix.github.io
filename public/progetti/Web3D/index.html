@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Esempio A-Frame con GLTF locale</title>
+
+    <!-- Font Apple Garamond / EB Garamond Fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Carichiamo la libreria A-Frame -->
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://quadjr.github.io/aframe-gaussian-splatting/index.js"></script>
+
+    <script>
+      AFRAME.registerComponent("explode-on-approach", {
+        schema: { distance: { default: 2.5 } }, // distanza di attivazione esplosione
+        init: function () {
+          this.exploded = false;
+          this.explosionProgress = 0.0;
+        },
+        tick: function (time, delta) {
+          let splatObj = this.el.components["gaussian_splatting"];
+          if (!splatObj || !splatObj.object) return;
+          let mesh = splatObj.object.children[0];
+          if (!mesh || !mesh.material) return;
+
+          let mat = mesh.material;
+          if (!mat.userData.explosionPatched) {
+            mat.uniforms.explosion = { value: 0.0 };
+            mat.vertexShader = mat.vertexShader
+              .replace(
+                "void main () {",
+                `
+            uniform float explosion;
+            void main () {`,
+              )
+              .replace(
+                "vec4 center = vec4(centerAndScaleData.xyz, 1);",
+                `
+            vec3 c3 = centerAndScaleData.xyz;
+            if (explosion > 0.0) {
+                float rand1 = fract(sin(float(splatIndex)*12.9898) * 43758.5453);
+                float rand2 = fract(sin(float(splatIndex)*78.233) * 43758.5453);
+                float rand3 = fract(sin(float(splatIndex)*45.164) * 43758.5453);
+                vec3 dir = normalize(vec3(rand1, rand2, rand3) - 0.5);
+                c3 += dir * explosion * 5.0; // Espansione pseudo-casuale
+                c3 += normalize(c3) * explosion * 2.0; // Vento radiale
+                c3.y += explosion * 3.0; // Si sollevano leggermente
+            }
+            vec4 center = vec4(c3, 1);`,
+              )
+              .replace(
+                "float lambda1 = mid + radius;",
+                `
+            float shrink = max(0.001, 1.0 - explosion * 1.5);
+            float lambda1 = (mid + radius) * shrink;`,
+              )
+              .replace(
+                "float lambda2 = max(mid - radius, 0.1);",
+                `
+            float shrink2 = max(0.001, 1.0 - explosion * 1.5);
+            float lambda2 = max(mid - radius, 0.1) * shrink2;`,
+              );
+            mat.needsUpdate = true;
+            mat.userData.explosionPatched = true;
+          }
+
+          let camPos = new THREE.Vector3();
+          let camera = this.el.sceneEl.camera;
+          if (!camera) return;
+          camera.getWorldPosition(camPos);
+
+          let myPos = new THREE.Vector3();
+          this.el.object3D.getWorldPosition(myPos);
+
+          let dist = camPos.distanceTo(myPos);
+
+          if (dist < this.data.distance && !this.exploded) {
+            this.exploded = true;
+          }
+
+          if (this.exploded) {
+            this.explosionProgress += delta * 0.002;
+            mat.uniforms.explosion.value = this.explosionProgress;
+
+            if (this.explosionProgress > 1.5) {
+              // Dopo che si è disintegrato del tutto, ricarica un nuovo oggetto
+              this.exploded = false;
+              this.explosionProgress = 0.0;
+              mat.uniforms.explosion.value = 0.0;
+              const surrealWrap = this.el.sceneEl.components["surreal-world"];
+              if (surrealWrap && this.el.classList.contains("surreal-item")) {
+                surrealWrap.spawnItem(this.el, 1.0);
+              } else {
+                this.el.setAttribute("position", "0 -2000 0"); // nascondi il modello statico
+              }
+            }
+          }
+        },
+      });
+
+      // ─── CORRIDOIO INFINITO ───
+      // Lazy loading sequenziale: le PLY vengono caricate una alla volta
+      // per non saturare banda e GPU. Il componente assegna i src in coda.
+      AFRAME.registerComponent("corridor-world", {
+        schema: {
+          spacing: { default: 4 },
+          poolSize: { default: 16 }, // 16 macs: 8 coppie sx/dx
+          sideX: { default: 3 },
+          yOffset: { default: 0 },
+        },
+
+        init: function () {
+          this.items = [];
+          this.frustum = new THREE.Frustum();
+          this.camMatrix = new THREE.Matrix4();
+          this.ready = false;
+
+          setTimeout(() => {
+            this.items = Array.from(document.querySelectorAll(".corridor-mac"));
+            let cam = this.el.sceneEl.camera;
+            let startZ = cam ? cam.position.z : 0;
+            this.items.forEach((el, i) => {
+              let side = i % 2 === 0 ? -1 : 1;
+              let z = startZ - this.data.spacing * Math.floor(i / 2);
+              el.object3D.position.set(
+                side * this.data.sideX,
+                this.data.yOffset,
+                z,
+              );
+              el.object3D.visible = true;
+              el.object3D.rotation.y = side === 1 ? Math.PI : 0;
+              el.object3D.userData.side = side;
+            });
+            this.ready = true;
+          }, 800);
+        },
+
+        tick: function () {
+          if (!this.ready) return;
+
+          let cam = this.el.sceneEl.camera;
+          if (!cam) return;
+
+          // Aggiorna frustum
+          cam.updateMatrixWorld();
+          this.camMatrix.multiplyMatrices(
+            cam.projectionMatrix,
+            cam.matrixWorldInverse,
+          );
+          this.frustum.setFromProjectionMatrix(this.camMatrix);
+
+          let camPos = new THREE.Vector3();
+          cam.getWorldPosition(camPos);
+
+          this.items.forEach((el) => {
+            let obj = el.object3D;
+            if (!obj) return;
+
+            // Recycling: se il modello è rimasto DIETRO la camera, lo manda DAVANTI
+            let objZ = obj.position.z;
+            let span = (this.data.poolSize / 2) * this.data.spacing;
+            if (objZ > camPos.z + this.data.spacing) {
+              obj.position.z = camPos.z - span - this.data.spacing;
+            }
+
+            // Frustum culling: visibile solo se nel cono visivo della camera
+            let sphere = new THREE.Sphere(
+              obj.getWorldPosition(new THREE.Vector3()),
+              2.5,
+            );
+            obj.visible = this.frustum.intersectsSphere(sphere);
+          });
+        },
+      });
+
+      AFRAME.registerComponent("unreachable-mirage", {
+        schema: { distance: { default: 120 } },
+        tick: function () {
+          let camera = this.el.sceneEl.camera;
+          if (!camera) return;
+          let camPos = new THREE.Vector3();
+          camera.getWorldPosition(camPos);
+          this.el.object3D.position.set(0, 0, camPos.z - this.data.distance);
+        },
+      });
+
+      AFRAME.registerComponent("invisible-corridor", {
+        schema: { width: { default: 4 } },
+        tick: function () {
+          let pos = this.el.getAttribute("position");
+          let half = this.data.width / 2;
+          let clamped = false;
+          if (pos.x > half) {
+            pos.x = half;
+            clamped = true;
+          } else if (pos.x < -half) {
+            pos.x = -half;
+            clamped = true;
+          }
+          if (clamped) this.el.setAttribute("position", pos);
+        },
+      });
+
+      AFRAME.registerComponent("grid-floor", {
+        init: function () {
+          // Crea una griglia 500x500 con divisioni ogni 2 metri (250 celle)
+          const size = 500;
+          const divisions = 250;
+          const gridHelper = new THREE.GridHelper(
+            size,
+            divisions,
+            0x1a1a1a,
+            0x111111,
+          );
+
+          gridHelper.position.set(0, -2, 0);
+          gridHelper.material.transparent = false;
+          gridHelper.material.depthWrite = true;
+
+          this.el.setObject3D("grid", gridHelper);
+        },
+      });
+
+      // ─── OGGETTI INTERNI AL CORRIDOIO ───
+      // Pool di splat diversi posizionati al centro/interno del corridoio.
+      // Recycling identico a corridor-world ma con layout casuale su X [-1.5, 1.5].
+      AFRAME.registerComponent("corridor-interior", {
+        schema: {
+          spacing: { default: 8 }, // distanza tra un oggetto e l'altro
+          poolSize: { default: 6 }, // interior: lazy load per src unico, poi posiziona
+        },
+        init: function () {
+          this.items = [];
+          this.frustum = new THREE.Frustum();
+          this.camMat = new THREE.Matrix4();
+          this.ready = false;
+
+          // Lista ordinata: src + attributi dati
+          const INTERIOR = [
+            {
+              src: "assets/chitarra.ply",
+              fixedY: -2,
+              fixedScale: 0.33,
+              rotSpeed: 0.0008,
+            },
+            {
+              src: "assets/emac.ply",
+              fixedY: -2,
+              fixedScale: 0.15,
+              rotSpeed: 0.0008,
+            },
+            {
+              src: "assets/teschione.ply",
+              fixedY: -1,
+              fixedScale: 0.25,
+              rotSpeed: 0.0008,
+            },
+          ];
+
+          setTimeout(() => {
+            this.items = Array.from(
+              document.querySelectorAll(".corridor-interior-item"),
+            );
+            let cam = this.el.sceneEl.camera;
+            let startZ = cam ? cam.position.z : 0;
+
+            this.items.forEach((el, idx) => {
+              let cfg = INTERIOR[idx % INTERIOR.length];
+              if (cfg.fixedScale !== 1)
+                el.object3D.scale.setScalar(cfg.fixedScale);
+              let x = (Math.random() - 0.5) * 2.5;
+              let z = startZ - 10 - idx * this.data.spacing;
+              el.object3D.position.set(x, cfg.fixedY, z);
+              el.object3D.rotation.y = Math.random() * Math.PI * 2;
+              el.object3D.visible = true;
+              el.object3D.userData.spanZ =
+                this.items.length * this.data.spacing;
+              el.object3D.userData.fixedY = cfg.fixedY;
+              el.object3D.userData.rotSpeed = cfg.rotSpeed || 0;
+            });
+
+            this.ready = true;
+          }, 1000);
+        },
+
+        tick: function (time, delta) {
+          if (!this.ready) return;
+          let cam = this.el.sceneEl.camera;
+          if (!cam) return;
+
+          cam.updateMatrixWorld();
+          this.camMat.multiplyMatrices(
+            cam.projectionMatrix,
+            cam.matrixWorldInverse,
+          );
+          this.frustum.setFromProjectionMatrix(this.camMat);
+
+          let camPos = new THREE.Vector3();
+          cam.getWorldPosition(camPos);
+
+          this.items.forEach((el) => {
+            let obj = el.object3D;
+            if (!obj) return;
+
+            // Rotazione sull'asse Y per chitarra ed emac
+            if (obj.userData.rotSpeed)
+              obj.rotation.y += obj.userData.rotSpeed * delta;
+
+            // Recycling: se è alle spalle, riposiziona in fondo
+            if (obj.position.z > camPos.z + this.data.spacing) {
+              obj.position.x = (Math.random() - 0.5) * 2.5;
+              obj.position.y = obj.userData.fixedY || 0; // mantiene la Y originale
+              obj.position.z =
+                camPos.z - obj.userData.spanZ - this.data.spacing;
+              obj.rotation.y = Math.random() * Math.PI * 2;
+            }
+
+            // Frustum culling
+            let sphere = new THREE.Sphere(
+              obj.getWorldPosition(new THREE.Vector3()),
+              2.5,
+            );
+            obj.visible = this.frustum.intersectsSphere(sphere);
+          });
+        },
+      });
+
+      // Torre fissa alle spalle della camera, ruotante su se stessa
+      AFRAME.registerComponent("rotating-backdrop", {
+        schema: {
+          distance: { default: 8 }, // quanti metri DIETRO la camera
+          speed: { default: 0.003 }, // velocità di rotazione (rad/ms)
+          yOffset: { default: -8 }, // altezza rispetto alla camera
+        },
+        tick: function (time, delta) {
+          let cam = this.el.sceneEl.camera;
+          if (!cam) return;
+          let camPos = new THREE.Vector3();
+          cam.getWorldPosition(camPos);
+          // Posiziona DIETRO la camera, tracciando tutti gli assi (X e Z, bloccando Y fissa al pavimento)
+          this.el.object3D.position.set(
+            camPos.x,
+            this.data.yOffset,
+            camPos.z + this.data.distance,
+          );
+          // Ruota su Y
+          this.el.object3D.rotation.y += this.data.speed * delta;
+        },
+      });
+    </script>
+
+    <!-- Alpine.js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      @font-face {
+        font-family: "Apple Garamond Local";
+        src: url("./AppleGaramond.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family:
+          "Apple Garamond Local", "Apple Garamond", "EB Garamond", Garamond,
+          serif;
+      }
+      #error-log {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        color: #ff5555;
+        background: rgba(0, 0, 0, 0.8);
+        font-family: monospace;
+        font-size: 14px;
+        padding: 10px;
+        max-width: 100%;
+        max-height: 50vh;
+        overflow-y: auto;
+        pointer-events: none;
+      }
+    </style>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const logger = document.createElement("div");
+        logger.id = "error-log";
+        document.body.appendChild(logger);
+        window.onerror = function (msg, url, line) {
+          logger.innerHTML += "<br>ERR: " + msg + " (L" + line + ")";
+        };
+        const oldErr = console.error;
+        console.error = function () {
+          logger.innerHTML += "<br>C.ERR: " + Array.from(arguments).join(" ");
+          oldErr.apply(console, arguments);
+        };
+      });
+    </script>
+  </head>
+
+  <body x-data="pageData()" @keydown.window.escape="returnToMenu()">
+    <!-- Schermata Intro (Overlay) -->
+    <template x-if="showIntro">
+      <div
+        class="absolute inset-0 flex flex-col items-center justify-center z-50 bg-cover bg-center"
+        style="background-image: url(&quot;assets/splash.png&quot;)"
+      >
+        <!-- Overlay scuro in trasparenza per contrasto -->
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm z-0"></div>
+
+        <!-- Contenitore stile Mac OS X Aqua anni 2000 -->
+        <div
+          class="z-10 flex flex-col items-center relative p-8 pb-10 bg-gradient-to-b from-[#f3f5f8] to-[#cdd5df] rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,1)] border border-[#8391a1] space-y-6 max-w-xl w-full"
+        >
+          <!-- Mac Window Controls -->
+          <div class="absolute top-3 left-3 flex space-x-2">
+            <div
+              class="w-[14px] h-[14px] rounded-full bg-gradient-to-b from-[#ff8782] to-[#de2b2a] border border-[#ce1a17] shadow-inner"
+            ></div>
+            <div
+              class="w-[14px] h-[14px] rounded-full bg-gradient-to-b from-[#ffdd56] to-[#df9b0f] border border-[#ce8a05] shadow-inner"
+            ></div>
+            <div
+              class="w-[14px] h-[14px] rounded-full bg-gradient-to-b from-[#5ce356] to-[#20ae1e] border border-[#169d14] shadow-inner"
+            ></div>
+          </div>
+
+          <!-- Titolo -->
+          <h1
+            class="text-5xl mt-6 font-bold text-[#111] tracking-tight"
+            style="text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9)"
+          >
+            Surreal Splat Void
+          </h1>
+
+          <!-- Pulsante Aqua -->
+          <button
+            @click="startExperience"
+            :disabled="isLoading"
+            :class="isLoading ? 'opacity-50 cursor-wait' : 'active:translate-y-[1px]'"
+            class="relative group mt-6 px-12 py-2 overflow-hidden rounded-[20px] font-bold text-white text-xl border border-[#0d3368] shadow-[0_3px_5px_rgba(0,0,0,0.4)] transition-opacity duration-300"
+          >
+            <!-- Sfondo radiale blu scuro / medio -->
+            <div
+              class="absolute inset-0 bg-gradient-to-b from-[#6cb0fc] via-[#2f83ee] to-[#044c9b]"
+            ></div>
+            <!-- Riflesso "Gel" superiore -->
+            <div
+              class="absolute top-[2px] left-[4%] right-[4%] h-[40%] bg-gradient-to-b from-white to-white/10 rounded-full pointer-events-none"
+            ></div>
+            <!-- Testo del pulsante con ombra interna -->
+            <span
+              class="relative z-10"
+              style="text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6)"
+              x-text="isLoading ? 'Caricamento in corso...' : 'Inizia Esperienza'"
+            ></span>
+          </button>
+        </div>
+      </div>
+    </template>
+
+    <a-scene
+      id="main-scene"
+      background="color: #000000"
+      fog="type: exponential; color: #000000; density: 0.02;"
+      corridor-world
+      corridor-interior
+    >
+      <!-- Pool di 16 macs.ply (sx/dx lungo il corridoio) -->
+      <a-entity
+        class="corridor-mac"
+        gaussian_splatting="src: assets/macs.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-mac"
+        gaussian_splatting="src: assets/macs.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-mac"
+        gaussian_splatting="src: assets/macs.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-mac"
+        gaussian_splatting="src: assets/macs.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-mac"
+        gaussian_splatting="src: assets/macs.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-mac"
+        gaussian_splatting="src: assets/macs.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-mac"
+        gaussian_splatting="src: assets/macs.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-mac"
+        gaussian_splatting="src: assets/macs.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-mac"
+        gaussian_splatting="src: assets/macs.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-mac"
+        gaussian_splatting="src: assets/macs.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-mac"
+        gaussian_splatting="src: assets/macs.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-mac"
+        gaussian_splatting="src: assets/macs.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-mac"
+        gaussian_splatting="src: assets/macs.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-mac"
+        gaussian_splatting="src: assets/macs.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-mac"
+        gaussian_splatting="src: assets/macs.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-mac"
+        gaussian_splatting="src: assets/macs.ply"
+        position="0 1000 0"
+      ></a-entity>
+
+      <!-- Pool interno: 6 oggetti in totale (chitarra, emac, teschione x2) -->
+      <a-entity
+        class="corridor-interior-item"
+        gaussian_splatting="src: assets/chitarra.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-interior-item"
+        gaussian_splatting="src: assets/emac.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-interior-item"
+        gaussian_splatting="src: assets/teschione.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-interior-item"
+        gaussian_splatting="src: assets/teschione.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-interior-item"
+        gaussian_splatting="src: assets/chitarra.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-interior-item"
+        gaussian_splatting="src: assets/emac.ply"
+        position="0 1000 0"
+      ></a-entity>
+      <a-entity
+        class="corridor-interior-item"
+        gaussian_splatting="src: assets/teschione.ply"
+        position="0 1000 0"
+      ></a-entity>
+
+      <!-- Torre rotante alle spalle (ridotta di scala per non inghiottire la telecamera e abbassata al pavimento) -->
+      <a-entity
+        id="backdrop-torre"
+        gaussian_splatting="src: assets/torre.ply"
+        rotating-backdrop="distance: 50; speed: 0.002; yOffset: -2"
+        scale="5 5 5"
+      ></a-entity>
+
+      <!-- Luce ambientale -->
+      <a-entity light="type: ambient; color: #ffffff; intensity: 2"></a-entity>
+      <!-- Luce direzionale viola -->
+      <a-entity
+        light="type: directional; color: #b37cfe; intensity: 0.5"
+        position="-2 4 -2"
+      ></a-entity>
+
+      <!-- Pavimento a griglia quadrata molto sottile -->
+      <a-entity grid-floor></a-entity>
+
+      <!-- Camera con corridoio invisibile (blocca X) -->
+      <a-entity id="pivot" position="0 1.6 0">
+        <a-camera
+          fov="60"
+          position="0 0 0"
+          invisible-corridor="width: 6"
+        ></a-camera>
+      </a-entity>
+    </a-scene>
+    <audio id="sound" loop src="./assets/Petiatil%20Cx%20Htdui.mp3"></audio>
+
+    <!-- Script Alpine per gestire l'overlay e l'audio -->
+    <script>
+      function pageData() {
+        return {
+          showIntro: true,
+          isLoading: true,
+
+          init() {
+            // Sblocca il pulsante dopo 4.5 secondi
+            setTimeout(() => {
+              this.isLoading = false;
+            }, 4500);
+          },
+
+          startExperience() {
+            // Nascondo l'overlay
+            this.showIntro = false;
+
+            // Faccio partire l'audio di sottofondo
+            const entity = document.getElementById("sound");
+            if (entity) {
+              entity.play();
+            }
+
+            // Nascondi header Astro genitore
+            window.parent.postMessage('force-compact-header', '*');
+          },
+
+          returnToMenu() {
+            // Ritorna al menu
+            this.showIntro = true;
+
+            // Mette in pausa l'audio di sottofondo
+            const entity = document.getElementById("sound");
+            if (entity) {
+              entity.pause();
+            }
+
+            // Mostra header Astro genitore
+            window.parent.postMessage('reset-compact-header', '*');
+          },
+        };
+      }
+    </script>
+  </body>
+</html>

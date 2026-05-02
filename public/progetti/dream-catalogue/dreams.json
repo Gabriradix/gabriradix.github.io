@@ -1,0 +1,1175 @@
+[
+  {
+    "id": 1,
+    "data": "?",
+    "titolo": "gamba di legno",
+    "ricordo_percentuale": 90,
+    "importanza_soggettiva": 100,
+    "lucidita": 20,
+    "bizzarria": 5,
+    "mood_principale": "tristezza",
+    "persone": {
+      "quantita": 1,
+      "tipologia": [
+        "padre"
+      ],
+      "volti_definiti": true
+    },
+    "oggetti_chiave": [
+      "gamba di legno",
+      "bastone"
+    ],
+    "ambientazione": "città",
+    "elementi_naturali": [
+      "pioggia",
+      "elettricità"
+    ],
+    "frequenza": 3,
+    "durata_percepita_min": 60,
+    "prospettiva": "prima persona",
+    "bianco e nero": true,
+    "musica": ""
+  },
+  {
+    "id": 2,
+    "data": "26/12/2025",
+    "titolo": "sogno di natale",
+    "ricordo_percentuale": 100,
+    "importanza_soggettiva": 100,
+    "lucidita": 0,
+    "bizzarria": 0,
+    "mood_principale": [
+      "tranquillità",
+      "dolcezza"
+    ],
+    "persone": {
+      "quantita": 5,
+      "tipologia": [
+        "amici ",
+        "bambini"
+      ],
+      "volti_definiti": true
+    },
+    "oggetti_chiave": [
+      "sabbia",
+      "mare",
+      "cielo"
+    ],
+    "ambientazione": "spiaggia al tramonto",
+    "elementi_naturali": [
+      "calore",
+      "sole"
+    ],
+    "frequenza": 1,
+    "durata_percepita_min": 15,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 3,
+    "data": "26/02/2026",
+    "titolo": "franchina",
+    "ricordo_percentuale": 50,
+    "importanza_soggettiva": 5,
+    "lucidita": 40,
+    "bizzarria": 0,
+    "mood_principale": [
+      "festa",
+      "ricordo",
+      "scherzo"
+    ],
+    "persone": {
+      "quantita": 20,
+      "tipologia": [
+        "compagni di classe",
+        "amici",
+        "professori"
+      ],
+      "volti_definiti": true
+    },
+    "oggetti_chiave": [
+      "cavo lan",
+      "computer",
+      "lim"
+    ],
+    "ambientazione": "classe delle medie",
+    "elementi_naturali": [
+      ""
+    ],
+    "frequenza": 1,
+    "durata_percepita_min": 10,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 4,
+    "data": "?",
+    "titolo": "miaou",
+    "ricordo_percentuale": 40,
+    "importanza_soggettiva": 5,
+    "lucidita": 80,
+    "bizzarria": 90,
+    "mood_principale": [
+      "ipnosi"
+    ],
+    "persone": {
+      "quantita": 0,
+      "tipologia": [
+        ""
+      ],
+      "volti_definiti": false
+    },
+    "oggetti_chiave": [
+      "telefono",
+      "tiktok"
+    ],
+    "ambientazione": "?",
+    "elementi_naturali": [
+      ""
+    ],
+    "frequenza": 2,
+    "durata_percepita_min": 10,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 5,
+    "data": "?",
+    "titolo": "le mie palle quando",
+    "ricordo_percentuale": 20,
+    "importanza_soggettiva": 2,
+    "lucidita": 90,
+    "bizzarria": 90,
+    "mood_principale": [
+      "ipnosi",
+      "scherzo"
+    ],
+    "persone": {
+      "quantita": 1,
+      "tipologia": [
+        "?"
+      ],
+      "volti_definiti": false
+    },
+    "oggetti_chiave": [
+      "telefono",
+      "tiktok"
+    ],
+    "ambientazione": "?",
+    "elementi_naturali": [
+      ""
+    ],
+    "frequenza": 1,
+    "durata_percepita_min": 0.2,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 6,
+    "data": "?",
+    "titolo": "scale",
+    "ricordo_percentuale": 20,
+    "importanza_soggettiva": 60,
+    "lucidita": 0,
+    "bizzarria": 50,
+    "mood_principale": [
+      "paura",
+      "ansia"
+    ],
+    "persone": {
+      "quantita": 0,
+      "tipologia": [
+        ""
+      ],
+      "volti_definiti": false
+    },
+    "oggetti_chiave": [
+      "scale",
+      "ascensore",
+      "giocattolo"
+    ],
+    "ambientazione": "pianerottolo di casa vecchia",
+    "elementi_naturali": [
+      "buio"
+    ],
+    "frequenza": "?",
+    "durata_percepita_min": 5,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 7,
+    "data": "?",
+    "titolo": "esame della patente",
+    "ricordo_percentuale": 80,
+    "importanza_soggettiva": 40,
+    "lucidita": 0,
+    "bizzarria": 80,
+    "mood_principale": [
+      "adrenalina",
+      "ansia"
+    ],
+    "persone": {
+      "quantita": 1,
+      "tipologia": [
+        "esaminatore"
+      ],
+      "volti_definiti": true
+    },
+    "oggetti_chiave": [
+      "occhiali da sole",
+      "macchina",
+      "fiamme"
+    ],
+    "ambientazione": [
+      "strada deserta",
+      "cielo"
+    ],
+    "elementi_naturali": [
+      "luce",
+      "vento"
+    ],
+    "frequenza": 1,
+    "durata_percepita_min": 20,
+    "prospettiva": "terza persona",
+    "bianco e nero": false,
+    "musica": "don't stop me now - queen"
+  },
+  {
+    "id": 8,
+    "data": "?",
+    "titolo": "gatto tritato",
+    "ricordo_percentuale": 50,
+    "importanza_soggettiva": 20,
+    "lucidita": 0,
+    "bizzarria": 70,
+    "mood_principale": [
+      "tristezza",
+      "schifo"
+    ],
+    "persone": {
+      "quantita": 0,
+      "tipologia": [
+        ""
+      ],
+      "volti_definiti": false
+    },
+    "oggetti_chiave": [
+      "gatto",
+      "macchina",
+      "sangue"
+    ],
+    "ambientazione": "parcheggio di casa",
+    "elementi_naturali": [
+      ""
+    ],
+    "frequenza": 1,
+    "durata_percepita_min": 20,
+    "prospettiva": "terza persona",
+    "bianco e nero": false,
+    "musica": "gymnopedie no. 1 - erik satie"
+  },
+  {
+    "id": 9,
+    "data": "?",
+    "titolo": "giro della morte",
+    "ricordo_percentuale": 40,
+    "importanza_soggettiva": 75,
+    "lucidita": 0,
+    "bizzarria": 50,
+    "mood_principale": [
+      "tristezza",
+      "paura",
+      "adrenalina",
+      "ansia",
+      "vertigini"
+    ],
+    "persone": {
+      "quantita": 2,
+      "tipologia": [
+        "famiglia"
+      ],
+      "volti_definiti": true
+    },
+    "oggetti_chiave": [
+      "strada",
+      "macchina",
+      "cielo"
+    ],
+    "ambientazione": "strada deserta sotto sopra",
+    "elementi_naturali": [
+      ""
+    ],
+    "frequenza": 10,
+    "durata_percepita_min": 120,
+    "prospettiva": "terza persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 10,
+    "data": "?",
+    "titolo": "cannuccia",
+    "ricordo_percentuale": 60,
+    "importanza_soggettiva": 80,
+    "lucidita": 10,
+    "bizzarria": 15,
+    "mood_principale": [
+      "confusione",
+      "lite",
+      "scherzo"
+    ],
+    "persone": {
+      "quantita": 1,
+      "tipologia": [
+        "amici"
+      ],
+      "volti_definiti": true
+    },
+    "oggetti_chiave": [
+      "tavolo",
+      "cannuccia"
+    ],
+    "ambientazione": "corridioio del tacca",
+    "elementi_naturali": [
+      ""
+    ],
+    "frequenza": 2,
+    "durata_percepita_min": 10,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 11,
+    "data": "?",
+    "titolo": "picco",
+    "ricordo_percentuale": 5,
+    "importanza_soggettiva": 80,
+    "lucidita": 10,
+    "bizzarria": 0,
+    "mood_principale": [
+      "angoscia",
+      "ansia"
+    ],
+    "persone": {
+      "quantita": 0,
+      "tipologia": [
+        ""
+      ],
+      "volti_definiti": false
+    },
+    "oggetti_chiave": [
+      ""
+    ],
+    "ambientazione": "?",
+    "elementi_naturali": [
+      ""
+    ],
+    "frequenza": 1,
+    "durata_percepita_min": 1,
+    "prospettiva": "prima persona",
+    "bianco e nero": true,
+    "musica": ""
+  },
+  {
+    "id": 12,
+    "data": "?",
+    "titolo": "goat",
+    "ricordo_percentuale": 5,
+    "importanza_soggettiva": 10,
+    "lucidita": 90,
+    "bizzarria": 90,
+    "mood_principale": [
+      "gioia",
+      "confusione"
+    ],
+    "persone": {
+      "quantita": 0,
+      "tipologia": [
+        ""
+      ],
+      "volti_definiti": false
+    },
+    "oggetti_chiave": [
+      ""
+    ],
+    "ambientazione": "?",
+    "elementi_naturali": [
+      ""
+    ],
+    "frequenza": 1,
+    "durata_percepita_min": 2,
+    "prospettiva": "?",
+    "bianco e nero": true,
+    "musica": "colonna sonora goat simulator"
+  },
+  {
+    "id": 13,
+    "data": "31/12/2025",
+    "titolo": "palloncino per gli dei",
+    "ricordo_percentuale": 50,
+    "importanza_soggettiva": 5,
+    "lucidita": 4,
+    "bizzarria": 100,
+    "mood_principale": [
+      "hype",
+      "gioia"
+    ],
+    "persone": {
+      "quantita": 100,
+      "tipologia": [
+        "folla",
+        "eroi",
+        "dei"
+      ],
+      "volti_definiti": false
+    },
+    "oggetti_chiave": [
+      "nave di legno",
+      "palloncino"
+    ],
+    "ambientazione": [
+      "cielo",
+      "barca",
+      "stadio"
+    ],
+    "elementi_naturali": [
+      "cascata",
+      "cielo",
+      "nebbia",
+      "vento",
+      "sole",
+      "gravità"
+    ],
+    "frequenza": 1,
+    "durata_percepita_min": 300,
+    "prospettiva": "terza persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 14,
+    "data": "23/12/2025",
+    "titolo": "jeff koons",
+    "ricordo_percentuale": 10,
+    "importanza_soggettiva": 15,
+    "lucidita": 10,
+    "bizzarria": 40,
+    "mood_principale": [
+      "rabbia",
+      "confusione",
+      "lite"
+    ],
+    "persone": {
+      "quantita": 1,
+      "tipologia": [
+        "artisti"
+      ],
+      "volti_definiti": true
+    },
+    "oggetti_chiave": [
+      "palloncino",
+      "opera d'arte"
+    ],
+    "ambientazione": [
+      "galleria d'arte"
+    ],
+    "elementi_naturali": [
+      ""
+    ],
+    "frequenza": 1,
+    "durata_percepita_min": 50,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 15,
+    "data": "03/12/2025",
+    "titolo": "l'amore di G tarda a resuscitare",
+    "ricordo_percentuale": 1,
+    "importanza_soggettiva": 50,
+    "lucidita": 0,
+    "bizzarria": 1,
+    "mood_principale": [
+      "confusione"
+    ],
+    "persone": {
+      "quantita": 0,
+      "tipologia": [
+        ""
+      ],
+      "volti_definiti": false
+    },
+    "oggetti_chiave": [
+      "messaggio"
+    ],
+    "ambientazione": "?",
+    "elementi_naturali": [
+      ""
+    ],
+    "frequenza": 1,
+    "durata_percepita_min": 0.5,
+    "prospettiva": "?",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 16,
+    "data": "?",
+    "titolo": "doccia aperta",
+    "ricordo_percentuale": 50,
+    "importanza_soggettiva": 10,
+    "lucidita": 0,
+    "bizzarria": 0,
+    "mood_principale": [
+      "confusione"
+    ],
+    "persone": {
+      "quantita": 0,
+      "tipologia": [
+        ""
+      ],
+      "volti_definiti": false
+    },
+    "oggetti_chiave": [
+      "doccia"
+    ],
+    "ambientazione": [
+      "camera mia",
+      "bagno"
+    ],
+    "elementi_naturali": [
+      "acqua"
+    ],
+    "frequenza": "?",
+    "durata_percepita_min": 2,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 17,
+    "data": "29/09/2025",
+    "titolo": "merda e uovo",
+    "ricordo_percentuale": 75,
+    "importanza_soggettiva": 5,
+    "lucidita": 0,
+    "bizzarria": 90,
+    "mood_principale": [
+      "confusione",
+      "schifo",
+      "panico"
+    ],
+    "persone": {
+      "quantita": 4,
+      "tipologia": [
+        "amici",
+        "sconosciuti",
+        "famiglia"
+      ],
+      "volti_definiti": true
+    },
+    "oggetti_chiave": [
+      "cane",
+      "merda",
+      "tavolino",
+      "treccine",
+      "unghie"
+    ],
+    "ambientazione": [
+      "villa ridente"
+    ],
+    "elementi_naturali": [
+      "merda"
+    ],
+    "frequenza": "1",
+    "durata_percepita_min": 20,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 18,
+    "data": "24/09/2025",
+    "titolo": "V",
+    "ricordo_percentuale": 40,
+    "importanza_soggettiva": 65,
+    "lucidita": 50,
+    "bizzarria": 20,
+    "mood_principale": [
+      "erotismo"
+    ],
+    "persone": {
+      "quantita": 1,
+      "tipologia": [
+        "partner",
+        "dei"
+      ],
+      "volti_definiti": true
+    },
+    "oggetti_chiave": [
+      "tavolo"
+    ],
+    "ambientazione": [
+      "?"
+    ],
+    "elementi_naturali": [
+      ""
+    ],
+    "frequenza": "1",
+    "durata_percepita_min": 20,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 19,
+    "data": "22/09/2025",
+    "titolo": "maglioncino anni 70",
+    "ricordo_percentuale": 10,
+    "importanza_soggettiva": 0,
+    "lucidita": 0,
+    "bizzarria": 50,
+    "mood_principale": [
+      "confusione"
+    ],
+    "persone": {
+      "quantita": 1,
+      "tipologia": [
+        "amici"
+      ],
+      "volti_definiti": true
+    },
+    "oggetti_chiave": [
+      "maglioncino rosa"
+    ],
+    "ambientazione": [
+      ""
+    ],
+    "elementi_naturali": [
+      ""
+    ],
+    "frequenza": "1",
+    "durata_percepita_min": 2,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 20,
+    "data": "08/09/2025",
+    "titolo": "incontro con G",
+    "ricordo_percentuale": 10,
+    "importanza_soggettiva": 50,
+    "lucidita": 90,
+    "bizzarria": 0,
+    "mood_principale": [
+      "rabbia",
+      "confusione"
+    ],
+    "persone": {
+      "quantita": 1,
+      "tipologia": [
+        "ex fidanzata"
+      ],
+      "volti_definiti": true
+    },
+    "oggetti_chiave": [
+      "tavolino",
+      "telefono"
+    ],
+    "ambientazione": [
+      "bar",
+      "casa"
+    ],
+    "elementi_naturali": [
+      "nuvoloso"
+    ],
+    "frequenza": "1",
+    "durata_percepita_min": 330,
+    "prospettiva": "terza persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 21,
+    "data": "05/09/2025",
+    "titolo": "funerale",
+    "ricordo_percentuale": 0,
+    "importanza_soggettiva": 0,
+    "lucidita": 0,
+    "bizzarria": 20,
+    "mood_principale": [
+      "tristezza",
+      "confusione"
+    ],
+    "persone": {
+      "quantita": 50,
+      "tipologia": [
+        "sconosciuti"
+      ],
+      "volti_definiti": false
+    },
+    "oggetti_chiave": [
+      "fiori",
+      "bara"
+    ],
+    "ambientazione": [
+      "chiesa"
+    ],
+    "elementi_naturali": [
+      "nuvoloso"
+    ],
+    "frequenza": "1",
+    "durata_percepita_min": 30,
+    "prospettiva": "?",
+    "bianco e nero": true,
+    "musica": ""
+  },
+  {
+    "id": 22,
+    "data": "04/09/2025",
+    "titolo": "incinto",
+    "ricordo_percentuale": 0,
+    "importanza_soggettiva": 0,
+    "lucidita": 0,
+    "bizzarria": 80,
+    "mood_principale": [
+      "gioia",
+      "confusione"
+    ],
+    "persone": {
+      "quantita": 0,
+      "tipologia": [
+        ""
+      ],
+      "volti_definiti": false
+    },
+    "oggetti_chiave": [
+      ""
+    ],
+    "ambientazione": [
+      "?"
+    ],
+    "elementi_naturali": [
+      ""
+    ],
+    "frequenza": "1",
+    "durata_percepita_min": 5,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 23,
+    "data": "05/08/2025",
+    "titolo": "presentimento",
+    "ricordo_percentuale": 100,
+    "importanza_soggettiva": 100,
+    "lucidita": 0,
+    "bizzarria": 0,
+    "mood_principale": [
+      "ansia",
+      "confusione",
+      "angoscia"
+    ],
+    "persone": {
+      "quantita": 0,
+      "tipologia": [
+        ""
+      ],
+      "volti_definiti": false
+    },
+    "oggetti_chiave": [
+      "telefono"
+    ],
+    "ambientazione": [
+      "casa"
+    ],
+    "elementi_naturali": [
+      ""
+    ],
+    "frequenza": "1",
+    "durata_percepita_min": 5,
+    "prospettiva": "?",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 24,
+    "data": "15/07/2025",
+    "titolo": "lebron in piscina",
+    "ricordo_percentuale": 75,
+    "importanza_soggettiva": 10,
+    "lucidita": 0,
+    "bizzarria": 90,
+    "mood_principale": [
+      "gioia",
+      "confusione",
+      "scherzo"
+    ],
+    "persone": {
+      "quantita": 100,
+      "tipologia": [
+        "sconosciuti",
+        "attori",
+        "atleti"
+      ],
+      "volti_definiti": true
+    },
+    "oggetti_chiave": [
+      "telecamere",
+      "piscina",
+      "telefono",
+      "scarpe"
+    ],
+    "ambientazione": [
+      "set cinematografico",
+      "piscina"
+    ],
+    "elementi_naturali": [
+      "acqua",
+      "sole"
+    ],
+    "frequenza": "1",
+    "durata_percepita_min": 50,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": "musica della pubblicità della nike"
+  },
+  {
+    "id": 25,
+    "data": "07/07/2025",
+    "titolo": "funerale di T",
+    "ricordo_percentuale": 5,
+    "importanza_soggettiva": 60,
+    "lucidita": 40,
+    "bizzarria": 85,
+    "mood_principale": [
+      "tristezza",
+      "ansia",
+      "angoscia"
+    ],
+    "persone": {
+      "quantita": 40,
+      "tipologia": [
+        "amici",
+        "famiglia",
+        "collegli",
+        "sconosciuti"
+      ],
+      "volti_definiti": true
+    },
+    "oggetti_chiave": [
+      "bara",
+      "fiori"
+    ],
+    "ambientazione": [
+      "chiesa",
+      "cimitero",
+      "bar"
+    ],
+    "elementi_naturali": [
+      "nuvoloso"
+    ],
+    "frequenza": "1",
+    "durata_percepita_min": 480,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 26,
+    "data": "03/07/2025",
+    "titolo": "dentro al cubo di Marta",
+    "ricordo_percentuale": 45,
+    "importanza_soggettiva": 90,
+    "lucidita": 35,
+    "bizzarria": 75,
+    "mood_principale": [
+      "tristezza",
+      "angoscia",
+      "panico"
+    ],
+    "persone": {
+      "quantita": 0,
+      "tipologia": [
+        ""
+      ],
+      "volti_definiti": false
+    },
+    "oggetti_chiave": [
+      "cassetti",
+      "letto"
+    ],
+    "ambientazione": [
+      "cubo di marta"
+    ],
+    "elementi_naturali": [
+      ""
+    ],
+    "frequenza": "1",
+    "durata_percepita_min": 120,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 27,
+    "data": "01/07/2025",
+    "titolo": "katsuboshi non me lo sushi",
+    "ricordo_percentuale": 0,
+    "importanza_soggettiva": 0,
+    "lucidita": 80,
+    "bizzarria": 60,
+    "mood_principale": [
+      "confusione"
+    ],
+    "persone": {
+      "quantita": 0,
+      "tipologia": [
+        ""
+      ],
+      "volti_definiti": false
+    },
+    "oggetti_chiave": [
+      ""
+    ],
+    "ambientazione": [
+      "?"
+    ],
+    "elementi_naturali": [
+      ""
+    ],
+    "frequenza": "1",
+    "durata_percepita_min": 0.5,
+    "prospettiva": "?",
+    "bianco e nero": false,
+    "musica": "katsuboshi non me lo sushi"
+  },
+  {
+    "id": 28,
+    "data": "28/06/2025",
+    "titolo": "umanamente 88",
+    "ricordo_percentuale": 40,
+    "importanza_soggettiva": 0,
+    "lucidita": 50,
+    "bizzarria": 30,
+    "mood_principale": [
+      "gioia"
+    ],
+    "persone": {
+      "quantita": 2,
+      "tipologia": [
+        "amici",
+        "professori"
+      ],
+      "volti_definiti": true
+    },
+    "oggetti_chiave": [
+      "libretto accademico",
+      "laptop"
+    ],
+    "ambientazione": [
+      "accademia"
+    ],
+    "elementi_naturali": [
+      ""
+    ],
+    "frequenza": "1",
+    "durata_percepita_min": 5,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 29,
+    "data": "07/06/2025",
+    "titolo": "cricket con Greg",
+    "ricordo_percentuale": 55,
+    "importanza_soggettiva": 10,
+    "lucidita": 20,
+    "bizzarria": 85,
+    "mood_principale": [
+      "confusione",
+      "hype"
+    ],
+    "persone": {
+      "quantita": 20,
+      "tipologia": [
+        "amici",
+        "sconosciuti"
+      ],
+      "volti_definiti": true
+    },
+    "oggetti_chiave": [
+      "mazza da cricket",
+      "palla"
+    ],
+    "ambientazione": [
+      "stadio da cricket"
+    ],
+    "elementi_naturali": [
+      "buio"
+    ],
+    "frequenza": "1",
+    "durata_percepita_min": 90,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 30,
+    "data": "07/06/2025",
+    "titolo": "asmr sushi di legno",
+    "ricordo_percentuale": 20,
+    "importanza_soggettiva": 20,
+    "lucidita": 0,
+    "bizzarria": 15,
+    "mood_principale": [
+      "gioia",
+      "tranquillita"
+    ],
+    "persone": {
+      "quantita": 1,
+      "tipologia": [
+        "amici"
+      ],
+      "volti_definiti": false
+    },
+    "oggetti_chiave": [
+      "sushi di legno",
+      "microfono"
+    ],
+    "ambientazione": [
+      "camera mia"
+    ],
+    "elementi_naturali": [
+      "buio"
+    ],
+    "frequenza": "1",
+    "durata_percepita_min": 5,
+    "prospettiva": "?",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 31,
+    "data": "28/02/2026",
+    "titolo": "rientro dalla serata",
+    "ricordo_percentuale": 60,
+    "importanza_soggettiva": 75,
+    "lucidita": 25,
+    "bizzarria": 10,
+    "mood_principale": [
+      "erotismo",
+      "tranquillità",
+      "gioia"
+    ],
+    "persone": {
+      "quantita": 1,
+      "tipologia": [
+        "partner",
+        "dei"
+      ],
+      "volti_definiti": true
+    },
+    "oggetti_chiave": [
+      "cintura",
+      "scarpe",
+      "divano"
+    ],
+    "ambientazione": [
+      "casa di mio padre"
+    ],
+    "elementi_naturali": [
+      "notte"
+    ],
+    "frequenza": "1",
+    "durata_percepita_min": 30,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 32,
+    "data": "25/02/2026",
+    "titolo": "bel panorama",
+    "ricordo_percentuale": 55,
+    "importanza_soggettiva": 70,
+    "lucidita": 15,
+    "bizzarria": 10,
+    "mood_principale": [
+      "erotismo",
+      "gioia"
+    ],
+    "persone": {
+      "quantita": 1,
+      "tipologia": [
+        "partner",
+        "dei"
+      ],
+      "volti_definiti": true
+    },
+    "oggetti_chiave": [
+      ""
+    ],
+    "ambientazione": [
+      "villa a scopello"
+    ],
+    "elementi_naturali": [
+      "panorama",
+      "mare",
+      "cielo",
+      "sole",
+      "montagna"
+    ],
+    "frequenza": "1",
+    "durata_percepita_min": 25,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  },
+  {
+    "id": 33,
+    "data": "01/05/2026",
+    "titolo": "stramba tavolata",
+    "ricordo_percentuale": 25,
+    "importanza_soggettiva": 0,
+    "lucidita": 55,
+    "bizzarria": 90,
+    "mood_principale": [
+      "festa",
+      "erotismo"
+    ],
+    "persone": {
+      "quantita": 20,
+      "tipologia": [
+        "donne",
+        "uomini",
+        "sconosciuti"
+      ],
+      "volti_definiti": false
+    },
+    "oggetti_chiave": [
+      "tavolo"
+    ],
+    "ambientazione": "?",
+    "elementi_naturali": [
+      "calore",
+      "luce soffusa"
+    ],
+    "frequenza": "1",
+    "durata_percepita_min": 0,
+    "prospettiva": "prima persona",
+    "bianco e nero": false,
+    "musica": ""
+  }
+]

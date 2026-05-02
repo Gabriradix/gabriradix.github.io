@@ -1,0 +1,440 @@
+/* Reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+    --accent-color: #555555;
+    --font-serif: "Apple Garamond", Garamond, serif;
+    --font-sans: "Frutiger", "Frutiger Linotype", "Segoe UI", Arial, sans-serif;
+    --font-mono: "Space Mono", "Courier New", monospace;
+    --cursor-color: #ffffff;
+}
+
+body.light-mode {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --accent-color: #aaaaaa;
+    --cursor-color: #000000;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-sans);
+    overflow-x: hidden; /* Nascondiamo solo l'asse X per evitare scroll orizzontali nativi */
+    transition: background-color 0.5s ease, color 0.5s ease;
+    cursor: none; /* Hide default cursor */
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Custom Cursor */
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background-color: var(--cursor-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, background-color 0.3s;
+    mix-blend-mode: difference;
+}
+
+.custom-cursor-follower {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--cursor-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+    mix-blend-mode: difference;
+}
+
+/* Cursor Hover states */
+.hovering .custom-cursor {
+    width: 0;
+    height: 0;
+}
+.hovering .custom-cursor-follower {
+    width: 80px;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: invert(1);
+    border-color: transparent;
+}
+
+/* Canvas Background */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Header UI */
+.alt-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 50;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+}
+
+.logo {
+    font-weight: bold;
+}
+
+.controls {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.theme-toggle-btn {
+    background: none;
+    border: 1px solid var(--text-color);
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    cursor: none; /* Let custom cursor handle it */
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+    background: var(--text-color);
+    color: var(--bg-color);
+}
+
+.back-link {
+    border-bottom: 1px solid transparent;
+    transition: border-bottom-color 0.3s ease;
+}
+
+.back-link:hover {
+    border-bottom-color: var(--text-color);
+}
+
+/* Main Slider Container */
+.slider-container {
+    display: flex;
+    width: max-content;
+    height: 100vh;
+    will-change: transform;
+}
+
+/* Intro & Outro Slides */
+.slide {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.intro-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-title {
+    font-family: var(--font-serif);
+    font-size: 8vw;
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    margin-bottom: 1rem;
+    mix-blend-mode: difference;
+    color: #fff; /* Always white inside a difference blend mask so it works on light/dark mode if canvas is adjusted */
+}
+
+.hero-subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent-color);
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    gap: 1rem;
+}
+
+.scroll-indicator .line {
+    width: 1px;
+    height: 60px;
+    background-color: var(--text-color);
+    animation: stretch 2s infinite ease-in-out;
+    transform-origin: top;
+}
+
+@keyframes stretch {
+    0% { transform: scaleY(0); }
+    50% { transform: scaleY(1); }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* Gallery Slider Wrapper */
+.gallery-wrapper {
+    display: flex;
+    height: 100vh;
+}
+
+/* Individual Content Blocks (Dynamic Projects) */
+.project-slide {
+    width: 80vw;
+    height: 100vh;
+    padding: 0 5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.project-slide .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.project-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.project-category {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent-color);
+}
+
+.project-title {
+    font-family: var(--font-serif);
+    font-size: 4vw;
+    line-height: 1.1;
+    font-weight: 400;
+}
+
+.project-meta {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    display: flex;
+    gap: 1rem;
+    color: #888;
+}
+
+.project-description {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    font-weight: 300;
+    max-width: 90%;
+}
+
+.project-image-container {
+    width: 100%;
+    height: 60vh;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+body.light-mode .project-image-container {
+    border-color: rgba(0,0,0,0.1);
+}
+
+.project-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.2);
+    transition: filter 0.5s ease;
+}
+
+.project-slide:hover .project-image-container img {
+    filter: grayscale(0%) contrast(1);
+}
+
+.explore-btn {
+    align-self: flex-start;
+    margin-top: 1rem;
+    padding: 0.8rem 1.5rem;
+    border: 1px solid var(--text-color);
+    background: transparent;
+    color: var(--text-color);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    cursor: none;
+    transition: all 0.3s ease;
+}
+
+.explore-btn:hover {
+    background: var(--text-color);
+    color: var(--bg-color);
+}
+
+/* Brutalist details */
+.slide::after {
+    content: "GAR_W_25_" attr(data-index);
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent-color);
+    opacity: 0.5;
+}
+
+/* Outro */
+.outro-slide .outro-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+.outro-content h2 {
+    font-family: var(--font-serif);
+    font-size: 5vw;
+    font-weight: 300;
+}
+
+.contact-links {
+    display: flex;
+    gap: 2rem;
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.contact-links a {
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.contact-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--text-color);
+    transition: width 0.3s ease;
+}
+
+.contact-links a:hover::after {
+    width: 100%;
+}
+
+.footer-note {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent-color);
+}
+
+/* Glitch Effect on Text */
+.glitch-text {
+    position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+}
+
+.glitch-text::before {
+    left: 2px;
+    text-shadow: -1px 0 red;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+    left: -2px;
+    text-shadow: -1px 0 blue;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% { clip: rect(78px, 9999px, 86px, 0); }
+    10% { clip: rect(32px, 9999px, 75px, 0); }
+    20% { clip: rect(6px, 9999px, 99px, 0); }
+    30% { clip: rect(10px, 9999px, 20px, 0); }
+    40% { clip: rect(98px, 9999px, 40px, 0); }
+    50% { clip: rect(8px, 9999px, 20px, 0); }
+    60% { clip: rect(81px, 9999px, 2px, 0); }
+    70% { clip: rect(51px, 9999px, 12px, 0); }
+    80% { clip: rect(30px, 9999px, 4px, 0); }
+    90% { clip: rect(2px, 9999px, 59px, 0); }
+    100% { clip: rect(72px, 9999px, 1px, 0); }
+}
+
+@keyframes glitch-anim2 {
+    0% { clip: rect(65px, 9999px, 100px, 0); }
+    10% { clip: rect(52px, 9999px, 71px, 0); }
+    20% { clip: rect(79px, 9999px, 12px, 0); }
+    30% { clip: rect(11px, 9999px, 91px, 0); }
+    40% { clip: rect(4px, 9999px, 59px, 0); }
+    50% { clip: rect(68px, 9999px, 21px, 0); }
+    60% { clip: rect(14px, 9999px, 34px, 0); }
+    70% { clip: rect(92px, 9999px, 45px, 0); }
+    80% { clip: rect(84px, 9999px, 93px, 0); }
+    90% { clip: rect(38px, 9999px, 19px, 0); }
+    100% { clip: rect(55px, 9999px, 63px, 0); }
+}

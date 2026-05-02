@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alternative Portfolio | Gabriele Radicello</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <!-- Three.js from CDN -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+    <!-- GSAP for Animations and ScrollTrigger -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Observer.min.js"></script>
+</head>
+
+<body class="dark-mode">
+    <!-- Custom Cursor -->
+    <div id="cursor" class="custom-cursor"></div>
+    <div id="cursor-follower" class="custom-cursor-follower"></div>
+
+    <!-- WebGL Background Container -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation / Header -->
+    <header class="alt-header">
+        <div class="logo">GAR</div>
+        <div class="controls">
+            <button id="theme-toggle" class="theme-toggle-btn">
+                <span class="light-icon" style="display: none;">D</span>
+                <span class="dark-icon">L</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Immersive Slider -->
+    <main class="slider-container">
+        <!-- Intro Slide -->
+        <section class="slide intro-slide">
+            <div class="intro-content">
+                <h1 class="hero-title glitch-text" data-text="Gabriele_Radicello">Gabriele Radicello</h1>
+                <p class="hero-subtitle">Artista Visivo | Mixed Media Contemporanei</p>
+                <div class="scroll-indicator">
+                    <span>Scorri o Trascina</span>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Artwork Slides will be injected here -->
+        <div id="gallery-wrapper" class="gallery-wrapper"></div>
+        
+        <!-- Outro Slide -->
+        <section class="slide outro-slide">
+            <div class="outro-content">
+                <h2>Contatti</h2>
+                <div class="contact-links">
+                    <a href="mailto:gabriele@radicello.it" class="hover-target">Email</a>
+                    <a href="https://instagram.com/gabriradix" target="_blank" class="hover-target">Instagram</a>
+                    <a href="https://x.com/gabriradix" target="_blank" class="hover-target">X</a>
+                </div>
+                <p class="footer-note">© 2025 Gabriele Radicello.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Data and Logic -->
+    <script src="../data.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>

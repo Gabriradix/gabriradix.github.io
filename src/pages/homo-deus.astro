@@ -1,0 +1,99 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Homo Deus - Gabriele Radicello">
+  <!-- Hero Section -->
+  <section class="relative h-screen w-full overflow-hidden flex items-center justify-center -mt-32">
+    <video 
+      src="/progetti/Homo Deus/video.mp4" 
+      autoplay 
+      muted 
+      loop 
+      playsinline 
+      class="absolute inset-0 w-full h-full object-cover z-0 opacity-80"
+    ></video>
+    <div class="absolute inset-0 bg-black/60 z-10 pointer-events-none"></div>
+    
+    <div class="relative z-20 text-center px-6 pointer-events-none">
+      <h1 
+        class="text-5xl md:text-8xl font-normal text-white tracking-tight" 
+        style="font-family: 'Apple Garamond Custom', serif;"
+      >
+        Homo Deus
+      </h1>
+      <p class="mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto italic">
+        Do you want to feel like a god?
+      </p>
+      <p class="mt-4 text-sm text-neutral-400">
+        An interactive installation by Marta Bravi and Gabriele Radicello
+      </p>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="max-w-4xl mx-auto px-6 py-24 md:py-32 text-neutral-300 text-lg leading-8 text-left">
+    
+    <div class="mb-16 md:mb-24">
+      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Apple Garamond Custom', serif;">Concept</h2>
+      <div class="grid gap-8">
+        <p>
+          <strong>Homo Deus</strong> is an interactive installation inspired by Yuval Noah Harari's book, which explores how modern humans, through technology, attempt to assume divine attributes: control over time, omniscience, immortality, destruction, and judgment.
+        </p>
+        <p>
+          The spectator enters an immersive space where they can manipulate videos with their gestures, but soon discovers that the perceived power is merely a technological illusion.
+        </p>
+      </div>
+    </div>
+
+    <div class="mb-16 md:mb-24">
+      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Apple Garamond Custom', serif;">How it works</h2>
+      <div class="grid gap-8">
+        <p>
+          The installation is developed in TouchDesigner, with body tracking via Kinect 360 and MediaPipe. When the spectator approaches:
+        </p>
+        <ul class="list-disc pl-6 space-y-2">
+          <li>The left arm controls time (forward/backward in the videos)</li>
+          <li>The right arm activates glitch and pixel sorting effects</li>
+          <li>In the absence of interaction, the provocative text appears: <em>"Do you want to feel like a god?"</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Video Tematici Section -->
+    <div class="mb-24">
+      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Apple Garamond Custom', serif;">The Themes</h2>
+      <div class="grid md:grid-cols-2 gap-12">
+        <div>
+          <h3 class="text-xl font-bold text-white mb-2">Time Manipulation</h3>
+          <p class="text-base text-neutral-400">A clock with accelerated hands overlaps a run through the landscape: nature is compressed and distorted as if it were a video file.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-white mb-2">Immortality</h3>
+          <p class="text-base text-neutral-400">A nanorobot in the blood eliminates superfluous cells. Eternal life appears as an algorithmic maintenance of the body.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-white mb-2">Destruction</h3>
+          <p class="text-base text-neutral-400">An airplane drops an atomic bomb on a city. Destruction becomes a divine gesture, yet ruthlessly human.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-white mb-2">Judgment</h3>
+          <p class="text-base text-neutral-400">A scale shows a "like" and a "dislike". Today every user feels like an absolute judge thanks to social media.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div class="border-t border-neutral-800 pt-16">
+      <h2 class="text-3xl font-normal text-neutral-50 mb-12" style="font-family: 'Apple Garamond Custom', serif;">Gallery</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <img src="/progetti/Homo Deus/1.png" alt="Homo Deus 1" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src="/progetti/Homo Deus/2.png" alt="Homo Deus 2" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src="/progetti/Homo Deus/3.png" alt="Homo Deus 3" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src="/progetti/Homo Deus/4.png" alt="Homo Deus 4" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src="/progetti/Homo Deus/5.png" alt="Homo Deus 5" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+      </div>
+    </div>
+
+  </section>
+</BaseLayout>
