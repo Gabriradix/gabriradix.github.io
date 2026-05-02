@@ -119,17 +119,17 @@ const { favicon = dynamicFavicon } = Astro.props;
 
     <script>
       const lightbox = document.getElementById('lightbox');
-      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement | null;
       
       let currentImageIndex = 0;
-      let galleryImages = [];
+      let galleryImages: HTMLImageElement[] = [];
 
       const updateGalleryImages = () => {
-        galleryImages = Array.from(document.querySelectorAll('.gallery-img'));
+        galleryImages = Array.from(document.querySelectorAll<HTMLImageElement>('.gallery-img'));
       };
 
-      const showImage = (index) => {
-        if (galleryImages.length === 0) return;
+      const showImage = (index: number) => {
+        if (galleryImages.length === 0 || !lightboxImg) return;
         if (index < 0) index = galleryImages.length - 1;
         if (index >= galleryImages.length) index = 0;
         currentImageIndex = index;
@@ -149,7 +149,7 @@ const { favicon = dynamicFavicon } = Astro.props;
           document.body.style.paddingRight = `${scrollbarWidth}px`;
           document.body.style.overflow = 'hidden';
           
-          lightbox.classList.add('active');
+          if (lightbox) lightbox.classList.add('active');
         }
       });
 
