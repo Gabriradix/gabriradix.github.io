@@ -93,6 +93,24 @@ const { favicon = dynamicFavicon } = Astro.props;
       #lightbox.active img {
         transform: scale(1);
       }
+      #lightbox img.slide-out {
+        transform: translateX(-50px) scale(0.9) !important;
+        opacity: 0 !important;
+      }
+      #lightbox img.slide-out-reverse {
+        transform: translateX(50px) scale(0.9) !important;
+        opacity: 0 !important;
+      }
+      #lightbox img.slide-in {
+        transform: translateX(50px) scale(0.9) !important;
+        opacity: 0 !important;
+        transition: none !important;
+      }
+      #lightbox img.slide-in-reverse {
+        transform: translateX(-50px) scale(0.9) !important;
+        opacity: 0 !important;
+        transition: none !important;
+      }
       .gallery-img {
         cursor: zoom-in;
         transition: opacity 0.3s ease;
@@ -128,13 +146,53 @@ const { favicon = dynamicFavicon } = Astro.props;
         galleryImages = Array.from(document.querySelectorAll<HTMLImageElement>('.gallery-img'));
       };
 
-      const showImage = (index: number) => {
+      const showImage = (index: number, direction: 'next' | 'prev' | 'none' = 'none') => {
         if (galleryImages.length === 0 || !lightboxImg) return;
+        
+        const oldIndex = currentImageIndex;
         if (index < 0) index = galleryImages.length - 1;
         if (index >= galleryImages.length) index = 0;
-        currentImageIndex = index;
-        lightboxImg.src = galleryImages[currentImageIndex].src;
+        
+        if (direction !== 'none' && index !== oldIndex) {
+          const outClass = direction === 'next' ? 'slide-out' : 'slide-out-reverse';
+          const inClass = direction === 'next' ? 'slide-in' : 'slide-in-reverse';
+          
+          lightboxImg.classList.add(outClass);
+          
+          setTimeout(() => {
+            currentImageIndex = index;
+            lightboxImg.src = galleryImages[currentImageIndex].src;
+            lightboxImg.classList.remove(outClass);
+            lightboxImg.classList.add(inClass);
+            
+            // Force reflow
+            lightboxImg.offsetHeight;
+            
+            lightboxImg.classList.remove(inClass);
+          }, 200);
+        } else {
+          currentImageIndex = index;
+          lightboxImg.src = galleryImages[currentImageIndex].src;
+        }
       };
+
+      // Swipe support
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      lightbox?.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      lightbox?.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const swipeThreshold = 50;
+        if (touchEndX < touchStartX - swipeThreshold) {
+          showImage(currentImageIndex + 1, 'next');
+        } else if (touchEndX > touchStartX + swipeThreshold) {
+          showImage(currentImageIndex - 1, 'prev');
+        }
+      }, { passive: true });
 
       // Global click listener for gallery images
       document.addEventListener('click', (e) => {
@@ -167,9 +225,9 @@ const { favicon = dynamicFavicon } = Astro.props;
         if (e.key === 'Escape') {
           lightbox.click();
         } else if (e.key === 'ArrowRight') {
-          showImage(currentImageIndex + 1);
+          showImage(currentImageIndex + 1, 'next');
         } else if (e.key === 'ArrowLeft') {
-          showImage(currentImageIndex - 1);
+          showImage(currentImageIndex - 1, 'prev');
         }
       });
     </script>

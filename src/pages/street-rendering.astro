@@ -13,10 +13,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       class="absolute inset-0 w-full h-full border-none z-0 pointer-events-none md:pointer-events-auto"
       allow="autoplay; fullscreen; vr"></iframe>
 
-    <!-- Dark overlay for text readability, pointer-events-none to allow interacting with the iframe -->
-    <div class="absolute inset-0 bg-black/40 z-10 pointer-events-none"></div>
+    <!-- Dark overlay for text readability, captures touch for scrolling on mobile -->
+    <div class="absolute inset-0 bg-black/40 z-10 pointer-events-auto md:pointer-events-none"></div>
 
-    <div class="relative z-20 text-center px-6 pointer-events-none">
+    <div class="relative z-20 text-center px-6 pointer-events-auto md:pointer-events-none">
       <h1
         class="text-5xl md:text-8xl font-normal text-white tracking-tight"
         style="font-family: 'Apple Garamond Custom', serif;"
