@@ -25,9 +25,8 @@ const {
 const finalLogoHover = brandColor || logoHoverColor;
 const faviconColor = brandColor || "#ffffff";
 
-// Dynamic SVG Favicon: a square with the site background and the √ symbol in the brand color
-// Dynamic SVG Favicon: a square with the site background and the √ symbol in the brand color
-const dynamicFavicon = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23171717'/%3E%3Ctext x='50' y='50' text-anchor='middle' dominant-baseline='central' font-size='70' fill='${encodeURIComponent(faviconColor)}' font-family='Roboto, sans-serif' font-weight='300'%3E√%3C/text%3E%3C/svg%3E`;
+// Dynamic SVG Favicon: a square with the site background and the custom √ symbol
+const dynamicFavicon = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23171717'/%3E%3Cg transform='translate(35, 19) scale(1.1)'%3E%3Cpath d='M12.13 39.45L22.56 10.84L27.17 10.84L13.94 46.39L10.50 46.39L4.52 31.05L0 31.05L0 27.29L7.69 27.29L12.13 39.45Z' fill='${encodeURIComponent(faviconColor)}'/%3E%3C/g%3E%3C/svg%3E`;
 
 const { favicon = dynamicFavicon } = Astro.props;
 ---
@@ -47,7 +46,7 @@ const { favicon = dynamicFavicon } = Astro.props;
     />
     <title>{title}</title>
     {finalLogoHover && (
-      <style is:global set:html={`header a:hover, header a:hover span, header a:hover div { color: ${finalLogoHover} !important; }`}></style>
+      <style is:global set:html={`header a:hover, header a:hover span, header a:hover div, header a:hover svg { color: ${finalLogoHover} !important; }`}></style>
     )}
     <style>
       @font-face {

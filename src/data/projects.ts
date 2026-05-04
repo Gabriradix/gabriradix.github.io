@@ -19,6 +19,7 @@ export const projects = [
     text: "An audiovisual performance exploring human-machine interaction. Performers bind themselves with cables while a digital system processes their movements in real time.",
     href: "/connection",
     images: [
+      "/progetti/connection/assets/copertina.jpeg",
       "/progetti/connection/assets/1.jpg",
       "/progetti/connection/assets/render disegnato.png",
       "/progetti/connection/assets/demo1.jpeg",
