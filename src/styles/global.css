@@ -14,15 +14,7 @@ body {
   overflow-x: clip;
 }
 
-@keyframes carousel-scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+.carousel-strip {
+  will-change: transform;
 }
 
-.carousel-strip {
-  animation: carousel-scroll var(--carousel-duration, 90s) linear infinite;
-}

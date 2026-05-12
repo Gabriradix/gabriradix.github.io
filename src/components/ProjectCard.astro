@@ -102,71 +102,63 @@ const animationDuration = images.length * 45;
       if (!strip) return;
 
       container.setAttribute('data-carousel-initialized', 'true');
-      console.log('Carousel initialized for:', container.getAttribute('href'));
+
+      const durationStr = strip.style.getPropertyValue('--carousel-duration');
+      const duration = parseFloat(durationStr) || 90;
+      const totalDuration = duration * 1000; // in ms
+
+      // Use Web Animations API for buttery smooth performance
+      const animation = strip.animate([
+        { transform: 'translateX(0)' },
+        { transform: 'translateX(-50%)' }
+      ], {
+        duration: totalDuration,
+        iterations: Infinity,
+        easing: 'linear'
+      });
 
       let isDragging = false;
       let startX = 0;
-      let startPixels = 0;
-      let currentPixels = 0;
+      let startProgress = 0;
       let wasDragged = false;
-      
-      const getTranslateX = () => {
-        const style = window.getComputedStyle(strip);
-        const transform = style.transform || (style as any).webkitTransform;
-        if (!transform || transform === 'none') return 0;
-        
-        // Support for matrix() and matrix3d()
-        const values = transform.split('(')[1].split(')')[0].split(', ');
-        if (transform.includes('3d')) {
-          return parseFloat(values[12]) || 0;
-        } else {
-          return parseFloat(values[4]) || 0;
-        }
+
+      const getProgress = () => {
+        const currentTime = (animation.currentTime as number) || 0;
+        return (currentTime % totalDuration) / totalDuration;
       };
 
       const handleStart = (x: number) => {
         isDragging = true;
         wasDragged = false;
         startX = x;
-        startPixels = getTranslateX();
-        strip.style.animationPlayState = 'paused';
+        startProgress = getProgress();
+        animation.pause();
         container.style.cursor = 'grabbing';
       };
 
       const handleMove = (x: number) => {
         if (!isDragging) return;
-        const delta = x - startX;
-        if (Math.abs(delta) > 5) wasDragged = true;
-        
-        currentPixels = startPixels + delta;
+        const deltaX = x - startX;
+        if (Math.abs(deltaX) > 5) wasDragged = true;
         
         const halfWidth = strip.offsetWidth / 2;
         if (halfWidth <= 0) return;
 
-        // Wrap around for infinite effect
-        while (currentPixels > 0) currentPixels -= halfWidth;
-        while (currentPixels < -halfWidth) currentPixels += halfWidth;
+        // Invert delta because dragging left increases progress (moves towards -50%)
+        const deltaProgress = -deltaX / halfWidth;
+        let newProgress = startProgress + deltaProgress;
         
-        strip.style.transform = `translateX(${currentPixels}px)`;
+        // Normalize progress to 0-1
+        newProgress = ((newProgress % 1) + 1) % 1;
+        
+        animation.currentTime = newProgress * totalDuration;
       };
 
       const handleEnd = () => {
         if (!isDragging) return;
         isDragging = false;
         container.style.cursor = '';
-        
-        const halfWidth = strip.offsetWidth / 2;
-        if (halfWidth <= 0) return;
-
-        const durationStr = strip.style.getPropertyValue('--carousel-duration');
-        const duration = parseFloat(durationStr) || 90;
-        
-        const progress = Math.abs(currentPixels) / halfWidth;
-        const newDelay = -(progress * duration);
-        
-        strip.style.animationDelay = `${newDelay}s`;
-        strip.style.transform = ''; 
-        strip.style.animationPlayState = 'running';
+        animation.play();
       };
 
       // Mouse events
@@ -200,18 +192,11 @@ const animationDuration = images.length * 45;
           if (halfWidth <= 0) return;
 
           e.preventDefault();
-          const current = getTranslateX();
-          const next = current - wheelEvent.deltaX;
+          const deltaProgress = wheelEvent.deltaX / halfWidth;
+          let newProgress = getProgress() + deltaProgress;
+          newProgress = ((newProgress % 1) + 1) % 1;
           
-          let wrapped = next;
-          while (wrapped > 0) wrapped -= halfWidth;
-          while (wrapped < -halfWidth) wrapped += halfWidth;
-          
-          const duration = parseFloat(strip.style.getPropertyValue('--carousel-duration')) || 90;
-          const progress = Math.abs(wrapped) / halfWidth;
-          
-          strip.style.animationDelay = `${-(progress * duration)}s`;
-          strip.style.transform = '';
+          animation.currentTime = newProgress * totalDuration;
         }
       }, { passive: false });
 
