@@ -40,11 +40,11 @@ const animationDuration = images.length * 45;
     href={href}
     target={href.startsWith('http') ? "_blank" : undefined}
     rel={href.startsWith('http') ? "noopener noreferrer" : undefined}
-    class="carousel-container w-full md:flex-1 overflow-hidden aspect-[21/9] block cursor-pointer"
+    class="carousel-container w-full md:flex-1 overflow-hidden aspect-[21/9] block"
   >
     {hasCarousel ? (
       <div
-        class="carousel-strip flex h-full select-none pointer-events-none"
+        class="carousel-strip flex h-full select-none"
         style={`--carousel-duration: ${animationDuration}s;`}
       >
         {carouselImages.map((img, i) => (
@@ -90,14 +90,132 @@ const animationDuration = images.length * 45;
   </a>
 </article>
 
+<script>
+  function initCarousels() {
+    const containers = document.querySelectorAll('.carousel-container');
+    
+    containers.forEach(container => {
+      if (container.getAttribute('data-carousel-initialized')) return;
+      
+      const strip = container.querySelector('.carousel-strip') as HTMLElement;
+      if (!strip) return;
+
+      container.setAttribute('data-carousel-initialized', 'true');
+
+      let isDragging = false;
+      let startX = 0;
+      let startPixels = 0;
+      let currentPixels = 0;
+      let wasDragged = false;
+      
+      const getTranslateX = () => {
+        const style = window.getComputedStyle(strip);
+        const matrix = new DOMMatrixReadOnly(style.transform);
+        return matrix.m41;
+      };
+
+      const handleStart = (x: number) => {
+        isDragging = true;
+        wasDragged = false;
+        startX = x;
+        startPixels = getTranslateX();
+        strip.style.animationPlayState = 'paused';
+        container.style.cursor = 'grabbing';
+      };
+
+      const handleMove = (x: number) => {
+        if (!isDragging) return;
+        const delta = x - startX;
+        if (Math.abs(delta) > 5) wasDragged = true;
+        
+        currentPixels = startPixels + delta;
+        
+        const halfWidth = strip.offsetWidth / 2;
+        if (halfWidth <= 0) return;
+
+        // Wrap around for infinite effect
+        while (currentPixels > 0) currentPixels -= halfWidth;
+        while (currentPixels < -halfWidth) currentPixels += halfWidth;
+        
+        strip.style.transform = `translateX(${currentPixels}px)`;
+      };
+
+      const handleEnd = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        container.style.cursor = '';
+        
+        const halfWidth = strip.offsetWidth / 2;
+        if (halfWidth <= 0) return;
+
+        const durationStr = strip.style.getPropertyValue('--carousel-duration');
+        const duration = parseFloat(durationStr) || 90;
+        
+        // Calculate the new animation-delay based on current position
+        // The animation moves from 0 to -50% (halfWidth) over 'duration' seconds.
+        const progress = Math.abs(currentPixels) / halfWidth;
+        const newDelay = -(progress * duration);
+        
+        strip.style.animationDelay = `${newDelay}s`;
+        strip.style.transform = ''; // Clear inline transform to let CSS animation take over
+        strip.style.animationPlayState = 'running';
+      };
+
+      container.addEventListener('mousedown', (e) => {
+        if ((e as MouseEvent).button !== 0) return;
+        handleStart((e as MouseEvent).pageX);
+      });
+
+      window.addEventListener('mousemove', (e) => handleMove((e as MouseEvent).pageX));
+      window.addEventListener('mouseup', handleEnd);
+
+      container.addEventListener('touchstart', (e) => {
+        handleStart((e as TouchEvent).touches[0].pageX);
+      }, { passive: true });
+
+      window.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+          handleMove((e as TouchEvent).touches[0].pageX);
+          // Only prevent default (scrolling) if we have actually moved enough to be considered a drag
+          if (wasDragged && e.cancelable) e.preventDefault();
+        }
+      }, { passive: false });
+
+      window.addEventListener('touchend', handleEnd);
+
+      // Prevent link navigation if the user dragged
+      container.addEventListener('click', (e) => {
+        if (wasDragged) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }, true);
+    });
+  }
+
+  // Initialize
+  initCarousels();
+  // Support View Transitions
+  document.addEventListener('astro:page-load', initCarousels);
+</script>
+
 <style>
   /* Extend carousel to right viewport edge */
   .carousel-container {
     margin-right: calc(-50vw + 50%);
+    cursor: grab;
+    touch-action: pan-y; /* Allow vertical scroll on touch, handle horizontal in JS */
   }
 
   .carousel-strip {
     width: max-content;
     will-change: transform;
+  }
+
+  .carousel-strip img,
+  .carousel-strip video {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
   }
 </style>
