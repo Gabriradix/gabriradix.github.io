@@ -41,6 +41,7 @@ const animationDuration = images.length * 45;
     target={href.startsWith('http') ? "_blank" : undefined}
     rel={href.startsWith('http') ? "noopener noreferrer" : undefined}
     class="carousel-container w-full md:flex-1 overflow-hidden aspect-[21/9] block"
+    draggable="false"
   >
     {hasCarousel ? (
       <div
@@ -101,6 +102,7 @@ const animationDuration = images.length * 45;
       if (!strip) return;
 
       container.setAttribute('data-carousel-initialized', 'true');
+      console.log('Carousel initialized for:', container.getAttribute('href'));
 
       let isDragging = false;
       let startX = 0;
@@ -110,8 +112,16 @@ const animationDuration = images.length * 45;
       
       const getTranslateX = () => {
         const style = window.getComputedStyle(strip);
-        const matrix = new DOMMatrixReadOnly(style.transform);
-        return matrix.m41;
+        const transform = style.transform || (style as any).webkitTransform;
+        if (!transform || transform === 'none') return 0;
+        
+        // Support for matrix() and matrix3d()
+        const values = transform.split('(')[1].split(')')[0].split(', ');
+        if (transform.includes('3d')) {
+          return parseFloat(values[12]) || 0;
+        } else {
+          return parseFloat(values[4]) || 0;
+        }
       };
 
       const handleStart = (x: number) => {
@@ -151,16 +161,15 @@ const animationDuration = images.length * 45;
         const durationStr = strip.style.getPropertyValue('--carousel-duration');
         const duration = parseFloat(durationStr) || 90;
         
-        // Calculate the new animation-delay based on current position
-        // The animation moves from 0 to -50% (halfWidth) over 'duration' seconds.
         const progress = Math.abs(currentPixels) / halfWidth;
         const newDelay = -(progress * duration);
         
         strip.style.animationDelay = `${newDelay}s`;
-        strip.style.transform = ''; // Clear inline transform to let CSS animation take over
+        strip.style.transform = ''; 
         strip.style.animationPlayState = 'running';
       };
 
+      // Mouse events
       container.addEventListener('mousedown', (e) => {
         if ((e as MouseEvent).button !== 0) return;
         handleStart((e as MouseEvent).pageX);
@@ -169,6 +178,7 @@ const animationDuration = images.length * 45;
       window.addEventListener('mousemove', (e) => handleMove((e as MouseEvent).pageX));
       window.addEventListener('mouseup', handleEnd);
 
+      // Touch events
       container.addEventListener('touchstart', (e) => {
         handleStart((e as TouchEvent).touches[0].pageX);
       }, { passive: true });
@@ -176,12 +186,34 @@ const animationDuration = images.length * 45;
       window.addEventListener('touchmove', (e) => {
         if (isDragging) {
           handleMove((e as TouchEvent).touches[0].pageX);
-          // Only prevent default (scrolling) if we have actually moved enough to be considered a drag
           if (wasDragged && e.cancelable) e.preventDefault();
         }
       }, { passive: false });
 
       window.addEventListener('touchend', handleEnd);
+
+      // Wheel/Trackpad support
+      container.addEventListener('wheel', (e) => {
+        const wheelEvent = e as WheelEvent;
+        if (Math.abs(wheelEvent.deltaX) > Math.abs(wheelEvent.deltaY)) {
+          const halfWidth = strip.offsetWidth / 2;
+          if (halfWidth <= 0) return;
+
+          e.preventDefault();
+          const current = getTranslateX();
+          const next = current - wheelEvent.deltaX;
+          
+          let wrapped = next;
+          while (wrapped > 0) wrapped -= halfWidth;
+          while (wrapped < -halfWidth) wrapped += halfWidth;
+          
+          const duration = parseFloat(strip.style.getPropertyValue('--carousel-duration')) || 90;
+          const progress = Math.abs(wrapped) / halfWidth;
+          
+          strip.style.animationDelay = `${-(progress * duration)}s`;
+          strip.style.transform = '';
+        }
+      }, { passive: false });
 
       // Prevent link navigation if the user dragged
       container.addEventListener('click', (e) => {
