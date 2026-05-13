@@ -95,7 +95,8 @@ const animationDuration = images.length * 45;
   function initCarousels() {
     const containers = document.querySelectorAll('.carousel-container');
     
-    containers.forEach(container => {
+    containers.forEach(node => {
+      const container = node as HTMLElement;
       if (container.getAttribute('data-carousel-initialized')) return;
       
       const strip = container.querySelector('.carousel-strip') as HTMLElement;
