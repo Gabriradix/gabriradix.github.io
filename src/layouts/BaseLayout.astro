@@ -48,7 +48,7 @@ const { favicon = dynamicFavicon } = Astro.props;
     {finalLogoHover && (
       <style is:global set:html={`header a:hover, header a:hover span, header a:hover div, header a:hover svg { color: ${finalLogoHover} !important; }`}></style>
     )}
-    <style>
+    <style is:global>
       @font-face {
         font-family: 'Apple Garamond Custom';
         src: url('/fonts/AppleGaramond.ttf') format('truetype');
