@@ -64,13 +64,25 @@ body {
 
 /* Garamond Body Text Optimizations */
 p:not(.text-xs):not(.text-sm):not(.text-base) {
-  font-size: 1.25rem !important; /* Scale up prose paragraphs to 20px */
-  line-height: 1.8 !important;
+  font-size: 1.1rem !important; /* Slightly smaller on mobile (17.6px) */
+  line-height: 1.6 !important; /* Tighter line-height on mobile */
+}
+@media (min-width: 768px) {
+  p:not(.text-xs):not(.text-sm):not(.text-base) {
+    font-size: 1.25rem !important; /* Scale up prose paragraphs to 20px on desktop */
+    line-height: 1.8 !important;
+  }
 }
 
 li:not(.text-xs):not(.text-sm) {
-  font-size: 1.2rem !important;
-  line-height: 1.7 !important;
+  font-size: 1.05rem !important;
+  line-height: 1.5 !important;
+}
+@media (min-width: 768px) {
+  li:not(.text-xs):not(.text-sm) {
+    font-size: 1.2rem !important;
+    line-height: 1.7 !important;
+  }
 }
 
 /* Subtitles / Hero Description Text */
