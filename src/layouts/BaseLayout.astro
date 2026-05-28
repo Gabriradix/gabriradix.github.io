@@ -96,15 +96,13 @@ const { favicon = dynamicFavicon } = Astro.props;
       /* Progressive Image Loader Styles */
       img {
         transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
-                    filter 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-                    transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        will-change: opacity, filter, transform;
+                    filter 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: opacity, filter;
       }
       img[data-src],
       img.img-loading {
         filter: blur(20px) !important;
         opacity: 0.6 !important;
-        transform: scale(1.05) !important;
       }
 
       /* Lightbox Styles */
@@ -158,8 +156,7 @@ const { favicon = dynamicFavicon } = Astro.props;
       .gallery-img {
         cursor: zoom-in;
         transition: opacity 0.3s ease,
-                    filter 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-                    transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+                    filter 0.8s cubic-bezier(0.4, 0, 0.2, 1);
       }
       .gallery-img:hover {
         opacity: 0.8;
