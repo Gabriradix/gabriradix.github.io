@@ -1,4 +1,5 @@
 ---
+import { getProxyUrl } from "../utils/image";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { projects } from "../data/projects";
 
@@ -13,7 +14,7 @@ const project = projects.find(p => p.title === "Surreal Splat Void");
   <!-- Desktop Version -->
   <div class="fixed inset-0 w-full h-full z-0 hidden md:block">
     <iframe
-      src="/progetti/Web3D/index.html"
+      src={getProxyUrl("/progetti/Web3D/index.html")} data-src="/progetti/Web3D/index.html"
       class="w-full h-full border-none"
       allow="autoplay; fullscreen; vr"></iframe>
   </div>
@@ -21,7 +22,7 @@ const project = projects.find(p => p.title === "Surreal Splat Void");
   <!-- Mobile Fallback -->
   <div class="md:hidden fixed inset-0 flex flex-col items-center justify-center p-12 text-center bg-neutral-900 z-10">
     <span class="text-6xl mb-8 opacity-50" style="font-family: 'Roboto', sans-serif;">√</span>
-    <h1 class="text-3xl font-medium mb-4" style="font-family: 'Apple Garamond Custom', serif;">Experience Not Supported</h1>
+    <h1 class="text-3xl font-medium mb-4" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Experience Not Supported</h1>
     <p class="text-neutral-400 text-base leading-relaxed max-w-xs mx-auto">
         "Surreal Splat Void" involves heavy 3D Gaussian Splatting and is currently only optimized for desktop viewing.
     </p>

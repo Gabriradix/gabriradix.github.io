@@ -1,4 +1,6 @@
 ---
+import { getProxyUrl } from "../utils/image";
+
 interface Props {
   title: string;
   text: string;
@@ -6,20 +8,23 @@ interface Props {
   images: string[];
   year?: string;
   category?: string;
+  brandColor?: string;
 }
 
-const { title, text, href, images, year, category } = Astro.props;
+const { title, text, href, images, year, category, brandColor } = Astro.props;
 const hasCarousel = images.length > 1;
 const carouselImages = hasCarousel ? [...images, ...images] : images;
 const animationDuration = images.length * 45;
 ---
 
-<article class="flex flex-col md:flex-row items-start group">
+<article 
+  class="flex flex-col md:flex-row items-start group project-card"
+>
   <!-- Text — same as original layout -->
-  <div class="w-full md:w-1/3 shrink-0 pr-6 md:pr-12 flex flex-col md:items-end text-left md:text-right pt-2 mb-6 md:mb-0">
+  <div class="w-full md:w-1/3 shrink-0 pr-6 md:pr-12 flex flex-col md:items-end text-left md:text-right pt-[20px] mb-6 md:mb-0">
     <h3
       class="text-2xl font-normal tracking-tight text-neutral-200 mb-2 transition-colors group-hover:text-white"
-      style="font-family: 'Apple Garamond Custom', serif;"
+      style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
     >
       <a
         href={href}
@@ -42,6 +47,7 @@ const animationDuration = images.length * 45;
     rel={href.startsWith('http') ? "noopener noreferrer" : undefined}
     class="carousel-container w-full md:flex-1 overflow-hidden aspect-[21/9] block"
     draggable="false"
+    style={brandColor ? `--hover-glow: 0 0 12px ${brandColor}; --brand-glow-color: ${brandColor};` : undefined}
   >
     {hasCarousel ? (
       <div
@@ -57,13 +63,16 @@ const animationDuration = images.length * 45;
               muted
               playsinline
               class="h-full w-auto max-w-none object-cover shrink-0 mr-[5px]"
+              draggable="false"
             ></video>
           ) : (
             <img
-              src={img}
+              src={getProxyUrl(img)}
+              data-src={img}
               alt={`${title} ${(i % images.length) + 1}`}
               class="h-full w-auto max-w-none object-cover shrink-0 mr-[5px]"
               loading="lazy"
+              draggable="false"
             />
           )
         ))}
@@ -78,12 +87,15 @@ const animationDuration = images.length * 45;
             muted
             playsinline
             class="w-full h-full object-cover"
+            draggable="false"
           ></video>
         ) : (
           <img
-            src={images[0]}
+            src={getProxyUrl(images[0])}
+            data-src={images[0]}
             alt={title}
             class="w-full h-full object-cover"
+            draggable="false"
           />
         )}
       </div>
@@ -223,6 +235,23 @@ const animationDuration = images.length * 45;
     margin-right: calc(-50vw + 50%);
     cursor: grab;
     touch-action: pan-y; /* Allow vertical scroll on touch, handle horizontal in JS */
+    padding: 20px 0 20px 20px; /* Creates safe padding area so the soft glow is not clipped at top, bottom, and left! */
+  }
+
+  /* Transition for individual images and videos */
+  .carousel-container img,
+  .carousel-container video {
+    transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: box-shadow, transform;
+  }
+
+  /* Make ONLY the hovered image or video glow, matching the text glow exactly */
+  .carousel-container img:hover,
+  .carousel-container video:hover {
+    box-shadow: var(--hover-glow, 0 0 12px rgba(255, 255, 255, 0.35)) !important;
+    transform: scale(1.02); /* Subtle scale up for extra premium tactile feel! */
+    z-index: 10;
+    position: relative;
   }
 
   .carousel-strip {
@@ -232,7 +261,6 @@ const animationDuration = images.length * 45;
 
   .carousel-strip img,
   .carousel-strip video {
-    pointer-events: none;
     user-select: none;
     -webkit-user-drag: none;
   }

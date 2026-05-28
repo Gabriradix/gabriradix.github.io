@@ -1,4 +1,5 @@
 ---
+import { getProxyUrl } from "../utils/image";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { projects } from "../data/projects";
 const project = projects.find(p => p.href === "/fuori-posto");
@@ -13,7 +14,7 @@ const project = projects.find(p => p.href === "/fuori-posto");
     class="relative h-[100dvh] w-full overflow-hidden flex items-center justify-center"
   >
     <img
-      src="/progetti/Fuori Posto/1.PNG"
+      src={getProxyUrl("/progetti/Fuori Posto/1.PNG")} data-src="/progetti/Fuori Posto/1.PNG"
       alt="Fuori Posto - Album Artwork"
       class="absolute inset-0 w-full h-full object-cover z-0 opacity-40"
     />
@@ -22,7 +23,7 @@ const project = projects.find(p => p.href === "/fuori-posto");
     <div class="relative z-20 text-center px-6">
       <h1
         class="text-5xl md:text-8xl font-normal text-white tracking-tight"
-        style="font-family: 'Apple Garamond Custom', serif;"
+        style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
       >
         Fuori Posto
       </h1>
@@ -39,7 +40,7 @@ const project = projects.find(p => p.href === "/fuori-posto");
     <div class="mb-16 md:mb-24">
       <h2
         class="text-3xl font-normal text-neutral-50 mb-8"
-        style="font-family: 'Apple Garamond Custom', serif;"
+        style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
       >
         Concept
       </h2>
@@ -103,7 +104,7 @@ const project = projects.find(p => p.href === "/fuori-posto");
     <div class="border-t border-neutral-800 pt-16">
       <h2
         class="text-3xl font-normal text-neutral-50 mb-12"
-        style="font-family: 'Apple Garamond Custom', serif;"
+        style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
       >
         Gallery
       </h2>
@@ -111,7 +112,7 @@ const project = projects.find(p => p.href === "/fuori-posto");
         <!-- Main Artwork -->
         <div class="col-span-1 md:col-span-2">
           <img 
-            src="/progetti/Fuori Posto/1.PNG" 
+            src={getProxyUrl("/progetti/Fuori Posto/1.PNG")} data-src="/progetti/Fuori Posto/1.PNG" 
             alt="Fuori Posto - Main Cover" 
             class="w-full h-auto object-cover bg-neutral-900 border border-neutral-800 gallery-img" 
             loading="lazy" 
@@ -121,7 +122,7 @@ const project = projects.find(p => p.href === "/fuori-posto");
         <!-- Cover & Tracklist -->
         <div class="col-span-1 md:col-span-2">
           <img
-            src="/progetti/Fuori Posto/cover-fuori-posto.png"
+            src={getProxyUrl("/progetti/Fuori Posto/cover-fuori-posto.png")} data-src="/progetti/Fuori Posto/cover-fuori-posto.png"
             alt="Fuori Posto - Tracklist"
             class="w-full h-auto object-cover bg-neutral-900 border border-neutral-800 gallery-img"
             loading="lazy"
@@ -130,25 +131,25 @@ const project = projects.find(p => p.href === "/fuori-posto");
 
         <!-- Process and Detail Images -->
         <img
-          src="/progetti/Fuori Posto/gallery-1.png"
+          src={getProxyUrl("/progetti/Fuori Posto/gallery-1.png")} data-src="/progetti/Fuori Posto/gallery-1.png"
           alt="Fuori Posto - Process 1"
           class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 border border-neutral-800 gallery-img"
           loading="lazy"
         />
         <img
-          src="/progetti/Fuori Posto/gallery-2.png"
+          src={getProxyUrl("/progetti/Fuori Posto/gallery-2.png")} data-src="/progetti/Fuori Posto/gallery-2.png"
           alt="Fuori Posto - Process 2"
           class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 border border-neutral-800 gallery-img"
           loading="lazy"
         />
         <img
-          src="/progetti/Fuori Posto/gallery-3.png"
+          src={getProxyUrl("/progetti/Fuori Posto/gallery-3.png")} data-src="/progetti/Fuori Posto/gallery-3.png"
           alt="Fuori Posto - Detail 1"
           class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 border border-neutral-800 gallery-img"
           loading="lazy"
         />
         <img
-          src="/progetti/Fuori Posto/gallery-4.png"
+          src={getProxyUrl("/progetti/Fuori Posto/gallery-4.png")} data-src="/progetti/Fuori Posto/gallery-4.png"
           alt="Fuori Posto - Detail 2"
           class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 border border-neutral-800 gallery-img"
           loading="lazy"

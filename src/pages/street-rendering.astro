@@ -1,4 +1,5 @@
 ---
+import { getProxyUrl } from "../utils/image";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
@@ -9,7 +10,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   >
     <!-- Interactive Point Cloud via iframe -->
     <iframe
-      src="/progetti/Street Rendering/embed.html"
+      src={getProxyUrl("/progetti/Street Rendering/embed.html")} data-src="/progetti/Street Rendering/embed.html"
       class="absolute inset-0 w-full h-full border-none z-0 pointer-events-none md:pointer-events-auto"
       allow="autoplay; fullscreen; vr"></iframe>
 
@@ -19,7 +20,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <div class="relative z-20 text-center px-6 pointer-events-auto md:pointer-events-none">
       <h1
         class="text-5xl md:text-8xl font-normal text-white tracking-tight"
-        style="font-family: 'Apple Garamond Custom', serif;"
+        style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
       >
         Street Rendering
       </h1>
@@ -36,7 +37,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <div class="mb-16 md:mb-24">
       <h2
         class="text-3xl font-normal text-neutral-50 mb-8"
-        style="font-family: 'Apple Garamond Custom', serif;"
+        style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
       >
         Concept
       </h2>
@@ -56,43 +57,43 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <div class="border-t border-neutral-800 pt-16">
       <h2
         class="text-3xl font-normal text-neutral-50 mb-12"
-        style="font-family: 'Apple Garamond Custom', serif;"
+        style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
       >
         Gallery
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <img
-          src="/progetti/Street Rendering/(6).PNG"
+          src={getProxyUrl("/progetti/Street Rendering/(6).PNG")} data-src="/progetti/Street Rendering/(6).PNG"
           alt="Street Rendering 1"
           class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
           loading="lazy"
         />
         <img
-          src="/progetti/Street Rendering/(1).PNG"
+          src={getProxyUrl("/progetti/Street Rendering/(1).PNG")} data-src="/progetti/Street Rendering/(1).PNG"
           alt="Street Rendering 2"
           class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
           loading="lazy"
         />
         <img
-          src="/progetti/Street Rendering/(2).PNG"
+          src={getProxyUrl("/progetti/Street Rendering/(2).PNG")} data-src="/progetti/Street Rendering/(2).PNG"
           alt="Street Rendering 3"
           class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
           loading="lazy"
         />
         <img
-          src="/progetti/Street Rendering/(5).PNG"
+          src={getProxyUrl("/progetti/Street Rendering/(5).PNG")} data-src="/progetti/Street Rendering/(5).PNG"
           alt="Street Rendering 4"
           class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
           loading="lazy"
         />
         <img
-          src="/progetti/Street Rendering/(9).PNG"
+          src={getProxyUrl("/progetti/Street Rendering/(9).PNG")} data-src="/progetti/Street Rendering/(9).PNG"
           alt="Street Rendering 5"
           class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
           loading="lazy"
         />
         <img
-          src="/progetti/Street Rendering/(10).PNG"
+          src={getProxyUrl("/progetti/Street Rendering/(10).PNG")} data-src="/progetti/Street Rendering/(10).PNG"
           alt="Street Rendering 6"
           class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
           loading="lazy"

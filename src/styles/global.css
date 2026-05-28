@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Apple Garamond", "EB Garamond", Garamond, ui-serif, Georgia, serif;
+  --font-sans: "Helvetica Custom", Helvetica, Arial, sans-serif;
+  --font-serif: "Apple Garamond Custom", "Apple Garamond", "EB Garamond", Garamond, ui-serif, Georgia, serif;
 }
 
 html {
@@ -18,6 +19,37 @@ html {
     color: white;
     text-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    text-transform: uppercase !important;
+    font-feature-settings: "ss05" !important;
+    font-family: abcplus, "Helvetica Custom", Helvetica, Arial, sans-serif !important;
+    font-size: calc(var(--font-size) * 3) !important;
+    font-variation-settings: "MONO" 0, "wght" 700 !important;
+    font-weight: 720 !important;
+    line-height: calc(var(--line) * 2.4) !important;
+    letter-spacing: -.03em !important;
+  }
+
+  h1 {
+    --font-size: clamp(1rem, 3.5vw, 1.8rem);
+    --line: clamp(0.9rem, 3vw, 1.6rem);
+  }
+
+  h2 {
+    --font-size: clamp(0.8rem, 2vw, 1.1rem);
+    --line: clamp(0.8rem, 2vw, 1.1rem);
+  }
+
+  h3 {
+    --font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+    --line: clamp(0.7rem, 1.5vw, 0.85rem);
+  }
+
+  h4, h5, h6 {
+    --font-size: clamp(0.6rem, 1vw, 0.7rem);
+    --line: clamp(0.6rem, 1vw, 0.7rem);
+  }
 }
 
 body {
@@ -28,5 +60,51 @@ body {
 
 .carousel-strip {
   will-change: transform;
+}
+
+/* Garamond Body Text Optimizations */
+p:not(.text-xs):not(.text-sm):not(.text-base) {
+  font-size: 1.25rem !important; /* Scale up prose paragraphs to 20px */
+  line-height: 1.8 !important;
+}
+
+li:not(.text-xs):not(.text-sm) {
+  font-size: 1.2rem !important;
+  line-height: 1.7 !important;
+}
+
+/* Subtitles / Hero Description Text */
+p.text-xl, .text-xl {
+  font-size: 1.45rem !important; /* Scale up large subtitles/descriptions */
+  line-height: 1.6 !important;
+}
+
+/* Header Name & Nav Garamond Optimizations */
+#header-name {
+  font-size: 1.05rem !important;
+}
+@media (min-width: 768px) {
+  #header-name {
+    font-size: 1.65rem !important;
+  }
+}
+
+#header-nav a {
+  font-size: 0.85rem !important;
+}
+@media (min-width: 768px) {
+  #header-nav a {
+    font-size: 1.1rem !important;
+  }
+}
+
+/* Small Metadata (e.g. category, details) in Garamond */
+.project-card .text-xs:not(.font-mono) {
+  font-size: 0.95rem !important;
+}
+
+/* Header readability overrides (dark drop-shadow mask for scroll contrast) */
+#logo-root, #header-name, #header-nav a {
+  filter: drop-shadow(0 0 6px #171717) drop-shadow(0 0 12px #171717) drop-shadow(0 0 18px #171717) !important;
 }
 

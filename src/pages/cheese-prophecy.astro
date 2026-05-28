@@ -1,4 +1,5 @@
 ---
+import { getProxyUrl } from "../utils/image";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { projects } from "../data/projects";
 const project = projects.find(p => p.href === "/cheese-prophecy");
@@ -7,7 +8,7 @@ const project = projects.find(p => p.href === "/cheese-prophecy");
 <BaseLayout title="The Cheese Prophecy - Gabriele Radicello" brandColor={project?.brandColor} transparentHeader={true}>
   <div class="w-full h-[100dvh] overflow-hidden">
     <iframe
-      src="/progetti/the-cheese-prophecy/index.html"
+      src={getProxyUrl("/progetti/the-cheese-prophecy/index.html")} data-src="/progetti/the-cheese-prophecy/index.html"
       class="w-full h-full border-none"
       allow="autoplay; fullscreen"></iframe>
   </div>

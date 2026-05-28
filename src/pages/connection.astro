@@ -1,4 +1,5 @@
 ---
+import { getProxyUrl } from "../utils/image";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
@@ -7,7 +8,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <section class="relative h-[100dvh] w-full overflow-hidden flex items-center justify-center">
     <!-- Use the featured image as background -->
     <img 
-      src="/progetti/connection/assets/copertina.jpeg" 
+      src={getProxyUrl("/progetti/connection/assets/copertina.jpeg")} data-src="/progetti/connection/assets/copertina.jpeg" 
       alt="Connection Background"
       class="absolute inset-0 w-full h-full object-cover z-0 opacity-50"
     />
@@ -16,7 +17,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <div class="relative z-20 text-center px-6">
       <h1 
         class="text-5xl md:text-8xl font-normal text-white tracking-tight" 
-        style="font-family: 'Apple Garamond Custom', serif;"
+        style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
       >
         Connection
       </h1>
@@ -33,7 +34,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <section class="max-w-4xl mx-auto px-6 py-24 md:py-32 text-neutral-300 text-lg leading-8 text-left">
     
     <div class="mb-16 md:mb-24">
-      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Apple Garamond Custom', serif;">Human-Machine Interaction</h2>
+      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Human-Machine Interaction</h2>
       <div class="grid gap-8">
         <p>
           Connection arises from the urgency to question the relationship between body and technology. In an era where the boundary between organic and digital is becoming increasingly thin, the performance poses an essential question: are we controlling the machine, or is the machine defining our movements?
@@ -48,7 +49,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     </div>
 
     <div class="mb-16 md:mb-24">
-      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Apple Garamond Custom', serif;">The Anatomy of the Performance</h2>
+      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">The Anatomy of the Performance</h2>
       <div class="grid gap-8">
         <p>
           The performance opens with the beginning of the sound component produced by Andrea Antonelli. The two performers enter simultaneously, emerging from the darkness of the environment. On stage there are two chairs and a basket of cables and electronic components positioned in the center, between the two stations.
@@ -66,7 +67,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     </div>
 
     <div class="mb-24">
-      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Apple Garamond Custom', serif;">Performance at EXTRABOLD festival</h2>
+      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Performance at EXTRABOLD festival</h2>
       <div class="aspect-video w-full rounded-lg overflow-hidden bg-neutral-900 border border-neutral-800">
         <iframe
           src="https://www.youtube.com/embed/Ol3ywaSmCPY"
@@ -80,13 +81,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
     <!-- Gallery Section -->
     <div class="border-t border-neutral-800 pt-16">
-      <h2 class="text-3xl font-normal text-neutral-50 mb-12" style="font-family: 'Apple Garamond Custom', serif;">Gallery</h2>
+      <h2 class="text-3xl font-normal text-neutral-50 mb-12" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Gallery</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <img src="/progetti/connection/assets/copertina.jpeg" alt="Connection Gallery 0" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src="/progetti/connection/assets/1.jpg" alt="Connection Gallery 1" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src="/progetti/connection/assets/demo1.jpeg" alt="Connection Gallery 2" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src="/progetti/connection/assets/demo2.jpeg" alt="Connection Gallery 3" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src="/progetti/connection/assets/render disegnato.png" alt="Connection Gallery 4" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/connection/assets/copertina.jpeg")} data-src="/progetti/connection/assets/copertina.jpeg" alt="Connection Gallery 0" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/connection/assets/1.jpg")} data-src="/progetti/connection/assets/1.jpg" alt="Connection Gallery 1" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/connection/assets/demo1.jpeg")} data-src="/progetti/connection/assets/demo1.jpeg" alt="Connection Gallery 2" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/connection/assets/demo2.jpeg")} data-src="/progetti/connection/assets/demo2.jpeg" alt="Connection Gallery 3" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/connection/assets/render disegnato.png")} data-src="/progetti/connection/assets/render disegnato.png" alt="Connection Gallery 4" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
       </div>
     </div>
 
