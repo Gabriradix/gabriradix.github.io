@@ -21,6 +21,12 @@ export function getProxyUrl(url: string): string {
   const ext = url.substring(lastDot).toLowerCase();
   const originalExt = url.substring(lastDot);
 
+  // Only proxy standard image extensions
+  const imageExtensions = [".png", ".jpg", ".jpeg", ".webp", ".gif", ".tiff", ".bmp"];
+  if (!imageExtensions.includes(ext)) {
+    return url;
+  }
+
   // In our Node generator, if original extension was uppercase (like .PNG):
   // baseName became base + '.' + originalExt, and proxy was named baseName + '-proxy' + ext
   if (originalExt !== ext) {
