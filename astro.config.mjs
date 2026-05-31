@@ -39,7 +39,7 @@ function progettiIndexRewrite() {
 }
 
 export default defineConfig({
-  site: "https://gabriradix.github.io",
+  site: "https://www.gabriradix.it",
   base: "/",
   vite: {
     plugins: [progettiIndexRewrite()],
