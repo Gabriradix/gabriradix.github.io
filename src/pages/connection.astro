@@ -1,6 +1,8 @@
 ---
 import { getProxyUrl } from "../utils/image";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getProxyUrl } from "../utils/image";
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="Connection - Gabriele Radicello">
@@ -9,7 +11,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <!-- Use the featured image as background -->
     <img 
       src={getProxyUrl("/progetti/connection/assets/copertina.jpeg")} data-src="/progetti/connection/assets/copertina.jpeg" 
-      alt="Connection Background"
+      alt="I due performer avvolti da matasse di cavi elettrici neri durante la performance Connection"
       class="absolute inset-0 w-full h-full object-cover z-0 opacity-50"
     />
     <div class="absolute inset-0 bg-black/60 z-10"></div>
@@ -83,11 +85,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <div class="border-t border-neutral-800 pt-16">
       <h2 class="text-3xl font-normal text-neutral-50 mb-12" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Gallery</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <img src={getProxyUrl("/progetti/connection/assets/copertina.jpeg")} data-src="/progetti/connection/assets/copertina.jpeg" alt="Connection Gallery 0" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/connection/assets/1.jpg")} data-src="/progetti/connection/assets/1.jpg" alt="Connection Gallery 1" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/connection/assets/demo1.jpeg")} data-src="/progetti/connection/assets/demo1.jpeg" alt="Connection Gallery 2" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/connection/assets/demo2.jpeg")} data-src="/progetti/connection/assets/demo2.jpeg" alt="Connection Gallery 3" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/connection/assets/render disegnato.png")} data-src="/progetti/connection/assets/render disegnato.png" alt="Connection Gallery 4" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/connection/assets/copertina.jpeg")} data-src="/progetti/connection/assets/copertina.jpeg" alt="I due performer seduti a terra in una luce drammatica, avvolti da un intricato groviglio di cavi" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/connection/assets/1.jpg")} data-src="/progetti/connection/assets/1.jpg" alt="Visualizzazione sul palco della performance, con la proiezione posteriore che riflette la silhouette in tempo reale" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/connection/assets/demo1.jpeg")} data-src="/progetti/connection/assets/demo1.jpeg" alt="Dettaglio del live visual in TouchDesigner con elaborazione ad alto contrasto dei movimenti del corpo" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/connection/assets/demo2.jpeg")} data-src="/progetti/connection/assets/demo2.jpeg" alt="Silhouette catturate tramite Kinect rielaborate digitalmente come ombre cibernetiche sul muro di fondo" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/connection/assets/render disegnato.png")} data-src="/progetti/connection/assets/render disegnato.png" alt="Schema tecnico e bozzetto scenografico delle postazioni dei performer e della telecamera a infrarossi" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
       </div>
     </div>
 

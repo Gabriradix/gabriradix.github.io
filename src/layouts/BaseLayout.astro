@@ -296,7 +296,7 @@ const { favicon = dynamicFavicon } = Astro.props;
 
     <!-- Lightbox Overlay -->
     <div id="lightbox" aria-hidden="true">
-      <img id="lightbox-img" src="" alt="Enlarged view" />
+      <img id="lightbox-img" src="" alt="Visualizzazione ingrandita dell'immagine" />
     </div>
 
     <script>
@@ -324,6 +324,7 @@ const { favicon = dynamicFavicon } = Astro.props;
           setTimeout(() => {
             currentImageIndex = index;
             lightboxImg.src = galleryImages[currentImageIndex].src;
+            lightboxImg.alt = galleryImages[currentImageIndex].alt || "Visualizzazione ingrandita dell'immagine";
             lightboxImg.classList.remove(outClass);
             lightboxImg.classList.add(inClass);
             
@@ -335,6 +336,7 @@ const { favicon = dynamicFavicon } = Astro.props;
         } else {
           currentImageIndex = index;
           lightboxImg.src = galleryImages[currentImageIndex].src;
+          lightboxImg.alt = galleryImages[currentImageIndex].alt || "Visualizzazione ingrandita dell'immagine";
         }
       };
 
