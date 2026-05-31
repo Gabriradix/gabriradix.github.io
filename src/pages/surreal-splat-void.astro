@@ -14,27 +14,55 @@ const project = projects.find(p => p.title === "Surreal Splat Void");
   <!-- Desktop Version -->
   <div class="fixed inset-0 w-full h-full z-0 hidden md:block">
     <iframe
-      src={getProxyUrl("/progetti/Web3D/index.html")} data-src="/progetti/Web3D/index.html"
+      id="splat-iframe"
+      src=""
+      data-src={getProxyUrl("/progetti/Web3D/index.html")}
       class="w-full h-full border-none"
       allow="autoplay; fullscreen; vr"></iframe>
   </div>
 
-  <!-- Mobile Fallback -->
-  <div class="md:hidden fixed inset-0 flex flex-col items-center justify-center p-12 text-center bg-neutral-900 z-10">
-    <span class="text-6xl mb-8 opacity-50" style="font-family: 'Roboto', sans-serif;">√</span>
-    <h1 class="text-3xl font-medium mb-4" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Experience Not Supported</h1>
-    <p class="text-neutral-400 text-base leading-relaxed max-w-xs mx-auto">
+  <!-- Mobile Fallback (Centered minimal layout matching 404 page aesthetic) -->
+  <div class="md:hidden fixed inset-0 flex flex-col items-center justify-center bg-neutral-900 px-6 text-center" style="z-index: 50; min-height: 100vh; min-height: 100dvh;">
+    <div class="flex flex-col items-center justify-center w-full">
+      <a
+        class="flex items-center gap-4 text-3xl font-normal tracking-tight text-neutral-300 transition-colors hover:text-white mb-8"
+        href="/"
+        style="font-family: 'Apple Garamond Custom', serif;"
+      >
+        <span
+          class="text-7xl font-normal leading-none"
+          style="font-family: 'Roboto', sans-serif;">√</span>
+        <div class="flex flex-col leading-[1] text-left">
+          <span>Gabriele</span>
+          <span>Radicello</span>
+        </div>
+      </a>
+      <p class="text-neutral-400 text-[15px] leading-relaxed max-w-[290px] text-center lowercase" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
         "Surreal Splat Void" involves heavy 3D Gaussian Splatting and is currently only optimized for desktop viewing.
-    </p>
-    <a href="/" class="mt-10 text-xs uppercase tracking-[0.2em] text-neutral-500 hover:text-white transition-colors">
-        Back to projects
-    </a>
+      </p>
+    </div>
   </div>
 
   <script>
-    // Force compact header on desktop for this immersive page
-    if (window.innerWidth >= 768) {
-      window.postMessage('force-compact-header', '*');
+    function initSplatPage() {
+      const iframe = document.getElementById('splat-iframe') as HTMLIFrameElement | null;
+      if (iframe && window.innerWidth >= 768) {
+        const realSrc = iframe.getAttribute('data-src');
+        if (realSrc && !iframe.getAttribute('src')) {
+          iframe.setAttribute('src', realSrc);
+        }
+      }
+
+      // Force compact header on desktop for this immersive page
+      if (window.innerWidth >= 768) {
+        window.postMessage('force-compact-header', '*');
+      }
     }
+
+    // Run immediately on page load
+    initSplatPage();
+
+    // Re-run on client-side SPA swap transition
+    document.addEventListener('astro:page-load', initSplatPage);
   </script>
 </BaseLayout>

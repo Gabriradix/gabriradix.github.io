@@ -475,15 +475,41 @@ const { favicon = dynamicFavicon } = Astro.props;
         mouseY = e.clientY;
       });
 
+      const handleTouchCoord = (e: TouchEvent) => {
+        if (e.touches && e.touches.length > 0) {
+          mouseX = e.touches[0].clientX;
+          mouseY = e.touches[0].clientY;
+        }
+      };
+      window.addEventListener("touchstart", handleTouchCoord, { passive: true });
+      window.addEventListener("touchmove", handleTouchCoord, { passive: true });
+
       function handleBeforePreparation(e: any) {
         document.documentElement.classList.add("ascii-loading");
+        
+        // Disable transition during startup to show the loading background instantly
+        if (canvas) {
+          canvas.style.transition = "none";
+          // Force reflow
+          canvas.offsetHeight;
+        }
+
         startAsciiLoop();
 
-        // Wrap e.loader in a function so that it returns a delayed promise, fully satisfying Astro's API
+        // Restore the smooth fade transition for when the loop stops
+        if (canvas) {
+          requestAnimationFrame(() => {
+            if (canvas) {
+              canvas.style.transition = "opacity 0.7s ease-in-out";
+            }
+          });
+        }
+
+        // Wrap e.loader in a function so that it returns a delayed promise, guaranteeing at least 600ms of ASCII visibility
         if (e && typeof e.loader === "function") {
           const originalLoader = e.loader;
           e.loader = () => {
-            const delayPromise = new Promise(resolve => setTimeout(resolve, 450));
+            const delayPromise = new Promise(resolve => setTimeout(resolve, 600));
             return Promise.all([originalLoader(), delayPromise]).then(results => results[0]);
           };
         }
