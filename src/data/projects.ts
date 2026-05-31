@@ -90,7 +90,7 @@ export const projects = [
       "/progetti/a-closer-look/assets/IMG_0013.JPG",
     ],
     year: "2026",
-    category: "Interactive Installation"
+    category: "Interactive Installation / Prototype"
   },
   {
     title: "Dream Catalogue",
@@ -118,16 +118,16 @@ export const projects = [
     category: "Illustration / Digital",
     brandColor: "#a855f7"
   },
-  {
-    title: "Surreal Splat Void",
-    text: "Interactive real-time 3D space exploration on the web, using scanned models imported into a virtual environment.",
-    href: "/surreal-splat-void",
-    images: [
-      "/progetti/surreal-splat-void/assets/splash.png",
-    ],
-    year: "2026",
-    category: "3D / WebGL"
-  },
+  // {
+  //   title: "Surreal Splat Void",
+  //   text: "Interactive real-time 3D space exploration on the web, using scanned models imported into a virtual environment.",
+  //   href: "/surreal-splat-void",
+  //   images: [
+  //     "/progetti/surreal-splat-void/assets/splash.png",
+  //   ],
+  //   year: "2026",
+  //   category: "3D / WebGL"
+  // },
   {
     title: "The Cheese Prophecy",
     text: "An experimental web project based on poetic and textual generation, unfolding like an enigmatic prophecy.",
