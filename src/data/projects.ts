@@ -2,7 +2,7 @@ export const projects = [
 
   {
     title: "Street Rendering",
-    text: "The project explores the limits of technological perception by transforming Google Street View images into a fragmented 3D environment using Gaussian Splatting.",
+    text: "An exploration of the limits of machine perception, transforming Google Street View 360° images into a fragmented 3D environment through Gaussian Splatting, then conducting virtual street photography from impossible viewpoints.",
     href: "/street-rendering",
     images: [
       "/progetti/Street Rendering/(6).PNG",
