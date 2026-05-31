@@ -24,11 +24,11 @@ const galleryImages = [
 ];
 ---
 
-<BaseLayout title="Whatsanartist - Gabriele Radicello">
+<BaseLayout title="What's an Artist? - Gabriele Radicello">
   <!-- Hero Section -->
   <section class="relative h-[100dvh] w-full overflow-hidden flex items-center justify-center">
     <img 
-      src={getProxyUrl("/progetti/Whatsanartist/copertina.png")} data-src="/progetti/Whatsanartist/copertina.png" 
+      src={getProxyUrl("/progetti/whats-an-artist/copertina.png")} data-src="/progetti/whats-an-artist/copertina.png" 
       alt="Whatsanartist Background"
       class="absolute inset-0 w-full h-full object-cover z-0 opacity-50"
     />
@@ -39,7 +39,7 @@ const galleryImages = [
         class="text-5xl md:text-8xl font-normal text-white tracking-tight" 
         style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
       >
-        Whatsanartist
+        What's an Artist?
       </h1>
       <p class="mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto">
         What is an artist in the digital era?
@@ -74,9 +74,9 @@ const galleryImages = [
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {galleryImages.map((img, i) => (
           <img 
-            src={getProxyUrl(`/progetti/Whatsanartist/${img}`)} 
-            data-src={`/progetti/Whatsanartist/${img}`} 
-            alt={`Whatsanartist ${i + 1}`} 
+            src={getProxyUrl(`/progetti/whats-an-artist/${img}`)} 
+            data-src={`/progetti/whats-an-artist/${img}`} 
+            alt={`What's an Artist? ${i + 1}`} 
             class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" 
             loading="lazy" 
           />
