@@ -394,7 +394,7 @@ const animationDuration = filteredImages.length * 45;
     margin-right: calc(-50vw + 50%);
     cursor: grab;
     touch-action: pan-y; /* Allow vertical scroll on touch, handle horizontal in JS */
-    padding: 20px 0 20px 20px; /* Creates safe padding area so the soft glow is not clipped at top, bottom, and left! */
+    padding: 20px 0 35px 20px; /* Creates extra safe bottom padding area so the soft glow is never clipped on mobile! */
   }
 
   /* Transition for individual images and videos */
