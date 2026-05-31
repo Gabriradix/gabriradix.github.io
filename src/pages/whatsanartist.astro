@@ -1,6 +1,27 @@
 ---
 import { getProxyUrl } from "../utils/image";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const galleryImages = [
+  "1.png",
+  "0D067275-4C18-4FF6-8D18-E710DD493A53.png",
+  "14FBF64A-E966-4178-95D5-2E91DF3244CE.png",
+  "471F9DA0-9ABF-47F8-B405-03D73ED0030E.png",
+  "6E3A4B0C-0F75-4759-A5F1-785940E6CA53.png",
+  "AAFAAD0B-28FC-4457-BDCF-34373FB37345.png",
+  "AF85FC86-BFD8-4F69-AB02-9584586EB2F6.png",
+  "B2672E30-3055-4F34-92F4-4163FB2CC586.png",
+  "D9BF978C-1A56-4357-923F-DC6312F30E61.png",
+  "F01D18EE-AFBA-458A-BF82-D77CFCAFAF00.png",
+  "F6C76D9D-85A5-4D06-BA61-4207C459A3EA.png",
+  "IMG_5200.JPG",
+  "IMG_5210.JPG",
+  "IMG_5217.JPG",
+  "IMG_5220.JPG",
+  "IMG_5221.JPG",
+  "IMG_5226.JPG",
+  "IMG_5229.JPG"
+];
 ---
 
 <BaseLayout title="Whatsanartist - Gabriele Radicello">
@@ -51,10 +72,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <div class="border-t border-neutral-800 pt-16">
       <h2 class="text-3xl font-normal text-neutral-50 mb-12" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Gallery</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <img src={getProxyUrl("/progetti/Whatsanartist/1.png")} data-src="/progetti/Whatsanartist/1.png" alt="Whatsanartist 1" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/Whatsanartist/IMG_5200.JPG")} data-src="/progetti/Whatsanartist/IMG_5200.JPG" alt="Whatsanartist 2" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/Whatsanartist/IMG_5210.JPG")} data-src="/progetti/Whatsanartist/IMG_5210.JPG" alt="Whatsanartist 3" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/Whatsanartist/IMG_5226.JPG")} data-src="/progetti/Whatsanartist/IMG_5226.JPG" alt="Whatsanartist 4" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        {galleryImages.map((img, i) => (
+          <img 
+            src={getProxyUrl(`/progetti/Whatsanartist/${img}`)} 
+            data-src={`/progetti/Whatsanartist/${img}`} 
+            alt={`Whatsanartist ${i + 1}`} 
+            class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" 
+            loading="lazy" 
+          />
+        ))}
       </div>
     </div>
 

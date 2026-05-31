@@ -65,11 +65,15 @@ export const projects = [
     text: "A web project exploring the artist's identity in the digital era.",
     href: "/whatsanartist",
     images: [
-      
       "/progetti/Whatsanartist/1.png",
       "/progetti/Whatsanartist/IMG_5200.JPG",
+      "/progetti/Whatsanartist/AAFAAD0B-28FC-4457-BDCF-34373FB37345.png",
       "/progetti/Whatsanartist/IMG_5210.JPG",
+      "/progetti/Whatsanartist/AF85FC86-BFD8-4F69-AB02-9584586EB2F6.png",
+      "/progetti/Whatsanartist/IMG_5217.JPG",
       "/progetti/Whatsanartist/IMG_5226.JPG",
+      "/progetti/Whatsanartist/B2672E30-3055-4F34-92F4-4163FB2CC586.png",
+      "/progetti/Whatsanartist/IMG_5229.JPG",
     ],
     year: "2025",
     category: "Digital"
