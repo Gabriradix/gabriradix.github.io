@@ -17,6 +17,23 @@
     <script src="https://quadjr.github.io/aframe-gaussian-splatting/index.js"></script>
 
     <script>
+      AFRAME.registerComponent("gaussian-splatting-proxy-injector", {
+        init: function () {
+          // Use proxies on mobile viewports OR if URL has ?low=true
+          const isMobile = window.innerWidth < 768 || window.location.search.includes("low=true");
+          if (isMobile) {
+            console.log("Low-res mode activated: swapping PLY models with decimated proxies!");
+            this.el.querySelectorAll("[gaussian_splatting]").forEach(el => {
+              const src = el.getAttribute("gaussian_splatting");
+              if (src && src.includes(".ply") && !src.includes("-proxy")) {
+                const newSrc = src.replace(".ply", "-proxy.ply");
+                el.setAttribute("gaussian_splatting", newSrc);
+              }
+            });
+          }
+        }
+      });
+
       AFRAME.registerComponent("explode-on-approach", {
         schema: { distance: { default: 2.5 } }, // distanza di attivazione esplosione
         init: function () {
@@ -481,6 +498,7 @@
       fog="type: exponential; color: #000000; density: 0.02;"
       corridor-world
       corridor-interior
+      gaussian-splatting-proxy-injector
     >
       <!-- Pool di 16 macs.ply (sx/dx lungo il corridoio) -->
       <a-entity
