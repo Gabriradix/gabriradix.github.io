@@ -394,7 +394,7 @@ const animationDuration = filteredImages.length * 45;
     margin-right: calc(-50vw + 50%);
     cursor: grab;
     touch-action: pan-y; /* Allow vertical scroll on touch, handle horizontal in JS */
-    padding: 20px 0 35px 20px; /* Creates extra safe bottom padding area so the soft glow is never clipped on mobile! */
+    padding: 20px 0 20px 20px; /* Standard balanced padding on mobile devices */
   }
 
   /* Transition for individual images and videos */
@@ -404,13 +404,20 @@ const animationDuration = filteredImages.length * 45;
     will-change: box-shadow, transform;
   }
 
-  /* Make ONLY the hovered image or video glow, matching the text glow exactly */
-  .carousel-container img:hover,
-  .carousel-container video:hover {
-    box-shadow: var(--hover-glow, 0 0 12px rgba(255, 255, 255, 0.35)) !important;
-    transform: scale(1.02); /* Subtle scale up for extra premium tactile feel! */
-    z-index: 10;
-    position: relative;
+  /* Medium viewports (tablets and desktops): Apply safe padding and hover glow effects */
+  @media (min-width: 768px) {
+    .carousel-container {
+      padding: 20px 0 35px 20px; /* Extra bottom padding on desktop to completely prevent hover glow clipping */
+    }
+
+    /* Make ONLY the hovered image or video glow, matching the text glow exactly */
+    .carousel-container img:hover,
+    .carousel-container video:hover {
+      box-shadow: var(--hover-glow, 0 0 12px rgba(255, 255, 255, 0.35)) !important;
+      transform: scale(1.02); /* Subtle scale up for extra premium tactile feel! */
+      z-index: 10;
+      position: relative;
+    }
   }
 
   .carousel-strip {
