@@ -330,37 +330,37 @@ const animationDuration = filteredImages.length * 45;
       };
 
       // Register triggers on both the carousel and the title link!
-      if (carousel) {
-        let touchStartVal = 0;
-        let touchTimeout: number | null = null;
+      let touchStartVal = 0;
+      let touchTimeout: number | null = null;
 
-        const handleTouchStart = () => {
-          lastTouchTime = Date.now();
-          touchStartVal = Date.now();
-          if (touchTimeout) {
-            clearTimeout(touchTimeout);
-            touchTimeout = null;
-          }
-          handleEnterForce();
-        };
+      const handleTouchStart = () => {
+        lastTouchTime = Date.now();
+        touchStartVal = Date.now();
+        if (touchTimeout) {
+          clearTimeout(touchTimeout);
+          touchTimeout = null;
+        }
+        handleEnterForce();
+      };
 
-        const handleTouchEnd = () => {
-          lastTouchTime = Date.now();
-          const elapsed = Date.now() - touchStartVal;
-          const minDuration = 500; // Guarantee at least half a second of active ASCII waves
-          
-          if (elapsed < minDuration) {
-            const remaining = minDuration - elapsed;
-            if (touchTimeout) clearTimeout(touchTimeout);
-            touchTimeout = setTimeout(() => {
-              handleLeaveForce();
-              touchTimeout = null;
-            }, remaining) as unknown as number;
-          } else {
+      const handleTouchEnd = () => {
+        lastTouchTime = Date.now();
+        const elapsed = Date.now() - touchStartVal;
+        const minDuration = 500; // Guarantee at least half a second of active ASCII waves
+        
+        if (elapsed < minDuration) {
+          const remaining = minDuration - elapsed;
+          if (touchTimeout) clearTimeout(touchTimeout);
+          touchTimeout = setTimeout(() => {
             handleLeaveForce();
-          }
-        };
+            touchTimeout = null;
+          }, remaining) as unknown as number;
+        } else {
+          handleLeaveForce();
+        }
+      };
 
+      if (carousel) {
         carousel.addEventListener('mouseenter', handleEnter);
         carousel.addEventListener('mouseleave', handleLeave);
         carousel.addEventListener('touchstart', handleTouchStart, { passive: true });
@@ -371,6 +371,9 @@ const animationDuration = filteredImages.length * 45;
       if (titleLink) {
         titleLink.addEventListener('mouseenter', handleEnter);
         titleLink.addEventListener('mouseleave', handleLeave);
+        titleLink.addEventListener('touchstart', handleTouchStart, { passive: true });
+        titleLink.addEventListener('touchend', handleTouchEnd, { passive: true });
+        titleLink.addEventListener('touchcancel', handleTouchEnd, { passive: true });
       }
     });
   }
