@@ -119,6 +119,16 @@ export const projects = [
     brandColor: "#a855f7"
   },
   {
+    title: "Surreal Splat Void",
+    text: "Interactive real-time 3D space exploration on the web, using scanned models imported into a virtual environment.",
+    href: "/surreal-splat-void",
+    images: [
+      "/progetti/Web3D/assets/splash.png",
+    ],
+    year: "2026",
+    category: "3D / WebGL"
+  },
+  {
     title: "The Cheese Prophecy",
     text: "An experimental web project based on poetic and textual generation, unfolding like an enigmatic prophecy.",
     href: "/cheese-prophecy",
