@@ -1,5 +1,6 @@
 ---
 import Header from "../components/Header.astro";
+import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 
 interface Props {
@@ -45,6 +46,7 @@ const { favicon = dynamicFavicon } = Astro.props;
       rel="stylesheet"
     />
     <title>{title}</title>
+    <ClientRouter />
     {finalLogoHover && (
       <style is:global set:html={`header a:hover, header a:hover span, header a:hover div, header a:hover svg { color: ${finalLogoHover} !important; }`}></style>
     )}
@@ -155,7 +157,7 @@ const { favicon = dynamicFavicon } = Astro.props;
         transition: none !important;
       }
       .gallery-img {
-        cursor: zoom-in;
+        cursor: pointer;
         transition: opacity 0.3s ease,
                     filter 0.8s cubic-bezier(0.4, 0, 0.2, 1);
       }
@@ -208,12 +210,84 @@ const { favicon = dynamicFavicon } = Astro.props;
       #logo-root, #header-name, #header-nav a {
         filter: drop-shadow(0 0 6px #171717) drop-shadow(0 0 12px #171717) drop-shadow(0 0 18px #171717);
       }
+
+
+
+      /* Header dimming during ASCII mode: ONLY dim the nav menu */
+      html.ascii-active header #header-nav {
+        opacity: 0.12 !important;
+        filter: blur(4px);
+        pointer-events: none;
+      }
+      
+      /* Inactive projects fade and blur during ASCII mode */
+      html.ascii-active .project-card:not(.hovered-card) {
+        opacity: 0.12 !important;
+        filter: blur(4px) grayscale(0.5);
+        pointer-events: none;
+      }
+
+      /* When hovering over the logo, dim and blur the ENTIRE page content & nav menu */
+      html.logo-active main {
+        opacity: 0.12 !important;
+        filter: blur(4px) grayscale(0.5);
+        pointer-events: none;
+      }
+      html.logo-active header #header-nav {
+        opacity: 0.12 !important;
+        filter: blur(4px);
+        pointer-events: none;
+      }
+
+      /* ASCII Page Loading transition */
+      html.ascii-loading main {
+        opacity: 0 !important;
+        filter: blur(8px);
+        pointer-events: none;
+      }
+      html.ascii-loading header #header-nav {
+        opacity: 0 !important;
+        filter: blur(8px);
+        pointer-events: none;
+      }
+
+      /* Ensure header is on top and transition works smoothly */
+      header {
+        z-index: 40 !important;
+        transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      #header-nav {
+        transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: opacity, filter;
+      }
+      .project-card {
+        transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: opacity, filter;
+      }
+      main {
+        position: relative;
+        z-index: 10;
+        transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: opacity, filter;
+      }
+      .hovered-card {
+        z-index: 30 !important;
+        position: relative !important;
+      }
     </style>
+
   </head>
   <body 
     class="bg-neutral-900 text-neutral-50 antialiased font-sans" 
     style="font-family: 'Apple Garamond Custom', serif;"
   >
+    <!-- Fullscreen Generative ASCII Canvas Overlay -->
+    <canvas 
+      id="global-ascii-canvas" 
+      class="fixed inset-0 w-full h-full pointer-events-none transition-opacity duration-700 ease-in-out opacity-0"
+      style="z-index: 2;"
+    ></canvas>
+
     {!hideHeader && <Header />}
 
     <main>
@@ -226,9 +300,6 @@ const { favicon = dynamicFavicon } = Astro.props;
     </div>
 
     <script>
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement | null;
-      
       let currentImageIndex = 0;
       let galleryImages: HTMLImageElement[] = [];
 
@@ -237,6 +308,7 @@ const { favicon = dynamicFavicon } = Astro.props;
       };
 
       const showImage = (index: number, direction: 'next' | 'prev' | 'none' = 'none') => {
+        const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement | null;
         if (galleryImages.length === 0 || !lightboxImg) return;
         
         const oldIndex = currentImageIndex;
@@ -266,15 +338,20 @@ const { favicon = dynamicFavicon } = Astro.props;
         }
       };
 
-      // Swipe support
+      // Swipe support via global event delegation
       let touchStartX = 0;
       let touchEndX = 0;
 
-      lightbox?.addEventListener('touchstart', (e) => {
+      document.addEventListener('touchstart', (e) => {
+        const lightbox = document.getElementById('lightbox');
+        if (!lightbox || !lightbox.classList.contains('active')) return;
         touchStartX = e.changedTouches[0].screenX;
       }, { passive: true });
 
-      lightbox?.addEventListener('touchend', (e) => {
+      document.addEventListener('touchend', (e) => {
+        const lightbox = document.getElementById('lightbox');
+        if (!lightbox || !lightbox.classList.contains('active')) return;
+
         touchEndX = e.changedTouches[0].screenX;
         const swipeThreshold = 50;
         if (touchEndX < touchStartX - swipeThreshold) {
@@ -284,36 +361,47 @@ const { favicon = dynamicFavicon } = Astro.props;
         }
       }, { passive: true });
 
-      // Global click listener for gallery images
+      // Global click listener for gallery images (Opening & Closing)
       document.addEventListener('click', (e) => {
-        const target = e.target;
+        const target = e.target as HTMLElement;
+        
+        // 1. OPEN Lightbox
         if (target instanceof HTMLImageElement && target.classList.contains('gallery-img')) {
           updateGalleryImages();
           currentImageIndex = galleryImages.indexOf(target);
           showImage(currentImageIndex);
           
-          // Prevent page jitter by padding for scrollbar width
-          const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-          document.body.style.paddingRight = `${scrollbarWidth}px`;
-          document.body.style.overflow = 'hidden';
-          
-          if (lightbox) lightbox.classList.add('active');
+          const lightbox = document.getElementById('lightbox');
+          if (lightbox) {
+            // Prevent page jitter by padding for scrollbar width
+            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+            document.body.style.paddingRight = `${scrollbarWidth}px`;
+            document.body.style.overflow = 'hidden';
+            lightbox.classList.add('active');
+          }
+          return;
+        }
+
+        // 2. CLOSE Lightbox (click overlay or close elements inside it)
+        const lightbox = document.getElementById('lightbox');
+        if (lightbox && lightbox.classList.contains('active')) {
+          if (target.closest('#lightbox')) {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+          }
         }
       });
 
-      // Close lightbox
-      lightbox?.addEventListener('click', () => {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = '';
-        document.body.style.paddingRight = '';
-      });
-
-      // Keyboard navigation
+      // Keyboard navigation via global event delegation
       document.addEventListener('keydown', (e) => {
-        if (!lightbox?.classList.contains('active')) return;
+        const lightbox = document.getElementById('lightbox');
+        if (!lightbox || !lightbox.classList.contains('active')) return;
         
         if (e.key === 'Escape') {
-          lightbox.click();
+          lightbox.classList.remove('active');
+          document.body.style.overflow = '';
+          document.body.style.paddingRight = '';
         } else if (e.key === 'ArrowRight') {
           showImage(currentImageIndex + 1, 'next');
         } else if (e.key === 'ArrowLeft') {
@@ -354,6 +442,215 @@ const { favicon = dynamicFavicon } = Astro.props;
 
       initProgressiveImages();
       document.addEventListener('astro:page-load', initProgressiveImages);
+    </script>
+
+    <script>
+      // Highly optimized ASCII generative background wave engine
+      let canvas: HTMLCanvasElement | null = null;
+      let ctx: CanvasRenderingContext2D | null = null;
+      let animationFrameId: number | null = null;
+      let isAnimating = false;
+      
+      // Initialize mouse coordinates to the center of the viewport to ensure drawing works instantly
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let fadeOutTimeoutId: number | null = null;
+
+      // Character ramp for wave mapping (ordered by density)
+      const asciiRamp = " .:-=+*#%@";
+
+      // Module-level resizing function
+      const resizeCanvas = () => {
+        if (canvas) {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+      };
+
+      // Register module-level event listeners once to prevent leaks
+      window.addEventListener("resize", resizeCanvas);
+
+      window.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      function handleBeforePreparation(e: any) {
+        document.documentElement.classList.add("ascii-loading");
+        startAsciiLoop();
+
+        // Wrap e.loader in a function so that it returns a delayed promise, fully satisfying Astro's API
+        if (e && typeof e.loader === "function") {
+          const originalLoader = e.loader;
+          e.loader = () => {
+            const delayPromise = new Promise(resolve => setTimeout(resolve, 450));
+            return Promise.all([originalLoader(), delayPromise]).then(results => results[0]);
+          };
+        }
+      }
+
+      function handlePageLoad() {
+        document.documentElement.classList.remove("ascii-loading");
+        stopAsciiLoop();
+        initAsciiEngine();
+      }
+
+      function initAsciiEngine() {
+        canvas = document.getElementById("global-ascii-canvas") as HTMLCanvasElement;
+        if (!canvas) return;
+        ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        // Size it initially
+        resizeCanvas();
+
+        // Event listeners from projects
+        document.removeEventListener("ascii-start", startAsciiLoop);
+        document.removeEventListener("ascii-stop", stopAsciiLoop);
+        document.addEventListener("ascii-start", startAsciiLoop);
+        document.addEventListener("ascii-stop", stopAsciiLoop);
+
+        // View Transition triggers
+        document.removeEventListener("astro:before-preparation", handleBeforePreparation);
+        document.removeEventListener("astro:page-load", handlePageLoad);
+        document.addEventListener("astro:before-preparation", handleBeforePreparation);
+        document.addEventListener("astro:page-load", handlePageLoad);
+
+        // Logo hover triggers
+        const logoLink = document.getElementById("logo-link");
+        if (logoLink) {
+          const handleLogoEnter = () => {
+            logoLink.classList.add("hovered-logo");
+            document.documentElement.classList.add("logo-active");
+            startAsciiLoop();
+          };
+
+          const handleLogoLeave = () => {
+            logoLink.classList.remove("hovered-logo");
+            document.documentElement.classList.remove("logo-active");
+            stopAsciiLoop();
+          };
+
+          logoLink.addEventListener("mouseenter", handleLogoEnter);
+          logoLink.addEventListener("mouseleave", handleLogoLeave);
+          logoLink.addEventListener("touchstart", handleLogoEnter, { passive: true });
+          logoLink.addEventListener("touchend", handleLogoLeave, { passive: true });
+        }
+      }
+
+      function startAsciiLoop() {
+        // Defensive re-query if elements were swapped or not initialized yet (prevents click requirement)
+        if (!canvas || !ctx) {
+          initAsciiEngine();
+        }
+
+        // Clear any active fade out timer
+        if (fadeOutTimeoutId) {
+          clearTimeout(fadeOutTimeoutId);
+          fadeOutTimeoutId = null;
+        }
+
+        if (canvas) {
+          canvas.style.opacity = "0.8"; // beautiful semi-transparent overlay
+        }
+
+        if (isAnimating) return;
+        isAnimating = true;
+        loop();
+      }
+
+      function stopAsciiLoop() {
+        // If there is still any hovered card or hovered logo, keep the loop active!
+        if (document.querySelector('.hovered-card') || document.querySelector('.hovered-logo')) return;
+
+        if (canvas) {
+          canvas.style.opacity = "0";
+        }
+
+        // Delay loop termination and canvas clearing to allow the CSS opacity transition to complete smoothly
+        if (fadeOutTimeoutId) clearTimeout(fadeOutTimeoutId);
+        fadeOutTimeoutId = setTimeout(() => {
+          if (!isAnimating) return;
+          isAnimating = false;
+          if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+          }
+          if (ctx && canvas) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+          }
+          fadeOutTimeoutId = null;
+        }, 700) as unknown as number; // 700ms matching transition-opacity duration-700
+      }
+
+      function loop() {
+        if (!isAnimating || !canvas || !ctx) return;
+
+        const w = canvas.width;
+        const h = canvas.height;
+
+        // Grid resolution (1 character every 13 pixels horizontally, 18 vertically)
+        const charWidth = 13;
+        const charHeight = 18;
+        const cols = Math.floor(w / charWidth);
+        const rows = Math.floor(h / charHeight);
+
+        // Clear with background color matching the portfolio theme
+        ctx.fillStyle = "#171717";
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.font = `${charHeight - 2}px monospace`;
+        ctx.textBaseline = "top";
+
+        const time = performance.now() * 0.001;
+
+        // Grid coordinates of the mouse
+        const mouseCol = Math.floor(mouseX / charWidth);
+        const mouseRow = Math.floor(mouseY / charHeight);
+
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            // Generative mathematical wave equations combining noise and coordinate ripples
+            const dx = c - mouseCol;
+            const dy = r - mouseRow;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+
+            // Base waves
+            const wave1 = Math.sin(c * 0.12 - time * 2.5) * Math.cos(r * 0.08 + time * 1.5);
+            const wave2 = Math.sin(Math.sqrt(c*c + r*r) * 0.04 - time * 2);
+            
+            // Mouse interactive ripple (decays over distance)
+            const ripple = Math.sin(dist * 0.3 - time * 6) * Math.exp(-dist * 0.07);
+
+            // Combine fields
+            let z = (wave1 + wave2) * 0.4 + ripple * 0.8;
+            
+            // Add a tiny bit of generative background noise for organic glitch texture
+            const noise = Math.sin(c * 2.3 + r * 3.7 + time * 10) * 0.08;
+            z += noise;
+
+            // Clamp and map value from [-1, 1] to character index
+            let index = Math.floor((z + 1) * 0.5 * asciiRamp.length);
+            if (index < 0) index = 0;
+            if (index >= asciiRamp.length) index = asciiRamp.length - 1;
+
+            const char = asciiRamp[index];
+
+            // Render
+            // Subtle, beautiful low-contrast gray color that glows slightly in dark mode
+            const brightness = Math.floor(40 + (z + 1) * 0.5 * 80); // gray levels from 40 to 120
+            ctx.fillStyle = `rgba(${brightness}, ${brightness}, ${brightness + 10}, 0.85)`;
+
+            ctx.fillText(char, c * charWidth, r * charHeight);
+          }
+        }
+
+        animationFrameId = requestAnimationFrame(loop);
+      }
+
+      // Initialize
+      initAsciiEngine();
+      document.addEventListener("astro:page-load", initAsciiEngine);
     </script>
   </body>
 </html>

@@ -4,6 +4,7 @@
 >
   <div class="flex items-center justify-between px-6 md:px-12 pointer-events-auto">
     <a
+      id="logo-link"
       class="flex items-center gap-2 md:gap-4 text-xl md:text-3xl font-normal tracking-tight text-neutral-300 transition-colors hover:text-white"
       href="/"
       style="font-family: 'Apple Garamond Custom', serif;"
@@ -36,15 +37,25 @@
 </header>
 
 <script>
-  const header = document.getElementById("main-header");
-  const logo = document.getElementById("logo-root");
-  const name = document.getElementById("header-name");
-  const nav = document.getElementById("header-nav");
+  let header = null;
+  let logo = null;
+  let name = null;
+  let nav = null;
   let forceCompact = false;
+
+  function initHeader() {
+    header = document.getElementById("main-header");
+    logo = document.getElementById("logo-root");
+    name = document.getElementById("header-name");
+    nav = document.getElementById("header-nav");
+    updateHeaderState();
+  }
 
   function updateHeaderState() {
     if (header && logo && name && nav) {
-      if (forceCompact || window.scrollY > 50) {
+      let shouldBeCompact = forceCompact || window.scrollY > 50;
+
+      if (shouldBeCompact) {
         header.classList.remove("py-12", "py-6");
         header.classList.add("py-4");
         logo.classList.add("scale-75");
@@ -68,10 +79,11 @@
     }
   }
 
-  // Run on init
-  updateHeaderState();
+  // Initialize
+  initHeader();
   window.addEventListener("scroll", updateHeaderState);
   window.addEventListener("resize", updateHeaderState);
+  document.addEventListener("astro:page-load", initHeader);
 
   window.addEventListener("message", (event) => {
     if (event.data === 'force-compact-header') {

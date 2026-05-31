@@ -12,9 +12,10 @@ interface Props {
 }
 
 const { title, text, href, images, year, category, brandColor } = Astro.props;
-const hasCarousel = images.length > 1;
-const carouselImages = hasCarousel ? [...images, ...images] : images;
-const animationDuration = images.length * 45;
+const filteredImages = images.slice(1);
+const hasCarousel = filteredImages.length > 1;
+const carouselImages = hasCarousel ? [...filteredImages, ...filteredImages] : images;
+const animationDuration = filteredImages.length * 45;
 ---
 
 <article 
@@ -132,8 +133,12 @@ const animationDuration = images.length * 45;
 
       let isDragging = false;
       let startX = 0;
+      let lastX = 0;
+      let lastTime = 0;
+      let velocity = 0;
       let startProgress = 0;
       let wasDragged = false;
+      let inertiaFrameId: number | null = null;
 
       const getProgress = () => {
         const currentTime = (animation.currentTime as number) || 0;
@@ -144,18 +149,37 @@ const animationDuration = images.length * 45;
         isDragging = true;
         wasDragged = false;
         startX = x;
+        lastX = x;
+        lastTime = performance.now();
+        velocity = 0;
         startProgress = getProgress();
         animation.pause();
         container.style.cursor = 'grabbing';
+
+        if (inertiaFrameId) {
+          cancelAnimationFrame(inertiaFrameId);
+          inertiaFrameId = null;
+        }
       };
 
       const handleMove = (x: number) => {
         if (!isDragging) return;
+        const currentTime = performance.now();
+        const deltaTime = currentTime - lastTime;
         const deltaX = x - startX;
         if (Math.abs(deltaX) > 5) wasDragged = true;
         
         const halfWidth = strip.offsetWidth / 2;
         if (halfWidth <= 0) return;
+
+        // Calculate scrolling velocity in px/ms (moving left is positive progress)
+        if (deltaTime > 0) {
+          const instantVelocity = (x - lastX) / deltaTime;
+          velocity = 0.7 * instantVelocity + 0.3 * velocity;
+        }
+
+        lastX = x;
+        lastTime = currentTime;
 
         // Invert delta because dragging left increases progress (moves towards -50%)
         const deltaProgress = -deltaX / halfWidth;
@@ -171,7 +195,50 @@ const animationDuration = images.length * 45;
         if (!isDragging) return;
         isDragging = false;
         container.style.cursor = '';
-        animation.play();
+
+        const currentTime = performance.now();
+        // If the user stopped moving for more than 80ms before release, reset velocity to 0
+        if (currentTime - lastTime > 80) {
+          velocity = 0;
+        }
+
+        const minVelocity = 0.05; // threshold to trigger inertia
+        if (Math.abs(velocity) > minVelocity) {
+          let lastFrameTime = performance.now();
+          const frictionRate = 0.004; // decay rate for friction
+
+          const runInertia = (now: number) => {
+            const dt = now - lastFrameTime;
+            lastFrameTime = now;
+
+            // Apply friction decay
+            velocity *= Math.exp(-frictionRate * dt);
+
+            if (Math.abs(velocity) < minVelocity) {
+              animation.play();
+              return;
+            }
+
+            const halfWidth = strip.offsetWidth / 2;
+            if (halfWidth <= 0) {
+              animation.play();
+              return;
+            }
+
+            // Move the carousel based on velocity
+            const deltaProgress = -(velocity * dt) / halfWidth;
+            let newProgress = getProgress() + deltaProgress;
+            newProgress = ((newProgress % 1) + 1) % 1;
+
+            animation.currentTime = newProgress * totalDuration;
+
+            inertiaFrameId = requestAnimationFrame(runInertia);
+          };
+
+          inertiaFrameId = requestAnimationFrame(runInertia);
+        } else {
+          animation.play();
+        }
       };
 
       // Mouse events
@@ -201,6 +268,10 @@ const animationDuration = images.length * 45;
       container.addEventListener('wheel', (e) => {
         const wheelEvent = e as WheelEvent;
         if (Math.abs(wheelEvent.deltaX) > Math.abs(wheelEvent.deltaY)) {
+          if (inertiaFrameId) {
+            cancelAnimationFrame(inertiaFrameId);
+            inertiaFrameId = null;
+          }
           const halfWidth = strip.offsetWidth / 2;
           if (halfWidth <= 0) return;
 
@@ -223,10 +294,48 @@ const animationDuration = images.length * 45;
     });
   }
 
+  function initAsciiHover() {
+    const cards = document.querySelectorAll('.project-card');
+    cards.forEach(node => {
+      const card = node as HTMLElement;
+      const carousel = card.querySelector('.carousel-container');
+      const titleLink = card.querySelector('h3 a');
+      
+      const handleEnter = () => {
+        card.classList.add('hovered-card');
+        document.documentElement.classList.add('ascii-active');
+        document.dispatchEvent(new CustomEvent('ascii-start'));
+      };
+
+      const handleLeave = () => {
+        card.classList.remove('hovered-card');
+        document.documentElement.classList.remove('ascii-active');
+        document.dispatchEvent(new CustomEvent('ascii-stop'));
+      };
+
+      // Register triggers on both the carousel and the title link!
+      if (carousel) {
+        carousel.addEventListener('mouseenter', handleEnter);
+        carousel.addEventListener('mouseleave', handleLeave);
+        carousel.addEventListener('touchstart', handleEnter, { passive: true });
+        carousel.addEventListener('touchend', handleLeave, { passive: true });
+      }
+
+      if (titleLink) {
+        titleLink.addEventListener('mouseenter', handleEnter);
+        titleLink.addEventListener('mouseleave', handleLeave);
+      }
+    });
+  }
+
   // Initialize
   initCarousels();
+  initAsciiHover();
   // Support View Transitions
-  document.addEventListener('astro:page-load', initCarousels);
+  document.addEventListener('astro:page-load', () => {
+    initCarousels();
+    initAsciiHover();
+  });
 </script>
 
 <style>
