@@ -139,6 +139,22 @@ export const projects = [
     category: "Net Art",
     brandColor: "#f5c842"
   },
+  {
+    title: "Brainrot Pavilion",
+    text: "A digital ready-made exhibition of post-internet Italian mythology. Re-elaborated TikTok AI animals isolated inside virtual display cases.",
+    href: "/brainrot-pavillion",
+    images: [
+      "/progetti/brainrot-pavillion/nugget.gif",
+      "/progetti/brainrot-pavillion/frigocamelo.gif",
+      "/progetti/brainrot-pavillion/brrbrrpatapim.gif",
+      "/progetti/brainrot-pavillion/thungthungsahur.gif",
+      "/progetti/brainrot-pavillion/trallallerotrallallà.gif",
+      "/progetti/brainrot-pavillion/trippitroppi.gif"
+    ],
+    year: "2026",
+    category: "Brutalist Digital Exhibition",
+    brandColor: "#ff0050"
+  },
   // {
   //   title: "Schiavi.",
   //   text: "Interactive UI/UX prototype.",

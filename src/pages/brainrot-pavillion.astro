@@ -1,0 +1,332 @@
+---
+import { getProxyUrl } from "../utils/image";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const pieces = [
+  {
+    id: "nugget",
+    filename: "nugget.gif",
+    title: "Nugget",
+    originalName: "Gegagedigedagedago Nugget",
+    medium: "3D Model Reconstruction, Infinite Loop GIF",
+    dimensions: "1080 x 1080 px (Seamless Loop)",
+    description: "An isolated 3D reconstruction of the iconic chicken nugget meme. Suspended in continuous rotation, it stands as the ultimate low-resolution comfort food icon of post-internet culture. By stripping the subject of its hyper-accelerated TikTok feed context, it is frozen into a solemn, modern monument—an archaeological relic of digital dopamine loops."
+  },
+  {
+    id: "frigocamelo",
+    filename: "frigocamelo.gif",
+    title: "Frigocamelo",
+    originalName: "The Fridge-Camel Hybrid",
+    medium: "3D Model Reconstruction, Infinite Loop GIF",
+    dimensions: "1080 x 1080 px (Seamless Loop)",
+    description: "The legendary 'Frigocamello' (Fridge-Camel), a bizarre prompt hallucination blending domestic white goods with desert fauna. Set inside its digital vitrine, this hybrid creature exposes the organic glitches of generative AI, elevating a viral internet myth into a classical, contemplative sculpture of the techno-surrealist era."
+  },
+  {
+    id: "brrbrrpatapim",
+    filename: "brrbrrpatapim.gif",
+    title: "Brr Brr Patapim",
+    originalName: "The Trapped Rodent",
+    medium: "3D Model Reconstruction, Infinite Loop GIF",
+    dimensions: "1080 x 1080 px (Seamless Loop)",
+    description: "A comical, wide-eyed rodent trapped in a perpetual mechanical spin. The piece materializes the hypnotic, brain-drilling loops of short-form audio memes that repeat endlessly inside the viewer's head, transforming fleeting auditory visual spam into a static, museum-grade conceptual ready-made."
+  },
+  {
+    id: "thungthungsahur",
+    filename: "thungthungsahur.gif",
+    title: "Thung Thung Sahur",
+    originalName: "The Chanting Totem",
+    medium: "3D Model Reconstruction, Infinite Loop GIF",
+    dimensions: "1080 x 1080 px (Seamless Loop)",
+    description: "A strange, abstract creature frozen in a rhythmic, cyclical march. Reminiscent of a modern digital totem, this subject stands as a representation of tribal online folklore and the rise of highly specific, repetitive linguistic chants within niche internet subcultures."
+  },
+  {
+    id: "trallallerotrallallà",
+    filename: "trallallerotrallallà.gif",
+    title: "Trallallero Trallallà",
+    originalName: "The Folklore Siren",
+    medium: "3D Model Reconstruction, Infinite Loop GIF",
+    dimensions: "1080 x 1080 px (Seamless Loop)",
+    description: "An eerie animal relic spinning in a state of solemn suspension. The work juxtaposes centuries-old regional Italian folk singing with hyper-accelerated internet garbage aesthetic, creating a haunting, beautiful tension between traditional oral memory and digital post-internet void."
+  },
+  {
+    id: "trippitroppi",
+    filename: "trippitroppi.gif",
+    title: "Trippi Troppi",
+    originalName: "The Psychedelic Pony",
+    medium: "3D Model Reconstruction, Infinite Loop GIF",
+    dimensions: "1080 x 1080 px (Seamless Loop)",
+    description: "A small, stylized pony spinning endlessly. The name phoneticizes the sound of hooves ('trot') with a hallucinatory state ('trip'), perfectly capturing the recursive, infinite scrolling experience of modern social media platforms—a spinning visual sedative."
+  }
+];
+---
+
+<BaseLayout title="Brainrot Pavilion - Gabriele Radicello">
+  <!-- Stark Gallery Header -->
+  <section class="max-w-6xl mx-auto px-6 pt-36 md:pt-48 pb-20 text-left">
+    <div class="border-b-4 border-neutral-950 pb-8 mb-16">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+        <div>
+          <span class="text-xs uppercase tracking-widest font-mono text-neutral-500 font-semibold">EXHIBITION ROOM 04</span>
+          <h1 
+            class="text-4xl md:text-7xl font-bold tracking-tighter text-neutral-900 mt-2 uppercase" 
+            style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
+          >
+            Brainrot Pavilion
+          </h1>
+        </div>
+        <div class="text-left md:text-right font-mono text-xs text-neutral-500 uppercase tracking-wider">
+          <span>GABRIELE RADICELLO</span><br/>
+          <span>SOLO DIGITAL SHOW — 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Curator Essay / Context Plaques -->
+    <div class="grid md:grid-cols-2 gap-12 mb-28 font-mono text-sm leading-relaxed text-neutral-700">
+      <div class="border-l-4 border-neutral-950 pl-6 space-y-6">
+        <h3 class="text-lg font-bold text-neutral-900 uppercase tracking-tight">00. Curatorial Statement</h3>
+        <p>
+          This project consists of a series of animated GIFs that re-elaborate subjects taken from the Italian "brainrot" scene: funny, grotesque, or surreal animals generated with artificial intelligence and placed at the center of absurd digital narratives. Born and circulated within TikTok, these characters embody a chaotic, disturbing, and deeply comfort-driven aesthetic unique to the post-internet era.
+        </p>
+        <p>
+          Through meticulous 3D modeling and animation, I wanted to strip them of their fleeting meme nature, decontextualizing them from the hyper-accelerated flow of social feeds to place them in a suspended, solemn dimension of contemplation.
+        </p>
+      </div>
+      <div class="border-l-4 border-neutral-950 pl-6 space-y-6">
+        <h3 class="text-lg font-bold text-neutral-900 uppercase tracking-tight">01. Digital Ready-Mades</h3>
+        <p>
+          Each subject has been isolated, reconstructed in three dimensions, and set in continuous, hypnotic rotation inside a digital showcase—like a sacred object, an archaeological artifact of our present. The resulting GIFs become digital showcases (teche) that display the contemporary absurd in a solemn, museum-grade manner.
+        </p>
+        <p>
+          Inspired by the ready-mades of Marcel Duchamp and the digital exhibitions of Anthony Antonellis, this operation plays with the paradoxical and hallucinatory aesthetic of the contemporary web, freezing chaotic data flows into concrete digital relics.
+        </p>
+      </div>
+    </div>
+
+    <!-- Exhibition Vitrine Showcase -->
+    <div class="grid md:grid-cols-2 gap-16 md:gap-x-12 md:gap-y-24 mb-32">
+      {pieces.map((piece) => (
+        <article class="exhibition-card flex flex-col border-4 border-neutral-950 bg-white transition-all duration-500 ease-in-out">
+          <!-- Digital Display Frame -->
+          <div class="aspect-square w-full bg-neutral-100 flex items-center justify-center p-8 border-b-4 border-neutral-950 overflow-hidden relative group">
+            <!-- Glass Overlay/Reflection Light effect -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-10"></div>
+            
+            <img 
+              src={getProxyUrl(`/progetti/brainrot-pavillion/${piece.filename}`)} 
+              data-src={`/progetti/brainrot-pavillion/${piece.filename}`}
+              alt={`3D spinning reconstruction of the Italian brainrot subject ${piece.title}`}
+              class="w-4/5 h-4/5 object-contain transition-transform duration-700 ease-out group-hover:scale-105 select-none"
+              draggable="false"
+              loading="lazy"
+            />
+          </div>
+
+          <!-- Museum Plaque Label -->
+          <div class="p-6 md:p-8 flex-1 flex flex-col justify-between font-mono bg-white text-neutral-900">
+            <div>
+              <div class="flex justify-between items-start gap-4 mb-4">
+                <div>
+                  <h3 class="text-xl font-bold uppercase tracking-tight text-neutral-900 leading-none mb-1">
+                    {piece.title}
+                  </h3>
+                  <span class="text-neutral-500 text-[10px] uppercase font-semibold">
+                    ({piece.originalName})
+                  </span>
+                </div>
+                <span class="text-xs font-bold bg-neutral-950 text-white px-2 py-1 select-none font-sans">
+                  {piece.id.toUpperCase()}
+                </span>
+              </div>
+
+              <div class="space-y-1 text-xs text-neutral-500 uppercase border-b-2 border-dashed border-neutral-200 pb-4 mb-4">
+                <div><strong>Medium:</strong> {piece.medium}</div>
+                <div><strong>Dimensions:</strong> {piece.dimensions}</div>
+              </div>
+
+              <p class="text-xs leading-relaxed text-neutral-600 font-sans text-justify lowercase first-letter:uppercase">
+                {piece.description}
+              </p>
+            </div>
+
+            <div class="border-t-2 border-neutral-950 mt-8 pt-4 flex justify-between items-center text-[10px] text-neutral-500 uppercase tracking-widest font-semibold">
+              <span>PROG. EXHIBITION REF: BR-{piece.id.substring(0, 3).toUpperCase()}</span>
+              <span>2026</span>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Global Brutalist White Cube Scoped Styles -->
+  <style is:global>
+    /* Add 'brainrot-cube' modifier class on body and html */
+    body.brainrot-cube {
+      background-color: #ffffff !important;
+      color: #171717 !important;
+      transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1), color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Target specific components in BaseLayout for a stark minimal white cube look */
+    body.brainrot-cube #logo-link,
+    body.brainrot-cube #header-name,
+    body.brainrot-cube #header-nav a {
+      color: #171717 !important;
+      text-shadow: none !important;
+      filter: none !important;
+      transition: color 0.4s ease;
+    }
+
+    body.brainrot-cube #logo-link svg {
+      color: #171717 !important;
+    }
+
+    /* Change header nav item hover to brand hot pink */
+    body.brainrot-cube #logo-link:hover,
+    body.brainrot-cube #logo-link:hover span,
+    body.brainrot-cube #logo-link:hover svg,
+    body.brainrot-cube #header-nav a:hover {
+      color: #ff0050 !important;
+    }
+
+    /* During active logo hover, dim other elements in white theme */
+    body.brainrot-cube.logo-active main {
+      opacity: 0.15 !important;
+      filter: blur(4px) grayscale(0.5);
+      pointer-events: none;
+    }
+
+    body.brainrot-cube.logo-active header #header-nav {
+      opacity: 0.15 !important;
+      filter: blur(4px);
+      pointer-events: none;
+    }
+
+    /* Inactive teche cards fade and blur when another card is active in ASCII mode */
+    html.ascii-active body.brainrot-cube .exhibition-card:not(.hovered-card) {
+      opacity: 0.08 !important;
+      filter: blur(6px) grayscale(0.8);
+      pointer-events: none;
+    }
+
+    .exhibition-card {
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      transform: translateY(0);
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                  filter 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                  box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: opacity, filter, transform, box-shadow, border-color;
+    }
+
+    /* Stark brutalist offset shadow hover effect for the exhibition vitrines */
+    .exhibition-card:hover,
+    .exhibition-card.hovered-card {
+      transform: translate(-6px, -6px);
+      box-shadow: 8px 8px 0px #171717 !important;
+      border-color: #ff0050 !important;
+      z-index: 30;
+      position: relative;
+    }
+
+    .exhibition-card.hovered-card {
+      /* Keep standard black border for active loop display compatibility */
+      border-color: #171717 !important;
+    }
+  </style>
+
+  <!-- Interactive JavaScript to handle ASCII Hover Loops on the Displays -->
+  <script>
+    function initExhibitionAsciiHover() {
+      const cards = document.querySelectorAll('.exhibition-card');
+      let lastTouchTime = 0;
+
+      cards.forEach(node => {
+        const card = node as HTMLElement;
+        
+        const handleEnter = () => {
+          if (Date.now() - lastTouchTime < 1000) return;
+          card.classList.add('hovered-card');
+          document.documentElement.classList.add('ascii-active');
+          document.dispatchEvent(new CustomEvent('ascii-start'));
+        };
+
+        const handleLeave = () => {
+          if (Date.now() - lastTouchTime < 1000) return;
+          card.classList.remove('hovered-card');
+          document.documentElement.classList.remove('ascii-active');
+          document.dispatchEvent(new CustomEvent('ascii-stop'));
+        };
+
+        const handleEnterForce = () => {
+          card.classList.add('hovered-card');
+          document.documentElement.classList.add('ascii-active');
+          document.dispatchEvent(new CustomEvent('ascii-start'));
+        };
+
+        const handleLeaveForce = () => {
+          card.classList.remove('hovered-card');
+          document.documentElement.classList.remove('ascii-active');
+          document.dispatchEvent(new CustomEvent('ascii-stop'));
+        };
+
+        let touchStartVal = 0;
+        let touchTimeout: number | null = null;
+
+        const handleTouchStart = () => {
+          lastTouchTime = Date.now();
+          touchStartVal = Date.now();
+          if (touchTimeout) {
+            clearTimeout(touchTimeout);
+            touchTimeout = null;
+          }
+          handleEnterForce();
+        };
+
+        const handleTouchEnd = () => {
+          lastTouchTime = Date.now();
+          const elapsed = Date.now() - touchStartVal;
+          const minDuration = 500; // Guarantee at least half a second of active ASCII waves
+          
+          if (elapsed < minDuration) {
+            const remaining = minDuration - elapsed;
+            if (touchTimeout) clearTimeout(touchTimeout);
+            touchTimeout = setTimeout(() => {
+              handleLeaveForce();
+              touchTimeout = null;
+            }, remaining) as unknown as number;
+          } else {
+            handleLeaveForce();
+          }
+        };
+
+        card.addEventListener('mouseenter', handleEnter);
+        card.addEventListener('mouseleave', handleLeave);
+        card.addEventListener('touchstart', handleTouchStart, { passive: true });
+        card.addEventListener('touchend', handleTouchEnd, { passive: true });
+        card.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+      });
+    }
+
+    // Handles body styling application safely for view transitions
+    function handleCubeThemeToggle() {
+      if (window.location.pathname.includes('/brainrot-pavillion')) {
+        document.body.classList.add('brainrot-cube');
+      } else {
+        document.body.classList.remove('brainrot-cube');
+      }
+    }
+
+    // Setup and cleanup listeners
+    function setup() {
+      handleCubeThemeToggle();
+      initExhibitionAsciiHover();
+    }
+
+    setup();
+    document.addEventListener('astro:page-load', setup);
+    document.addEventListener('astro:after-swap', handleCubeThemeToggle);
+  </script>
+</BaseLayout>
