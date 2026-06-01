@@ -139,15 +139,15 @@ export const projects = [
     category: "Net Art",
     brandColor: "#f5c842"
   },
-  {
-    title: "Schiavi.",
-    text: "Interactive UI/UX prototype.",
-    href: "https://www.figma.com/proto/0Tz01LHK0DPdXbR028SUrX/Untitled?page-id=0%3A1&node-id=1-2&p=f&viewport=1639%2C52%2C0.32&t=jm0fVJitQfJ2WBYw-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A2",
-    images: [
-      "/progetti/schiavi/image.png",
-      "/progetti/schiavi/Screenshot 2026-05-18 160354.png"
-    ],
-    year: "2026",
-    category: "Prototype"
-  }
+  // {
+  //   title: "Schiavi.",
+  //   text: "Interactive UI/UX prototype.",
+  //   href: "https://www.figma.com/proto/0Tz01LHK0DPdXbR028SUrX/Untitled?page-id=0%3A1&node-id=1-2&p=f&viewport=1639%2C52%2C0.32&t=jm0fVJitQfJ2WBYw-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A2",
+  //   images: [
+  //     "/progetti/schiavi/image.png",
+  //     "/progetti/schiavi/Screenshot 2026-05-18 160354.png"
+  //   ],
+  //   year: "2026",
+  //   category: "Prototype"
+  // }
 ];

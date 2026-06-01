@@ -15,7 +15,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <div class="grid gap-4 md:grid-cols-4 w-full">
         <a
           href="mailto:gabriele@radicello.it"
-          class="rounded-lg border border-neutral-700 p-5 transition-colors hover:bg-neutral-800"
+          class="rounded-lg border border-neutral-700 p-5 transition-all contact-card"
         >
           <div
             class="mb-1 text-base font-bold tracking-wider text-neutral-50 uppercase"
@@ -30,7 +30,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           href="https://instagram.com/gabriradix"
           target="_blank"
           rel="noopener noreferrer"
-          class="rounded-lg border border-neutral-700 p-5 transition-colors hover:bg-neutral-800"
+          class="rounded-lg border border-neutral-700 p-5 transition-all contact-card"
         >
           <div
             class="mb-1 text-base font-bold tracking-wider text-neutral-50 uppercase"
@@ -45,7 +45,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           href="https://tiktok.com/@gabriradix"
           target="_blank"
           rel="noopener noreferrer"
-          class="rounded-lg border border-neutral-700 p-5 transition-colors hover:bg-neutral-800"
+          class="rounded-lg border border-neutral-700 p-5 transition-all contact-card"
         >
           <div
             class="mb-1 text-base font-bold tracking-wider text-neutral-50 uppercase"
@@ -60,7 +60,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           href="https://x.com/gabriradix"
           target="_blank"
           rel="noopener noreferrer"
-          class="rounded-lg border border-neutral-700 p-5 transition-colors hover:bg-neutral-800"
+          class="rounded-lg border border-neutral-700 p-5 transition-all contact-card"
         >
           <div
             class="mb-1 text-base font-bold tracking-wider text-neutral-50 uppercase"
@@ -73,4 +73,116 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       </div>
     </div>
   </section>
+
+  <style>
+    .contact-card {
+      transition: border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                  box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                  transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                  background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                  filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: border-color, box-shadow, transform, background-color, opacity, filter;
+    }
+
+    /* When a card is hovered or has the active hovered-card class, light up with premium white borders and white glows! */
+    .contact-card:hover,
+    .contact-card.hovered-card {
+      background-color: rgba(38, 38, 38, 0.7) !important;
+      border-color: #ffffff !important;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.35) !important;
+      transform: scale(1.02); /* premium scale effect */
+      z-index: 30;
+      position: relative;
+    }
+
+    .contact-card div {
+      transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1), text-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: color, text-shadow;
+    }
+
+    .contact-card:hover div,
+    .contact-card.hovered-card div {
+      color: #ffffff !important;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.35) !important;
+    }
+  </style>
+
+  <script>
+    function initAsciiHover() {
+      const cards = document.querySelectorAll('.contact-card');
+      let lastTouchTime = 0;
+
+      cards.forEach(node => {
+        const card = node as HTMLElement;
+        
+        const handleEnter = () => {
+          if (Date.now() - lastTouchTime < 1000) return;
+          card.classList.add('hovered-card');
+          document.documentElement.classList.add('ascii-active');
+          document.dispatchEvent(new CustomEvent('ascii-start'));
+        };
+
+        const handleLeave = () => {
+          if (Date.now() - lastTouchTime < 1000) return;
+          card.classList.remove('hovered-card');
+          document.documentElement.classList.remove('ascii-active');
+          document.dispatchEvent(new CustomEvent('ascii-stop'));
+        };
+
+        const handleEnterForce = () => {
+          card.classList.add('hovered-card');
+          document.documentElement.classList.add('ascii-active');
+          document.dispatchEvent(new CustomEvent('ascii-start'));
+        };
+
+        const handleLeaveForce = () => {
+          card.classList.remove('hovered-card');
+          document.documentElement.classList.remove('ascii-active');
+          document.dispatchEvent(new CustomEvent('ascii-stop'));
+        };
+
+        let touchStartVal = 0;
+        let touchTimeout: number | null = null;
+
+        const handleTouchStart = () => {
+          lastTouchTime = Date.now();
+          touchStartVal = Date.now();
+          if (touchTimeout) {
+            clearTimeout(touchTimeout);
+            touchTimeout = null;
+          }
+          handleEnterForce();
+        };
+
+        const handleTouchEnd = () => {
+          lastTouchTime = Date.now();
+          const elapsed = Date.now() - touchStartVal;
+          const minDuration = 500; // Guarantee at least half a second of active ASCII waves
+          
+          if (elapsed < minDuration) {
+            const remaining = minDuration - elapsed;
+            if (touchTimeout) clearTimeout(touchTimeout);
+            touchTimeout = setTimeout(() => {
+              handleLeaveForce();
+              touchTimeout = null;
+            }, remaining) as unknown as number;
+          } else {
+            handleLeaveForce();
+          }
+        };
+
+        card.addEventListener('mouseenter', handleEnter);
+        card.addEventListener('mouseleave', handleLeave);
+        card.addEventListener('touchstart', handleTouchStart, { passive: true });
+        card.addEventListener('touchend', handleTouchEnd, { passive: true });
+        card.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+      });
+    }
+
+    // Initialize
+    initAsciiHover();
+    // Support View Transitions
+    document.addEventListener('astro:page-load', initAsciiHover);
+  </script>
 </BaseLayout>
