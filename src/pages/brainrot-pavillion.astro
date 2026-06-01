@@ -8,7 +8,7 @@ const pieces = [
     filename: "nugget.gif",
     title: "Gegagedigedagedago Nugget",
     medium: "3D Model Reconstruction, Infinite Loop GIF",
-    dimensions: "1080 x 1080 px (Seamless Loop)",
+    dimensions: "1080 x 1080 px",
     description: "An isolated 3D reconstruction of the iconic chicken nugget meme. Suspended in continuous rotation, it stands as the ultimate low-resolution comfort food icon of post-internet culture. By stripping the subject of its hyper-accelerated TikTok feed context, it is frozen into a solemn, modern monument—an archaeological relic of digital dopamine loops."
   },
   {
@@ -16,7 +16,7 @@ const pieces = [
     filename: "frigocamelo.gif",
     title: "Frigocamello",
     medium: "3D Model Reconstruction, Infinite Loop GIF",
-    dimensions: "1080 x 1080 px (Seamless Loop)",
+    dimensions: "1080 x 1080 px",
     description: "The legendary 'Frigocamello' (Fridge-Camel), a bizarre prompt hallucination blending domestic white goods with desert fauna. Set inside its digital vitrine, this hybrid creature exposes the organic glitches of generative AI, elevating a viral internet myth into a classical, contemplative sculpture of the techno-surrealist era."
   },
   {
@@ -24,7 +24,7 @@ const pieces = [
     filename: "brrbrrpatapim.gif",
     title: "Brr Brr Patapim",
     medium: "3D Model Reconstruction, Infinite Loop GIF",
-    dimensions: "1080 x 1080 px (Seamless Loop)",
+    dimensions: "1080 x 1080 px",
     description: "A comical, wide-eyed rodent trapped in a perpetual mechanical spin. The piece materializes the hypnotic, brain-drilling loops of short-form audio memes that repeat endlessly inside the viewer's head, transforming fleeting auditory visual spam into a static, museum-grade conceptual ready-made."
   },
   {
@@ -32,7 +32,7 @@ const pieces = [
     filename: "thungthungsahur.gif",
     title: "Thung Thung (Uomo Mazza)",
     medium: "3D Model Reconstruction, Infinite Loop GIF",
-    dimensions: "1080 x 1080 px (Seamless Loop)",
+    dimensions: "1080 x 1080 px",
     description: "A bizarre subject born of a linguistic prompt hallucination. The artist originally prompted the AI to generate 'Batman.' However, due to copyright protection algorithms, the system bypassed DC Comics' intellectual property by rendering a literal 'bat-man'—interpreting 'bat' not as a flying mammal, but as a wooden club (mazza). The resulting 'Uomo Mazza' stands as a brilliant ready-made of technological misinterpretation and semantic drift in the age of generative algorithms."
   },
   {
@@ -40,7 +40,7 @@ const pieces = [
     filename: "trallallerotrallallà.gif",
     title: "Trallallero Trallallà",
     medium: "3D Model Reconstruction, Infinite Loop GIF",
-    dimensions: "1080 x 1080 px (Seamless Loop)",
+    dimensions: "1080 x 1080 px",
     description: "An eerie animal relic spinning in a state of solemn suspension. The work juxtaposes centuries-old regional Italian folk singing with hyper-accelerated internet garbage aesthetic, creating a haunting, beautiful tension between traditional oral memory and digital post-internet void."
   },
   {
@@ -48,7 +48,7 @@ const pieces = [
     filename: "trippitroppi.gif",
     title: "Trippi Troppi, Troppa Trippa",
     medium: "3D Model Reconstruction, Infinite Loop GIF",
-    dimensions: "1080 x 1080 px (Seamless Loop)",
+    dimensions: "1080 x 1080 px",
     description: "A small, stylized pony spinning endlessly. The name phoneticizes the sound of hooves ('trot') with a hallucinatory state ('trip'), perfectly capturing the recursive, infinite scrolling experience of modern social media platforms—a spinning visual sedative."
   }
 ];
@@ -216,11 +216,13 @@ const pieces = [
     /* CSS Scroll Snapping configuration specifically for medium screens and above */
     @media (min-width: 768px) {
       html.brainrot-cube-active {
-        scroll-snap-type: y mandatory;
+        scroll-snap-type: y proximity; /* softer, less abrupt snap alignment */
         scroll-behavior: smooth;
+        scroll-padding-top: 5vh; /* elegant breathing space offset */
       }
       .snap-section {
         scroll-snap-align: start;
+        scroll-snap-stop: always; /* stops gracefully at each artwork display */
       }
     }
   </style>
