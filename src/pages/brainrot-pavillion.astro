@@ -104,12 +104,12 @@ const pieces = [
         <article class="exhibition-card flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 min-h-[100dvh] w-full py-12 border-b border-neutral-200 last:border-b-0 snap-section">
           
           <!-- Digital Display Frame (Vitrine) -->
-          <div class="exhibition-vitrine w-full md:w-1/2 aspect-square max-w-[460px] bg-white flex items-center justify-center p-8 border-4 border-neutral-950 overflow-hidden relative select-none shrink-0">
+          <div class="exhibition-vitrine w-full md:w-1/2 aspect-square max-w-[460px] bg-neutral-100 flex items-center justify-center p-8 border-4 border-neutral-950 overflow-hidden relative select-none shrink-0">
             <img 
               src={getProxyUrl(`/progetti/brainrot-pavillion/${piece.filename}`)} 
               data-src={`/progetti/brainrot-pavillion/${piece.filename}`}
               alt={`3D spinning reconstruction of the Italian brainrot subject ${piece.title}`}
-              class="w-[300px] h-[300px] object-contain select-none"
+              class="w-4/5 h-4/5 object-contain select-none"
               draggable="false"
               loading="lazy"
             />
@@ -167,16 +167,18 @@ const pieces = [
       filter: none !important;
     }
 
-    /* Logo & Nav links hover: clean, high-intensity white glow when canvas is active! */
+    /* Change header nav item hover to a minimalist clean charcoal instead of hot pink */
+    body.brainrot-cube #header-nav a:hover {
+      color: #737373 !important; /* clean medium neutral gray hover transition */
+    }
+
+    /* Logo hover: clean white glow! */
     body.brainrot-cube #logo-link:hover,
     body.brainrot-cube #logo-link:hover span,
     body.brainrot-cube #logo-link:hover svg,
-    body.brainrot-cube #logo-root:hover,
-    body.brainrot-cube #header-nav a:hover {
+    body.brainrot-cube #logo-root:hover {
       color: #ffffff !important;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.95) !important;
       filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.95)) !important;
-      transition: color 0.3s ease, filter 0.3s ease, text-shadow 0.3s ease;
     }
 
     /* During active logo hover, dim other elements in white theme */
@@ -214,9 +216,9 @@ const pieces = [
     /* CSS Scroll Snapping configuration specifically for medium screens and above */
     @media (min-width: 768px) {
       html.brainrot-cube-active {
-        scroll-snap-type: y mandatory; /* strong, crisp snapping mandatory */
+        scroll-snap-type: y mandatory; /* authoritative mandatory snap alignment */
         scroll-behavior: smooth;
-        scroll-padding-top: 0px; /* snap aligned perfectly to the screen top edge */
+        scroll-padding-top: 0px; /* clean precise alignment */
       }
       .snap-section {
         scroll-snap-align: start;

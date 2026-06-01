@@ -16,6 +16,7 @@ const filteredImages = images.slice(1);
 const hasCarousel = filteredImages.length > 1;
 const carouselImages = hasCarousel ? [...filteredImages, ...filteredImages] : images;
 const animationDuration = filteredImages.length * 45;
+const isBrainrot = title === "Brainrot Pavilion";
 ---
 
 <article 
@@ -71,7 +72,7 @@ const animationDuration = filteredImages.length * 45;
               src={getProxyUrl(img)}
               data-src={img}
               alt={`${title} ${(i % images.length) + 1}`}
-              class="h-full w-auto max-w-none object-cover shrink-0 mr-[5px]"
+              class={`h-full w-auto max-w-none object-cover shrink-0 mr-[5px] ${isBrainrot ? 'brainrot-carousel-gif' : ''}`}
               loading="lazy"
               draggable="false"
             />
@@ -442,5 +443,14 @@ const animationDuration = filteredImages.length * 45;
   .carousel-strip video {
     user-select: none;
     -webkit-user-drag: none;
+  }
+
+  .brainrot-carousel-gif {
+    aspect-ratio: 1 / 1 !important;
+    object-fit: contain !important;
+    background-color: #ffffff !important;
+    padding: 12px !important;
+    margin-right: 12px !important;
+    border: 1px solid #e5e5e5 !important;
   }
 </style>

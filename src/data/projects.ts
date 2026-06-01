@@ -153,7 +153,7 @@ export const projects = [
     ],
     year: "2026",
     category: "Brutalist Digital Exhibition",
-    brandColor: "#ff0050"
+    brandColor: "#ffffff"
   },
   // {
   //   title: "Schiavi.",
