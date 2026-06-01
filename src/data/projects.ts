@@ -151,7 +151,7 @@ export const projects = [
       "/progetti/brainrot-pavillion/trallallerotrallallà.gif",
       "/progetti/brainrot-pavillion/trippitroppi.gif"
     ],
-    year: "2026",
+    year: "2025",
     category: "Brutalist Digital Exhibition",
     brandColor: "#ffffff"
   },

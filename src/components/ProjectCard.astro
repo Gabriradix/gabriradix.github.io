@@ -72,7 +72,7 @@ const isBrainrot = title === "Brainrot Pavilion";
               src={getProxyUrl(img)}
               data-src={img}
               alt={`${title} ${(i % images.length) + 1}`}
-              class={`h-full w-auto max-w-none object-cover shrink-0 mr-[5px] ${isBrainrot ? 'brainrot-carousel-gif' : ''}`}
+              class={isBrainrot ? 'brainrot-carousel-gif shrink-0' : 'h-full w-auto max-w-none object-cover shrink-0 mr-[5px]'}
               loading="lazy"
               draggable="false"
             />
@@ -446,11 +446,24 @@ const isBrainrot = title === "Brainrot Pavilion";
   }
 
   .brainrot-carousel-gif {
+    height: 100% !important;
     aspect-ratio: 1 / 1 !important;
     object-fit: contain !important;
     background-color: #ffffff !important;
     padding: 12px !important;
     margin-right: 12px !important;
     border: 1px solid #e5e5e5 !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    will-change: box-shadow, transform;
+  }
+
+  .brainrot-carousel-gif:hover {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.95), 0 0 40px rgba(255, 255, 255, 0.4) !important;
+    border-color: #ffffff !important;
+    transform: scale(1.05) !important;
+    z-index: 10;
+    position: relative;
   }
 </style>
