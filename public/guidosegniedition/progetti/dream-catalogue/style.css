@@ -1,0 +1,992 @@
+/* ─── RESET & BASE ──────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #000000;
+    --fg: #ffffff;
+    --dim: rgba(255, 255, 255, 0.25);
+    --dim2: rgba(255, 255, 255, 0.08);
+    --accent: #ffffff;
+    --red: #ff2222;
+    --mono: 'JetBrains Mono', 'Space Mono', monospace;
+    --header-h: 36px;
+    --filter-h: 38px;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    overflow: hidden;
+}
+
+/* ─── NOISE + SCANLINES ─────────────────────────────────────────── */
+#noise-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 150px 150px;
+}
+
+#scanlines {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.15) 2px,
+            rgba(0, 0, 0, 0.15) 4px);
+    animation: scanlines-scroll 0.8s linear infinite;
+}
+
+@keyframes scanlines-scroll {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 0 -4px;
+    }
+}
+
+/* ─── HEADER ────────────────────────────────────────────────────── */
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(6px);
+}
+
+#header-left,
+#header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--fg);
+}
+
+.separator {
+    color: var(--dim);
+}
+
+#dream-count-label {
+    color: var(--dim);
+    font-size: 11px;
+}
+
+#clock {
+    color: var(--dim);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    font-variant-numeric: tabular-nums;
+}
+
+#lang-toggle {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    padding: 4px 12px;
+    border-color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.6);
+    margin-right: 8px;
+}
+
+#lang-toggle:hover {
+    border-color: var(--fg);
+    color: var(--fg);
+}
+
+/* Hidden on desktop, shown only in mobile @media */
+#menu-toggle {
+    display: none;
+}
+
+/* ─── FILTER BAR ────────────────────────────────────────────────── */
+#filter-bar {
+    position: fixed;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    height: var(--filter-h);
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 100;
+    overflow-x: auto;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.filter-label {
+    color: var(--dim);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    white-space: nowrap;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+    padding: 5px 14px;
+    border-radius: 0;
+    cursor: pointer;
+    font-family: var(--mono);
+    transition: all 0.2s;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+}
+
+.filter-btn:hover {
+    border-color: rgba(255, 255, 255, 0.6);
+    color: var(--fg);
+}
+
+.filter-btn.active {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+}
+
+#threshold-val {
+    color: var(--dim);
+    font-size: 9px;
+    min-width: 12px;
+}
+
+/* ─── GRAPH CONTAINER ───────────────────────────────────────────── */
+#graph-container {
+    position: fixed;
+    top: calc(var(--header-h) + var(--filter-h));
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+#graph-svg {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+}
+
+#graph-svg:active {
+    cursor: grabbing;
+}
+
+/* D3 elements */
+.link {
+    stroke: rgba(255, 255, 255, 0.28);
+    stroke-width: 0.5;
+    transition: stroke 0.2s, stroke-width 0.2s, stroke-opacity 0.2s;
+}
+
+.link.highlighted {
+    stroke: rgba(255, 255, 255, 0.8);
+    stroke-width: 1.5;
+}
+
+.link.faded {
+    stroke: rgba(255, 255, 255, 0.04);
+}
+
+.node-group {
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.node-group.faded {
+    opacity: 0.08;
+}
+
+.node-circle {
+    fill: rgba(255, 255, 255, 0.06);
+    stroke: rgba(255, 255, 255, 0.7);
+    stroke-width: 1;
+    transition: all 0.2s;
+}
+
+.node-group:hover .node-circle {
+    fill: rgba(255, 255, 255, 0.2);
+    stroke: var(--fg);
+    stroke-width: 2;
+}
+
+.node-circle.selected {
+    fill: rgba(255, 255, 255, 0.95);
+    stroke: var(--fg);
+}
+
+.node-circle.faded {
+    fill: rgba(255, 255, 255, 0.02);
+    stroke: rgba(255, 255, 255, 0.12);
+}
+
+.node-label {
+    font-family: var(--mono);
+    font-size: 8px;
+    fill: rgba(255, 255, 255, 0.85);
+    pointer-events: none;
+    letter-spacing: 0.05em;
+    text-anchor: middle;
+}
+
+.node-id {
+    font-family: var(--mono);
+    font-size: 7px;
+    fill: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+    text-anchor: middle;
+}
+
+.node-group.selected .node-label {
+    fill: rgba(255, 255, 255, 1);
+}
+
+.node-group.faded .node-label {
+    fill: rgba(255, 255, 255, 0.12);
+}
+
+/* Link label on hover */
+.link-label {
+    font-family: var(--mono);
+    font-size: 6px;
+    fill: rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+}
+
+/* ─── DETAIL PANEL ──────────────────────────────────────────────── */
+#detail-panel {
+    position: fixed;
+    top: calc(var(--header-h) + var(--filter-h));
+    right: 0;
+    width: 300px;
+    height: calc(100vh - var(--header-h) - var(--filter-h));
+    background: rgba(0, 0, 0, 0.95);
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 16px;
+    overflow-y: auto;
+    z-index: 200;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+#detail-panel.panel-hidden {
+    transform: translateX(100%);
+}
+
+#panel-drag-handle {
+    display: none;
+}
+
+#close-panel {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--dim);
+    font-family: var(--mono);
+    font-size: 8px;
+    padding: 4px 10px;
+    cursor: pointer;
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+    transition: all 0.15s;
+}
+
+#close-panel:hover {
+    border-color: var(--fg);
+    color: var(--fg);
+}
+
+#panel-id {
+    font-size: 8px;
+    color: var(--dim);
+    letter-spacing: 0.2em;
+    margin-bottom: 4px;
+}
+
+#panel-title {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    line-height: 1.3;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+#panel-date {
+    font-size: 8px;
+    color: var(--dim);
+    margin-bottom: 12px;
+}
+
+.panel-divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin: 12px 0;
+}
+
+/* Metrics */
+#panel-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+
+.metric-label {
+    display: block;
+    font-size: 9px;
+    color: var(--dim);
+    letter-spacing: 0.2em;
+    margin-bottom: 3px;
+}
+
+.metric-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.metric-bar-bg {
+    flex: 1;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.08);
+    position: relative;
+}
+
+.metric-bar {
+    height: 2px;
+    background: var(--fg);
+    width: 0%;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    max-width: 100%;
+}
+
+.metric-bar-container {
+    position: relative;
+}
+
+.metric-val {
+    font-size: 10px;
+    color: var(--dim);
+    min-width: 30px;
+    text-align: right;
+}
+
+/* Panel sections */
+.section-label {
+    font-size: 9px;
+    color: var(--dim);
+    letter-spacing: 0.2em;
+    margin-bottom: 6px;
+    margin-top: 4px;
+}
+
+.tag {
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 3px 9px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    margin: 2px 2px 2px 0;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.tag.mood-tag {
+    border-color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.tag.flag-tag {
+    font-size: 9px;
+}
+
+.tag.flag-active {
+    border-color: rgba(255, 255, 255, 0.6);
+    color: var(--fg);
+}
+
+.tag.tag-clickable {
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s, box-shadow 0.15s;
+}
+
+.tag.tag-clickable:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    color: var(--fg);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.panel-section {
+    margin-bottom: 10px;
+}
+
+/* Connected dreams */
+#connections-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.connection-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.connection-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.conn-id {
+    color: var(--dim);
+    font-family: var(--mono);
+    font-size: 10px;
+    min-width: 24px;
+}
+
+.conn-title {
+    color: var(--fg);
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+}
+
+.conn-shared {
+    color: var(--dim);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* ─── LEGEND ────────────────────────────────────────────────────── */
+#legend {
+    position: fixed;
+    bottom: 40px;
+    left: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.92);
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: none;
+    max-width: 180px;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(6px);
+    color: var(--fg);
+    font-size: 11px;
+}
+
+#legend.legend-open {
+    transform: translateX(0);
+}
+
+#legend-toggle {
+    position: fixed;
+    bottom: 40px;
+    left: 0;
+    z-index: 101;
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-left: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    padding: 14px 6px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(4px);
+    transform: rotate(180deg);
+}
+
+#legend-toggle:hover {
+    color: var(--fg);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+#legend-toggle.legend-open {
+    opacity: 0;
+    pointer-events: none;
+    transform: rotate(180deg);
+}
+
+#legend-title {
+    margin-bottom: 12px;
+    font-weight: normal;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    opacity: 0.6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: color 0.15s;
+}
+
+#legend-title:hover {
+    color: var(--fg);
+}
+
+.legend-item {
+    cursor: pointer;
+    padding: 3px 0;
+    border-radius: 0;
+    transition: opacity 0.2s;
+}
+
+.legend-item.faded {
+    opacity: 0.2;
+}
+
+.legend-item.active-mood .legend-text {
+    font-weight: 700;
+}
+
+#legend-items {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+#legend-items .legend-text {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+}
+
+/* ─── STATS ─────────────────────────────────────────────────────── */
+#stats-panel {
+    position: fixed;
+    bottom: 50px;
+    right: 12px;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 8px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    min-width: 150px;
+    transition: opacity 0.25s ease;
+}
+
+.stat-row {
+    font-size: 8px;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+    line-height: 1.8;
+}
+
+.stat-row span {
+    color: var(--fg);
+}
+
+/* ─── TICKER ─────────────────────────────────────────────────────── */
+#data-ticker {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 22px;
+    background: rgba(0, 0, 0, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--fg);
+    font-family: var(--mono);
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+#ticker-content {
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 7px;
+    color: rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.15em;
+    animation: ticker 60s linear infinite;
+}
+
+@keyframes ticker {
+    0% {
+        transform: translateX(100vw);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* ─── DATA STREAM ───────────────────────────────────────────────── */
+#data-stream {
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    width: 280px;
+    color: var(--fg);
+    font-size: 11px;
+    font-family: var(--mono);
+    text-align: right;
+    pointer-events: none;
+    z-index: 50;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* ─── GLITCH animation ──────────────────────────────────────────── */
+@keyframes glitch {
+
+    0%,
+    100% {
+        clip-path: inset(0);
+        transform: none;
+    }
+
+    10% {
+        clip-path: inset(30% 0 40% 0);
+        transform: translate(-2px, 0);
+    }
+
+    20% {
+        clip-path: inset(70% 0 0 0);
+        transform: translate(1px, 0);
+    }
+
+    30% {
+        clip-path: inset(0 0 80% 0);
+        transform: translate(-1px, 0);
+    }
+}
+
+/* ─── SCROLLBAR ─────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ─── GRID BACKGROUND ───────────────────────────────────────────── */
+#graph-svg {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+}
+
+/* Crosshair cursor overlay for active graph */
+.crosshair-ring {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.15);
+    stroke-width: 0.5;
+    pointer-events: none;
+}
+
+/* ─── MOBILE ─────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    /* Kill expensive effects */
+    #scanlines {
+        animation: none;
+    }
+
+    #noise-overlay {
+        display: none;
+    }
+
+    /* Header — compact */
+    #header {
+        padding: 0 12px;
+    }
+
+    #dream-count-label,
+    #header-sep,
+    #clock {
+        display: none;
+    }
+
+    /* Hamburger button */
+    #menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 15px;
+        width: 30px;
+        height: 22px;
+        cursor: pointer;
+        padding: 0;
+        transition: border-color 0.2s, color 0.2s;
+        font-family: var(--mono);
+    }
+
+    #menu-toggle.active,
+    #menu-toggle:hover {
+        border-color: var(--fg);
+        color: var(--fg);
+    }
+
+    /* Filter bar — hidden by default, slides down on .menu-open */
+    #filter-bar {
+        position: fixed;
+        /* Start it exactly below the data-ticker (which is at header-h + 18px) */
+        top: calc(var(--header-h) + 18px);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        background: rgba(0, 0, 0, 0.97);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 12px 16px 16px;
+        gap: 12px;
+        height: auto;
+        /* Instead of translateY(-120%) which leaks bottom edge, use clip-path to completely hide it upwards */
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        visibility: hidden;
+        transition: clip-path 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
+        z-index: 500;
+        overflow: visible;
+    }
+
+    #filter-bar.menu-open {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        visibility: visible;
+    }
+
+    .filter-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        width: 100%;
+    }
+
+    .filter-label {
+        width: 100%;
+        margin-bottom: 2px;
+        font-size: 10px;
+    }
+
+    .filter-btn {
+        padding: 6px 14px;
+        font-size: 10px;
+        /* Slightly larger targets */
+    }
+
+    /* Graph fills space below header only */
+    #graph-container {
+        top: var(--header-h);
+    }
+
+    #graph-svg {
+        touch-action: none;
+    }
+
+    /* Legend — keep lateral, scale down */
+    #legend {
+        width: 130px;
+        font-size: 8px;
+    }
+
+    #legend-items .legend-text {
+        font-size: 8px;
+    }
+
+    #legend-toggle {
+        font-size: 8px;
+        padding: 4px 0;
+        width: 22px;
+    }
+
+    /* Detail panel → bottom sheet */
+    #detail-panel {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 55vh;
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        transform: translateY(0);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow-y: auto;
+        font-size: 10px;
+        padding: 14px 14px 32px;
+    }
+
+    #detail-panel.panel-hidden {
+        transform: translateY(100%);
+    }
+
+    #panel-title {
+        font-size: 16px;
+    }
+
+    #panel-id {
+        font-size: 11px;
+    }
+
+    #panel-date {
+        font-size: 11px;
+    }
+
+    #close-panel {
+        display: none;
+    }
+
+    #panel-drag-handle {
+        display: block;
+        width: 100px;
+        /* Wider touch area */
+        height: 30px;
+        /* Taller touch area */
+        /* Visually it remains a 36x3 line centered */
+        padding: 13px 32px;
+        background-color: rgba(255, 255, 255, 0.25);
+        background-clip: content-box;
+        border-radius: 15px;
+        /* Rounded only on the inner content due to clip */
+        margin: -10px auto 4px auto;
+        /* Pull it slightly up so title isn't pushed down */
+    }
+
+    /* Hide only stats panel */
+    #stats-panel {
+        display: none;
+    }
+
+    /* Move ticker right underneath the header on mobile */
+    #data-ticker {
+        bottom: auto;
+        top: var(--header-h);
+        border-top: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        z-index: 100;
+        font-size: 8px;
+        /* Slightly smaller to fit tight horizontal space */
+        height: 18px;
+    }
+
+    /* Push graph and filter bar down to make room for top ticker */
+    #filter-bar {
+        top: calc(var(--header-h) + 18px);
+    }
+
+    #graph-container {
+        top: calc(var(--header-h) + 18px);
+    }
+
+    /* Data stream remains at bottom right, smaller */
+    #data-stream {
+        font-size: 8px;
+        bottom: 12px;
+        right: 12px;
+        z-index: 100;
+    }
+
+    /* Larger readable text for panel content */
+    .metric-label {
+        font-size: 11px;
+        letter-spacing: 0.1em;
+    }
+
+    .metric-val {
+        font-size: 11px;
+    }
+
+    .section-label {
+        font-size: 11px;
+        letter-spacing: 0.18em;
+    }
+
+    .tag {
+        font-size: 11px;
+        padding: 3px 9px;
+    }
+
+    .connection-item {
+        font-size: 11px;
+        padding: 7px 0;
+    }
+
+    .conn-id {
+        font-size: 11px;
+    }
+
+    .conn-title {
+        font-size: 11px;
+    }
+}

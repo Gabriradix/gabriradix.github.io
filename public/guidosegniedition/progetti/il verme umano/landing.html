@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'uomo Verme – Il Film (Esperienza Immersiva)</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@500;700;800&family=JetBrains+Mono:wght@300;400;500&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Local & Fallback -->
+    <script src="assets/javascript/tailwind.js"></script>
+
+    <!-- GSAP Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Cast Data -->
+    <script src="assets/javascript/cast.js"></script>
+
+    <!-- Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
+
+    <style>
+        /* Custom Typographies */
+        .font-cinzel-deco {
+            font-family: 'Cinzel Decorative', Georgia, serif;
+        }
+
+        .font-cinzel {
+            font-family: 'Cinzel', Georgia, serif;
+        }
+
+        .font-outfit {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #030303;
+            color: #e5e5e5;
+            overflow-x: hidden;
+            transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Spotlight Flashlight Effect */
+        .spotlight-container {
+            position: relative;
+            background-color: #000;
+        }
+
+        .spotlight-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            background: radial-gradient(
+                circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                transparent 10%,
+                rgba(3, 3, 3, 0.85) 60%,
+                rgba(3, 3, 3, 0.98) 100%
+            );
+            pointer-events: none;
+            transition: background 0.05s ease-out;
+        }
+
+        /* Film Grain Effect */
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* Glitch text effect */
+        .glitch-hover:hover {
+            animation: glitch 0.3s linear infinite;
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 1px 1px #dc2626, -1px -1px #000; }
+            50% { text-shadow: -1px 2px #dc2626, 2px -1px #fff; }
+            100% { text-shadow: 2px -1px #dc2626, -2px 1px #000; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030303;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #262626;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #dc2626;
+        }
+
+        /* Medical Stamp Effect */
+        .stamp {
+            border: 3px double #dc2626;
+            color: #dc2626;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            transform: rotate(-12deg);
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(220, 38, 38, 0.3);
+            text-shadow: 0 0 2px rgba(220, 38, 38, 0.5);
+        }
+
+        /* Grungy Dark Glassmorphism */
+        .grungy-glass {
+            background: rgba(6, 6, 6, 0.72) !important;
+            backdrop-filter: blur(25px) saturate(70%) !important;
+            border: 1px solid rgba(220, 38, 38, 0.18) !important;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.95), inset 0 1px 2px rgba(255, 255, 255, 0.03), 0 0 45px rgba(220, 38, 38, 0.02) !important;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grungy-glass::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            opacity: 0.14;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Ambient Panel & diagnostics styling update */
+        .glass-panel {
+            background: rgba(6, 6, 6, 0.65) !important;
+            backdrop-filter: blur(15px) saturate(75%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        @keyframes shake {
+            0% { transform: translate(2px, 1px) rotate(0deg); }
+            10% { transform: translate(-2px, -3px) rotate(-1.5deg); }
+            20% { transform: translate(-4px, 0px) rotate(1.5deg); }
+            30% { transform: translate(0px, 3px) rotate(0deg); }
+            40% { transform: translate(2px, -2px) rotate(1.5deg); }
+            50% { transform: translate(-2px, 3px) rotate(-1.5deg); }
+            60% { transform: translate(-4px, 2px) rotate(0deg); }
+            70% { transform: translate(3px, 2px) rotate(-1.5deg); }
+            80% { transform: translate(-2px, -2px) rotate(1.5deg); }
+            90% { transform: translate(3px, 3px) rotate(0deg); }
+            100% { transform: translate(2px, -3px) rotate(-1.5deg); }
+        }
+        
+        .animate-shake {
+            animation: shake 0.45s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        /* Logo Active blurring of the landing page */
+        html.logo-active body {
+            background-color: transparent !important;
+        }
+        html.logo-active section,
+        html.logo-active footer,
+        html.logo-active .glass-panel {
+            opacity: 0.12 !important;
+            filter: blur(4px) grayscale(0.5);
+            pointer-events: none;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* Dim only the nav links and ticket button during logo active, keeping the logo itself bright and clickable */
+        html.logo-active #navbar > div:nth-child(2),
+        html.logo-active #navbar button {
+            opacity: 0.12 !important;
+            filter: blur(4px);
+            pointer-events: none;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+
+<body x-data="labSetup()">
+
+    <!-- Film Grain Overlay -->
+    <div class="grain"></div>
+
+    <!-- SOUND PANEL & AMBIENT DROPER -->
+    <div class="fixed bottom-6 left-6 z-40 glass-panel p-4 rounded-xl flex items-center gap-4 transition-all duration-300 hover:border-red-600/50">
+        <button @click="toggleSound()" class="flex items-center justify-center w-12 h-12 rounded-full border border-neutral-700 hover:border-red-600 transition-colors" :class="{'bg-red-600/20 border-red-600 text-red-500': soundOn, 'text-neutral-400': !soundOn}" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+            <svg x-show="!soundOn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 9.75L19.5 12m0 0l2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6L4.5 9H1.5v6h3l4.5 3.75V5.25z" />
+            </svg>
+            <svg x-show="soundOn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 animate-pulse">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" />
+            </svg>
+        </button>
+        <div>
+            <div class="text-xs uppercase font-mono tracking-wider text-neutral-400">AMBIFONIA LAB</div>
+            <div class="text-[10px] font-mono text-neutral-600" x-text="soundOn ? 'TRASMISSIONE ATTIVA (55Hz)' : 'ASCOLTA IL SILENZIO...'"></div>
+        </div>
+        <!-- Small canvas-based visualizer -->
+        <div x-show="soundOn" class="w-16 h-8 overflow-hidden flex items-end gap-[2px]">
+            <span class="w-[3px] bg-red-600 animate-bounce" style="animation-duration: 0.6s; height: 80%"></span>
+            <span class="w-[3px] bg-red-600 animate-bounce" style="animation-duration: 0.4s; height: 40%"></span>
+            <span class="w-[3px] bg-red-600 animate-bounce" style="animation-duration: 0.7s; height: 95%"></span>
+            <span class="w-[3px] bg-red-600 animate-bounce" style="animation-duration: 0.5s; height: 60%"></span>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <nav id="navbar" class="fixed w-full top-0 left-0 z-50 bg-gradient-to-b from-black/90 to-transparent px-6 md:px-12 py-5 flex justify-between items-center transition-all duration-300">
+        <div class="flex items-center gap-3">
+            <!-- Trademark Astro checkmark √ SVG Logo (Red) -->
+            <a href="/" target="_parent" id="logo-link" class="flex items-center gap-3 group py-2 px-1 rounded-md"
+               @mouseenter="startLogoHover()"
+               @mouseleave="stopLogoHover()"
+               @touchstart.passive="startLogoHover()"
+               @touchend.passive="stopLogoHover()">
+                <svg class="w-8 h-10 text-red-600 transition-transform duration-300 group-hover:scale-105" viewBox="0 10.84 27.17 35.55" fill="currentColor">
+                    <path d="M12.13 39.45L22.56 10.84L27.17 10.84L13.94 46.39L10.50 46.39L4.52 31.05L0 31.05L0 27.29L7.69 27.29L12.13 39.45Z"/>
+                </svg>
+                <div class="flex flex-col leading-none">
+                    <span class="font-cinzel-deco text-lg md:text-xl font-bold tracking-widest text-white group-hover:text-red-500 transition-colors">L'UOMO VERME</span>
+                    <span class="font-mono text-[8px] uppercase tracking-wider text-red-600/80">LABORATORY EXPERIMENT 42</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-wider text-neutral-400">
+            <a href="#trama" class="hover:text-red-500 transition-colors" @mouseenter="isHovering = true" @mouseleave="isHovering = false">Dossier Trama</a>
+            <a href="#gallery" class="hover:text-red-500 transition-colors" @mouseenter="isHovering = true" @mouseleave="isHovering = false">Galleria</a>
+            <a href="#cast" class="hover:text-red-500 transition-colors" @mouseenter="isHovering = true" @mouseleave="isHovering = false">Soggetti Cast</a>
+        </div>
+
+        <button @click="openTickets()" class="relative overflow-hidden group rounded-md py-2 px-6 border border-red-600 text-red-500 hover:text-white font-mono text-xs uppercase tracking-wider transition-all duration-300 hover:shadow-[0_0_15px_rgba(220,38,38,0.5)]" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+            <span class="absolute inset-0 w-full h-full bg-red-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 -z-10"></span>
+            Registra Cavia (Tickets)
+        </button>
+    </nav>
+
+    <!-- HERO SECTION WITH FLASHLIGHT SPOTLIGHT -->
+    <section id="hero" class="relative h-screen flex flex-col justify-end p-8 md:p-20 spotlight-container overflow-hidden" @mousemove="updateSpotlight($event)">
+        
+        <!-- Spotlight Dark overlay & underlying image -->
+        <img src="assets/images/worm_hero.png" class="absolute inset-0 w-full h-full object-cover select-none" alt="Laboratorio del Dr. Wormwood">
+        <div class="spotlight-overlay"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30 z-10 pointer-events-none"></div>
+
+        <!-- Hero typography content -->
+        <div class="relative z-20 max-w-5xl text-left" id="hero-details">
+            <div class="flex items-center gap-4 mb-4">
+                <span class="stamp">Altamente Riservato</span>
+                <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest border-l border-neutral-700 pl-4">Soggetto #42</span>
+            </div>
+            
+            <header class="mb-8">
+                <h1 class="text-6xl md:text-9xl font-cinzel-deco font-bold tracking-tight text-white leading-none">
+                    L'uomo Verme
+                </h1>
+                <h2 class="text-xl md:text-3xl font-cinzel italic text-red-600 mt-2 tracking-wide">
+                    La morte è solo l'inizio...
+                </h2>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 md:gap-x-12 items-end">
+                <div class="md:col-span-6 text-sm text-neutral-300 font-light leading-relaxed max-w-xl">
+                    <p class="mb-4">
+                        Nelle profondità di un seminterrato umido e dimenticato, la scienza incontra la follia. 
+                        Il Dr. Wormwood ha sfidato le leggi della natura, cercando di vincere la morte attraverso la metamorfosi.
+                        Il risultato non è vita, ma un abominio strisciante.
+                    </p>
+                    <div x-data="{ expanded: false }">
+                        <div x-show="expanded" x-collapse.duration.500ms class="text-neutral-400 text-xs border-l-2 border-red-700 pl-4 py-1 mb-4 font-mono">
+                            Un vagabondo senza nome è diventato la cavia perfetta. Smembrato, ricucito, iniettato con sieri di dubbia provenienza.
+                            Ora, la creatura si risveglia. Non ha più gambe per correre, ma ha imparato a scavare. E sotto il laboratorio, la terra trema.
+                        </div>
+                        <button @click="expanded = !expanded" class="text-red-500 font-mono text-xs uppercase tracking-wider hover:text-white flex items-center gap-2" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+                            <span x-text="expanded ? '[-] Comprimi file' : '[+] Leggi oltre (Dossier)'"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="md:col-span-4 md:col-start-9 border-t border-neutral-800 md:border-t-0 md:border-l border-neutral-800 pt-6 md:pt-0 md:pl-8 text-neutral-400 font-mono text-xs space-y-2">
+                    <p><strong class="text-white uppercase tracking-wider">Anno di rilascio:</strong> 2025</p>
+                    <p><strong class="text-white uppercase tracking-wider">Durata:</strong> 110 minuti</p>
+                    <p><strong class="text-white uppercase tracking-wider">Regia:</strong> Dario Bronzo</p>
+                    <p><strong class="text-white uppercase tracking-wider">Produzione:</strong> Red Veil Films</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 right-10 z-20 flex flex-col items-center gap-3 animate-bounce">
+            <span class="font-mono text-[9px] uppercase text-neutral-500 tracking-widest rotate-90 mb-6 translate-y-3">Scorri giù</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-red-600">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- SECTION: PRESS QUOTES PARALLAX -->
+    <section class="bg-black text-white py-32 relative overflow-hidden border-y border-neutral-900">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(220,38,38,0.03)_0%,transparent_70%)]"></div>
+        <div class="max-w-5xl mx-auto px-6 space-y-36">
+            
+            <div class="quote-section flex flex-col md:flex-row gap-6 md:gap-12 items-start opacity-0">
+                <span class="text-red-600 font-cinzel text-7xl leading-none">“</span>
+                <div>
+                    <h3 class="font-cinzel text-3xl md:text-5xl font-medium italic leading-tight text-neutral-200 mb-6">
+                        Un incubo viscerale che ti entra sotto la pelle.
+                    </h3>
+                    <div class="flex items-center gap-4">
+                        <span class="h-[1px] w-12 bg-neutral-700"></span>
+                        <p class="font-mono text-sm uppercase tracking-widest text-neutral-500">Horror Weekly</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quote-section flex flex-col md:flex-row gap-6 md:gap-12 items-start opacity-0">
+                <span class="text-red-600 font-cinzel text-7xl leading-none">“</span>
+                <div>
+                    <h3 class="font-cinzel text-3xl md:text-5xl font-medium italic leading-tight text-neutral-200 mb-6">
+                        Grottesco. Disturbante. Indimenticabile capolavoro analogico.
+                    </h3>
+                    <div class="flex items-center gap-4">
+                        <span class="h-[1px] w-12 bg-neutral-700"></span>
+                        <p class="font-mono text-sm uppercase tracking-widest text-neutral-500">Dark Cinema</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION: CONFIDENTIAL DIAGNOSTICS & PLOT -->
+    <section class="py-32 bg-[#050505] text-white relative" id="trama">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            
+            <header class="mb-20 text-center relative">
+                <span class="font-mono text-xs uppercase tracking-widest text-red-600">DR. WORMWOOD RESEARCH FILE</span>
+                <h2 class="text-4xl md:text-7xl font-cinzel font-bold mt-2 tracking-tight">LA GENESI DEL MALE</h2>
+                <div class="w-24 h-[1px] bg-red-600 mx-auto mt-6"></div>
+            </header>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+                
+                <!-- Left: Clinical / Diagnostic Sheet (Brutalist style) -->
+                <div class="lg:col-span-5 glass-panel rounded-xl p-8 font-mono text-xs text-neutral-400 space-y-6 shadow-2xl relative overflow-hidden">
+                    <div class="absolute -right-8 -top-8 w-32 h-32 bg-red-600/10 rounded-full blur-2xl"></div>
+                    
+                    <div class="flex justify-between items-center border-b border-neutral-800 pb-4">
+                        <div>
+                            <p class="text-white uppercase font-bold tracking-wider">PROJECT LAZARUS</p>
+                            <p class="text-[10px] text-neutral-600">ID-CODE: #042-VERME</p>
+                        </div>
+                        <span class="stamp scale-90">Contagiato</span>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex justify-between"><span class="uppercase tracking-wider">Stato Cavia:</span> <span class="text-red-500 font-bold">MUTATO</span></div>
+                        <div class="flex justify-between"><span class="uppercase tracking-wider">Battito Cardiaco:</span> <span class="text-white animate-pulse">32 BPM (IPOTERMICO)</span></div>
+                        <div class="flex justify-between"><span class="uppercase tracking-wider">Temperatura Corporea:</span> <span class="text-sky-400">14.8 °C</span></div>
+                        <div class="flex justify-between"><span class="uppercase tracking-wider">Mutazione Cellulare:</span> <span class="text-green-500 font-bold">99.2%</span></div>
+                    </div>
+
+                    <div class="border-t border-neutral-800 pt-4 space-y-2">
+                        <p class="text-[10px] uppercase text-white font-bold tracking-wider mb-2">Note Cliniche:</p>
+                        <p class="text-[11px] leading-relaxed">
+                            "Il Soggetto 42 ha superato la morte biologica. La fusione degli arti inferiori in un unico tronco muscolare anulare è completata. Le cellule epidermiche rilasciano una secrezione mucosa e acida in grado di corrodere il cemento. Il cervello manifesta segni di coscienza primitiva legati a memorie umane precedenti."
+                        </p>
+                    </div>
+
+                    <div class="border-t border-neutral-800 pt-4">
+                        <p class="text-[10px] uppercase text-white font-bold tracking-wider mb-2">Team Di Ricerca:</p>
+                        <div class="grid grid-cols-2 gap-y-2 text-[10px]">
+                            <p><strong>REGIA:</strong> Dario Bronzo</p>
+                            <p><strong>FOTOGRAFIA:</strong> Javier Bardem</p>
+                            <p><strong>PRODUZIONE:</strong> Red Veil Films</p>
+                            <p><strong>EFFETTI:</strong> Mariana Di Giorgi</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Detailed Story Text & Interactive Image Reveal -->
+                <div class="lg:col-span-7 flex flex-col gap-10">
+                    <div class="relative group rounded-xl overflow-hidden border border-neutral-900 shadow-2xl">
+                        <div class="absolute inset-0 bg-red-950/20 mix-blend-color z-10 pointer-events-none"></div>
+                        <img src="assets/images/worm_plot.png" class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700" alt="Il verme scappa">
+                        <div class="absolute bottom-6 left-6 z-20 bg-black/80 backdrop-blur-sm border border-neutral-800 py-1.5 px-4 rounded-md font-mono text-[10px] uppercase tracking-wider text-red-500">
+                            Fase 3: Evasione Dal Seminterrato
+                        </div>
+                    </div>
+
+                    <div class="columns-1 md:columns-2 gap-8 text-neutral-300 text-sm font-light leading-relaxed">
+                        <p class="mb-4">
+                            L'esperimento numero 42, il "Soggetto Lazzaro", ha superato ogni aspettativa clinica.
+                            La rigenerazione cellulare è completa, ma l'effetto collaterale è spietato: la disumanizzazione.
+                            La pelle si è indurita, gli arti inferiori si sono fusi e la colonna vertebrale si è allungata in segmenti pulsanti pronti a contrarsi.
+                        </p>
+                        <p class="mb-4">
+                            Dr. Wormwood osserva la sua creatura con orgoglio e terrore purissimo.
+                            Non sa che il soggetto sente ancora, ricorda la sua vecchia vita da uomo libero. 
+                            Sotto la pelle viscida, un cuore umano batte furioso, pompando siero acido e desiderio di vendetta.
+                        </p>
+                        <p class="mb-4">
+                            Durante una notte di tempesta elettrica, il sistema di contenimento del laboratorio cede.
+                            La gabbia si apre in silenzio.
+                            Wormwood scende le scale con il bisturi in mano, convinto di poter ristabilire l'ordine, ma trova solo il tavolo operatorio vuoto.
+                        </p>
+                        <p class="mb-4">
+                            C'è un buco circolare nel pavimento di cemento. Un tunnel viscido scavato verso l'esterno.
+                            L'uomo Verme è libero, scivola veloce nelle fognature della città, e ha una fame incommensurabile.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ATMOSPHERIC FULL-SCREEN POSTER PARALLAX -->
+    <section class="h-screen relative bg-black flex items-center justify-center border-y border-neutral-900">
+        <div class="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_center,#dc2626_0%,transparent_60%)] pointer-events-none"></div>
+        <div class="relative z-10 max-w-md w-full px-6 flex flex-col items-center text-center">
+            <h3 class="font-cinzel text-xs uppercase tracking-widest text-red-600 mb-6">LOCANDINA UFFICIALE</h3>
+            <div class="relative group rounded-xl overflow-hidden shadow-[0_0_50px_rgba(220,38,38,0.2)] border border-neutral-800 transition-all duration-500 hover:border-red-600/50 hover:shadow-[0_0_60px_rgba(220,38,38,0.4)]">
+                <img src="assets/images/worm_poster.png" class="w-full h-auto object-cover group-hover:scale-102 transition-transform duration-700" alt="Locandina L'uomo Verme">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-8">
+                    <button @click="openTickets()" class="py-2.5 px-6 rounded-md bg-red-600 text-white font-mono text-xs uppercase tracking-wider hover:bg-red-700 transition-colors" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+                        Ottieni Locandina & Biglietto
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: EXPERIMENTAL IMAGE GALLERY MASONRY -->
+    <section id="gallery" class="py-32 bg-[#050505] text-white">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            
+            <header class="mb-20 flex flex-col md:flex-row justify-between items-end gap-6">
+                <div>
+                    <span class="font-mono text-xs uppercase tracking-widest text-red-600">MATERIALE FOTOGRAFICO</span>
+                    <h2 class="text-4xl md:text-7xl font-cinzel font-bold mt-2 tracking-tight">VETRINO DA CLINICA</h2>
+                </div>
+                <p class="font-mono text-[10px] text-neutral-500 uppercase tracking-wider max-w-xs md:text-right">
+                    IMMAGINI SCIENTIFICHE CATTURATE ALL'INTERNO DEL SEMINTERRATO DEL DR. WORMWOOD.
+                </p>
+            </header>
+
+            <!-- Awwwards Masonry Grid layout with premium zoom lightbox effect -->
+            <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+                
+                <div class="break-inside-avoid relative group overflow-hidden rounded-xl border border-neutral-900 shadow-xl transition-all duration-300 hover:border-red-600/30">
+                    <img src="assets/images/gallery_1.png" class="w-full h-auto object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" alt="Dettaglio 1" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
+                        <span class="font-mono text-[10px] text-red-600">VETRINO #01</span>
+                        <h4 class="font-cinzel text-sm text-white font-bold uppercase mt-1">La Metamorfosi Iniziale</h4>
+                    </div>
+                </div>
+
+                <div class="break-inside-avoid relative group overflow-hidden rounded-xl border border-neutral-900 shadow-xl transition-all duration-300 hover:border-red-600/30">
+                    <img src="assets/images/gallery_2.png" class="w-full h-auto object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" alt="Dettaglio 2" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
+                        <span class="font-mono text-[10px] text-red-600">VETRINO #02</span>
+                        <h4 class="font-cinzel text-sm text-white font-bold uppercase mt-1">Gabbia di Contenimento</h4>
+                    </div>
+                </div>
+
+                <div class="break-inside-avoid relative group overflow-hidden rounded-xl border border-neutral-900 shadow-xl transition-all duration-300 hover:border-red-600/30">
+                    <img src="assets/images/gallery_3.png" class="w-full h-auto object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" alt="Dettaglio 3" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
+                        <span class="font-mono text-[10px] text-red-600">VETRINO #03</span>
+                        <h4 class="font-cinzel text-sm text-white font-bold uppercase mt-1">Siero Rigenerante Mutato</h4>
+                    </div>
+                </div>
+
+                <div class="break-inside-avoid relative group overflow-hidden rounded-xl border border-neutral-900 shadow-xl transition-all duration-300 hover:border-red-600/30">
+                    <img src="assets/images/worm_hero.png" class="w-full h-auto object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" alt="Dettaglio 4" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
+                        <span class="font-mono text-[10px] text-red-600">VETRINO #04</span>
+                        <h4 class="font-cinzel text-sm text-white font-bold uppercase mt-1">Tavolo Operatorio</h4>
+                    </div>
+                </div>
+
+                <div class="break-inside-avoid relative group overflow-hidden rounded-xl border border-neutral-900 shadow-xl transition-all duration-300 hover:border-red-600/30">
+                    <img src="assets/images/worm_plot.png" class="w-full h-auto object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" alt="Dettaglio 5" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
+                        <span class="font-mono text-[10px] text-red-600">VETRINO #05</span>
+                        <h4 class="font-cinzel text-sm text-white font-bold uppercase mt-1">Fuga Sotto La Città</h4>
+                    </div>
+                </div>
+
+                <div class="break-inside-avoid relative group overflow-hidden rounded-xl border border-neutral-900 shadow-xl transition-all duration-300 hover:border-red-600/30">
+                    <img src="assets/images/cast_surgeon.png" class="w-full h-auto object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" alt="Dettaglio 6" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
+                        <span class="font-mono text-[10px] text-red-600">VETRINO #06</span>
+                        <h4 class="font-cinzel text-sm text-white font-bold uppercase mt-1">Dr. Wormwood Profilo</h4>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION: INTERACTIVE SUBJECTS / CAST BINDER -->
+    <section id="cast" class="py-32 bg-black text-white relative">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(220,38,38,0.02)_0%,transparent_50%)]"></div>
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            
+            <header class="mb-20 text-center">
+                <span class="font-mono text-xs uppercase tracking-widest text-red-600">LA CARTELLETTA CLINICA</span>
+                <h2 class="text-4xl md:text-7xl font-cinzel font-bold mt-2 tracking-tight">SOGGETTI SCHEDATI</h2>
+                <div class="w-24 h-[1px] bg-red-600 mx-auto mt-6"></div>
+            </header>
+
+            <!-- Interactive profiles binder -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <template x-data x-for="(actor, index) in cast">
+                    <div class="bg-neutral-950 border border-neutral-900 rounded-xl overflow-hidden shadow-2xl hover:border-red-600/30 transition-all duration-300 flex flex-col group relative">
+                        <!-- Confidential stamp on hover -->
+                        <div class="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                            <span class="stamp scale-75 border-red-600 text-red-600">schedato</span>
+                        </div>
+
+                        <div class="relative overflow-hidden w-full aspect-[4/5] bg-neutral-900 border-b border-neutral-900">
+                            <div class="absolute inset-0 bg-red-950/10 mix-blend-color z-10 pointer-events-none"></div>
+                            <img :src="actor.image" :alt="actor.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+
+                        <div class="p-6 flex-1 flex flex-col justify-between font-mono">
+                            <div>
+                                <span class="text-[9px] text-red-600 uppercase tracking-widest">SOGGETTO #0<span x-text="index+1"></span></span>
+                                <h3 class="text-white text-base font-bold uppercase mt-1 tracking-tight" x-text="actor.name"></h3>
+                            </div>
+                            
+                            <div class="border-t border-neutral-900 mt-4 pt-4 flex justify-between items-center">
+                                <span class="text-[10px] text-neutral-500 uppercase">RUOLO CLINICO</span>
+                                <span class="text-xs text-red-500 uppercase font-semibold tracking-wider" x-text="actor.role"></span>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- INTERACTIVE TICKETS MODAL (BUY SYSTEM) -->
+    <div x-show="showTickets" x-transition.opacity.duration.300ms class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto" @keydown.escape.window="closeTickets()">
+        <div x-show="showTickets" x-transition.scale.duration.400ms :class="{ 'animate-shake': shouldShake }" class="grungy-glass w-full max-w-4xl rounded-xl overflow-hidden flex flex-col lg:flex-row relative">
+            
+            <!-- Broken Glass SVG Overlay -->
+            <div x-show="ticketPrinted" x-transition.opacity.duration.450ms class="absolute inset-0 w-full h-full pointer-events-none z-30 opacity-75">
+                <svg class="w-full h-full" viewBox="0 0 600 400" stroke="rgba(255, 255, 255, 0.42)" stroke-width="1.2" fill="none">
+                    <!-- Radical cracks radiating from ticket print center (450, 220) -->
+                    <path d="M450,220 L150,50 M450,220 L580,90 M450,220 L560,370 M450,220 L80,310 M450,220 L270,385 M450,220 L480,15 M450,220 L240,190" stroke-linecap="round"/>
+                    <!-- Spiderweb fracture loops -->
+                    <path d="M420,200 Q450,180 480,200 Q500,220 480,240 Q450,260 420,240 Q400,220 420,200" stroke-linecap="round"/>
+                    <path d="M370,170 Q450,120 530,170 Q570,220 530,270 Q450,320 370,270 Q330,220 370,170" stroke-linecap="round"/>
+                    <!-- Small shattered bits -->
+                    <path d="M410,130 L380,95 M510,140 L535,115 M520,250 L555,275 M390,280 L360,305" stroke-linecap="round"/>
+                </svg>
+            </div>
+            
+            <button @click="closeTickets()" class="absolute top-6 right-6 z-20 text-neutral-400 hover:text-white transition-colors" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <!-- Modal Sidebar Information -->
+            <div class="lg:w-1/3 bg-black border-b lg:border-b-0 lg:border-r border-neutral-900 p-8 flex flex-col justify-between font-mono">
+                <div>
+                    <span class="stamp scale-90 ml-0 mb-6">Ufficio Biglietti</span>
+                    <h3 class="font-cinzel text-xl text-white font-bold uppercase tracking-wider mb-4">REGISTRA CAVIA</h3>
+                    <p class="text-xs text-neutral-400 leading-relaxed mb-6">
+                        Compila il modulo per l'ammissione al laboratorio di screening clinico. Ti verrà stampato un referto diagnostico valido come biglietto d'accesso.
+                    </p>
+                </div>
+                
+                <div class="border-t border-neutral-900 pt-6 text-[10px] text-neutral-600 space-y-1">
+                    <p>RICERCA SCIENTIFICA RED VEIL FILMS</p>
+                    <p>CLASSIFICAZIONE: LAZARUS PROTOCOL</p>
+                    <p>ATTENZIONE: LA MORTE È SOLO L'INIZIO</p>
+                </div>
+            </div>
+
+            <!-- Modal Main Form & Ticket printout -->
+            <div class="lg:w-2/3 p-8 flex flex-col justify-between">
+                
+                <!-- Ticket compiler (Form State) -->
+                <div x-show="!ticketPrinted" class="space-y-6">
+                    <h4 class="font-mono text-xs uppercase text-red-600 tracking-widest border-b border-neutral-900 pb-3">MODULO DI RECLUTAMENTO</h4>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 font-mono text-xs">
+                        <!-- Location Selection -->
+                        <div class="space-y-2">
+                            <label class="text-neutral-400 uppercase">SEDE CLINICA DI SCREENING</label>
+                            <select x-model="selectedLab" class="w-full bg-black border border-neutral-800 rounded px-4 py-2.5 text-white focus:outline-none focus:border-red-600 transition-colors">
+                                <option value="Bunker Sotterraneo (Milano)">Bunker Sotterraneo (Milano)</option>
+                                <option value="Cripta Della Cattedrale (Roma)">Cripta Della Cattedrale (Roma)</option>
+                                <option value="Seminterrato Dr. Wormwood (Torino)">Seminterrato Dr. Wormwood (Torino)</option>
+                            </select>
+                        </div>
+
+                        <!-- Ticket Type -->
+                        <div class="space-y-2">
+                            <label class="text-neutral-400 uppercase">PROFILO CAVIA (TICKET)</label>
+                            <select x-model="ticketType" class="w-full bg-black border border-neutral-800 rounded px-4 py-2.5 text-white focus:outline-none focus:border-red-600 transition-colors">
+                                <option value="Cavia Volontaria (Standard) - €10">Cavia Volontaria (Standard) - €10</option>
+                                <option value="Assistente Medico (VIP) - €20">Assistente Medico (VIP) - €20</option>
+                                <option value="Dr. Wormwood (Ammissione Totale) - €35">Dr. Wormwood (Ammissione Totale) - €35</option>
+                            </select>
+                        </div>
+
+                        <!-- Time slot -->
+                        <div class="space-y-2">
+                            <label class="text-neutral-400 uppercase">ORA DI ESPOSIZIONE AL CONTAGIO</label>
+                            <select x-model="selectedTime" class="w-full bg-black border border-neutral-800 rounded px-4 py-2.5 text-white focus:outline-none focus:border-red-600 transition-colors">
+                                <option value="Sessione Notturna (21:30)">Sessione Notturna (21:30)</option>
+                                <option value="Sessione Mezzanotte (00:00)">Sessione Mezzanotte (00:00)</option>
+                                <option value="Prima dell'alba (04:00)">Prima dell'alba (04:00)</option>
+                            </select>
+                        </div>
+
+                        <!-- Quantity -->
+                        <div class="space-y-2">
+                            <label class="text-neutral-400 uppercase">NUMERO DI SOGGETTI</label>
+                            <select x-model="ticketQuantity" class="w-full bg-black border border-neutral-800 rounded px-4 py-2.5 text-white focus:outline-none focus:border-red-600 transition-colors">
+                                <option value="1 Cavia">1 Cavia</option>
+                                <option value="2 Cavie">2 Cavie</option>
+                                <option value="3 Cavie">3 Cavie</option>
+                                <option value="Gruppo Ricerca (5 Cavie)">Gruppo Ricerca (5 Cavie)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button @click="printTicket()" class="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-mono text-xs uppercase tracking-wider rounded-md transition-colors font-bold mt-6" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+                        CONFERMA REGISTRAZIONE E GENERA REFERTO
+                    </button>
+                </div>
+
+                <!-- Interactive Diagnostic Receipt Printout (Success State) -->
+                <div x-show="ticketPrinted" class="space-y-6 flex flex-col justify-between h-full" x-transition.opacity.duration.400ms>
+                    <div class="border border-dashed border-red-600 bg-black/60 p-6 rounded-md font-mono text-xs text-neutral-300 relative space-y-4">
+                        <div class="absolute -right-6 -top-6 w-24 h-24 bg-red-600/10 rounded-full blur-xl pointer-events-none"></div>
+                        
+                        <div class="text-center border-b border-neutral-800 pb-4">
+                            <h4 class="text-red-500 font-bold uppercase tracking-widest text-sm">REFERTO DI ADMISSIONE MEDICA</h4>
+                            <p class="text-[9px] text-neutral-500 uppercase mt-1">LAZARUS DIAGNOSTICS & SCREENING CO.</p>
+                        </div>
+
+                        <div class="space-y-2">
+                            <p><strong>CODICE SOGGETTO:</strong> <span class="text-white uppercase" x-text="caviaCode"></span></p>
+                            <p><strong>LABORATORIO ASSEGNATO:</strong> <span class="text-white" x-text="selectedLab"></span></p>
+                            <p><strong>PROFILO TARIFFARIO:</strong> <span class="text-white" x-text="ticketType"></span></p>
+                            <p><strong>ORARIO DI SCREENING:</strong> <span class="text-white" x-text="selectedTime"></span></p>
+                            <p><strong>QUANTITÀ REGISTRATA:</strong> <span class="text-white" x-text="ticketQuantity"></span></p>
+                        </div>
+
+                        <!-- Barcode simulation -->
+                        <div class="border-t border-neutral-800 pt-4 flex flex-col items-center gap-2">
+                            <div class="flex gap-[1px] h-12 bg-white px-4 py-2 w-full max-w-xs items-stretch justify-center">
+                                <span class="w-[2px] bg-black"></span>
+                                <span class="w-[4px] bg-black"></span>
+                                <span class="w-[1px] bg-black"></span>
+                                <span class="w-[3px] bg-black"></span>
+                                <span class="w-[1px] bg-black"></span>
+                                <span class="w-[5px] bg-black"></span>
+                                <span class="w-[2px] bg-black"></span>
+                                <span class="w-[1px] bg-black"></span>
+                                <span class="w-[4px] bg-black"></span>
+                                <span class="w-[2px] bg-black"></span>
+                                <span class="w-[1px] bg-black"></span>
+                                <span class="w-[3px] bg-black"></span>
+                                <span class="w-[5px] bg-black"></span>
+                            </div>
+                            <span class="text-[8px] text-neutral-500 tracking-widest uppercase" x-text="barcodeText"></span>
+                        </div>
+
+                        <div class="text-[10px] text-red-500/80 text-center italic mt-2">
+                            * Presentarsi al laboratorio 15 minuti prima dell'esposizione. Nessun rimborso in caso di metamorfosi spontanea.
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <button @click="ticketPrinted = false" class="w-1/2 py-3 border border-neutral-800 text-neutral-400 hover:text-white font-mono text-xs uppercase tracking-wider rounded-md transition-colors" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+                            Modifica dati
+                        </button>
+                        <button @click="closeTickets()" class="w-1/2 py-3 bg-red-600 hover:bg-red-700 text-white font-mono text-xs uppercase tracking-wider rounded-md transition-colors font-bold" @mouseenter="isHovering = true" @mouseleave="isHovering = false">
+                            CHIUDI DOSSIER
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- IMAGES OR LOGOS PRESS CRITICS -->
+    <section class="py-20 bg-[#030303] border-t border-neutral-900 relative transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24">
+            <div class="flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity duration-300">
+                <img src="assets/images/newyorktimes_logo.svg" class="h-9" alt="New York Times Logo">
+            </div>
+            <div class="flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity duration-300">
+                <img src="assets/images/independent_logo.svg" class="h-9" alt="Independent Logo">
+            </div>
+            <div class="font-cinzel text-2xl tracking-[0.25em] text-white uppercase font-extrabold opacity-80 hover:opacity-100 transition-opacity duration-300 cursor-default select-none">
+                DARK CINEMA
+            </div>
+            <div class="font-mono text-sm tracking-[0.2em] text-red-500 font-extrabold uppercase opacity-85 hover:opacity-100 transition-opacity duration-300 cursor-default select-none">
+                HORROR WEEKLY
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-center py-12 border-t border-neutral-900 text-neutral-600 text-xs font-mono">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-red-600" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5">
+                    <path d="M50,10 C72,10 90,28 90,50 C90,72 72,90 50,90 C28,90 10,72 10,50" stroke-linecap="round"/>
+                </svg>
+                <p>&copy; 2026 L'uomo Verme. Tutti i diritti riservati.</p>
+            </div>
+            <p class="text-[10px] text-red-600/60 uppercase tracking-widest animate-pulse">ATTENTO A DOVE METTI I PIEDI.</p>
+        </div>
+    </footer>
+
+    <!-- IMAGES/LANDING SCRIPTS AND SCRIPTS INTEGRATION -->
+    <script>
+        function labSetup() {
+            return {
+                isHovering: false,
+                soundOn: false,
+                showTickets: false,
+                ticketPrinted: false,
+                shouldShake: false,
+                
+                // Form selections
+                selectedLab: 'Bunker Sotterraneo (Milano)',
+                ticketType: 'Cavia Volontaria (Standard) - €10',
+                selectedTime: 'Sessione Notturna (21:30)',
+                ticketQuantity: '1 Cavia',
+                
+                // Receipt output
+                caviaCode: '',
+                barcodeText: '',
+
+                // Web Audio API Sound generator
+                audioCtx: null,
+                oscillators: [],
+                filter: null,
+                noiseNode: null,
+
+                init() {
+                    // Reactive hover handlers are bound via Alpine on the logo element directly
+                },
+
+                startLogoHover() {
+                    this.isHovering = true;
+                    document.documentElement.classList.add("logo-active");
+                    window.parent.postMessage('ascii-start', '*');
+                },
+
+                stopLogoHover() {
+                    this.isHovering = false;
+                    document.documentElement.classList.remove("logo-active");
+                    window.parent.postMessage('ascii-stop', '*');
+                },
+
+                updateSpotlight(e) {
+                    const hero = document.getElementById('hero');
+                    if (hero) {
+                        const rect = hero.getBoundingClientRect();
+                        const x = ((e.clientX - rect.left) / rect.width) * 100;
+                        const y = ((e.clientY - rect.top) / rect.height) * 100;
+                        hero.style.setProperty('--mouse-x', `${x}%`);
+                        hero.style.setProperty('--mouse-y', `${y}%`);
+                    }
+                },
+
+                toggleSound() {
+                    this.soundOn = !this.soundOn;
+                    if (this.soundOn) {
+                        this.playAmbientDrone();
+                    } else {
+                        this.stopAmbientDrone();
+                    }
+                },
+
+                playAmbientDrone() {
+                    try {
+                        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                        this.audioCtx = new AudioContextClass();
+                        
+                        // 1. Heavy sub-bass hum oscillator (55Hz)
+                        const oscSub = this.audioCtx.createOscillator();
+                        oscSub.type = 'sine';
+                        oscSub.frequency.setValueAtTime(55, this.audioCtx.currentTime);
+                        
+                        // 2. Beating detuned sawtooth oscillator (56Hz)
+                        const oscBeat = this.audioCtx.createOscillator();
+                        oscBeat.type = 'sawtooth';
+                        oscBeat.frequency.setValueAtTime(55.8, this.audioCtx.currentTime);
+
+                        // Low-pass filter to restrict saw high-end
+                        this.filter = this.audioCtx.createBiquadFilter();
+                        this.filter.type = 'lowpass';
+                        this.filter.frequency.setValueAtTime(120, this.audioCtx.currentTime);
+
+                        const subGain = this.audioCtx.createGain();
+                        subGain.gain.setValueAtTime(0.3, this.audioCtx.currentTime);
+
+                        const beatGain = this.audioCtx.createGain();
+                        beatGain.gain.setValueAtTime(0.08, this.audioCtx.currentTime);
+
+                        const masterGain = this.audioCtx.createGain();
+                        masterGain.gain.setValueAtTime(0.8, this.audioCtx.currentTime);
+
+                        // Connect nodes
+                        oscSub.connect(subGain);
+                        subGain.connect(masterGain);
+
+                        oscBeat.connect(this.filter);
+                        this.filter.connect(beatGain);
+                        beatGain.connect(masterGain);
+
+                        // 3. Noise node generator for analog static/hiss
+                        const bufferSize = 2 * this.audioCtx.sampleRate;
+                        const noiseBuffer = this.audioCtx.createBuffer(1, bufferSize, this.audioCtx.sampleRate);
+                        const output = noiseBuffer.getChannelData(0);
+                        for (let i = 0; i < bufferSize; i++) {
+                            output[i] = Math.random() * 2 - 1;
+                        }
+                        
+                        this.noiseNode = this.audioCtx.createBufferSource();
+                        this.noiseNode.buffer = noiseBuffer;
+                        this.noiseNode.loop = true;
+
+                        const noiseFilter = this.audioCtx.createBiquadFilter();
+                        noiseFilter.type = 'bandpass';
+                        noiseFilter.frequency.setValueAtTime(800, this.audioCtx.currentTime);
+                        noiseFilter.Q.setValueAtTime(1.5, this.audioCtx.currentTime);
+
+                        const noiseGain = this.audioCtx.createGain();
+                        noiseGain.gain.setValueAtTime(0.015, this.audioCtx.currentTime);
+
+                        this.noiseNode.connect(noiseFilter);
+                        noiseFilter.connect(noiseGain);
+                        noiseGain.connect(masterGain);
+
+                        masterGain.connect(this.audioCtx.destination);
+
+                        // Start sound sources
+                        oscSub.start();
+                        oscBeat.start();
+                        this.noiseNode.start();
+
+                        this.oscillators = [oscSub, oscBeat];
+                    } catch (err) {
+                        console.warn("AudioContext failed to initialize:", err);
+                    }
+                },
+
+                stopAmbientDrone() {
+                    if (this.oscillators.length) {
+                        this.oscillators.forEach(osc => { try { osc.stop(); } catch(e) {} });
+                        this.oscillators = [];
+                    }
+                    if (this.noiseNode) {
+                        try { this.noiseNode.stop(); } catch(e) {}
+                        this.noiseNode = null;
+                    }
+                    if (this.audioCtx) {
+                        try { this.audioCtx.close(); } catch(e) {}
+                        this.audioCtx = null;
+                    }
+                },
+
+                openTickets() {
+                    this.showTickets = true;
+                    this.ticketPrinted = false;
+                },
+
+                closeTickets() {
+                    this.showTickets = false;
+                },
+
+                printTicket() {
+                    this.caviaCode = 'CAVIA-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+                    this.barcodeText = '*' + Math.random().toString(10).substr(2, 10) + '*';
+                    
+                    // Trigger container screen-shake
+                    this.shouldShake = true;
+                    setTimeout(() => { this.shouldShake = false; }, 480);
+
+                    // Synthesize typewriter print tick sound
+                    if (this.audioCtx) {
+                        let playTick = (time) => {
+                            let osc = this.audioCtx.createOscillator();
+                            let gain = this.audioCtx.createGain();
+                            osc.type = 'triangle';
+                            osc.frequency.setValueAtTime(1000, time);
+                            gain.gain.setValueAtTime(0.1, time);
+                            gain.gain.exponentialRampToValueAtTime(0.01, time + 0.05);
+                            osc.connect(gain);
+                            gain.connect(this.audioCtx.destination);
+                            osc.start(time);
+                            osc.stop(time + 0.06);
+                        };
+                        
+                        let now = this.audioCtx.currentTime;
+                        for (let i = 0; i < 8; i++) {
+                            playTick(now + i * 0.15);
+                        }
+                    }
+
+                    // Play procedural glass shatter sound
+                    this.playGlassShatter();
+
+                    this.ticketPrinted = true;
+                },
+
+                playGlassShatter() {
+                    try {
+                        if (!this.audioCtx) {
+                            const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                            this.audioCtx = new AudioContextClass();
+                        }
+                        const now = this.audioCtx.currentTime;
+
+                        // High frequency metallic crack nodes
+                        const freqs = [2100, 3300, 4800, 5600];
+                        freqs.forEach(f => {
+                            let osc = this.audioCtx.createOscillator();
+                            let gain = this.audioCtx.createGain();
+                            osc.type = 'triangle';
+                            osc.frequency.setValueAtTime(f, now);
+                            
+                            gain.gain.setValueAtTime(0.08, now);
+                            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+                            
+                            osc.connect(gain);
+                            gain.connect(this.audioCtx.destination);
+                            osc.start(now);
+                            osc.stop(now + 0.09);
+                        });
+
+                        // Crack noise shatters (high-passed noise burst)
+                        const bufferSize = 0.22 * this.audioCtx.sampleRate;
+                        const noiseBuffer = this.audioCtx.createBuffer(1, bufferSize, this.audioCtx.sampleRate);
+                        const output = noiseBuffer.getChannelData(0);
+                        for (let i = 0; i < bufferSize; i++) {
+                            output[i] = Math.random() * 2 - 1;
+                        }
+                        
+                        let noiseNode = this.audioCtx.createBufferSource();
+                        noiseNode.buffer = noiseBuffer;
+                        
+                        let noiseFilter = this.audioCtx.createBiquadFilter();
+                        noiseFilter.type = 'highpass';
+                        noiseFilter.frequency.setValueAtTime(1800, now);
+
+                        let noiseGain = this.audioCtx.createGain();
+                        noiseGain.gain.setValueAtTime(0.28, now);
+                        noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+
+                        noiseNode.connect(noiseFilter);
+                        noiseFilter.connect(noiseGain);
+                        noiseGain.connect(this.audioCtx.destination);
+                        
+                        noiseNode.start(now);
+                        noiseNode.stop(now + 0.22);
+                    } catch(e) {
+                        console.warn("Glass shatter audio failed:", e);
+                    }
+                }
+            };
+        }
+
+        // GSAP ScrollTrigger Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        window.addEventListener("DOMContentLoaded", () => {
+            // Navbar entry
+            gsap.fromTo("#navbar", 
+                { y: -80, opacity: 0 }, 
+                { y: 0, opacity: 1, duration: 1.2, ease: "power4.out" }
+            );
+
+            // Hero Details entry animation (blur + slide in)
+            gsap.fromTo("#hero-details", 
+                { filter: "blur(20px)", opacity: 0, y: 100 }, 
+                { filter: "blur(0px)", opacity: 1, y: 0, duration: 1.5, ease: "power3.out", delay: 0.3 }
+            );
+
+            // Scroll trigger for Review/Press Quotes (Blur-in fade-in effect)
+            const quotes = document.querySelectorAll(".quote-section");
+            quotes.forEach((quote) => {
+                gsap.fromTo(quote,
+                    {
+                        opacity: 0,
+                        y: 80,
+                        filter: "blur(15px)"
+                    },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        filter: "blur(0px)",
+                        duration: 1.8,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: quote,
+                            start: "top 80%",
+                            toggleActions: "play none none none"
+                        }
+                    }
+                );
+            });
+        });
+    </script>
+</body>
+
+</html>
