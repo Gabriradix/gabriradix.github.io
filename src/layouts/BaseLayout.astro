@@ -11,6 +11,7 @@ interface Props {
   logoHoverColor?: string;
   brandColor?: string;
   transparentHeader?: boolean;
+  logoHref?: string;
 }
 
 const { 
@@ -19,7 +20,8 @@ const {
   hideHeader = false,
   logoHoverColor,
   brandColor,
-  transparentHeader = false
+  transparentHeader = false,
+  logoHref
 } = Astro.props;
 
 // Standardized branding logic
@@ -290,7 +292,7 @@ const { favicon = dynamicFavicon } = Astro.props;
       style="z-index: 2;"
     ></canvas>
 
-    {!hideHeader && <Header />}
+    {!hideHeader && <Header logoHref={logoHref} />}
 
     <main>
       <slot />

@@ -128,6 +128,7 @@ export const projects = [
   //   year: "2026",
   //   category: "3D / WebGL"
   // },
+
   {
     title: "The Cheese Prophecy",
     text: "An experimental web project based on poetic and textual generation, unfolding like an enigmatic prophecy.",
