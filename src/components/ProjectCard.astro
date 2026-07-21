@@ -12,10 +12,9 @@ interface Props {
 }
 
 const { title, text, href, images, year, category, brandColor } = Astro.props;
-const filteredImages = images.slice(1);
-const hasCarousel = filteredImages.length > 1;
-const carouselImages = hasCarousel ? [...filteredImages, ...filteredImages] : images;
-const animationDuration = filteredImages.length * 45;
+const hasCarousel = images.length > 1;
+const carouselImages = hasCarousel ? [...images, ...images] : images;
+const animationDuration = images.length * 20;
 const isBrainrot = title === "Brainrot Pavilion";
 ---
 
@@ -59,14 +58,16 @@ const isBrainrot = title === "Brainrot Pavilion";
         {carouselImages.map((img, i) => (
           img.endsWith('.mp4') ? (
             <video
-              src={img}
               autoplay
               loop
               muted
               playsinline
+              preload="auto"
               class="h-full w-auto max-w-none object-cover shrink-0 mr-[5px]"
               draggable="false"
-            ></video>
+            >
+              <source src={img} type="video/mp4" />
+            </video>
           ) : (
             <img
               src={getProxyUrl(img)}

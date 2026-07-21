@@ -9,6 +9,10 @@ html {
   scroll-behavior: smooth;
 }
 
+@view-transition {
+  navigation: auto;
+}
+
 @layer base {
   a {
     text-decoration: none;

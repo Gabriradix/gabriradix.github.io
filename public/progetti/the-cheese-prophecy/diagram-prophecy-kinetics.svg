@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" width="100%" height="100%" style="background: #0b0a08; font-family: 'JetBrains Mono', 'Space Mono', 'Outfit', monospace;">
+  <defs>
+    <pattern id="grid-cheese-2" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#161410" stroke-width="1"/>
+    </pattern>
+
+    <filter id="glow-gold-bright" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <linearGradient id="gold-amber-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5c842"/>
+      <stop offset="100%" stop-color="#c28b0a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="650" fill="#0b0a08"/>
+  <rect width="1200" height="650" fill="url(#grid-cheese-2)"/>
+
+  <!-- Outer Border Frame -->
+  <rect x="20" y="20" width="1160" height="610" fill="none" stroke="#262218" stroke-width="1"/>
+  <text x="40" y="48" fill="#8a7e6b" font-size="11" letter-spacing="2">TYROMANCY STATE MACHINE &amp; CHEESE OF TRUTH KINETICS</text>
+  <text x="1160" y="48" text-anchor="end" fill="#f5c842" font-size="11" letter-spacing="1">PROPHECY_KINETICS // 02</text>
+
+  <!-- Left Column: State Machine & Transitions -->
+  <g transform="translate(45, 80)">
+    <rect x="0" y="0" width="535" height="260" fill="#12100c" stroke="#3d3320" stroke-width="1"/>
+    <rect x="0" y="0" width="535" height="32" fill="#1c1811" stroke="#3d3320" stroke-width="1"/>
+    <text x="15" y="21" fill="#ffffff" font-size="11" font-weight="bold">A. TYROMANCY DIVINATION STATE MACHINE</text>
+
+    <!-- State Machine Diagram Nodes -->
+    <g transform="translate(45, 125)">
+      <!-- State 0: Idle -->
+      <circle cx="0" cy="0" r="22" fill="#1a1610" stroke="#8a7e6b" stroke-width="1.5"/>
+      <text x="-12" y="4" fill="#8a7e6b" font-size="10" font-weight="bold">S_0</text>
+      <text x="-16" y="38" fill="#8a7e6b" font-size="9">IDLE</text>
+      <text x="-28" y="50" fill="#665c4d" font-size="7.5">Await Input</text>
+    </g>
+
+    <!-- Transition Arrow S0 -> S1 -->
+    <g transform="translate(75, 125)">
+      <line x1="0" y1="0" x2="60" y2="0" stroke="#f5c842" stroke-width="1.5"/>
+      <polygon points="60,-4 68,0 60,4" fill="#f5c842"/>
+      <text x="12" y="-10" fill="#f5c842" font-size="8">Invoke</text>
+    </g>
+
+    <g transform="translate(170, 125)">
+      <!-- State 1: Generation -->
+      <circle cx="0" cy="0" r="26" fill="#1e1910" stroke="#f5c842" stroke-width="1.5"/>
+      <text x="-12" y="4" fill="#f5c842" font-size="10" font-weight="bold">S_1</text>
+      <text x="-22" y="40" fill="#f5c842" font-size="9">GENERATE</text>
+      <text x="-32" y="52" fill="#665c4d" font-size="7.5">Stochastic Pool</text>
+    </g>
+
+    <!-- Transition Arrow S1 -> S2 -->
+    <g transform="translate(205, 125)">
+      <line x1="0" y1="0" x2="60" y2="0" stroke="#f5c842" stroke-width="1.5"/>
+      <polygon points="60,-4 68,0 60,4" fill="#f5c842"/>
+      <text x="12" y="-10" fill="#f5c842" font-size="8">Synthesize</text>
+    </g>
+
+    <g transform="translate(300, 125)">
+      <!-- State 2: Alignment -->
+      <circle cx="0" cy="0" r="26" fill="#1e1910" stroke="#ffe066" stroke-width="1.5"/>
+      <text x="-12" y="4" fill="#ffe066" font-size="10" font-weight="bold">S_2</text>
+      <text x="-18" y="40" fill="#ffe066" font-size="9">ALIGN</text>
+      <text x="-30" y="52" fill="#665c4d" font-size="7.5">Hole Targets</text>
+    </g>
+
+    <!-- Transition Arrow S2 -> S3 -->
+    <g transform="translate(335, 125)">
+      <line x1="0" y1="0" x2="65" y2="0" stroke="#f5c842" stroke-width="2"/>
+      <polygon points="65,-4 73,0 65,4" fill="#f5c842"/>
+      <text x="15" y="-10" fill="#f5c842" font-size="8">Slap Mask</text>
+    </g>
+
+    <g transform="translate(435, 125)">
+      <!-- State 3: Manifestation -->
+      <circle cx="0" cy="0" r="32" fill="url(#gold-amber-grad)" filter="url(#glow-gold-bright)"/>
+      <circle cx="0" cy="0" r="6" fill="#000000"/>
+      <text x="-12" y="4" fill="#000000" font-size="10" font-weight="bold">S_3</text>
+      <text x="-25" y="46" fill="#f5c842" font-size="10" font-weight="bold">ORACLE</text>
+      <text x="-34" y="58" fill="#ffe066" font-size="7.5">Cheese Unveiled</text>
+    </g>
+
+    <!-- Event Timeline Bar below states -->
+    <rect x="20" y="200" width="495" height="40" fill="#080705" stroke="#262218"/>
+    <text x="30" y="217" fill="#8a7e6b" font-size="8">ORACLE STATE TIMELINE:</text>
+    <text x="30" y="231" fill="#f5c842" font-size="8.5">[ t=0s: Await Input ] ─── [ t=0.2s: Word Shuffle ] ─── [ t=1.2s: Cheese Slap &amp; Revelation ]</text>
+  </g>
+
+  <!-- Right Column: Golden Particle Field & Kinetics -->
+  <g transform="translate(605, 80)">
+    <rect x="0" y="0" width="550" height="260" fill="#12100c" stroke="#3d3320" stroke-width="1"/>
+    <rect x="0" y="0" width="550" height="32" fill="#1c1811" stroke="#3d3320" stroke-width="1"/>
+    <text x="15" y="21" fill="#ffffff" font-size="11" font-weight="bold">B. GOLDEN PARTICLE KINETICS &amp; FIELD DYNAMICS</text>
+
+    <!-- Visual Kinetics Diagram -->
+    <g transform="translate(18, 48)">
+      <rect x="0" y="0" width="514" height="195" fill="#050403" stroke="#262218"/>
+      
+      <!-- Central Ambient Particle Orb -->
+      <circle cx="257" cy="95" r="55" fill="none" stroke="#f5c842" stroke-width="1.5" stroke-dasharray="3,3" filter="url(#glow-gold-bright)"/>
+      <circle cx="257" cy="95" r="28" fill="#f5c842" opacity="0.8"/>
+      <circle cx="257" cy="95" r="5" fill="#ffffff"/>
+
+      <!-- Orbiting Golden Dust Particles -->
+      <circle cx="140" cy="50" r="3" fill="#ffe066"/>
+      <line x1="140" y1="50" x2="257" y2="95" stroke="#3d3320" stroke-dasharray="2,2"/>
+
+      <circle cx="360" cy="65" r="4" fill="#f5c842"/>
+      <line x1="360" y1="65" x2="257" y2="95" stroke="#f5c842" stroke-width="1"/>
+
+      <circle cx="110" cy="140" r="3" fill="#ffe066"/>
+      <line x1="110" y1="140" x2="257" y2="95" stroke="#3d3320" stroke-dasharray="2,2"/>
+
+      <circle cx="390" cy="150" r="3.5" fill="#f5c842"/>
+      <line x1="390" y1="150" x2="257" y2="95" stroke="#3d3320"/>
+
+      <text x="15" y="165" fill="#8a7e6b" font-size="8.5">PARTICLE FIELD: 120 DYNAMIC ORBS // ATTRACTOR VELOCITY: v = -k/r</text>
+      <text x="15" y="182" fill="#ffe066" font-size="8.5">CHEESE SLAP IMPACT ANIMATION: 0.7s CUBIC-BEZIER SPRING</text>
+    </g>
+  </g>
+
+  <!-- Bottom Panel: Prophecy Canvas & Specifications -->
+  <g transform="translate(45, 360)">
+    <rect x="0" y="0" width="1110" height="255" fill="#12100c" stroke="#262218" stroke-width="1"/>
+    <rect x="0" y="0" width="1110" height="32" fill="#1c1811" stroke="#262218" stroke-width="1"/>
+    <text x="15" y="21" fill="#ffffff" font-size="11" font-weight="bold">C. CANVAS MANIFESTATION &amp; TELEMETRY SUBSYSTEM</text>
+
+    <g transform="translate(25, 48)">
+      <!-- Physics Diagram Canvas -->
+      <rect x="0" y="0" width="600" height="190" fill="#050403" stroke="#262218"/>
+
+      <!-- Oracle Card Frame in Canvas -->
+      <rect x="180" y="15" width="240" height="155" fill="#1a1610" stroke="#f5c842" stroke-width="1.5" rx="4"/>
+      <rect x="190" y="25" width="220" height="25" fill="#241f14"/>
+      <text x="200" y="42" fill="#f5c842" font-size="10" font-weight="bold">CHEESE OF TRUTH #042</text>
+
+      <text x="200" y="70" fill="#ffffff" font-size="8.5">"Through the holes of cheese,</text>
+      <text x="200" y="85" fill="#ffffff" font-size="8.5">the truth shines like gold."</text>
+
+      <circle cx="370" cy="135" r="18" fill="url(#gold-amber-grad)"/>
+      <text x="355" y="139" fill="#000" font-size="8" font-weight="bold">ORACLE</text>
+
+      <text x="15" y="180" fill="#665c4d" font-size="8">CANVAS RENDERING // HTML5 CANVAS 2D + SVG PATH MASK</text>
+    </g>
+
+    <!-- Formula & Telemetry Specs Side Bar -->
+    <g transform="translate(645, 48)">
+      <rect x="0" y="0" width="440" height="190" fill="#050403" stroke="#262218"/>
+      <text x="20" y="28" fill="#ffffff" font-size="10" font-weight="bold">PROPHECY TELEMETRY SPECIFICATIONS</text>
+
+      <text x="20" y="55" fill="#8a7e6b" font-size="9">1. Memetic Inspiration:</text>
+      <text x="35" y="70" fill="#f5c842" font-size="8.5">Cheese of Truth (Olaf Falafel 2015 Vine / TikTok)</text>
+
+      <text x="20" y="95" fill="#8a7e6b" font-size="9">2. Historical Divination:</text>
+      <text x="35" y="110" fill="#ffffff" font-size="8.5">Tyromancy (Greek tūros = cheese, manteia = divination)</text>
+
+      <text x="20" y="135" fill="#8a7e6b" font-size="9">3. Output Artifact:</text>
+      <text x="35" y="150" fill="#ffe066" font-size="8.5">1080x1350px 4:5 PNG Card + Static QR Code Embed</text>
+
+      <rect x="20" y="162" width="400" height="1" fill="#262218"/>
+      <text x="20" y="178" fill="#665c4d" font-size="8">LIVE NET-ART FRAMEWORK // ASTRO + TAILWIND + HTML5 CANVAS</text>
+    </g>
+  </g>
+</svg>

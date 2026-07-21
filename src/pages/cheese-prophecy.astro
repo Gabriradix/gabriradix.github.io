@@ -1,15 +1,298 @@
 ---
-import { getProxyUrl } from "../utils/image";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getProxyUrl } from "../utils/image";
 import { projects } from "../data/projects";
-const project = projects.find(p => p.href === "/cheese-prophecy");
+
+const project = projects.find((p) => p.href === "/cheese-prophecy");
 ---
 
-<BaseLayout title="The Cheese Prophecy - Gabriele Radicello" brandColor={project?.brandColor} transparentHeader={true}>
-  <div class="w-full h-[100dvh] overflow-hidden">
-    <iframe
-      src={getProxyUrl("/progetti/the-cheese-prophecy/index.html")} data-src="/progetti/the-cheese-prophecy/index.html"
-      class="w-full h-full border-none"
-      allow="autoplay; fullscreen"></iframe>
-  </div>
+<BaseLayout title="The Cheese Prophecy - Gabriele Radicello" brandColor={project?.brandColor}>
+  <!-- Hero Section -->
+  <section class="relative h-[100dvh] w-full overflow-hidden flex items-center justify-center">
+    <img 
+      src="/progetti/the-cheese-prophecy/cover.png" 
+      alt="The Cheese Prophecy Cover"
+      class="absolute inset-0 w-full h-full object-cover z-0 opacity-25"
+    />
+    <div class="absolute inset-0 bg-black/75 z-10"></div>
+    
+    <div class="relative z-20 text-center px-6 max-w-4xl">
+      <div class="inline-block px-3 py-1 mb-6 border border-[#f5c842]/40 bg-[#12100c]/90 text-xs font-mono text-[#f5c842] uppercase tracking-widest">
+        Net Art &amp; Algorithmic Poetry Engine
+      </div>
+      <h1 
+        class="text-5xl md:text-8xl font-normal text-white tracking-tight" 
+        style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
+      >
+        The Cheese Prophecy
+      </h1>
+      <p class="mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto">
+        An experimental net-art oracle unfolding poetic and textual prophecies inspired by the "Cheese of Truth" meme and ancient Tyromancy.
+      </p>
+      <div class="mt-8 flex justify-center gap-4">
+        <button
+          id="hero-fullscreen-btn"
+          type="button"
+          class="inline-flex items-center gap-3 px-8 py-3 border border-[#f5c842] bg-[#f5c842] text-black hover:bg-[#ffe066] transition-colors duration-300 font-medium tracking-wide text-sm uppercase cursor-pointer shadow-lg"
+        >
+          Launch Interactive Oracle
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Live App Section -->
+  <section id="app-section" class="w-full bg-black py-12 border-y border-neutral-800 transition-all duration-500 ease-in-out">
+    <div id="app-wrapper" class="max-w-7xl mx-auto px-6 transition-all duration-500 ease-in-out">
+      <!-- Section Header Bar (Inline Mode) -->
+      <div id="app-header-bar" class="flex items-center justify-between mb-4">
+        <h2 class="text-sm font-mono text-[#f5c842] uppercase tracking-widest flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-[#f5c842] animate-pulse"></span>
+          LIVE INTERACTIVE NET-ART APPLICATION // ORACLE CANVAS
+        </h2>
+        <button
+          id="fullscreen-btn"
+          type="button"
+          class="text-xs font-mono text-neutral-300 hover:text-white bg-neutral-900/90 hover:bg-neutral-800 border border-neutral-700 px-3.5 py-1.5 rounded transition-all duration-300 flex items-center gap-2 cursor-pointer shadow-lg"
+        >
+          <span>Open Fullscreen</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Iframe Container -->
+      <div id="iframe-container" class="w-full h-[75vh] border border-neutral-800 bg-black overflow-hidden rounded-sm relative transition-all duration-500 ease-in-out">
+        <iframe
+          id="app-iframe"
+          src="/progetti/the-cheese-prophecy/index.html"
+          title="The Cheese Prophecy Live Net-Art Application"
+          class="w-full h-full border-none"
+          allow="autoplay; fullscreen"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function setupFullscreenExpander() {
+      const heroBtn = document.getElementById("hero-fullscreen-btn");
+      const btn = document.getElementById("fullscreen-btn");
+      const headerBar = document.getElementById("app-header-bar");
+      const section = document.getElementById("app-section");
+      const wrapper = document.getElementById("app-wrapper");
+      const container = document.getElementById("iframe-container");
+
+      if (!section || !wrapper || !container) return;
+
+      let isFullscreen = false;
+      let savedScrollY = 0;
+
+      function toggle(forceFullscreen) {
+        if (typeof forceFullscreen === "boolean") {
+          isFullscreen = forceFullscreen;
+        } else {
+          isFullscreen = !isFullscreen;
+        }
+
+        if (isFullscreen) {
+          savedScrollY = window.scrollY;
+          window.scrollTo(0, 0);
+
+          window.postMessage('force-compact-header', '*');
+
+          headerBar?.classList.add("hidden");
+          container.classList.remove("border", "border-neutral-800", "rounded-sm");
+
+          section.classList.add("fixed", "inset-0", "top-0", "left-0", "w-screen", "h-screen", "z-40", "p-0", "m-0", "flex", "flex-col", "bg-black");
+          section.classList.remove("w-full", "py-12", "border-y", "border-neutral-800");
+
+          wrapper.classList.remove("max-w-7xl", "px-6");
+          wrapper.classList.add("w-full", "h-full", "max-w-none", "flex", "flex-col", "p-0");
+
+          container.classList.remove("h-[75vh]");
+          container.classList.add("flex-1", "w-full", "h-full");
+
+          document.body.style.overflow = "hidden";
+        } else {
+          window.postMessage('reset-compact-header', '*');
+
+          headerBar?.classList.remove("hidden");
+          container.classList.add("border", "border-neutral-800", "rounded-sm");
+
+          section.classList.remove("fixed", "inset-0", "top-0", "left-0", "w-screen", "h-screen", "z-40", "p-0", "m-0", "flex", "flex-col", "bg-black");
+          section.classList.add("w-full", "py-12", "border-y", "border-neutral-800");
+
+          wrapper.classList.add("max-w-7xl", "px-6");
+          wrapper.classList.remove("w-full", "h-full", "max-w-none", "flex", "flex-col", "p-0");
+
+          container.classList.add("h-[75vh]");
+          container.classList.remove("flex-1", "w-full", "h-full");
+
+          document.body.style.overflow = "";
+
+          window.scrollTo(0, savedScrollY);
+        }
+      }
+
+      heroBtn?.addEventListener("click", () => toggle(true));
+      btn?.addEventListener("click", () => toggle());
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && isFullscreen) {
+          toggle(false);
+        }
+      });
+    }
+
+    setupFullscreenExpander();
+    document.addEventListener("astro:page-load", setupFullscreenExpander);
+  </script>
+
+  <!-- Content & Architecture Section -->
+  <section class="max-w-5xl mx-auto px-6 py-24 md:py-32 text-neutral-300 text-lg leading-8 text-left">
+    
+    <!-- Concept & Aesthetic Language -->
+    <div class="mb-24">
+      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+        Concept, Meme Mythology &amp; Tyromancy
+      </h2>
+      <div class="grid gap-8">
+        <p>
+          <strong>The Cheese Prophecy</strong> is an experimental net-art project that explores the short-circuit between contemporary internet absurdity and ancient divination traditions.
+        </p>
+        
+        <div class="border-l-2 border-[#f5c842] pl-6 py-2 my-2 bg-[#12100c]/60">
+          <h3 class="text-[#f5c842] font-mono text-sm uppercase tracking-wider mb-2">1. The "Cheese of Truth" Internet Meme (Vine 2015 / TikTok)</h3>
+          <p class="text-base text-neutral-300 mb-0">
+            The project takes direct inspiration from the viral internet meme <em>"The Cheese of Truth"</em>, initiated in 2015 by creator Olaf Falafel. The meme involved throwing a slice of Swiss cheese onto newspaper headlines and reading out random words through the cheese holes to extract absurd "truths" and predictions.
+          </p>
+        </div>
+
+        <div class="border-l-2 border-neutral-700 pl-6 py-2 my-2 bg-neutral-950/60">
+          <h3 class="text-neutral-200 font-mono text-sm uppercase tracking-wider mb-2">2. Ancient Tyromancy (Greek &amp; Medieval Divination)</h3>
+          <p class="text-base text-neutral-300 mb-0">
+            This digital meme resonates with the ancient historical practice of <strong>Tyromancy</strong> (from Greek <em>tūros</em> = cheese, <em>manteia</em> = divination), documented since the 2nd century AD. Medieval practitioners interpreted holes, mold patterns, and cheese rinds to predict omens and unveil hidden secrets.
+          </p>
+        </div>
+
+        <p>
+          Reinterpreting this mythology into a digital shrine, the web application functions as an algorithmic oracle. It combines stochastic seed entropy, Markovian stanza synthesis, and golden glassmorphism aesthetics to generate collectible net-art prophecy cards.
+        </p>
+      </div>
+    </div>
+
+    <!-- Vector Graphic 1: Poetic Textual Generation Engine -->
+    <div class="mb-28 border-t border-neutral-800 pt-16">
+      <div class="mb-8">
+        <span class="text-xs font-mono text-[#f5c842] uppercase tracking-widest block mb-2">Vector Specification // Diagram 01</span>
+        <h3 class="text-2xl font-normal text-neutral-50" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+          01. Cheese of Truth &amp; Tyromancy Generation Engine
+        </h3>
+      </div>
+      <p class="mb-8 text-base text-neutral-400">
+        The vector diagram below details the 4-stage textual pipeline: from "Cheese of Truth" seed ingestion to Tyromancy probability weighting, stochastic stanza synthesis, and oracle card rendering.
+      </p>
+
+      <div class="w-full border border-neutral-800 bg-neutral-950 p-2 md:p-4 rounded-sm overflow-hidden mb-6 shadow-2xl">
+        <img 
+          src="/progetti/the-cheese-prophecy/diagram-poetic-generation.svg" 
+          alt="The Cheese Prophecy Poetic Generation Engine Vector Diagram"
+          class="w-full h-auto object-contain"
+        />
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 text-sm text-neutral-400 font-mono pt-4 border-t border-neutral-900">
+        <div>
+          <strong class="text-[#f5c842] block mb-1">01. Seed Ingestion</strong>
+          Meme seed entropy calculating Vine/TikTok trend rules and time variance.
+        </div>
+        <div>
+          <strong class="text-[#f5c842] block mb-1">02. Tyromancy Matrix</strong>
+          Probability weighting matrix matching fermentation metaphors and Swiss cheese tokens.
+        </div>
+        <div>
+          <strong class="text-[#f5c842] block mb-1">03. Synthesis &amp; Card</strong>
+          Real-time stanza assembly rendering the final formatted oracle card artifact.
+        </div>
+      </div>
+    </div>
+
+    <!-- Vector Graphic 2: Oracle State Machine & Kinetics -->
+    <div class="mb-28 border-t border-neutral-800 pt-16">
+      <div class="mb-8">
+        <span class="text-xs font-mono text-[#f5c842] uppercase tracking-widest block mb-2">Vector Specification // Diagram 02</span>
+        <h3 class="text-2xl font-normal text-neutral-50" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+          02. Tyromancy State Machine &amp; Particle Field Kinetics
+        </h3>
+      </div>
+      <p class="mb-8 text-base text-neutral-400">
+        This diagram illustrates the state machine transitions (Idle → Generate → Align → Unveil) alongside the golden particle field kinetics and Web Audio drone soundscape.
+      </p>
+
+      <div class="w-full border border-neutral-800 bg-neutral-950 p-2 md:p-4 rounded-sm overflow-hidden mb-6 shadow-2xl">
+        <img 
+          src="/progetti/the-cheese-prophecy/diagram-prophecy-kinetics.svg" 
+          alt="The Cheese Prophecy Oracle State Machine and Dynamic Kinetics Vector Diagram"
+          class="w-full h-auto object-contain"
+        />
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 text-sm text-neutral-400 font-mono pt-4 border-t border-neutral-900">
+        <div>
+          <strong class="text-[#f5c842] block mb-1">State Machine</strong>
+          Deterministic state flow controlling invocation, alignment, and card unveiling.
+        </div>
+        <div>
+          <strong class="text-[#f5c842] block mb-1">Particle Kinetics</strong>
+          Golden attractor vector field maintaining 120 dynamic particle orbs.
+        </div>
+        <div>
+          <strong class="text-[#f5c842] block mb-1">Soundscape Feedback</strong>
+          Harmonic audio drone resonance constructed via Web Audio API oscillators.
+        </div>
+      </div>
+    </div>
+
+    <!-- Vector Graphic 3: Net-Art Interface & Aesthetic Layout -->
+    <div class="mb-28 border-t border-neutral-800 pt-16">
+      <div class="mb-8">
+        <span class="text-xs font-mono text-[#f5c842] uppercase tracking-widest block mb-2">Vector Specification // Diagram 03</span>
+        <h3 class="text-2xl font-normal text-neutral-50" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+          03. Net-Art Interface &amp; Glassmorphism Layout
+        </h3>
+      </div>
+      <p class="mb-8 text-base text-neutral-400">
+        The interface layout specification showcasing the floating header, glassmorphism prophecy card container, action controls, and live telemetry inspector.
+      </p>
+
+      <div class="w-full border border-neutral-800 bg-neutral-950 p-2 md:p-4 rounded-sm overflow-hidden mb-6 shadow-2xl">
+        <img 
+          src="/progetti/the-cheese-prophecy/diagram-netart-interface.svg" 
+          alt="The Cheese Prophecy Net-Art Interface Specification Vector Diagram"
+          class="w-full h-auto object-contain"
+        />
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 text-sm text-neutral-400 font-mono pt-4 border-t border-neutral-900">
+        <div>
+          <strong class="text-[#f5c842] block mb-1">Navigation &amp; Sound</strong>
+          Floating header featuring sound controls, home link, and oracle status.
+        </div>
+        <div>
+          <strong class="text-[#f5c842] block mb-1">Glassmorphism Card</strong>
+          Golden-bordered card container displaying synthesized stanzas and download actions.
+        </div>
+        <div>
+          <strong class="text-[#f5c842] block mb-1">Telemetry Inspector</strong>
+          Control sidebar tracking entropy, Tyromancy age, and prophecy history log.
+        </div>
+      </div>
+    </div>
+
+  </section>
 </BaseLayout>

@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="100%" height="100%" style="background: #080808; font-family: 'JetBrains Mono', 'Space Mono', monospace;">
+  <defs>
+    <!-- Background Grid -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#161616" stroke-width="1"/>
+    </pattern>
+    
+    <!-- Glow Filters -->
+    <filter id="glow-white" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="glow-accent" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <linearGradient id="grad-line" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#333333"/>
+      <stop offset="50%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#333333"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Canvas Background Grid -->
+  <rect width="1200" height="600" fill="#080808" />
+  <rect width="1200" height="600" fill="url(#grid)" />
+  
+  <!-- Outer Border Frame -->
+  <rect x="20" y="20" width="1160" height="560" fill="none" stroke="#222222" stroke-width="1"/>
+  <text x="40" y="48" fill="#666666" font-size="11" letter-spacing="2">SYSTEM ARCHITECTURE // DATA &amp; VISUALIZATION PIPELINE</text>
+  <text x="1160" y="48" text-anchor="end" fill="#ffffff" font-size="11" letter-spacing="1">DATA_PIPELINE // 01</text>
+
+  <!-- Stage 1: Raw Data Ingestion -->
+  <g transform="translate(60, 100)">
+    <rect x="0" y="0" width="220" height="380" fill="#0d0d0d" stroke="#333333" stroke-width="1.5" rx="2"/>
+    <rect x="0" y="0" width="220" height="36" fill="#141414" stroke="#333333" stroke-width="1"/>
+    <text x="15" y="23" fill="#ffffff" font-size="12" font-weight="700">01. RAW DATA ENTRY</text>
+    <text x="15" y="60" fill="#888888" font-size="10">JSON DATASETS (N=30)</text>
+    
+    <!-- Code block representation -->
+    <rect x="15" y="75" width="190" height="275" fill="#050505" stroke="#222222"/>
+    <text x="25" y="98" fill="#555555" font-size="9">{</text>
+    <text x="35" y="115" fill="#aaa" font-size="9">"id": <tspan fill="#fff">"DRM_024"</tspan>,</text>
+    <text x="35" y="132" fill="#aaa" font-size="9">"title": <tspan fill="#fff">"Labyrinth"</tspan>,</text>
+    <text x="35" y="149" fill="#aaa" font-size="9">"mood": <tspan fill="#fff">"Anxiety"</tspan>,</text>
+    <text x="35" y="166" fill="#aaa" font-size="9">"metrics": {</text>
+    <text x="45" y="183" fill="#888" font-size="9">"importance": <tspan fill="#fff">8.5</tspan>,</text>
+    <text x="45" y="200" fill="#888" font-size="9">"weirdness": <tspan fill="#fff">9.2</tspan>,</text>
+    <text x="45" y="217" fill="#888" font-size="9">"memory": <tspan fill="#fff">7.0</tspan></text>
+    <text x="35" y="234" fill="#aaa" font-size="9">},</text>
+    <text x="35" y="251" fill="#aaa" font-size="9">"tags": [<tspan fill="#888">"mirror","tower"</tspan>]</text>
+    <text x="25" y="268" fill="#555555" font-size="9">}</text>
+    
+    <circle cx="195" cy="330" r="4" fill="#ffffff" filter="url(#glow-white)"/>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <g transform="translate(280, 290)">
+    <line x1="0" y1="0" x2="60" y2="0" stroke="#666666" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <polygon points="60,-5 70,0 60,5" fill="#ffffff"/>
+    <text x="10" y="-12" fill="#666666" font-size="9">PARSER</text>
+  </g>
+
+  <!-- Stage 2: Attribute Vectorization & Taxonomy -->
+  <g transform="translate(350, 100)">
+    <rect x="0" y="0" width="230" height="380" fill="#0d0d0d" stroke="#333333" stroke-width="1.5" rx="2"/>
+    <rect x="0" y="0" width="230" height="36" fill="#141414" stroke="#333333" stroke-width="1"/>
+    <text x="15" y="23" fill="#ffffff" font-size="12" font-weight="700">02. TAXONOMY VECTOR</text>
+    
+    <!-- Vector Metrics boxes -->
+    <g transform="translate(15, 60)">
+      <rect x="0" y="0" width="200" height="50" fill="#111111" stroke="#262626"/>
+      <text x="12" y="22" fill="#ffffff" font-size="10" font-weight="bold">CATEGORICAL CLUSTERING</text>
+      <text x="12" y="38" fill="#777777" font-size="9">Mood | Setting | Objects | People</text>
+    </g>
+
+    <g transform="translate(15, 125)">
+      <rect x="0" y="0" width="200" height="50" fill="#111111" stroke="#262626"/>
+      <text x="12" y="22" fill="#ffffff" font-size="10" font-weight="bold">QUANTITATIVE SCALING</text>
+      <text x="12" y="38" fill="#777777" font-size="9">Radius = f(Importance, Weirdness)</text>
+    </g>
+
+    <g transform="translate(15, 190)">
+      <rect x="0" y="0" width="200" height="160" fill="#050505" stroke="#222222"/>
+      <text x="12" y="22" fill="#888888" font-size="9">MATRIX DISTANCE (Sij)</text>
+      <!-- Matrix grid representation -->
+      <line x1="12" y1="32" x2="188" y2="32" stroke="#222"/>
+      <text x="12" y="48" fill="#555" font-size="7.5">node_i / node_j</text>
+      <text x="105" y="48" fill="#fff" font-size="7">Sim(i,j) = Σ w_k·δ</text>
+      
+      <rect x="12" y="64" width="176" height="8" fill="#222"/>
+      <rect x="12" y="64" width="130" fill="#fff" height="8"/>
+      
+      <rect x="12" y="84" width="176" height="8" fill="#222"/>
+      <rect x="12" y="84" width="95" fill="#fff" height="8"/>
+
+      <rect x="12" y="104" width="176" height="8" fill="#222"/>
+      <rect x="12" y="104" width="150" fill="#fff" height="8"/>
+
+      <text x="12" y="138" fill="#666" font-size="7.5">DYNAMIC WEIGHT ADJUSTMENT</text>
+    </g>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <g transform="translate(580, 290)">
+    <line x1="0" y1="0" x2="60" y2="0" stroke="#666666" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <polygon points="60,-5 70,0 60,5" fill="#ffffff"/>
+    <text x="8" y="-12" fill="#666666" font-size="9">PHYSICS</text>
+  </g>
+
+  <!-- Stage 3: D3 Force Physics Engine -->
+  <g transform="translate(650, 100)">
+    <rect x="0" y="0" width="230" height="380" fill="#0d0d0d" stroke="#333333" stroke-width="1.5" rx="2"/>
+    <rect x="0" y="0" width="230" height="36" fill="#141414" stroke="#333333" stroke-width="1"/>
+    <text x="15" y="23" fill="#ffffff" font-size="12" font-weight="700">03. FORCE SIMULATION</text>
+
+    <!-- Graphic physics diagram -->
+    <rect x="15" y="55" width="200" height="295" fill="#050505" stroke="#222222"/>
+    
+    <!-- Central Node -->
+    <circle cx="115" cy="190" r="14" fill="none" stroke="#ffffff" stroke-width="2" filter="url(#glow-white)"/>
+    <circle cx="115" cy="190" r="5" fill="#ffffff"/>
+    
+    <!-- Orbiting Connected Nodes -->
+    <line x1="115" y1="190" x2="60" y2="120" stroke="#555" stroke-dasharray="2,2"/>
+    <circle cx="60" cy="120" r="8" fill="#111" stroke="#fff" stroke-width="1.5"/>
+
+    <line x1="115" y1="190" x2="175" y2="130" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="175" cy="130" r="10" fill="#fff"/>
+
+    <line x1="115" y1="190" x2="70" y2="260" stroke="#444"/>
+    <circle cx="70" cy="260" r="6" fill="#222" stroke="#888"/>
+
+    <line x1="115" y1="190" x2="170" y2="250" stroke="#555" stroke-dasharray="2,2"/>
+    <circle cx="170" cy="250" r="7" fill="#111" stroke="#aaa"/>
+
+    <!-- Force Vectors -->
+    <path d="M 115 160 L 115 140" stroke="#888" stroke-width="1" marker-end="url(#arrow)"/>
+    <text x="120" y="148" fill="#888" font-size="8">f_manyBody (-250)</text>
+
+    <text x="25" y="325" fill="#aaa" font-size="9">d3.forceSimulation()</text>
+    <text x="25" y="340" fill="#666" font-size="8">Charge • Center • Distance</text>
+  </g>
+
+  <!-- Arrow 3 -> 4 -->
+  <g transform="translate(880, 290)">
+    <line x1="0" y1="0" x2="60" y2="0" stroke="#666666" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <polygon points="60,-5 70,0 60,5" fill="#ffffff"/>
+    <text x="8" y="-12" fill="#666666" font-size="9">RENDER</text>
+  </g>
+
+  <!-- Stage 4: Clinical Monochromatic UI -->
+  <g transform="translate(950, 100)">
+    <rect x="0" y="0" width="190" height="380" fill="#0d0d0d" stroke="#ffffff" stroke-width="1.5" rx="2" filter="url(#glow-white)"/>
+    <rect x="0" y="0" width="190" height="36" fill="#1f1f1f" stroke="#ffffff" stroke-width="1"/>
+    <text x="12" y="23" fill="#ffffff" font-size="11" font-weight="700">04. CLINICAL MONOCHROME UI</text>
+
+    <rect x="12" y="55" width="166" height="40" fill="#000" stroke="#333"/>
+    <text x="20" y="78" fill="#fff" font-size="9">HIGH DENSITY MATRIX</text>
+
+    <rect x="12" y="105" width="166" height="245" fill="#050505" stroke="#222"/>
+    <!-- Mini UI Canvas preview -->
+    <line x1="20" y1="120" x2="170" y2="120" stroke="#333"/>
+    <text x="20" y="135" fill="#fff" font-size="8">TELEMETRY DATA STREAM</text>
+    <text x="20" y="150" fill="#666" font-size="7">001010101 1010010 0110</text>
+    <text x="20" y="160" fill="#666" font-size="7">IMP: 9.4 | BIZ: 8.1</text>
+    
+    <rect x="20" y="175" width="150" height="150" fill="#000" stroke="#333"/>
+    <circle cx="95" cy="250" r="30" fill="none" stroke="#444" stroke-dasharray="2,2"/>
+    <circle cx="95" cy="250" r="4" fill="#fff"/>
+    <line x1="95" y1="250" x2="120" y2="230" stroke="#fff"/>
+    <circle cx="120" cy="230" r="3" fill="#fff"/>
+    <line x1="95" y1="250" x2="75" y2="270" stroke="#fff"/>
+    <circle cx="75" cy="270" r="3" fill="#fff"/>
+  </g>
+
+  <!-- Bottom Telemetry Footer Bar -->
+  <rect x="20" y="515" width="1160" height="45" fill="#0c0c0c" stroke="#222"/>
+  <text x="40" y="542" fill="#888888" font-size="10">PIPELINE LATENCY: &lt;16ms (60 FPS)</text>
+  <text x="350" y="542" fill="#888888" font-size="10">GRAPH ALGORITHM: FORCE ATLAS / D3 KINETICS</text>
+  <text x="780" y="542" fill="#ffffff" font-size="10">STATUS: ACTIVE // MONOCHROMATIC ENGINE</text>
+</svg>

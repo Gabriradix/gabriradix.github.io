@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" width="100%" height="100%" style="background: #080808; font-family: 'JetBrains Mono', 'Space Mono', monospace;">
+  <defs>
+    <pattern id="grid-ui" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#121212" stroke-width="1"/>
+    </pattern>
+
+    <filter id="glow-panel" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="650" fill="#080808"/>
+  <rect width="1200" height="650" fill="url(#grid-ui)"/>
+
+  <!-- Outer Frame -->
+  <rect x="20" y="20" width="1160" height="610" fill="none" stroke="#222222" stroke-width="1"/>
+  <text x="40" y="48" fill="#666666" font-size="11" letter-spacing="2">CLINICAL INTERFACE SPECIFICATION &amp; TELEMETRY LAYOUT</text>
+  <text x="1160" y="48" text-anchor="end" fill="#ffffff" font-size="11" letter-spacing="1">UI_TELEMETRY // 03</text>
+
+  <!-- Main Wireframe Container -->
+  <g transform="translate(50, 75)">
+    <!-- 1. Header Component -->
+    <rect x="0" y="0" width="1100" height="40" fill="#0f0f0f" stroke="#333333" stroke-width="1"/>
+    <text x="20" y="24" fill="#ffffff" font-size="11" font-weight="bold">√ DREAM CATALOGUE</text>
+    <text x="180" y="24" fill="#666" font-size="10">|</text>
+    <text x="200" y="24" fill="#aaa" font-size="10">N=30 ENTRY DATABASE</text>
+
+    <rect x="940" y="8" width="60" height="24" fill="#222" stroke="#444"/>
+    <text x="960" y="24" fill="#fff" font-size="10">EN</text>
+
+    <rect x="1015" y="8" width="70" height="24" fill="#111" stroke="#333"/>
+    <text x="1030" y="24" fill="#aaa" font-size="10">21:06:55</text>
+
+    <!-- Callout 1: Header -->
+    <path d="M 280 40 L 280 65 L 340 65" stroke="#ffffff" stroke-width="1" fill="none"/>
+    <text x="350" y="69" fill="#ffffff" font-size="9">[01] TELEMETRY HEADER &amp; DATABASE COUNT</text>
+
+    <!-- 2. Filter Bar Component -->
+    <g transform="translate(0, 85)">
+      <rect x="0" y="0" width="1100" height="45" fill="#121212" stroke="#2a2a2a" stroke-width="1"/>
+      <text x="20" y="27" fill="#666" font-size="9">CONNECT BY:</text>
+      
+      <rect x="110" y="10" width="70" height="25" fill="#ffffff"/>
+      <text x="125" y="26" fill="#000000" font-size="9" font-weight="bold">MOOD</text>
+
+      <rect x="190" y="10" width="80" height="25" fill="#181818" stroke="#333"/>
+      <text x="205" y="26" fill="#aaa" font-size="9">OBJECTS</text>
+
+      <rect x="280" y="10" width="85" height="25" fill="#181818" stroke="#333"/>
+      <text x="295" y="26" fill="#aaa" font-size="9">SETTING</text>
+
+      <text x="500" y="27" fill="#666" font-size="9">SIZE BY:</text>
+      <rect x="560" y="10" width="100" height="25" fill="#ffffff"/>
+      <text x="575" y="26" fill="#000000" font-size="9" font-weight="bold">IMPORTANCE</text>
+
+      <rect x="670" y="10" width="90" height="25" fill="#181818" stroke="#333"/>
+      <text x="685" y="26" fill="#aaa" font-size="9">WEIRDNESS</text>
+    </g>
+
+    <!-- Callout 2: Filter Bar -->
+    <path d="M 400 130 L 400 155 L 450 155" stroke="#ffffff" stroke-width="1" fill="none"/>
+    <text x="460" y="159" fill="#ffffff" font-size="9">[02] DYNAMIC TAXONOMY &amp; SCALE CONTROL BAR</text>
+
+    <!-- 3. Main Display Grid (Canvas + Telemetry Panel) -->
+    <g transform="translate(0, 180)">
+      <!-- Canvas Wireframe -->
+      <rect x="0" y="0" width="720" height="340" fill="#050505" stroke="#222222" stroke-width="1"/>
+      <text x="15" y="25" fill="#444444" font-size="10">TOPOLOGICAL CANVAS (D3 GRAPH ENGINE)</text>
+
+      <!-- Nodes mockup -->
+      <circle cx="360" cy="170" r="28" fill="#ffffff" filter="url(#glow-panel)"/>
+      <circle cx="360" cy="170" r="4" fill="#000000"/>
+      
+      <circle cx="210" cy="100" r="14" fill="#222" stroke="#fff" stroke-width="1.5"/>
+      <line x1="360" y1="170" x2="210" y2="100" stroke="#fff" stroke-width="1.5"/>
+
+      <circle cx="500" cy="110" r="18" fill="#fff"/>
+      <line x1="360" y1="170" x2="500" y2="110" stroke="#fff" stroke-width="2"/>
+
+      <circle cx="260" cy="260" r="12" fill="#111" stroke="#aaa"/>
+      <line x1="360" y1="170" x2="260" y2="260" stroke="#555" stroke-dasharray="2,2"/>
+
+      <circle cx="490" cy="250" r="16" fill="#fff"/>
+      <line x1="360" y1="170" x2="490" y2="250" stroke="#fff" stroke-width="1.5"/>
+
+      <text x="385" y="160" fill="#fff" font-size="9" font-weight="bold">TARGET_DREAM [DRM_024]</text>
+      <text x="385" y="175" fill="#aaa" font-size="8">Degree: 14 Links</text>
+
+      <!-- Data Stream Subpanel -->
+      <rect x="15" y="275" width="260" height="50" fill="#0c0c0c" stroke="#1f1f1f"/>
+      <text x="25" y="292" fill="#888" font-size="8">TELEMETRY STREAM DATA</text>
+      <text x="25" y="306" fill="#fff" font-size="8">IMP: 8.5 | BIZ: 9.2 | RIC: 7.0</text>
+      <text x="25" y="318" fill="#555" font-size="7">FPS: 60.0 // LATENCY: 1.2ms</text>
+
+      <!-- Callout 3: Canvas -->
+      <path d="M 180 340 L 180 365 L 240 365" stroke="#ffffff" stroke-width="1" fill="none"/>
+      <text x="250" y="369" fill="#ffffff" font-size="9">[03] INTERACTIVE NODE GRAPH &amp; STREAM FEED</text>
+
+      <!-- 4. Detail Panel Inspector (Right Side) -->
+      <g transform="translate(750, 0)">
+        <rect x="0" y="0" width="350" height="340" fill="#0d0d0d" stroke="#333333" stroke-width="1"/>
+        <rect x="0" y="0" width="350" height="32" fill="#141414" stroke="#333333" stroke-width="1"/>
+        <text x="15" y="21" fill="#ffffff" font-size="10" font-weight="bold">CLINICAL DETAIL INSPECTOR</text>
+
+        <!-- Inspector content -->
+        <g transform="translate(15, 45)">
+          <text x="0" y="15" fill="#666" font-size="8">ENTRY ID</text>
+          <text x="80" y="15" fill="#fff" font-size="9" font-weight="bold">DRM_024 // LABYRINTH OF MIRRORS</text>
+
+          <text x="0" y="35" fill="#666" font-size="8">DATE</text>
+          <text x="80" y="35" fill="#aaa" font-size="9">2026.03.14 — 04:12:00</text>
+
+          <text x="0" y="55" fill="#666" font-size="8">MOOD</text>
+          <text x="80" y="55" fill="#fff" font-size="9">ANXIETY / UNCANNY</text>
+
+          <text x="0" y="75" fill="#666" font-size="8">SETTING</text>
+          <text x="80" y="75" fill="#aaa" font-size="9">INFINITE GLASS TOWER</text>
+
+          <rect x="0" y="90" width="320" height="1" fill="#222"/>
+
+          <text x="0" y="110" fill="#666" font-size="8">METRIC VECTOR</text>
+          
+          <!-- Bar 1 -->
+          <text x="0" y="130" fill="#aaa" font-size="8">IMPORTANCE</text>
+          <rect x="90" y="122" width="200" height="10" fill="#1b1b1b"/>
+          <rect x="90" y="122" width="170" height="10" fill="#fff"/>
+          <text x="300" y="130" fill="#fff" font-size="8">8.5</text>
+
+          <!-- Bar 2 -->
+          <text x="0" y="150" fill="#aaa" font-size="8">WEIRDNESS</text>
+          <rect x="90" y="142" width="200" height="10" fill="#1b1b1b"/>
+          <rect x="90" y="142" width="184" height="10" fill="#fff"/>
+          <text x="300" y="150" fill="#fff" font-size="8">9.2</text>
+
+          <!-- Bar 3 -->
+          <text x="0" y="170" fill="#aaa" font-size="8">MEMORY</text>
+          <rect x="90" y="162" width="200" height="10" fill="#1b1b1b"/>
+          <rect x="90" y="162" width="140" height="10" fill="#fff"/>
+          <text x="300" y="170" fill="#fff" font-size="8">7.0</text>
+
+          <rect x="0" y="190" width="320" height="1" fill="#222"/>
+
+          <text x="0" y="210" fill="#666" font-size="8">CONNECTED DREAMS (14)</text>
+          <rect x="0" y="220" width="320" height="60" fill="#050505" stroke="#1c1c1c"/>
+          <text x="12" y="238" fill="#fff" font-size="8">• DRM_018 // THE FLOODING ROOM</text>
+          <text x="12" y="252" fill="#888" font-size="8">• DRM_009 // REPEATING CORRIDOR</text>
+          <text x="12" y="266" fill="#888" font-size="8">• DRM_003 // VOICE FROM LATENT SPACE</text>
+        </g>
+
+        <!-- Callout 4: Detail Inspector -->
+        <path d="M 180 340 L 180 365 L 120 365" stroke="#ffffff" stroke-width="1" fill="none"/>
+        <text x="10" y="369" fill="#ffffff" font-size="9">[04] METRIC VECTOR INSPECTOR</text>
+      </g>
+    </g>
+  </g>
+</svg>

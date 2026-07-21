@@ -1,13 +1,287 @@
 ---
-import { getProxyUrl } from "../utils/image";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getProxyUrl } from "../utils/image";
+import { projects } from "../data/projects";
+
+const project = projects.find((p) => p.href === "/dream-catalogue");
 ---
 
-<BaseLayout title="Dream Catalogue - Gabriele Radicello" hideHeader={true}>
-  <div class="w-full h-[100dvh] overflow-hidden">
-    <iframe
-      src={getProxyUrl("/progetti/dream-catalogue/index.html")} data-src="/progetti/dream-catalogue/index.html"
-      class="w-full h-full border-none"
-      allow="autoplay; fullscreen"></iframe>
-  </div>
+<BaseLayout title="Dream Catalogue - Gabriele Radicello">
+  <!-- Hero Section -->
+  <section class="relative h-[100dvh] w-full overflow-hidden flex items-center justify-center">
+    <img 
+      src={getProxyUrl("/progetti/dream-catalogue/cover.png")} 
+      data-src="/progetti/dream-catalogue/cover.png"
+      alt="Dream Catalogue Cover"
+      class="absolute inset-0 w-full h-full object-cover z-0 opacity-30"
+    />
+    <div class="absolute inset-0 bg-black/70 z-10"></div>
+    
+    <div class="relative z-20 text-center px-6 max-w-4xl">
+      <div class="inline-block px-3 py-1 mb-6 border border-neutral-700 bg-neutral-950/80 text-xs font-mono text-neutral-400 uppercase tracking-widest">
+        System Architecture &amp; Data Visualization
+      </div>
+      <h1 
+        class="text-5xl md:text-8xl font-normal text-white tracking-tight" 
+        style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
+      >
+        Dream Catalogue
+      </h1>
+      <p class="mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto">
+        An interactive clinical web archive cataloging dream states through dynamic graph topology and high-density telemetry.
+      </p>
+      <div class="mt-8 flex justify-center gap-4">
+        <button
+          id="hero-fullscreen-btn"
+          type="button"
+          class="inline-flex items-center gap-3 px-8 py-3 border border-neutral-200 bg-white text-black hover:bg-neutral-200 transition-colors duration-300 font-medium tracking-wide text-sm uppercase cursor-pointer shadow-lg"
+        >
+          Launch Interactive App
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Live App Section -->
+  <section id="app-section" class="w-full bg-black py-12 border-y border-neutral-800 transition-all duration-500 ease-in-out">
+    <div id="app-wrapper" class="max-w-7xl mx-auto px-6 transition-all duration-500 ease-in-out">
+      <!-- Section Header Bar (Inline Mode) -->
+      <div id="app-header-bar" class="flex items-center justify-between mb-4">
+        <h2 class="text-sm font-mono text-neutral-400 uppercase tracking-widest flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+          LIVE INTERACTIVE APPLICATION // MAPPA DEI SOGNI
+        </h2>
+        <button
+          id="fullscreen-btn"
+          type="button"
+          class="text-xs font-mono text-neutral-300 hover:text-white bg-neutral-900/90 hover:bg-neutral-800 border border-neutral-700 px-3.5 py-1.5 rounded transition-all duration-300 flex items-center gap-2 cursor-pointer shadow-lg"
+        >
+          <span>Open Fullscreen</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Iframe Container -->
+      <div id="iframe-container" class="w-full h-[75vh] border border-neutral-800 bg-black overflow-hidden rounded-sm relative transition-all duration-500 ease-in-out">
+        <iframe
+          id="app-iframe"
+          src="/progetti/dream-catalogue/index.html"
+          title="Dream Catalogue Live Web Application"
+          class="w-full h-full border-none"
+          allow="autoplay; fullscreen"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function setupFullscreenExpander() {
+      const heroBtn = document.getElementById("hero-fullscreen-btn");
+      const btn = document.getElementById("fullscreen-btn");
+      const headerBar = document.getElementById("app-header-bar");
+      const section = document.getElementById("app-section");
+      const wrapper = document.getElementById("app-wrapper");
+      const container = document.getElementById("iframe-container");
+
+      if (!section || !wrapper || !container) return;
+
+      let isFullscreen = false;
+      let savedScrollY = 0;
+
+      function toggle(forceFullscreen) {
+        if (typeof forceFullscreen === "boolean") {
+          isFullscreen = forceFullscreen;
+        } else {
+          isFullscreen = !isFullscreen;
+        }
+
+        if (isFullscreen) {
+          savedScrollY = window.scrollY;
+          window.scrollTo(0, 0);
+
+          window.postMessage('force-compact-header', '*');
+
+          headerBar?.classList.add("hidden");
+          container.classList.remove("border", "border-neutral-800", "rounded-sm");
+
+          section.classList.add("fixed", "inset-0", "top-0", "left-0", "w-screen", "h-screen", "z-40", "p-0", "m-0", "flex", "flex-col", "bg-black");
+          section.classList.remove("w-full", "py-12", "border-y", "border-neutral-800");
+
+          wrapper.classList.remove("max-w-7xl", "px-6");
+          wrapper.classList.add("w-full", "h-full", "max-w-none", "flex", "flex-col", "p-0");
+
+          container.classList.remove("h-[75vh]");
+          container.classList.add("flex-1", "w-full", "h-full");
+
+          document.body.style.overflow = "hidden";
+        } else {
+          window.postMessage('reset-compact-header', '*');
+
+          headerBar?.classList.remove("hidden");
+          container.classList.add("border", "border-neutral-800", "rounded-sm");
+
+          section.classList.remove("fixed", "inset-0", "top-0", "left-0", "w-screen", "h-screen", "z-40", "p-0", "m-0", "flex", "flex-col", "bg-black");
+          section.classList.add("w-full", "py-12", "border-y", "border-neutral-800");
+
+          wrapper.classList.add("max-w-7xl", "px-6");
+          wrapper.classList.remove("w-full", "h-full", "max-w-none", "flex", "flex-col", "p-0");
+
+          container.classList.add("h-[75vh]");
+          container.classList.remove("flex-1", "w-full", "h-full");
+
+          document.body.style.overflow = "";
+
+          window.scrollTo(0, savedScrollY);
+        }
+      }
+
+      heroBtn?.addEventListener("click", () => toggle(true));
+      btn?.addEventListener("click", () => toggle());
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && isFullscreen) {
+          toggle(false);
+        }
+      });
+    }
+
+    setupFullscreenExpander();
+    document.addEventListener("astro:page-load", setupFullscreenExpander);
+  </script>
+
+  <!-- Content & Architecture Section -->
+  <section class="max-w-5xl mx-auto px-6 py-24 md:py-32 text-neutral-300 text-lg leading-8 text-left">
+    
+    <!-- Concept & Aesthetic Language -->
+    <div class="mb-24">
+      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+        Concept &amp; Visual Language
+      </h2>
+      <div class="grid gap-8">
+        <p>
+          <strong>Dream Catalogue</strong> (Mappa dei Sogni) is an interactive net-art archive that investigates the clinical, aseptic, and mathematical cataloging of human subconscious dream material.
+        </p>
+        <p>
+          Rejecting organic or surrealist clichés typically associated with dream representation, the project recontextualizes subjective dream records into a cold, monochrome telemetry matrix powered by real-time graph kinetics.
+        </p>
+        <p>
+          Each dream entry (N=30) is converted into an attribute vector containing both quantitative metrics (<em>Importance</em>, <em>Weirdness</em>, <em>Memory</em>, <em>Lucidity</em>, <em>Duration</em>) and qualitative taxonomies (<em>Mood</em>, <em>Setting</em>, <em>Objects</em>, <em>People</em>, <em>Perspective</em>).
+        </p>
+      </div>
+    </div>
+
+    <!-- Vector Graphic 1: Data & Pipeline Architecture -->
+    <div class="mb-28 border-t border-neutral-800 pt-16">
+      <div class="mb-8">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-2">Vector Specification // Diagram 01</span>
+        <h3 class="text-2xl font-normal text-neutral-50" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+          01. Data Pipeline &amp; Ingestion Architecture
+        </h3>
+      </div>
+      <p class="mb-8 text-base text-neutral-400">
+        The vector diagram below illustrates the ingestion pipeline: from raw structured JSON entries to attribute vectorization, D3.js force physics computation, and final monochromatic web rendering.
+      </p>
+
+      <div class="w-full border border-neutral-800 bg-neutral-950 p-2 md:p-4 rounded-sm overflow-hidden mb-6 shadow-2xl">
+        <img 
+          src="/progetti/dream-catalogue/diagram-data-pipeline.svg" 
+          alt="Dream Catalogue System Architecture and Data Pipeline Vector Diagram"
+          class="w-full h-auto object-contain"
+        />
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 text-sm text-neutral-400 font-mono pt-4 border-t border-neutral-900">
+        <div>
+          <strong class="text-neutral-200 block mb-1">01. JSON Ingestion</strong>
+          Structured dataset parsing containing multi-dimensional parameters for each cataloged dream state.
+        </div>
+        <div>
+          <strong class="text-neutral-200 block mb-1">02. Taxonomy Matrix</strong>
+          Distance calculation evaluating categorical overlaps across mood, objects, and settings.
+        </div>
+        <div>
+          <strong class="text-neutral-200 block mb-1">03. Physics &amp; UI</strong>
+          60 FPS force simulation feeding live telemetry data into a monochromatic layout.
+        </div>
+      </div>
+    </div>
+
+    <!-- Vector Graphic 2: Graph Mechanics & Force Field -->
+    <div class="mb-28 border-t border-neutral-800 pt-16">
+      <div class="mb-8">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-2">Vector Specification // Diagram 02</span>
+        <h3 class="text-2xl font-normal text-neutral-50" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+          02. Topological Graph Dynamics &amp; Force Field
+        </h3>
+      </div>
+      <p class="mb-8 text-base text-neutral-400">
+        This diagram details the mathematical model governing node radius scaling, categorical link formation, and force attraction versus repulsion dynamics.
+      </p>
+
+      <div class="w-full border border-neutral-800 bg-neutral-950 p-2 md:p-4 rounded-sm overflow-hidden mb-6 shadow-2xl">
+        <img 
+          src="/progetti/dream-catalogue/diagram-graph-mechanics.svg" 
+          alt="Dream Catalogue Topological Graph Dynamics and Force Field Vector Diagram"
+          class="w-full h-auto object-contain"
+        />
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 text-sm text-neutral-400 font-mono pt-4 border-t border-neutral-900">
+        <div>
+          <strong class="text-neutral-200 block mb-1">Node Radius Kinetics</strong>
+          Dynamic radius scaling derived from user-selected metrics (Importance, Weirdness, Memory).
+        </div>
+        <div>
+          <strong class="text-neutral-200 block mb-1">Link Attraction</strong>
+          Distance attraction connecting shared categories based on similarity.
+        </div>
+        <div>
+          <strong class="text-neutral-200 block mb-1">Many-Body Repulsion</strong>
+          Inverse-square repulsion maintaining structural equilibrium.
+        </div>
+      </div>
+    </div>
+
+    <!-- Vector Graphic 3: Clinical UI & Telemetry Inspector -->
+    <div class="mb-28 border-t border-neutral-800 pt-16">
+      <div class="mb-8">
+        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-2">Vector Specification // Diagram 03</span>
+        <h3 class="text-2xl font-normal text-neutral-50" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+          03. Clinical Interface &amp; Telemetry Layout
+        </h3>
+      </div>
+      <p class="mb-8 text-base text-neutral-400">
+        The layout specification breakdown of the interface components: telemetry header bar, filter controls, interactive D3 canvas, and clinical detail inspector.
+      </p>
+
+      <div class="w-full border border-neutral-800 bg-neutral-950 p-2 md:p-4 rounded-sm overflow-hidden mb-6 shadow-2xl">
+        <img 
+          src="/progetti/dream-catalogue/diagram-ui-telemetry.svg" 
+          alt="Dream Catalogue Clinical Interface Specification and Telemetry Layout Vector Diagram"
+          class="w-full h-auto object-contain"
+        />
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 text-sm text-neutral-400 font-mono pt-4 border-t border-neutral-900">
+        <div>
+          <strong class="text-neutral-200 block mb-1">Header &amp; Count</strong>
+          Live entry counter (N=30), language switcher (IT/EN), and real-time clock.
+        </div>
+        <div>
+          <strong class="text-neutral-200 block mb-1">Dynamic Filter Controls</strong>
+          `CONNECT BY` and `SIZE BY` selectors triggering instant graph reconfiguration.
+        </div>
+        <div>
+          <strong class="text-neutral-200 block mb-1">Detail Inspector</strong>
+          Clinical telemetry panel displaying dream metadata, timestamps, and audio cues.
+        </div>
+      </div>
+    </div>
+
+  </section>
 </BaseLayout>

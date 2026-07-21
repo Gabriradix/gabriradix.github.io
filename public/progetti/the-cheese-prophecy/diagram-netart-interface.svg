@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" width="100%" height="100%" style="background: #0b0a08; font-family: 'JetBrains Mono', 'Space Mono', 'Outfit', monospace;">
+  <defs>
+    <pattern id="grid-cheese-3" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#161410" stroke-width="1"/>
+    </pattern>
+
+    <filter id="glow-gold-intense-3" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <linearGradient id="gold-grad-3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe066"/>
+      <stop offset="50%" stop-color="#f5c842"/>
+      <stop offset="100%" stop-color="#e6a817"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="650" fill="#0b0a08"/>
+  <rect width="1200" height="650" fill="url(#grid-cheese-3)"/>
+
+  <!-- Outer Frame -->
+  <rect x="20" y="20" width="1160" height="610" fill="none" stroke="#262218" stroke-width="1"/>
+  <text x="40" y="48" fill="#8a7e6b" font-size="11" letter-spacing="2">NET-ART USER INTERFACE, ORACLE CONTROLS &amp; CARD EXPORT</text>
+  <text x="1160" y="48" text-anchor="end" fill="#f5c842" font-size="11" letter-spacing="1">NETART_INTERFACE // 03</text>
+
+  <!-- Central Interface Layout Box -->
+  <g transform="translate(50, 75)">
+    <!-- Browser Mockup Window -->
+    <rect x="0" y="0" width="1100" height="535" fill="#12100c" stroke="#3d3320" stroke-width="1.5" rx="4"/>
+    <rect x="0" y="0" width="1100" height="35" fill="#1c1811" stroke="#3d3320" stroke-width="1"/>
+
+    <!-- Browser Controls Dots -->
+    <circle cx="20" cy="18" r="5" fill="#ea580c"/>
+    <circle cx="36" cy="18" r="5" fill="#eab308"/>
+    <circle cx="52" cy="18" r="5" fill="#22c55e"/>
+
+    <!-- URL Bar -->
+    <rect x="80" y="7" width="550" height="22" fill="#080705" stroke="#3d3320" rx="3"/>
+    <text x="95" y="22" fill="#f5c842" font-size="10">https://gabriradix.it/cheese-phrophecy</text>
+
+    <!-- Top Action Header Controls Callouts -->
+    <g transform="translate(680, 7)">
+      <rect x="0" y="0" width="140" height="22" fill="#1f1a12" stroke="#f5c842" rx="11"/>
+      <text x="15" y="15" fill="#ffe066" font-size="8.5" font-weight="bold">🧀 Find Prophecy</text>
+
+      <rect x="150" y="0" width="110" height="22" fill="#16130e" stroke="#8a7e6b" rx="11"/>
+      <text x="162" y="15" fill="#8a7e6b" font-size="8.5">📥 Download Card</text>
+
+      <rect x="270" y="0" width="120" height="22" fill="#16130e" stroke="#8a7e6b" rx="11"/>
+      <text x="282" y="15" fill="#8a7e6b" font-size="8.5">↻ New Prophecy</text>
+    </g>
+
+    <!-- Left Column: Shuffling Word Pool Container -->
+    <g transform="translate(30, 55)">
+      <rect x="0" y="0" width="480" height="455" fill="#080705" stroke="#262218"/>
+      <text x="20" y="25" fill="#8a7e6b" font-size="9.5" font-weight="bold">TEXTUAL FERMENTATION POOL (140 WORDS)</text>
+      <line x1="20" y1="35" x2="460" y2="35" stroke="#262218"/>
+
+      <!-- Shuffling Text Block Mockup -->
+      <g transform="translate(20, 55)">
+        <text x="0" y="15" fill="#9a8e7a" font-size="9">across dream calls rain moves before rain still secret</text>
+        <text x="0" y="35" fill="#9a8e7a" font-size="9">life courage rests echo soft and still calls soft river</text>
+        <text x="0" y="55" fill="#9a8e7a" font-size="9">shining as mountain peace before finds a or turning</text>
+        
+        <!-- Golden Prophecy Word Highlights -->
+        <text x="0" y="75" fill="#f5c842" font-size="10" font-weight="bold">FIRE <tspan fill="#9a8e7a" font-weight="normal">soul knows still peace opening holds like flows</tspan></text>
+        <text x="0" y="95" fill="#9a8e7a" font-size="9">across dawn time deep endless distant opens journey</text>
+        <text x="0" y="115" fill="#f5c842" font-size="10" font-weight="bold">WARMS <tspan fill="#9a8e7a" font-weight="normal">some ocean moves pure courage through rain</tspan></text>
+        <text x="0" y="135" fill="#9a8e7a" font-size="9">star grows rests as between if ancient so</text>
+        <text x="0" y="155" fill="#f5c842" font-size="10" font-weight="bold">THE <tspan fill="#9a8e7a" font-weight="normal">hence timeless calls knows breathes in distant</tspan></text>
+        <text x="0" y="175" fill="#9a8e7a" font-size="9">moves turns knows rises calls burns moving</text>
+        <text x="0" y="195" fill="#f5c842" font-size="10" font-weight="bold">HANDS <tspan fill="#9a8e7a" font-weight="normal">these courage thus sun turns healing moves</tspan></text>
+        <text x="0" y="215" fill="#9a8e7a" font-size="9">whisper the until whisper one by hollow seeking echo</text>
+        <text x="0" y="235" fill="#f5c842" font-size="10" font-weight="bold">THAT <tspan fill="#9a8e7a" font-weight="normal">rests flows deep mountain dawn light silent</tspan></text>
+      </g>
+
+      <!-- Golden Cheese Slap Overlay Rectangle -->
+      <g transform="translate(45, 115)">
+        <rect x="0" y="0" width="390" height="260" fill="url(#gold-grad-3)" opacity="0.88" stroke="#f5c842" stroke-width="2" filter="url(#glow-gold-intense-3)"/>
+        
+        <!-- Swiss Cheese Cutout Holes -->
+        <circle cx="65" cy="50" r="22" fill="#080705"/>
+        <text x="50" y="54" fill="#f5c842" font-size="10" font-weight="bold">FIRE</text>
+
+        <circle cx="165" cy="90" r="25" fill="#080705"/>
+        <text x="145" y="94" fill="#f5c842" font-size="10" font-weight="bold">WARMS</text>
+
+        <circle cx="275" cy="130" r="20" fill="#080705"/>
+        <text x="262" y="134" fill="#f5c842" font-size="10" font-weight="bold">THE</text>
+
+        <circle cx="115" cy="170" r="26" fill="#080705"/>
+        <text x="92" y="174" fill="#f5c842" font-size="10" font-weight="bold">HANDS</text>
+
+        <circle cx="245" cy="210" r="24" fill="#080705"/>
+        <text x="228" y="214" fill="#f5c842" font-size="10" font-weight="bold">THAT</text>
+
+        <!-- Cheese Rind Edge Lines -->
+        <path d="M 0 0 L 390 0 L 390 260 L 0 260 Z" fill="none" stroke="#c28b0a" stroke-width="3"/>
+      </g>
+
+      <text x="20" y="440" fill="#8a7e6b" font-size="8.5">CHEESE SLAP MASK // POSITION: ABSOLUTE; Z-INDEX: 10;</text>
+    </g>
+
+    <!-- Right Column: Prophecy Display & Card Export Specs -->
+    <g transform="translate(545, 55)">
+      <rect x="0" y="0" width="525" height="455" fill="#080705" stroke="#262218"/>
+      
+      <!-- Top Prophecy Text Reveal Box -->
+      <rect x="20" y="20" width="485" height="210" fill="#12100c" stroke="#3d3320"/>
+      <text x="262" y="55" text-anchor="middle" fill="#f5c842" font-size="12" font-weight="bold" letter-spacing="3">✦ THE PROPHECY ✦</text>
+      <text x="262" y="115" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="bold" font-style="italic">"Fire warms the hands that feed it"</text>
+      <text x="262" y="148" text-anchor="middle" fill="#9a8e7a" font-size="10">ORACLE OF TRUTH • STOCHASTIC FERMENTATION</text>
+      <line x1="162" y1="175" x2="362" y2="175" stroke="#f5c842" stroke-width="1"/>
+
+      <!-- Downloadable Card Specifications Panel -->
+      <g transform="translate(20, 250)">
+        <rect x="0" y="0" width="485" height="185" fill="#14110b" stroke="#332a18"/>
+        <text x="18" y="25" fill="#ffe066" font-size="10" font-weight="bold">📥 DOWNLOADABLE CARD SPECIFICATIONS</text>
+        <line x1="18" y1="36" x2="470" y2="36" stroke="#241f14"/>
+
+        <g transform="translate(18, 55)">
+          <text x="0" y="15" fill="#ffffff" font-size="9" font-weight="bold">1. CANVAS RESOLUTION:</text>
+          <text x="180" y="15" fill="#f5c842" font-size="9">1080 x 1350 px (Aspect Ratio 4:5)</text>
+
+          <text x="0" y="38" fill="#ffffff" font-size="9" font-weight="bold">2. BACKGROUND &amp; GRAPHIC:</text>
+          <text x="180" y="38" fill="#9a8e7a" font-size="9">Dark Matte + Stylized Golden Cheese Slice</text>
+
+          <text x="0" y="61" fill="#ffffff" font-size="9" font-weight="bold">3. ATTRIBUTION LABEL:</text>
+          <text x="180" y="61" fill="#ffe066" font-size="9">gabriradix.it/cheese-phrophecy</text>
+
+          <text x="0" y="84" fill="#ffffff" font-size="9" font-weight="bold">4. QR CODE ASSET:</text>
+          <text x="180" y="84" fill="#f5c842" font-size="9">qrcode.svg (Static Vector Vector File)</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -98,9 +98,11 @@
       .actions {
         display: flex;
         justify-content: center;
+        align-items: center;
         min-height: 60px;
         margin: 2rem 0;
         gap: 1rem;
+        flex-wrap: wrap;
       }
       #generate-btn {
         position: relative;
@@ -165,23 +167,30 @@
         animation: pulse-glow 1s infinite;
         pointer-events: none;
       }
-      #reset-btn {
+      #reset-btn,
+      #download-card-btn {
         display: none;
-        padding: 0.6rem 1.8rem;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.65rem 1.8rem;
         font-family: "Outfit", sans-serif;
-        font-size: 0.9rem;
-        font-weight: 400;
-        color: var(--text-dim);
-        background: transparent;
-        border: 1px solid rgba(245, 200, 66, 0.2);
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--gold-light);
+        background: rgba(26, 24, 20, 0.8);
+        border: 1px solid rgba(245, 200, 66, 0.3);
         border-radius: 50px;
         cursor: pointer;
         transition: all 0.3s;
+        backdrop-filter: blur(8px);
       }
-      #reset-btn:hover {
-        color: var(--gold);
+      #reset-btn:hover,
+      #download-card-btn:hover {
+        color: var(--bg);
+        background: var(--gold);
         border-color: var(--gold);
-        box-shadow: 0 0 20px rgba(245, 200, 66, 0.1);
+        box-shadow: 0 0 25px rgba(245, 200, 66, 0.3);
+        transform: translateY(-2px);
       }
       .layout-grid {
         display: grid;
@@ -234,19 +243,8 @@
         color: var(--text-dim);
         font-style: italic;
       }
-      #cheese-overlay-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 15;
-        pointer-events: none;
-        overflow: visible;
-        opacity: 0;
-        transform: scale(20);
-        transform-origin: center;
-        will-change: transform, opacity;
+      .col-right {
+        position: relative;
       }
       @keyframes cheese-slap {
         0% {
@@ -267,6 +265,11 @@
           opacity: 1;
           transform: scale(1);
         }
+      }
+      #cheese-overlay-container {
+        position: absolute;
+        z-index: 10;
+        pointer-events: none;
       }
       #cheese-overlay-container.visible {
         animation: cheese-slap 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -357,6 +360,9 @@
           <button id="generate-btn">
             <span class="btn-icon">🧀</span><span>Find the Prophecy</span>
           </button>
+          <button id="download-card-btn">
+            <span class="btn-icon">📥</span><span>Download Card</span>
+          </button>
           <button id="reset-btn">↻ New prophecy</button>
         </div>
       </header>
@@ -445,276 +451,105 @@
         "Let the ashes blow away"
       ];
       const FILLER = [
-        "ancient",
-        "whisper",
-        "shadow",
-        "eternal",
-        "dream",
-        "wander",
-        "horizon",
-        "crystal",
-        "ember",
-        "silver",
-        "twilight",
-        "echo",
-        "gentle",
-        "cosmos",
-        "breath",
-        "ivory",
-        "velvet",
-        "aurora",
-        "sacred",
-        "hollow",
-        "mystic",
-        "ocean",
-        "silent",
-        "dusk",
-        "amber",
-        "ghost",
-        "marble",
-        "tender",
-        "winter",
-        "ether",
-        "cipher",
-        "prism",
-        "orchid",
-        "vapor",
-        "summit",
-        "radiant",
-        "vessel",
-        "pilgrim",
-        "solemn",
-        "woven",
-        "through",
-        "within",
-        "beyond",
-        "across",
-        "beneath",
-        "among",
-        "between",
-        "toward",
-        "upon",
-        "over",
-        "under",
-        "along",
-        "before",
-        "after",
-        "until",
-        "during",
-        "the",
-        "a",
-        "an",
-        "of",
-        "and",
-        "in",
-        "to",
-        "from",
-        "with",
-        "by",
-        "on",
-        "at",
-        "for",
-        "each",
-        "every",
-        "all",
-        "some",
-        "many",
-        "few",
-        "one",
-        "this",
-        "that",
-        "these",
-        "like",
-        "as",
-        "so",
-        "yet",
-        "but",
-        "or",
-        "nor",
-        "if",
-        "then",
-        "thus",
-        "hence",
-        "deep",
-        "soft",
-        "vast",
-        "pale",
-        "cold",
-        "warm",
-        "bright",
-        "dark",
-        "slow",
-        "still",
-        "rises",
-        "falls",
-        "turns",
-        "flows",
-        "grows",
-        "fades",
-        "burns",
-        "waits",
-        "moves",
-        "rests",
-        "knowing",
-        "seeking",
-        "turning",
-        "holding",
-        "watching",
-        "feeling",
-        "reaching",
-        "becoming",
+        "ancient", "whisper", "shadow", "silent", "golden", "distant", "sacred",
+        "hollow", "bright", "hidden", "endless", "secret", "gentle", "deep",
+        "wild", "still", "forgotten", "unknown", "timeless", "pure", "river",
+        "mountain", "ocean", "forest", "sky", "star", "moon", "sun", "wind",
+        "rain", "storm", "flame", "stone", "tree", "leaf", "seed", "light",
+        "darkness", "dawn", "dusk", "truth", "dream", "path", "journey",
+        "voice", "echo", "spirit", "soul", "heart", "mind", "vision",
+        "memory", "hope", "peace", "courage", "wisdom", "silence", "time",
+        "space", "life", "flows", "shines", "rises", "falls", "turns",
+        "grows", "fades", "burns", "waits", "moves", "rests", "calls",
+        "breathes", "dances", "sings", "holds", "seeks", "finds", "knows",
+        "guides", "opens", "breaks", "heals", "above", "below", "within",
+        "beyond", "between", "through", "across", "around", "before",
+        "after", "until", "during", "the", "a", "an", "of", "and", "in",
+        "to", "from", "with", "by", "on", "at", "for", "each", "every",
+        "all", "some", "many", "few", "one", "this", "that", "these",
+        "like", "as", "so", "yet", "but", "or", "nor", "if", "then",
+        "thus", "hence", "deep", "soft", "vast", "pale", "cold", "warm",
+        "bright", "dark", "slow", "still", "rises", "falls", "turns",
+        "flows", "grows", "fades", "burns", "waits", "moves", "rests",
+        "knowing", "seeking", "turning", "flowing", "growing", "fading",
+        "burning", "waiting", "moving", "resting", "calling", "shining",
+        "rising", "falling", "dancing", "singing", "holding", "guiding",
+        "opening", "healing"
       ];
-      const rf = () => FILLER[Math.floor(Math.random() * FILLER.length)];
 
-      function generateOracleText(fortune) {
+      function rf() {
+        return FILLER[Math.floor(Math.random() * FILLER.length)];
+      }
+
+      function buildText(fortune) {
         const fw = fortune.toLowerCase().split(/\s+/);
-        const lines = [];
-        let fi = 0;
-        const tl = 8 + Math.floor(Math.random() * 5);
-        const sp = Math.max(1, Math.floor(tl / fw.length));
-        for (let i = 0; i < tl; i++) {
-          const wc = 4 + Math.floor(Math.random() * 5);
-          const lw = [];
-          const embed =
-            fi < fw.length &&
-            (i % sp === Math.floor(sp / 2) || (i === tl - 1 && fi < fw.length));
-          const ep = embed ? Math.floor(Math.random() * wc) : -1;
-          for (let j = 0; j < wc; j++) {
-            if (j === ep && fi < fw.length) {
-              lw.push(fw[fi]);
-              fi++;
-            } else {
-              lw.push(rf());
-            }
-          }
-          lines.push(lw.join(" "));
+        const nw = 120 + Math.floor(Math.random() * 40);
+        const pool = [];
+        for (let i = 0; i < nw; i++) pool.push(rf());
+        for (let i = pool.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [pool[i], pool[j]] = [pool[j], pool[i]];
         }
-        while (fi < fw.length) {
-          const e = [];
-          for (let j = 0; j < 5; j++) {
-            if (fi < fw.length && j === 2) {
-              e.push(fw[fi]);
-              fi++;
-            } else {
-              e.push(rf());
-            }
-          }
-          lines.push(e.join(" "));
+        const span = Math.floor(pool.length / (fw.length + 1));
+        const pos = [];
+        for (let i = 0; i < fw.length; i++) {
+          const target = (i + 1) * span + Math.floor((Math.random() - 0.5) * 4);
+          pos.push(Math.max(0, Math.min(pool.length - 1, target)));
         }
-        return lines.join("\n");
-      }
-
-      const textContainer = document.getElementById("text-container");
-      const sourceLabel = document.getElementById("text-source");
-      let rawWords = [],
-        wordSpans = [],
-        finalWords = [],
-        currentFortune = "";
-      let shuffleRAF = null,
-        locked = [];
-
-      // ============ SHUFFLE via rAF ============
-      let lastShuffle = 0;
-      function shuffleLoop(ts) {
-        if (ts - lastShuffle > 80) {
-          lastShuffle = ts;
-          for (let i = 0; i < wordSpans.length; i++) {
-            if (!locked[i]) wordSpans[i].textContent = rf();
+        pos.sort((a, b) => a - b);
+        for (let i = 1; i < pos.length; i++) {
+          if (pos[i] <= pos[i - 1]) pos[i] = pos[i - 1] + 1;
+        }
+        const placed = [];
+        for (let i = 0; pos[pos.length - 1] >= pool.length; i++) pool.push(rf());
+        for (let i = 0; i < fw.length; i++) {
+          pool[pos[i]] = fw[i];
+          placed.push({ word: fw[i], idx: pos[i] });
+        }
+        let formatted = "";
+        let line = [];
+        for (let i = 0; i < pool.length; i++) {
+          line.push(`<span class="word" data-idx="${i}">${pool[i]}</span>`);
+          if (
+            line.length >= 8 + Math.floor(Math.random() * 5) ||
+            i === pool.length - 1
+          ) {
+            formatted += line.join(" ") + "<br>";
+            line = [];
           }
         }
-        shuffleRAF = requestAnimationFrame(shuffleLoop);
-      }
-      function startShuffling() {
-        if (shuffleRAF) cancelAnimationFrame(shuffleRAF);
-        shuffleRAF = requestAnimationFrame(shuffleLoop);
-      }
-      function stopShuffling() {
-        if (shuffleRAF) {
-          cancelAnimationFrame(shuffleRAF);
-          shuffleRAF = null;
-        }
+        return { html: formatted, placed, total: pool.length, pool };
       }
 
-      // ============ LOAD ============
-      function loadNewProphecy() {
-        stopShuffling();
-        const ov = document.getElementById("cheese-overlay-container");
-        if (ov) ov.remove();
-        const disp = document.getElementById("fortune-display");
-        disp.innerHTML = "";
-        disp.classList.remove("visible");
-        document.getElementById("generate-btn").style.display = "inline-flex";
-        document.getElementById("generate-btn").disabled = false;
-        document.getElementById("reset-btn").style.display = "none";
-
-        currentFortune = FORTUNES[Math.floor(Math.random() * FORTUNES.length)];
-        const oracleText = generateOracleText(currentFortune);
-        const lines = oracleText.split("\n");
-        textContainer.innerHTML = "";
-        rawWords = [];
-        wordSpans = [];
-        finalWords = [];
-        locked = [];
-
-        lines.forEach((line) => {
-          const div = document.createElement("div");
-          if (!line.trim()) div.style.height = "1.5em";
-          line.split(/(\s+)/).forEach((part) => {
-            if (part.trim().length > 0) {
-              const span = document.createElement("span");
-              span.className = "word";
-              span.style.display = "inline-block";
-              span.style.verticalAlign = "bottom";
-              span.style.overflow = "hidden";
-              span.style.whiteSpace = "nowrap";
-              span.style.textOverflow = "clip";
-              span.textContent = part;
-              span.dataset.index = rawWords.length;
-              div.appendChild(span);
-              rawWords.push(part);
-              finalWords.push(part);
-              wordSpans.push(span);
-              locked.push(false);
-            } else if (part.length > 0) {
-              // Ensure whitespace is preserved consistently
-              const ws = document.createElement("span");
-              ws.textContent = part;
-              ws.style.display = "inline-block";
-              ws.style.whiteSpace = "pre";
-              div.appendChild(ws);
-            }
-          });
-          textContainer.appendChild(div);
-        });
-
-        // Freeze widths based on the final text to prevent dancing
-        requestAnimationFrame(() => {
-          wordSpans.forEach((span) => {
-            span.style.width = Math.ceil(span.offsetWidth + 2) + "px";
-            span.style.textAlign = "center";
-          });
-          sourceLabel.innerHTML = "— The Oracle of Cheese";
-          startShuffling();
-        });
-      }
-
-      // ============ FIND FORTUNE WORDS ============
       function findFortuneWords() {
-        const fw = currentFortune.toLowerCase().split(/\s+/);
+        const targetWords = currentFortune.toLowerCase().split(/\s+/);
         const chosen = [];
-        let last = -2;
-        for (const w of fw) {
-          const t = w.replace(/[^a-z']/g, "");
-          if (!t) continue;
-          for (let i = Math.max(0, last + 1); i < finalWords.length; i++) {
-            if (finalWords[i].toLowerCase().replace(/[^a-z']/g, "") === t) {
-              chosen.push(i);
-              last = i;
+        let searchIdx = 0;
+        for (const tw of targetWords) {
+          let found = -1;
+          for (let i = searchIdx; i < wordSpans.length; i++) {
+            if (wordSpans[i].textContent.toLowerCase() === tw) {
+              found = i;
               break;
             }
           }
+          if (found === -1) {
+            for (let i = 0; i < wordSpans.length; i++) {
+              if (
+                wordSpans[i].textContent.toLowerCase() === tw &&
+                !chosen.includes(i)
+              ) {
+                found = i;
+                break;
+              }
+            }
+          }
+          if (found !== -1) {
+            chosen.push(found);
+            searchIdx = found + 1;
+          }
         }
-        if (!chosen.length) return null;
+        if (chosen.length < targetWords.length) return null;
         let minX = Infinity,
           minY = Infinity,
           maxX = -Infinity,
@@ -730,8 +565,9 @@
           if (cy - r < minY) minY = cy - r;
           if (cy + r > maxY) maxY = cy + r;
         }
-        const tbW = textContainer.clientWidth,
-          tbH = textContainer.clientHeight;
+        const textContainer = document.getElementById("text-container");
+        const tbW = textContainer ? textContainer.clientWidth : 800,
+          tbH = textContainer ? textContainer.clientHeight : 600;
         minX = Math.max(0, minX - 100);
         minY = Math.max(0, minY - 100);
         maxX = Math.min(tbW, maxX + 100);
@@ -757,44 +593,29 @@
         const n = wordSpans.length,
           dur = 250,
           pw = dur / n;
-        // Keep shuffling unlocked words manually during cascade
-        const cascadeRAF = { id: null };
-        let cascadeLastShuffle = 0;
-        function cascadeShuffle(ts) {
-          if (ts - cascadeLastShuffle > 80) {
-            cascadeLastShuffle = ts;
-            for (let i = 0; i < n; i++) {
-              if (!locked[i]) wordSpans[i].textContent = rf();
-            }
-          }
-          if (locked.some((l) => !l))
-            cascadeRAF.id = requestAnimationFrame(cascadeShuffle);
-        }
-        cascadeRAF.id = requestAnimationFrame(cascadeShuffle);
+        let running = true;
 
+        function keepShuffling() {
+          if (!running) return;
+          for (let i = 0; i < n; i++) {
+            if (!locked[i]) wordSpans[i].textContent = rf();
+          }
+          requestAnimationFrame(keepShuffling);
+        }
+        requestAnimationFrame(keepShuffling);
         for (let i = 0; i < n; i++) {
           setTimeout(() => {
             locked[i] = true;
-            wordSpans[i].textContent = finalWords[i];
-            wordSpans[i].style.color = "#f5c842";
-            setTimeout(() => {
-              wordSpans[i].style.color = "";
-            }, 200);
+            wordSpans[i].textContent = rawWords[i];
+            if (i === n - 1) {
+              running = false;
+              setTimeout(cb, 50);
+            }
           }, i * pw);
         }
-        setTimeout(
-          () => {
-            if (cascadeRAF.id) cancelAnimationFrame(cascadeRAF.id);
-            cb();
-          },
-          n * pw + 300,
-        );
       }
 
-      // ============ CHEESE OVERLAY ============
       function createCheeseOverlay(result) {
-        const ex = document.getElementById("cheese-overlay-container");
-        if (ex) ex.remove();
         const box = result.box,
           W = box.maxX - box.minX,
           H = box.maxY - box.minY,
@@ -925,6 +746,9 @@
 
         const ov = document.createElement("div");
         ov.id = "cheese-overlay-container";
+        ov.style.position = "absolute";
+        ov.style.zIndex = "10";
+        ov.style.pointerEvents = "none";
         ov.style.width = W + "px";
         ov.style.height = H + "px";
         ov.style.left = box.minX + "px";
@@ -946,15 +770,196 @@
         });
       }
 
+      // ============ CARD DOWNLOAD GENERATOR ============
+      function downloadCard() {
+        const canvas = document.createElement("canvas");
+        canvas.width = 1080;
+        canvas.height = 1350;
+        const ctx = canvas.getContext("2d");
+
+        // Background
+        const bgGrad = ctx.createLinearGradient(0, 0, 0, 1350);
+        bgGrad.addColorStop(0, "#12100c");
+        bgGrad.addColorStop(0.5, "#0a0907");
+        bgGrad.addColorStop(1, "#040302");
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, 1080, 1350);
+
+        // Ambient radial glow behind cheese
+        const glow = ctx.createRadialGradient(540, 650, 50, 540, 650, 550);
+        glow.addColorStop(0, "rgba(245, 200, 66, 0.18)");
+        glow.addColorStop(0.6, "rgba(245, 200, 66, 0.05)");
+        glow.addColorStop(1, "rgba(0, 0, 0, 0)");
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, 1080, 1350);
+
+        // Outer Decorative Frame
+        ctx.strokeStyle = "rgba(245, 200, 66, 0.4)";
+        ctx.lineWidth = 3;
+        ctx.strokeRect(36, 36, 1008, 1278);
+
+        ctx.strokeStyle = "rgba(245, 200, 66, 0.15)";
+        ctx.lineWidth = 1;
+        ctx.strokeRect(46, 46, 988, 1258);
+
+        // Corner Accents
+        const drawCorner = (x, y, dx, dy) => {
+          ctx.strokeStyle = "#f5c842";
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.moveTo(x, y + dy * 22);
+          ctx.lineTo(x, y);
+          ctx.lineTo(x + dx * 22, y);
+          ctx.stroke();
+        };
+        drawCorner(36, 36, 1, 1);
+        drawCorner(1044, 36, -1, 1);
+        drawCorner(36, 1314, 1, -1);
+        drawCorner(1044, 1314, -1, -1);
+
+        // Simplified Cheese Wedge Graphic
+        ctx.save();
+        ctx.shadowColor = "rgba(0, 0, 0, 0.7)";
+        ctx.shadowBlur = 40;
+        ctx.shadowOffsetY = 20;
+
+        const cheeseGrad = ctx.createLinearGradient(200, 350, 880, 950);
+        cheeseGrad.addColorStop(0, "#ffe066");
+        cheeseGrad.addColorStop(0.3, "#f5c842");
+        cheeseGrad.addColorStop(0.7, "#e6a817");
+        cheeseGrad.addColorStop(1, "#c28b0a");
+
+        ctx.beginPath();
+        ctx.moveTo(220, 420);
+        ctx.quadraticCurveTo(540, 360, 860, 420);
+        ctx.quadraticCurveTo(890, 430, 880, 460);
+        ctx.lineTo(800, 920);
+        ctx.quadraticCurveTo(790, 950, 750, 950);
+        ctx.lineTo(330, 950);
+        ctx.quadraticCurveTo(290, 950, 280, 920);
+        ctx.lineTo(200, 460);
+        ctx.quadraticCurveTo(190, 430, 220, 420);
+        ctx.closePath();
+
+        ctx.fillStyle = cheeseGrad;
+        ctx.fill();
+
+        ctx.strokeStyle = "#a0740a";
+        ctx.lineWidth = 4;
+        ctx.stroke();
+        ctx.restore();
+
+        // Cheese Holes
+        const holes = [
+          { x: 340, y: 520, r: 42 },
+          { x: 740, y: 500, r: 35 },
+          { x: 540, y: 680, r: 55 },
+          { x: 380, y: 820, r: 38 },
+          { x: 700, y: 800, r: 46 },
+          { x: 260, y: 660, r: 28 },
+          { x: 820, y: 670, r: 30 }
+        ];
+        holes.forEach(h => {
+          ctx.beginPath();
+          ctx.arc(h.x, h.y, h.r, 0, Math.PI * 2);
+          ctx.fillStyle = "#0c0b09";
+          ctx.fill();
+          ctx.strokeStyle = "rgba(160, 116, 10, 0.6)";
+          ctx.lineWidth = 3;
+          ctx.stroke();
+        });
+
+        // Card Header Text
+        ctx.textAlign = "center";
+        ctx.fillStyle = "#f5c842";
+        ctx.font = 'bold 36px "Playfair Display", serif';
+        ctx.fillText("✦ THE CHEESE PROPHECY ✦", 540, 140);
+
+        ctx.fillStyle = "#9a8e7a";
+        ctx.font = '300 16px "Outfit", sans-serif';
+        ctx.fillText("ORACLE OF TRUTH", 540, 175);
+
+        // Golden Prophecy Text in Center
+        ctx.save();
+        ctx.shadowColor = "rgba(0, 0, 0, 0.9)";
+        ctx.shadowBlur = 18;
+        ctx.shadowOffsetY = 4;
+        ctx.fillStyle = "#ffffff";
+        ctx.font = 'italic bold 44px "Playfair Display", serif';
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        const wordsText = currentFortune || "The golden rind reveals the truth";
+        const words = wordsText.split(" ");
+        const lines = [];
+        let currentLine = words[0];
+
+        for (let i = 1; i < words.length; i++) {
+          const testLine = currentLine + " " + words[i];
+          if (ctx.measureText(testLine).width > 620) {
+            lines.push(currentLine);
+            currentLine = words[i];
+          } else {
+            currentLine = testLine;
+          }
+        }
+        lines.push(currentLine);
+
+        const startY = 650 - ((lines.length - 1) * 30);
+        lines.forEach((line, idx) => {
+          ctx.fillText(`"${line}"`, 540, startY + idx * 60);
+        });
+        ctx.restore();
+
+        // Bottom Left Link & Attribution
+        ctx.textAlign = "left";
+        ctx.fillStyle = "#f5c842";
+        ctx.font = 'bold 22px "Outfit", sans-serif';
+        ctx.fillText("gabriradix.it/cheese-phrophecy", 70, 1205);
+
+        ctx.fillStyle = "#9a8e7a";
+        ctx.font = '300 15px "Outfit", sans-serif';
+        ctx.fillText("SCAN TO GENERATE YOUR PROPHECY • NET ART ARTIFACT", 70, 1235);
+
+        // Render Static SVG QR Code at Bottom Right
+        const qrSize = 140;
+        const qrX = 860;
+        const qrY = 1120;
+
+        const qrImg = new Image();
+        qrImg.onload = function() {
+          ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
+          triggerDownload();
+        };
+        qrImg.onerror = function() {
+          triggerDownload();
+        };
+        qrImg.src = "./qrcode.svg";
+
+        function triggerDownload() {
+          const link = document.createElement("a");
+          link.download = `cheese-prophecy-card-${Date.now()}.png`;
+          link.href = canvas.toDataURL("image/png");
+          link.click();
+        }
+      }
+
       // ============ MAIN ============
+      let rawWords = [],
+        wordSpans = [],
+        currentFortune = "",
+        shuffleRAF = null,
+        locked = [];
+
       const generateBtn = document.getElementById("generate-btn"),
-        resetBtn = document.getElementById("reset-btn");
+        resetBtn = document.getElementById("reset-btn"),
+        downloadCardBtn = document.getElementById("download-card-btn");
+
       generateBtn.addEventListener("click", () => {
         generateBtn.classList.add("loading");
         generateBtn.querySelector(".btn-icon").textContent = "⏳";
         generateBtn.disabled = true;
 
-        // Nascondi header Astro genitore
         window.parent.postMessage('force-compact-header', '*');
 
         cascadeStop(() => {
@@ -973,15 +978,70 @@
           disp.innerHTML = `<h2>✦ The Prophecy ✦</h2><div id="fortune-text">${currentFortune}</div>`;
           disp.classList.add("visible");
           generateBtn.style.display = "none";
-          resetBtn.style.display = "inline-block";
+          resetBtn.style.display = "inline-flex";
+          downloadCardBtn.style.display = "inline-flex";
           generateBtn.classList.remove("loading");
           generateBtn.querySelector(".btn-icon").textContent = "🧀";
         });
       });
-      resetBtn.addEventListener("click", loadNewProphecy);
-      loadNewProphecy();
 
-      // Notifica lo scroll al genitore per contrarre l'header
+      // ============ SHUFFLE ENGINE ============
+      let lastShuffle = 0;
+      function shuffleLoop(ts) {
+        if (ts - lastShuffle > 80) {
+          lastShuffle = ts;
+          for (let i = 0; i < wordSpans.length; i++) {
+            if (!locked[i]) wordSpans[i].textContent = rf();
+          }
+        }
+        shuffleRAF = requestAnimationFrame(shuffleLoop);
+      }
+      function startShuffling() {
+        if (shuffleRAF) cancelAnimationFrame(shuffleRAF);
+        shuffleRAF = requestAnimationFrame(shuffleLoop);
+      }
+      function stopShuffling() {
+        if (shuffleRAF) {
+          cancelAnimationFrame(shuffleRAF);
+          shuffleRAF = null;
+        }
+      }
+
+      resetBtn.addEventListener("click", loadNewProphecy);
+      downloadCardBtn.addEventListener("click", downloadCard);
+
+      function loadNewProphecy() {
+        stopShuffling();
+        const ov = document.getElementById("cheese-overlay-container");
+        if (ov) ov.remove();
+        const disp = document.getElementById("fortune-display");
+        disp.innerHTML = "";
+        disp.classList.remove("visible");
+        document.getElementById("generate-btn").style.display = "inline-flex";
+        document.getElementById("generate-btn").disabled = false;
+        document.getElementById("reset-btn").style.display = "none";
+        document.getElementById("download-card-btn").style.display = "none";
+
+        currentFortune = FORTUNES[Math.floor(Math.random() * FORTUNES.length)];
+        const textData = buildText(currentFortune);
+        rawWords = textData.pool;
+        wordSpans = [];
+        locked = new Array(textData.total).fill(false);
+        const container = document.getElementById("text-container");
+        container.innerHTML = textData.html;
+        wordSpans = Array.from(container.querySelectorAll(".word"));
+        document.getElementById("text-source").textContent =
+          "— Textual Fermentation Pool";
+        startShuffling();
+      }
+
+      // Execute loadNewProphecy immediately on DOM Ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadNewProphecy);
+      } else {
+        loadNewProphecy();
+      }
+
       window.addEventListener("scroll", () => {
         if (window.scrollY > 50) {
           window.parent.postMessage('force-compact-header', '*');

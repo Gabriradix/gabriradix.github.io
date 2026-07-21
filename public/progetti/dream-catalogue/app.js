@@ -1,5 +1,5 @@
 // ── Dream Map App ──────────────────────────────────────────────────
-// Ryoji Ikeda inspired data visualization
+// High-density monochromatic data visualization
 
 // ── i18n ─────────────────────────────────────────────────────────────
 let currentLang = "en";

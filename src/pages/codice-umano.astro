@@ -1,0 +1,158 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getProxyUrl } from "../utils/image";
+import { projects } from "../data/projects";
+
+const project = projects.find((p) => p.href === "/codice-umano");
+const pdfManifesto = "https://www.cityopenmuseum.com/wp-content/uploads/2026/06/fura-dels-baus-manifesto.pdf";
+---
+
+<BaseLayout title="Codice Umano - La Fura dels Baus x Gabriele Radicello">
+  <!-- Hero Section -->
+  <section class="relative h-[100dvh] w-full overflow-hidden flex items-center justify-center">
+    <img 
+      src={getProxyUrl("/progetti/codice-umano/cover.jpg")} 
+      data-src="/progetti/codice-umano/cover.jpg"
+      alt="Codice Umano - La Fura dels Baus"
+      class="absolute inset-0 w-full h-full object-cover z-0 opacity-40"
+    />
+    <div class="absolute inset-0 bg-black/60 z-10"></div>
+    
+    <div class="relative z-20 text-center px-6">
+      <h1 
+        class="text-5xl md:text-8xl font-normal text-white tracking-tight" 
+        style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
+      >
+        Codice Umano
+      </h1>
+      <p class="mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto">
+        A scenic performance workshop by La Fura dels Baus in collaboration with the Accademia di Belle Arti di Carrara.
+      </p>
+      <p class="mt-4 text-sm text-neutral-400">
+        Directed by Pera Tantiñà — Grand Finale of C.O.M. City Open Museum
+      </p>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="max-w-4xl mx-auto px-6 py-24 md:py-32 text-neutral-300 text-lg leading-8 text-left">
+    
+    <!-- Overview & Concept -->
+    <div class="mb-16 md:mb-24">
+      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+        Concept & Collaboration
+      </h2>
+      <div class="grid gap-8">
+        <p>
+          <strong>Codice Umano</strong> (Human Code) is an immersive scenic creation performance and workshop developed by the world-renowned Catalan theater company <strong>La Fura dels Baus</strong>, under the direction of <strong>Pera Tantiñà</strong>, in collaboration with the <strong>Accademia di Belle Arti di Carrara</strong>.
+        </p>
+        <p>
+          The project served as the grand finale of <em>C.O.M. – City Open Museum</em> (Com.unità dell'arte diffusa), a transmedia and participatory open-museum initiative funded under the PNRR, connecting a national network of 18 academies, universities, and conservatories into a shared ecosystem of artistic research and production.
+        </p>
+        <p>
+          Staged at the industrial heritage site of former <em>Ceramica Vaccari</em> in Santo Stefano Magra (SP), the performance brought together live acting, physical performance, stage design, original music, and interactive audio-visual processing, transforming the space into a collective sensory experience.
+        </p>
+      </div>
+
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a
+          href="https://lafura.com/noticias/la-fura-dels-baus-presenta-el-workshop-codice-umano-en-la-accademia-di-belle-arti-di-carrara/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-3 px-8 py-3 border border-neutral-700 text-neutral-300 hover:bg-white hover:text-black transition-colors duration-300 font-medium tracking-wide text-sm uppercase"
+        >
+          La Fura dels Baus News
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+          </svg>
+        </a>
+
+        <a
+          href="https://www.cityopenmuseum.com/la-fura-dels-baus/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-3 px-8 py-3 border border-neutral-700 text-neutral-300 hover:bg-white hover:text-black transition-colors duration-300 font-medium tracking-wide text-sm uppercase"
+        >
+          City Open Museum Project Page
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+          </svg>
+        </a>
+
+        <a
+          href={pdfManifesto}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-3 px-8 py-3 border border-neutral-700 text-neutral-300 hover:bg-white hover:text-black transition-colors duration-300 font-medium tracking-wide text-sm uppercase"
+        >
+          Download Manifesto PDF
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Production & Methodology -->
+    <div class="mb-16 md:mb-24">
+      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+        Production & Audio-Visual Support
+      </h2>
+      <div class="grid gap-8">
+        <p>
+          For over forty years, La Fura dels Baus has redefined contemporary theater through their signature language: immersive staging, raw physicality, technology integration, and active audience involvement.
+        </p>
+        <p>
+          The production of <em>Codice Umano</em> actively involved students from the Accademia di Belle Arti di Carrara across every stage component: scenography, acting, performance, music, and real-time audio-visual support.
+        </p>
+        <p>
+          As part of the audio-visual technical team (alongside Michele Marchini, Mattia Piccioli, and Andrea Vatteroni), Gabriele Radicello contributed to the live technical workflow, projection mapping, and real-time visual system processing that accompanied the performers on stage.
+        </p>
+      </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div class="border-t border-neutral-800 pt-16 mb-24">
+      <h2 class="text-3xl font-normal text-neutral-50 mb-12" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+        Gallery
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <img src={getProxyUrl("/progetti/codice-umano/1.jpg")} data-src="/progetti/codice-umano/1.jpg" alt="Codice Umano - La Fura dels Baus performance frame 1" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/codice-umano/2.jpg")} data-src="/progetti/codice-umano/2.jpg" alt="Codice Umano - La Fura dels Baus performance frame 2" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/codice-umano/3.jpg")} data-src="/progetti/codice-umano/3.jpg" alt="Codice Umano - La Fura dels Baus performance frame 3" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/codice-umano/4.jpg")} data-src="/progetti/codice-umano/4.jpg" alt="Codice Umano - La Fura dels Baus performance frame 4" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/codice-umano/5.jpg")} data-src="/progetti/codice-umano/5.jpg" alt="Codice Umano - La Fura dels Baus performance frame 5" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/codice-umano/6.jpg")} data-src="/progetti/codice-umano/6.jpg" alt="Codice Umano - La Fura dels Baus performance frame 6" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/codice-umano/7.jpg")} data-src="/progetti/codice-umano/7.jpg" alt="Codice Umano - La Fura dels Baus performance frame 7" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/codice-umano/8.jpg")} data-src="/progetti/codice-umano/8.jpg" alt="Codice Umano - La Fura dels Baus performance frame 8" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/codice-umano/9.jpg")} data-src="/progetti/codice-umano/9.jpg" alt="Codice Umano - La Fura dels Baus performance frame 9" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/codice-umano/10.jpg")} data-src="/progetti/codice-umano/10.jpg" alt="Codice Umano - La Fura dels Baus performance frame 10" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/codice-umano/11.jpg")} data-src="/progetti/codice-umano/11.jpg" alt="Codice Umano - La Fura dels Baus performance frame 11" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/codice-umano/12.jpg")} data-src="/progetti/codice-umano/12.jpg" alt="Codice Umano - La Fura dels Baus performance frame 12" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/codice-umano/13.jpg")} data-src="/progetti/codice-umano/13.jpg" alt="Codice Umano - La Fura dels Baus performance frame 13" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/codice-umano/14.jpg")} data-src="/progetti/codice-umano/14.jpg" alt="Codice Umano - La Fura dels Baus performance frame 14" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img src={getProxyUrl("/progetti/codice-umano/15.jpg")} data-src="/progetti/codice-umano/15.jpg" alt="Codice Umano - La Fura dels Baus performance frame 15" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- Credits Section -->
+    <div class="border-t border-neutral-800 pt-16">
+      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+        Credits
+      </h2>
+      <div class="grid gap-4 text-neutral-400 text-base">
+        <p><strong class="text-neutral-200">Direction & Company:</strong> La Fura dels Baus (Directed by Pera Tantiñà)</p>
+        <p><strong class="text-neutral-200">Curators:</strong> Prof. Italo Grassi & Prof. Flavio Lazzeri</p>
+        <p><strong class="text-neutral-200">Coordination & Organization:</strong> Fabiola Manfredi</p>
+        <p><strong class="text-neutral-200">Institution Leadership:</strong> Accademia di Belle Arti di Carrara (Director Marco Baudinelli, President Cinzia Monteverdi)</p>
+        <p><strong class="text-neutral-200">Audio-Visual Support:</strong> Gabriele Radicello, Michele Marchini, Mattia Piccioli, Andrea Vatteroni</p>
+        <p><strong class="text-neutral-200">Music:</strong> Emiliano Bagnato</p>
+        <p><strong class="text-neutral-200">Scenography:</strong> Alessio Angelino, Maya Lorenzi, Alessandro Mattiello, Arianna Santini, Dong Jingxi, Lai Siyu, Zhang Zhou, Yang Haiyu, Zhu Linyan</p>
+        <p><strong class="text-neutral-200">Performers:</strong> Alice Battistini, Noemi Coppedè, Melania Filidei, Cecilia Fiorini, Chiara Manncino, Alessandro Mattiello, Vittoria Montaiuti, Marianna Mottola, Sara Rugani, Francesco Terralavoro</p>
+        <p><strong class="text-neutral-200">Category:</strong> Immersive Performance</p>
+        <p><strong class="text-neutral-200">Location & Date:</strong> ex Ceramica Vaccari, Santo Stefano Magra (SP) — June 29, 2026</p>
+      </div>
+    </div>
+
+  </section>
+</BaseLayout>
