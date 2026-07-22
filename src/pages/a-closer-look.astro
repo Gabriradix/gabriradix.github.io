@@ -8,7 +8,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <section class="relative h-[100svh] md:h-[100dvh] w-full overflow-hidden flex items-center justify-center">
     <video 
       src="/progetti/a-closer-look/assets/Tdmovieout.0.mp4"
-      poster="/progetti/a-closer-look/assets/IMG_0010.JPG"
+      poster="/progetti/a-closer-look/assets/Tdmovieout.0-poster.jpg"
       autoplay 
       muted 
       loop 
@@ -21,16 +21,31 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     </video>
 
     <script>
-      function ensureVideoPlays() {
+      function playHeroVideo() {
         const v = document.querySelector('video') as HTMLVideoElement | null;
-        if (v && v.paused) {
-          v.play().catch(() => {});
+        if (!v) return;
+        v.muted = true;
+        v.playsInline = true;
+        const promise = v.play();
+        if (promise !== undefined) {
+          promise.catch(() => {
+            const resumeOnTouch = () => {
+              v.play().catch(() => {});
+              window.removeEventListener('touchstart', resumeOnTouch);
+              window.removeEventListener('scroll', resumeOnTouch);
+              window.removeEventListener('click', resumeOnTouch);
+            };
+            window.addEventListener('touchstart', resumeOnTouch, { passive: true });
+            window.addEventListener('scroll', resumeOnTouch, { passive: true });
+            window.addEventListener('click', resumeOnTouch, { passive: true });
+          });
         }
       }
-      ensureVideoPlays();
-      document.addEventListener('astro:page-load', ensureVideoPlays);
+
+      playHeroVideo();
+      document.addEventListener('astro:page-load', playHeroVideo);
       document.addEventListener('visibilitychange', () => {
-        if (!document.hidden) ensureVideoPlays();
+        if (!document.hidden) playHeroVideo();
       });
     </script>
     <div class="absolute inset-0 bg-black/60 z-10"></div>

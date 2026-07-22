@@ -57,11 +57,15 @@ const isBrainrot = title === "Brainrot Pavilion";
       >
         {carouselImages.map((img, i) => {
           const isVid = img.toLowerCase().endsWith('.mp4') || img.toLowerCase().endsWith('.mov') || img.toLowerCase().endsWith('.webm');
-          const posterImg = images.find(x => !x.toLowerCase().endsWith('.mp4') && !x.toLowerCase().endsWith('.mov') && !x.toLowerCase().endsWith('.webm'));
+          const videoPoster = img.endsWith('Tdmovieout.0.mp4')
+            ? '/progetti/a-closer-look/assets/Tdmovieout.0-poster.jpg'
+            : img.endsWith('video.mp4')
+            ? '/progetti/homo-deus/video-poster.jpg'
+            : undefined;
           return isVid ? (
             <video
               src={img}
-              poster={posterImg ? getProxyUrl(posterImg) : undefined}
+              poster={videoPoster}
               autoplay
               loop
               muted
@@ -390,8 +394,21 @@ const isBrainrot = title === "Brainrot Pavilion";
   function ensureAllVideosPlay() {
     document.querySelectorAll('.carousel-container video').forEach(v => {
       const vid = v as HTMLVideoElement;
-      if (vid.paused) {
-        vid.play().catch(() => {});
+      vid.muted = true;
+      vid.playsInline = true;
+      const p = vid.play();
+      if (p !== undefined) {
+        p.catch(() => {
+          const resumeOnTouch = () => {
+            vid.play().catch(() => {});
+            window.removeEventListener('touchstart', resumeOnTouch);
+            window.removeEventListener('scroll', resumeOnTouch);
+            window.removeEventListener('click', resumeOnTouch);
+          };
+          window.addEventListener('touchstart', resumeOnTouch, { passive: true });
+          window.addEventListener('scroll', resumeOnTouch, { passive: true });
+          window.addEventListener('click', resumeOnTouch, { passive: true });
+        });
       }
     });
   }
