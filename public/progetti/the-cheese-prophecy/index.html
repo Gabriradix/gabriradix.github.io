@@ -357,10 +357,16 @@
       }
       @media (max-width: 600px) {
         .container {
-          padding: 1rem;
+          padding: 0.5rem;
+        }
+        body.fullscreen-mode .container {
+          padding: 0 !important;
+          margin: 0 !important;
+          width: 100% !important;
+          max-width: 100% !important;
         }
         #text-container {
-          padding: 1.5rem 1rem;
+          padding: 1rem 0.5rem;
           font-size: 1rem;
         }
         #generate-btn {
