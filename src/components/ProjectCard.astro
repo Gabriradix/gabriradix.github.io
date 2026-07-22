@@ -57,9 +57,9 @@ const isBrainrot = title === "Brainrot Pavilion";
       >
         {carouselImages.map((img, i) => {
           const isVid = img.toLowerCase().endsWith('.mp4') || img.toLowerCase().endsWith('.mov') || img.toLowerCase().endsWith('.webm');
+          const webmSrc = img.replace(/\.(mp4|mov)$/i, '.webm');
           return isVid ? (
             <video
-              src={img}
               autoplay
               loop
               muted
@@ -69,7 +69,8 @@ const isBrainrot = title === "Brainrot Pavilion";
               class="h-full w-auto max-w-none object-cover shrink-0 mr-[5px]"
               draggable="false"
             >
-              <source src={img} />
+              <source src={webmSrc} type="video/webm" />
+              <source src={img} type="video/mp4" />
             </video>
           ) : (
             <img
