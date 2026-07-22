@@ -57,15 +57,9 @@ const isBrainrot = title === "Brainrot Pavilion";
       >
         {carouselImages.map((img, i) => {
           const isVid = img.toLowerCase().endsWith('.mp4') || img.toLowerCase().endsWith('.mov') || img.toLowerCase().endsWith('.webm');
-          const videoPoster = img.endsWith('Tdmovieout.0.mp4')
-            ? '/progetti/a-closer-look/assets/Tdmovieout.0-poster.jpg'
-            : img.endsWith('video.mp4')
-            ? '/progetti/homo-deus/video-poster.jpg'
-            : undefined;
           return isVid ? (
             <video
               src={img}
-              poster={videoPoster}
               autoplay
               loop
               muted
