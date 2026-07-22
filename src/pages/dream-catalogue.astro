@@ -67,7 +67,7 @@ const project = projects.find((p) => p.href === "/dream-catalogue");
       </div>
 
       <!-- Iframe Container -->
-      <div id="iframe-container" class="w-full h-[75vh] border border-neutral-800 bg-black overflow-hidden rounded-sm relative transition-all duration-500 ease-in-out">
+      <div id="iframe-container" class="w-full h-[65vh] md:h-[75vh] border border-neutral-800 bg-black overflow-hidden rounded-sm relative transition-all duration-500 ease-in-out">
         <iframe
           id="app-iframe"
           src="/progetti/dream-catalogue/index.html"
@@ -115,7 +115,7 @@ const project = projects.find((p) => p.href === "/dream-catalogue");
           wrapper.classList.remove("max-w-7xl", "px-6");
           wrapper.classList.add("w-full", "h-full", "max-w-none", "flex", "flex-col", "p-0");
 
-          container.classList.remove("h-[75vh]");
+          container.classList.remove("h-[65vh]", "md:h-[75vh]");
           container.classList.add("flex-1", "w-full", "h-full");
 
           document.body.style.overflow = "hidden";
@@ -131,7 +131,7 @@ const project = projects.find((p) => p.href === "/dream-catalogue");
           wrapper.classList.add("max-w-7xl", "px-6");
           wrapper.classList.remove("w-full", "h-full", "max-w-none", "flex", "flex-col", "p-0");
 
-          container.classList.add("h-[75vh]");
+          container.classList.add("h-[65vh]", "md:h-[75vh]");
           container.classList.remove("flex-1", "w-full", "h-full");
 
           document.body.style.overflow = "";
