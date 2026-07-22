@@ -58,12 +58,14 @@ const isBrainrot = title === "Brainrot Pavilion";
         {carouselImages.map((img, i) => (
           img.endsWith('.mp4') ? (
             <video
+              src={img}
               autoplay
               loop
               muted
               playsinline
+              webkit-playsinline
               preload="auto"
-              class="h-full w-auto max-w-none object-cover shrink-0 mr-[5px]"
+              class="h-full w-auto min-w-[240px] aspect-[16/9] object-cover shrink-0 mr-[5px]"
               draggable="false"
             >
               <source src={img} type="video/mp4" />
