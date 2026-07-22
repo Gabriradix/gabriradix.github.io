@@ -22,22 +22,22 @@ const project = projects.find((p) => p.href === "/dream-catalogue");
         System Architecture &amp; Data Visualization
       </div>
       <h1 
-        class="text-5xl md:text-8xl font-normal text-white tracking-tight" 
+        class="text-4xl sm:text-6xl md:text-8xl font-normal text-white tracking-tight break-words" 
         style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
       >
         Dream Catalogue
       </h1>
-      <p class="mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto">
+      <p class="mt-4 sm:mt-6 text-base sm:text-xl text-neutral-300 font-light max-w-2xl mx-auto">
         An interactive clinical web archive cataloging dream states through dynamic graph topology and high-density telemetry.
       </p>
-      <div class="mt-8 flex justify-center gap-4">
+      <div class="mt-6 sm:mt-8 flex justify-center gap-4">
         <button
           id="hero-fullscreen-btn"
           type="button"
-          class="inline-flex items-center gap-3 px-8 py-3 border border-neutral-200 bg-white text-black hover:bg-neutral-200 transition-colors duration-300 font-medium tracking-wide text-sm uppercase cursor-pointer shadow-lg"
+          class="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 max-w-full border border-neutral-200 bg-white text-black hover:bg-neutral-200 transition-colors duration-300 font-medium tracking-wide text-xs sm:text-sm uppercase cursor-pointer shadow-lg text-center"
         >
-          Launch Interactive App
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <span>Launch Interactive App</span>
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
           </svg>
         </button>
@@ -46,18 +46,18 @@ const project = projects.find((p) => p.href === "/dream-catalogue");
   </section>
 
   <!-- Interactive Live App Section -->
-  <section id="app-section" class="w-full bg-black py-12 border-y border-neutral-800 transition-all duration-500 ease-in-out">
-    <div id="app-wrapper" class="max-w-7xl mx-auto px-6 transition-all duration-500 ease-in-out">
+  <section id="app-section" class="w-full bg-black py-8 sm:py-12 border-y border-neutral-800 transition-all duration-500 ease-in-out">
+    <div id="app-wrapper" class="max-w-7xl mx-auto px-4 sm:px-6 transition-all duration-500 ease-in-out">
       <!-- Section Header Bar (Inline Mode) -->
-      <div id="app-header-bar" class="flex items-center justify-between mb-4">
-        <h2 class="text-sm font-mono text-neutral-400 uppercase tracking-widest flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
-          LIVE INTERACTIVE APPLICATION // MAPPA DEI SOGNI
+      <div id="app-header-bar" class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
+        <h2 class="text-xs sm:text-sm font-mono text-neutral-400 uppercase tracking-widest flex items-center gap-2 flex-wrap">
+          <span class="w-2 h-2 rounded-full bg-white animate-pulse shrink-0"></span>
+          <span>LIVE INTERACTIVE APPLICATION // MAPPA DEI SOGNI</span>
         </h2>
         <button
           id="fullscreen-btn"
           type="button"
-          class="text-xs font-mono text-neutral-300 hover:text-white bg-neutral-900/90 hover:bg-neutral-800 border border-neutral-700 px-3.5 py-1.5 rounded transition-all duration-300 flex items-center gap-2 cursor-pointer shadow-lg"
+          class="text-xs font-mono text-neutral-300 hover:text-white bg-neutral-900/90 hover:bg-neutral-800 border border-neutral-700 px-3.5 py-1.5 rounded transition-all duration-300 flex items-center gap-2 cursor-pointer shadow-lg shrink-0"
         >
           <span>Open Fullscreen</span>
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
