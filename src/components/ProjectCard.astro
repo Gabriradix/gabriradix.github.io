@@ -57,9 +57,11 @@ const isBrainrot = title === "Brainrot Pavilion";
       >
         {carouselImages.map((img, i) => {
           const isVid = img.toLowerCase().endsWith('.mp4') || img.toLowerCase().endsWith('.mov') || img.toLowerCase().endsWith('.webm');
+          const posterImg = images.find(x => !x.toLowerCase().endsWith('.mp4') && !x.toLowerCase().endsWith('.mov') && !x.toLowerCase().endsWith('.webm'));
           return isVid ? (
             <video
               src={img}
+              poster={posterImg ? getProxyUrl(posterImg) : undefined}
               autoplay
               loop
               muted
