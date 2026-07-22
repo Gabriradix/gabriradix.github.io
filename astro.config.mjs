@@ -2,6 +2,7 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { defineConfig } from "astro/config";
+import tailwindcss from "@tailwindcss/vite";
 
 /**
  * @returns {any}
@@ -42,6 +43,6 @@ export default defineConfig({
   site: "https://www.gabriradix.it",
   base: "/",
   vite: {
-    plugins: [progettiIndexRewrite()],
+    plugins: [tailwindcss(), progettiIndexRewrite()],
   },
 });
