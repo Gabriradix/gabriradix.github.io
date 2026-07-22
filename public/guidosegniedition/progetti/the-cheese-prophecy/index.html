@@ -31,15 +31,17 @@
         --text-dim: #9a8e7a;
         --radius: 16px;
       }
-      html {
+      html, body {
         scroll-behavior: smooth;
+        overflow-x: hidden;
+        max-width: 100vw;
+        width: 100%;
       }
       body {
         font-family: "Outfit", sans-serif;
         background: var(--bg);
         color: var(--text);
         min-height: 100vh;
-        overflow-x: hidden;
       }
       .home-link {
         position: fixed;
@@ -65,6 +67,8 @@
         max-width: 1100px;
         margin: 0 auto;
         padding: 2rem 1.5rem;
+        overflow-x: hidden;
+        box-sizing: border-box;
       }
       header {
         text-align: center;

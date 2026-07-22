@@ -5,8 +5,10 @@
   --font-serif: "Apple Garamond Custom", "Apple Garamond", "EB Garamond", Garamond, ui-serif, Georgia, serif;
 }
 
-html {
+html, body {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 @view-transition {
