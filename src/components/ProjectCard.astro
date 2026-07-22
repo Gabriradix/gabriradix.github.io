@@ -385,13 +385,31 @@ const isBrainrot = title === "Brainrot Pavilion";
     });
   }
 
+  function ensureAllVideosPlay() {
+    document.querySelectorAll('.carousel-container video').forEach(v => {
+      const vid = v as HTMLVideoElement;
+      if (vid.paused) {
+        vid.play().catch(() => {});
+      }
+    });
+  }
+
   // Initialize
   initCarousels();
   initAsciiHover();
-  // Support View Transitions
+  ensureAllVideosPlay();
+
+  // Support View Transitions and Visibility Changes
   document.addEventListener('astro:page-load', () => {
     initCarousels();
     initAsciiHover();
+    ensureAllVideosPlay();
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+      ensureAllVideosPlay();
+    }
   });
 </script>
 
