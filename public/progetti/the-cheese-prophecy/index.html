@@ -333,6 +333,12 @@
         line-height: 1.5;
         max-width: 400px;
       }
+      body.fullscreen-mode header {
+        padding-top: 3.5rem !important;
+      }
+      body.fullscreen-mode .container {
+        padding-top: 0.5rem !important;
+      }
       footer {
         text-align: center;
         padding: 3rem 0 2rem;
@@ -1060,6 +1066,14 @@
           window.parent.postMessage('force-compact-header', '*');
         } else {
           window.parent.postMessage('reset-compact-header', '*');
+        }
+      });
+
+      window.addEventListener("message", (e) => {
+        if (e.data === 'force-compact-header') {
+          document.body.classList.add('fullscreen-mode');
+        } else if (e.data === 'reset-compact-header') {
+          document.body.classList.remove('fullscreen-mode');
         }
       });
     </script>

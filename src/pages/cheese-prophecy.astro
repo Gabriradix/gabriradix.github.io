@@ -107,6 +107,7 @@ const project = projects.find((p) => p.href === "/cheese-prophecy");
 
           headerBar?.classList.add("hidden");
           container.classList.remove("border", "border-neutral-800", "rounded-sm");
+          container.classList.add("border-0", "border-none", "rounded-none");
 
           section.classList.add("fixed", "inset-0", "top-0", "left-0", "w-screen", "h-screen", "z-40", "p-0", "m-0", "flex", "flex-col", "bg-black");
           section.classList.remove("w-full", "py-12", "border-y", "border-neutral-800");
@@ -122,6 +123,7 @@ const project = projects.find((p) => p.href === "/cheese-prophecy");
           window.postMessage('reset-compact-header', '*');
 
           headerBar?.classList.remove("hidden");
+          container.classList.remove("border-0", "border-none", "rounded-none");
           container.classList.add("border", "border-neutral-800", "rounded-sm");
 
           section.classList.remove("fixed", "inset-0", "top-0", "left-0", "w-screen", "h-screen", "z-40", "p-0", "m-0", "flex", "flex-col", "bg-black");
