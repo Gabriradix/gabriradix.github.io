@@ -52,6 +52,12 @@ const { favicon = dynamicFavicon } = Astro.props;
     {finalLogoHover && (
       <style is:global set:html={`header a:hover, header a:hover span, header a:hover div, header a:hover svg { color: ${finalLogoHover} !important; }`}></style>
     )}
+    <script is:inline>
+      (function() {
+        const savedLang = localStorage.getItem('lang') || 'it';
+        document.documentElement.setAttribute('data-lang', savedLang);
+      })();
+    </script>
     <style is:global>
       @font-face {
         font-family: 'Apple Garamond Custom';
@@ -194,11 +200,11 @@ const { favicon = dynamicFavicon } = Astro.props;
         }
       }
 
-      #header-nav a {
+      #header-nav a, #header-nav button {
         font-size: 0.85rem;
       }
       @media (min-width: 768px) {
-        #header-nav a {
+        #header-nav a, #header-nav button {
           font-size: 1.1rem;
         }
       }
@@ -288,9 +294,88 @@ const { favicon = dynamicFavicon } = Astro.props;
     <!-- Fullscreen Generative ASCII Canvas Overlay -->
     <canvas 
       id="global-ascii-canvas" 
-      class="fixed inset-0 w-full h-full pointer-events-none transition-opacity duration-700 ease-in-out opacity-0"
-      style="z-index: 2;"
+      class="fixed inset-0 w-full h-full pointer-events-none transition-opacity duration-700 ease-in-out"
+      style="z-index: 100; opacity: 1;"
     ></canvas>
+    <script is:inline>
+      (function() {
+        var canvas = document.getElementById("global-ascii-canvas");
+        if (!canvas) return;
+        var ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window._asciiIntroActive = true;
+        var asciiRamp = " .:-=+*#%@";
+        var isRunning = true;
+        var animId = null;
+
+        var mouseX = window.innerWidth / 2;
+        var mouseY = window.innerHeight / 2;
+
+        function loop() {
+          if (!isRunning) return;
+
+          var w = canvas.width;
+          var h = canvas.height;
+          var charWidth = 13;
+          var charHeight = 18;
+          var cols = Math.floor(w / charWidth);
+          var rows = Math.floor(h / charHeight);
+
+          ctx.fillStyle = "#171717";
+          ctx.fillRect(0, 0, w, h);
+
+          ctx.font = (charHeight - 2) + "px monospace";
+          ctx.textBaseline = "top";
+
+          var time = performance.now() * 0.001;
+          var mouseCol = Math.floor(mouseX / charWidth);
+          var mouseRow = Math.floor(mouseY / charHeight);
+
+          for (var r = 0; r < rows; r++) {
+            for (var c = 0; c < cols; c++) {
+              var dx = c - mouseCol;
+              var dy = r - mouseRow;
+              var dist = Math.sqrt(dx*dx + dy*dy);
+
+              var wave1 = Math.sin(c * 0.12 - time * 2.5) * Math.cos(r * 0.08 + time * 1.5);
+              var wave2 = Math.sin(Math.sqrt(c*c + r*r) * 0.04 - time * 2);
+              var ripple = Math.sin(dist * 0.3 - time * 6) * Math.exp(-dist * 0.07);
+
+              var z = (wave1 + wave2) * 0.4 + ripple * 0.8;
+              z += Math.sin(c * 2.3 + r * 3.7 + time * 10) * 0.08;
+
+              var index = Math.floor((z + 1) * 0.5 * asciiRamp.length);
+              if (index < 0) index = 0;
+              if (index >= asciiRamp.length) index = asciiRamp.length - 1;
+
+              var brightness = Math.floor(40 + (z + 1) * 0.5 * 80);
+              ctx.fillStyle = "rgba(" + brightness + ", " + brightness + ", " + (brightness + 10) + ", 0.85)";
+              ctx.fillText(asciiRamp[index], c * charWidth, r * charHeight);
+            }
+          }
+
+          animId = requestAnimationFrame(loop);
+        }
+
+        // Render frame 0 synchronously RIGHT NOW
+        loop();
+
+        // After 1.5 seconds, fade out to transparency
+        setTimeout(function() {
+          canvas.style.opacity = "0";
+          setTimeout(function() {
+            canvas.style.zIndex = "2";
+            isRunning = false;
+            window._asciiIntroActive = false;
+            if (animId) cancelAnimationFrame(animId);
+          }, 700);
+        }, 1500);
+      })();
+    </script>
 
     {!hideHeader && <Header logoHref={logoHref} />}
 
@@ -451,6 +536,48 @@ const { favicon = dynamicFavicon } = Astro.props;
     </script>
 
     <script>
+      // Global Video Autoplay & Reload Manager for Astro View Transitions (ClientRouter)
+      function ensureAllVideosPlay() {
+        const videos = document.querySelectorAll<HTMLVideoElement>('video');
+        videos.forEach(v => {
+          v.muted = true;
+          v.defaultMuted = true;
+          v.setAttribute('muted', '');
+          v.playsInline = true;
+          v.setAttribute('playsinline', '');
+          v.setAttribute('webkit-playsinline', '');
+
+          // Force loading if video is uninitialized (common on client-side navigation swaps)
+          if (v.readyState === 0 || v.networkState === 0) {
+            v.load();
+          }
+
+          const promise = v.play();
+          if (promise !== undefined) {
+            promise.catch(() => {
+              const resumeOnInteraction = () => {
+                v.play().catch(() => {});
+                window.removeEventListener('touchstart', resumeOnInteraction);
+                window.removeEventListener('scroll', resumeOnInteraction);
+                window.removeEventListener('click', resumeOnInteraction);
+              };
+              window.addEventListener('touchstart', resumeOnInteraction, { passive: true });
+              window.addEventListener('scroll', resumeOnInteraction, { passive: true });
+              window.addEventListener('click', resumeOnInteraction, { passive: true });
+            });
+          }
+        });
+      }
+
+      ensureAllVideosPlay();
+      document.addEventListener('astro:page-load', ensureAllVideosPlay);
+      document.addEventListener('astro:after-swap', ensureAllVideosPlay);
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) ensureAllVideosPlay();
+      });
+    </script>
+
+    <script>
       // Highly optimized ASCII generative background wave engine
       let canvas: HTMLCanvasElement | null = null;
       let ctx: CanvasRenderingContext2D | null = null;
@@ -571,6 +698,7 @@ const { favicon = dynamicFavicon } = Astro.props;
       }
 
       function startAsciiLoop() {
+        if ((window as any)._asciiIntroActive) return;
         // Defensive re-query if elements were swapped or not initialized yet (prevents click requirement)
         if (!canvas || !ctx) {
           initAsciiEngine();
@@ -582,7 +710,7 @@ const { favicon = dynamicFavicon } = Astro.props;
           fadeOutTimeoutId = null;
         }
 
-        if (canvas) {
+        if (canvas && !isIntroRunning) {
           canvas.style.opacity = "0.8"; // beautiful semi-transparent overlay
         }
 
@@ -592,6 +720,7 @@ const { favicon = dynamicFavicon } = Astro.props;
       }
 
       function stopAsciiLoop() {
+        if (isIntroRunning) return;
         // If there is still any hovered card or hovered logo, keep the loop active!
         if (document.querySelector('.hovered-card') || document.querySelector('.hovered-logo')) return;
 

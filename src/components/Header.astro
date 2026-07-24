@@ -32,12 +32,27 @@ const { logoHref = "/" } = Astro.props;
       </div>
     </a>
     <nav
-      class="flex gap-4 md:gap-8 text-[10px] md:text-s font-normal lowercase tracking-wide text-neutral-500 transition-all duration-500"
+      class="flex gap-4 md:gap-8 text-[10px] md:text-s font-normal lowercase tracking-wide text-neutral-500 transition-all duration-500 items-center"
       aria-label="Main navigation"
       id="header-nav"
     >
-      <a class="transition-colors hover:text-white" href="/about">about</a>
-      <a class="transition-colors hover:text-white" href="/contacts">contacts</a>
+      <a class="transition-colors hover:text-white" href="/about">
+        <span class="lang-en">about</span>
+        <span class="lang-it">chi sono</span>
+      </a>
+      <a class="transition-colors hover:text-white" href="/contacts">
+        <span class="lang-en">contacts</span>
+        <span class="lang-it">contatti</span>
+      </a>
+      <button 
+        id="global-lang-toggle" 
+        type="button" 
+        class="transition-colors hover:text-white cursor-pointer font-normal lowercase tracking-wide text-neutral-500 uppercase select-none border-none p-0 inline-flex items-center"
+        title="Cambia lingua / Switch language"
+      >
+        <span class="lang-it">IT</span>
+        <span class="lang-en">EN</span>
+      </button>
     </nav>
   </div>
 </header>
@@ -100,4 +115,21 @@ const { logoHref = "/" } = Astro.props;
       updateHeaderState();
     }
   });
+
+  // Global delegated listener for language toggle (registered once)
+  if (!(window as any)._langToggleInitialized) {
+    (window as any)._langToggleInitialized = true;
+
+    document.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement)?.closest('#global-lang-toggle, .lang-toggle-btn');
+      if (btn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const current = document.documentElement.getAttribute('data-lang') || localStorage.getItem('lang') || 'it';
+        const next = current === 'it' ? 'en' : 'it';
+        localStorage.setItem('lang', next);
+        document.documentElement.setAttribute('data-lang', next);
+      }
+    });
+  }
 </script>

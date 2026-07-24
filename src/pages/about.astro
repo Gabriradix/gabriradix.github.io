@@ -6,9 +6,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <section
     class="mx-auto flex min-h-[70vh] flex-col items-center justify-center gap-10 md:gap-16 px-6 pt-28 md:pt-64 pb-16 md:pb-20 text-left"
   >
-    <div class="max-w-5xl">
+    <div class="max-w-5xl w-full">
+      <!-- English Bio -->
       <div
-        class="columns-1 md:columns-2 gap-12 text-lg leading-7 md:leading-8 text-neutral-300 text-left md:text-justify hyphens-none"
+        class="lang-en columns-1 md:columns-2 gap-12 text-lg leading-7 md:leading-8 text-neutral-300 text-left md:text-justify hyphens-none"
         lang="en"
       >
         <p class="mb-6 md:mb-8 break-inside-avoid">
@@ -46,19 +47,53 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           choreography that defines our present.
         </p>
       </div>
+
+      <!-- Italian Bio -->
+      <div
+        class="lang-it columns-1 md:columns-2 gap-12 text-lg leading-7 md:leading-8 text-neutral-300 text-left md:text-justify hyphens-none"
+        lang="it"
+      >
+        <p class="mb-6 md:mb-8 break-inside-avoid">
+          Gabriele Radicello è un artista multimediale la cui pratica indaga l'intricata
+          rete di relazioni tra la sensibilità umana e il calcolo algoritmico.
+          Guidato da una spinta continua verso l'innovazione, il suo lavoro si fonda
+          sul concetto di simbiosi: uno stato complesso in cui l'essere umano e l'ecosistema
+          digitale non esistono separatamente, ma si influenzano e ridefiniscono costantemente
+          attraverso un dialogo ininterrotto.
+        </p>
+        <p class="mb-6 md:mb-8 break-inside-avoid">
+          Formatosi attraverso un'indagine approfondita sulle culture di rete e l'esplorazione
+          di mondi virtuali, l'artista agisce come un osservatore dei nuovi paesaggi
+          generati dal codice. La sua pratica fonde la consapevolezza critica del mezzo
+          tecnologico con la creazione di architetture sintetiche che fungono da vere e proprie
+          estensioni della psiche.
+        </p>
+        <p class="mb-6 md:mb-8 break-inside-avoid">
+          Gabriele Radicello esplora gli spazi liminali e perturbanti che risiedono al confine
+          tra l'organico e il computazionale, promuovendo la dissoluzione della distanza
+          autoimposta tra biologia e macchina alla ricerca di un'estetica post-organica
+          che renda tangibile la ricchezza di questa convergenza.
+        </p>
+        <p class="break-inside-avoid">
+          Attraverso la sua opera, l'artista mette in discussione la natura stessa del processo
+          creativo e del sublime algoritmico, integrando strutturalmente l'intelligenza
+          artificiale nella sua ricerca. Accogliendo l'imprevedibilità degli spazi latenti e dei
+          dati, l'IA non viene mai impiegata come un mero strumento esecutivo, ma elevata al ruolo
+          di co-creatore. Attraverso opere dalla forte risonanza immersiva, Gabriele Radicello
+          invita lo spettatore a riconsiderare i confini tra l'umano e il sintetico, incoraggiando
+          una comprensione più profonda della complessa coreografia ibrida che definisce il nostro presente.
+        </p>
+      </div>
     </div>
 
     <div
       class="grid gap-12 border-t border-neutral-700 pt-12 md:grid-cols-2 w-full max-w-4xl text-left"
     >
       <section>
-        <h2
-          class="mb-4 text-3xl font-normal text-neutral-50"
-          style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
-        >
-          Exhibitions
-        </h2>
-        <ul class="list-inside list-disc text-lg leading-8 text-neutral-400">
+        <h2 class="lang-en mb-4 text-3xl font-semibold text-neutral-50" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Exhibitions</h2>
+        <h2 class="lang-it mb-4 text-3xl font-semibold text-neutral-50" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Mostre ed Esposizioni</h2>
+        
+        <ul class="lang-en list-inside list-disc text-lg leading-8 text-neutral-400">
           <li>
             2026 <a href="https://www.cityopenmuseum.com/la-fura-dels-baus/" target="_blank" rel="noopener noreferrer" class="underline underline-offset-4 hover:text-white transition-colors">Codice Umano</a> (La Fura dels Baus x Accademia di Belle Arti di Carrara). ex Ceramica Vaccari, Santo Stefano Magra
           </li>
@@ -70,18 +105,33 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           </li>
           <li>2025 Annual Exhibition. Academy of Fine Arts Carrara</li>
         </ul>
+
+        <ul class="lang-it list-inside list-disc text-lg leading-8 text-neutral-400">
+          <li>
+            2026 <a href="https://www.cityopenmuseum.com/la-fura-dels-baus/" target="_blank" rel="noopener noreferrer" class="underline underline-offset-4 hover:text-white transition-colors">Codice Umano</a> (La Fura dels Baus x Accademia di Belle Arti di Carrara). ex Ceramica Vaccari, Santo Stefano Magra
+          </li>
+          <li>
+            2026 <a href="https://www.cityopenmuseum.com/last-gesture-premiazione/" target="_blank" rel="noopener noreferrer" class="underline underline-offset-4 hover:text-white transition-colors">Last Gesture Festival</a> — Vincitore del Premio del Pubblico per "The Innovation Dilemma". Accademia di Belle Arti di Carrara
+          </li>
+          <li>
+            2025-26 <a href="https://accademiacarrara.it/extra-bold-festival-di-sperimentazione-visiva/" target="_blank" rel="noopener noreferrer" class="underline underline-offset-4 hover:text-white transition-colors">EXTRABOLD Festival</a> Live Media. City Open Museum Carrara
+          </li>
+          <li>2025 Esposizione Annuale. Accademia di Belle Arti di Carrara</li>
+        </ul>
       </section>
 
       <section>
-        <h2
-          class="mb-4 text-3xl font-normal text-neutral-50"
-          style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
-        >
-          Education
-        </h2>
-        <ul class="list-inside list-disc text-lg leading-8 text-neutral-400">
+        <h2 class="lang-en mb-4 text-3xl font-semibold text-neutral-50" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Education</h2>
+        <h2 class="lang-it mb-4 text-3xl font-semibold text-neutral-50" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Formazione</h2>
+        
+        <ul class="lang-en list-inside list-disc text-lg leading-8 text-neutral-400">
           <li>Multimedia Arts High School, Viareggio</li>
           <li>Academy of Fine Arts, Carrara</li>
+        </ul>
+
+        <ul class="lang-it list-inside list-disc text-lg leading-8 text-neutral-400">
+          <li>Liceo Artistico Multimediale, Viareggio</li>
+          <li>Accademia di Belle Arti, Carrara</li>
         </ul>
       </section>
     </div>

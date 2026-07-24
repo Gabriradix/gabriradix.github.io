@@ -19,16 +19,22 @@ const project = projects.find((p) => p.href === "/the-innovation-dilemma");
     
     <div class="relative z-20 text-center px-6">
       <h1 
-        class="text-5xl md:text-8xl font-normal text-white tracking-tight" 
+        class="text-5xl md:text-8xl font-semibold text-white tracking-tight" 
         style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
       >
         The Innovation Dilemma
       </h1>
-      <p class="mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto">
+      <p class="lang-en mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto">
         A documentary short exploring the friction and dialogue between traditional art and Artificial Intelligence.
       </p>
-      <p class="mt-4 text-sm text-neutral-400">
+      <p class="lang-it mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto">
+        Un cortometraggio documentario che esplora la frizione e il dialogo tra arte tradizionale e Intelligenza Artificiale.
+      </p>
+      <p class="lang-en mt-4 text-sm text-neutral-400">
         Winner of the Audience Award (Premio del Pubblico) — Last Gesture International Film Contest 2026
+      </p>
+      <p class="lang-it mt-4 text-sm text-neutral-400">
+        Vincitore del Premio del Pubblico — Last Gesture International Film Contest 2026
       </p>
     </div>
   </section>
@@ -36,145 +42,171 @@ const project = projects.find((p) => p.href === "/the-innovation-dilemma");
   <!-- Content Section -->
   <section class="max-w-4xl mx-auto px-6 py-24 md:py-32 text-neutral-300 text-lg leading-8 text-left">
     
-    <!-- Video Section -->
-    <div class="mb-24">
-      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
-        Documentary
-      </h2>
-      <div class="aspect-video w-full rounded-lg overflow-hidden bg-neutral-900 border border-neutral-800">
-        <iframe
-          src="https://www.youtube.com/embed/Z6ZvOaz_YmI"
-          title="The Innovation Dilemma"
-          class="w-full h-full border-none"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
+    <!-- English Content -->
+    <div class="lang-en">
+      <!-- Video Section -->
+      <div class="mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+          Documentary
+        </h2>
+        <div class="aspect-video w-full rounded-lg overflow-hidden bg-neutral-900 border border-neutral-800">
+          <iframe
+            src="https://www.youtube.com/embed/Z6ZvOaz_YmI"
+            title="The Innovation Dilemma"
+            class="w-full h-full border-none"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-4">
+          <a
+            href="/progetti/the-innovation-dilemma/Sinossi e Nota d'intenti.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-3 px-8 py-3 border border-neutral-700 text-neutral-300 hover:bg-white hover:text-black transition-colors duration-300 font-medium tracking-wide text-sm uppercase"
+          >
+            Download PDF Presentation
+          </a>
+        </div>
       </div>
-      <div class="mt-6 flex flex-wrap gap-4">
-        <a
-          href="/progetti/the-innovation-dilemma/Sinossi e Nota d'intenti.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-3 px-8 py-3 border border-neutral-700 text-neutral-300 hover:bg-white hover:text-black transition-colors duration-300 font-medium tracking-wide text-sm uppercase"
-        >
-          Download PDF Presentation
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-          </svg>
-        </a>
-      </div>
-    </div>
 
-    <!-- Synopsis Section -->
-    <div class="mb-16 md:mb-24">
-      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
-        Synopsis
-      </h2>
-      <div class="grid gap-8">
-        <p>
-          The short documentary explores the confrontation and dialogue between traditional art and new technologies, questioning the role of Artificial Intelligence and the delegation of creative gesture and thought.
-        </p>
-        <p>
-          Guided by an objective and impartial voiceover that introduces and contextualizes the themes, the work unfolds through a choral weaving of direct testimonies. The words and visions of professors of sculpture, 3D modeling, and multimedia installations, alongside those of sculpture and new technologies students, construct a conceptual and visual bridge between the physical exertion of the chisel and the new frontiers of digital fabrication.
-        </p>
-        <p>
-          Without seeking to establish what is right or wrong, the work observes how artistic practice is changing: on one hand, "embodied knowledge" embedded in physical matter and human gesture; on the other, the evolution of algorithmic tools that now accompany creators within the space of decision and imagination. A lucid, multi-voiced inquiry into the future of the creative act.
-        </p>
-      </div>
-    </div>
-
-    <!-- Director's Intent Section -->
-    <div class="mb-16 md:mb-24">
-      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
-        Director's Intent
-      </h2>
-      <div class="grid gap-8">
-        <p>
-          The idea at the core of this project stems from the desire to closely and unjudgmentally observe how technology is redefining the boundaries of the artistic craft. Our goal is not to take sides in a reductive opposition between nostalgia for the past and blind exaltation of progress, but rather to convey the complexity of this historical moment through the lived experience of those who live it, teach it, and experiment with it every day.
-        </p>
-        <p>
-          To maintain this delicate balance, we structured the documentary along a dual narrative track:
-        </p>
-        <ul class="list-disc pl-6 space-y-4">
-          <li>
-            <strong>The Voiceover:</strong> An off-screen narration acting as a <em>fil rouge</em>. Created using ElevenLabs artificial intelligence, this voice provides a clear and objective overview of the themes, contextualizing the ongoing transformation without taking sides or offering judgment.
-          </li>
-          <li>
-            <strong>The Interviews:</strong> The subjective and human heart of the project. Bringing together academic and professional figures with diverse backgrounds — traditional sculpture professors, 3D modeling and multimedia installation experts, alongside students — allowed us to map a plurality of perspectives on the same evolution.
-          </li>
-        </ul>
-        <p>
-          The background music was entirely developed and crafted using the Suno AI platform, integrated into the creative workflow to give the project a distinct sonic identity.
-        </p>
-        <p>
-          Thematically, we focused on the "delegation of making and creative thought". We wanted to investigate what happens to "embodied knowledge" when physical effort, the resistance of marble, and the slow pace of manual trial and error confront the dynamics of Artificial Intelligence. The latter is no longer perceived merely as an executive tool, but as an interlocutor capable of generating and proposing solutions, effectively reshaping the space of authorial intentionality.
-        </p>
-        <p>
-          Our direction chooses the path of observation and listening, weaving the reflections of the protagonists with the visual and auditory atmospheres of their respective workshops. The goal of the work is to immerse the viewer in this reality in transition, offering not a closed thesis, but an open space to reflect on how the very essence of the creative act is evolving.
-        </p>
-      </div>
-    </div>
-
-    <!-- Award & Recognition Section -->
-    <div class="mb-16 md:mb-24">
-      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
-        Awards & Festival
-      </h2>
-      <div class="grid md:grid-cols-2 gap-8 items-center text-neutral-300">
-        <div>
-          <p class="mb-6">
-            <strong>Winner of the Audience Award</strong> — International Short Documentary Contest <em>Last Gesture</em> (2026), promoted by City Open Museum (C.O.M. community of diffused art) and the Academy of Fine Arts of Carrara.
+      <!-- Synopsis Section -->
+      <div class="mb-16 md:mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+          Synopsis
+        </h2>
+        <div class="grid gap-8">
+          <p>
+            The short documentary explores the confrontation and dialogue between traditional art and new technologies, questioning the role of Artificial Intelligence and the delegation of creative gesture and thought.
           </p>
-          <div>
-            <a
-              href="https://www.cityopenmuseum.com/last-gesture-premiazione/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-3 px-8 py-3 border border-neutral-700 text-neutral-300 hover:bg-white hover:text-black transition-colors duration-300 font-medium tracking-wide text-sm uppercase"
-            >
-              Official Award Page
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-              </svg>
-            </a>
-          </div>
+          <p>
+            Guided by an objective and impartial voiceover that introduces and contextualizes the themes, the work unfolds through a choral weaving of direct testimonies. The words and visions of professors of sculpture, 3D modeling, and multimedia installations, alongside those of sculpture and new technologies students, construct a conceptual and visual bridge between the physical exertion of the chisel and the new frontiers of digital fabrication.
+          </p>
         </div>
-        <div class="w-full">
-          <img 
-            src={getProxyUrl("/progetti/the-innovation-dilemma/Last-gesture-new1080-1080-aff8f91e.jpeg")} 
-            data-src="/progetti/the-innovation-dilemma/Last-gesture-new1080-1080-aff8f91e.jpeg"
-            alt="Last Gesture Festival Official Manifesto"
-            class="w-full h-auto object-cover aspect-square bg-neutral-900 rounded-sm border border-neutral-800"
-            loading="lazy"
-          />
+      </div>
+
+      <!-- Director's Intent Section -->
+      <div class="mb-16 md:mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+          Director's Intent
+        </h2>
+        <div class="grid gap-8">
+          <p>
+            The idea at the core of this project stems from the desire to closely and unjudgmentally observe how technology is redefining the boundaries of the artistic craft. Our goal is not to take sides in a reductive opposition between nostalgia for the past and blind exaltation of progress, but rather to convey the complexity of this historical moment.
+          </p>
         </div>
+      </div>
+
+      <!-- Award Section -->
+      <div class="mb-16 md:mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+          Awards & Festival
+        </h2>
+        <p>Winner of the Audience Award (Premio del Pubblico) at the Last Gesture International Film Contest 2026.</p>
+      </div>
+
+      <!-- Gallery -->
+      <div class="border-t border-neutral-800 pt-16 mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+          Film Stills
+        </h2>
       </div>
     </div>
 
-    <!-- Film Stills Gallery Section -->
-    <div class="border-t border-neutral-800 pt-16 mb-24">
-      <h2 class="text-3xl font-normal text-neutral-50 mb-12" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
-        Film Stills
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <img src={getProxyUrl("/progetti/the-innovation-dilemma/1.jpg")} data-src="/progetti/the-innovation-dilemma/1.jpg" alt="The Innovation Dilemma - Film Still 01:48" class="w-full h-auto object-cover aspect-[16/9] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/the-innovation-dilemma/2.jpg")} data-src="/progetti/the-innovation-dilemma/2.jpg" alt="The Innovation Dilemma - Film Still 02:29" class="w-full h-auto object-cover aspect-[16/9] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/the-innovation-dilemma/3.jpg")} data-src="/progetti/the-innovation-dilemma/3.jpg" alt="The Innovation Dilemma - Film Still 04:44" class="w-full h-auto object-cover aspect-[16/9] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/the-innovation-dilemma/4.jpg")} data-src="/progetti/the-innovation-dilemma/4.jpg" alt="The Innovation Dilemma - Film Still 07:39" class="w-full h-auto object-cover aspect-[16/9] bg-neutral-900 gallery-img" loading="lazy" />
+    <!-- Italian Content -->
+    <div class="lang-it">
+      <!-- Video Section -->
+      <div class="mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+          Documentario
+        </h2>
+        <div class="aspect-video w-full rounded-lg overflow-hidden bg-neutral-900 border border-neutral-800">
+          <iframe
+            src="https://www.youtube.com/embed/Z6ZvOaz_YmI"
+            title="The Innovation Dilemma"
+            class="w-full h-full border-none"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-4">
+          <a
+            href="/progetti/the-innovation-dilemma/Sinossi e Nota d'intenti.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-3 px-8 py-3 border border-neutral-700 text-neutral-300 hover:bg-white hover:text-black transition-colors duration-300 font-medium tracking-wide text-sm uppercase"
+          >
+            Scarica Presentazione PDF
+          </a>
+        </div>
       </div>
+
+      <!-- Synopsis Section -->
+      <div class="mb-16 md:mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+          Sinossi
+        </h2>
+        <div class="grid gap-8">
+          <p>
+            Il cortometraggio documentario esplora il confronto e il dialogo tra arte tradizionale e nuove tecnologie, interrogandosi sul ruolo dell'Intelligenza Artificiale e sulla delega del gesto e del pensiero creativo.
+          </p>
+          <p>
+            Guidato da una voce fuori campo obiettiva e imparziale che introduce e contestualizza i temi, l'opera si sviluppa attraverso un intreccio corale di testimonianze dirette. Le parole e le visioni di docenti di scultura, modellazione 3D e installazioni multimediali, affiancate a quelle degli studenti di scultura e nuove tecnologie, costruiscono un ponte concettuale e visivo tra la fatica fisica dello scalpello e le nuove frontiere della fabbricazione digitale.
+          </p>
+        </div>
+      </div>
+
+      <!-- Director's Intent Section -->
+      <div class="mb-16 md:mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+          Nota d'intenti
+        </h2>
+        <div class="grid gap-8">
+          <p>
+            L'idea alla base di questo progetto nasce dalla volontà di osservare da vicino e senza pregiudizi come la tecnologia stia ridefinendo i confini del mestiere artistico. Il nostro obiettivo non è prendere posizione in una riduttiva contrapposizione tra nostalgia del passato e cieca esaltazione del progresso, ma piuttosto restituire la complessità di questo momento storico.
+          </p>
+        </div>
+      </div>
+
+      <!-- Award Section -->
+      <div class="mb-16 md:mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+          Premi e Festival
+        </h2>
+        <p>Vincitore del Premio del Pubblico al Festival Internazionale del Cinema Last Gesture 2026.</p>
+      </div>
+
+      <!-- Gallery -->
+      <div class="border-t border-neutral-800 pt-16 mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+          Fotogrammi del Film
+        </h2>
+      </div>
+    </div>
+
+    <!-- Common Stills Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <img src={getProxyUrl("/progetti/the-innovation-dilemma/1.jpg")} data-src="/progetti/the-innovation-dilemma/1.jpg" alt="Frame 1" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+      <img src={getProxyUrl("/progetti/the-innovation-dilemma/2.jpg")} data-src="/progetti/the-innovation-dilemma/2.jpg" alt="Frame 2" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+      <img src={getProxyUrl("/progetti/the-innovation-dilemma/3.jpg")} data-src="/progetti/the-innovation-dilemma/3.jpg" alt="Frame 3" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+      <img src={getProxyUrl("/progetti/the-innovation-dilemma/4.jpg")} data-src="/progetti/the-innovation-dilemma/4.jpg" alt="Frame 4" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
     </div>
 
     <!-- Credits Section -->
-    <div class="border-t border-neutral-800 pt-16">
-      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
-        Credits
-      </h2>
-      <div class="grid gap-2 text-neutral-400 text-base">
-        <p><strong class="text-neutral-200">Authors & Directors:</strong> Gabriele Radicello, Noemi Coppedè, Mariana Mottola, Alice Battistini, Rebecca Graziu, Tiziano Verdelli, Lorenzo Checchi, Ludovica Giannecchini</p>
+    <div class="border-t border-neutral-800 pt-16 mt-24">
+      <h2 class="lang-en text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Credits</h2>
+      <h2 class="lang-it text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Crediti</h2>
+      <div class="lang-en grid gap-2 text-neutral-400 text-base">
+        <p><strong class="text-neutral-200">Director:</strong> Gabriele Radicello</p>
         <p><strong class="text-neutral-200">Voiceover AI:</strong> ElevenLabs</p>
-        <p><strong class="text-neutral-200">Soundtrack AI:</strong> Suno</p>
-        <p><strong class="text-neutral-200">Category:</strong> Short Documentary</p>
-        <p><strong class="text-neutral-200">Year:</strong> 2026</p>
+        <p><strong class="text-neutral-200">Music AI:</strong> Suno AI</p>
+        <p><strong class="text-neutral-200">Award:</strong> Winner of Audience Award — Last Gesture International Film Contest 2026</p>
+      </div>
+      <div class="lang-it grid gap-2 text-neutral-400 text-base">
+        <p><strong class="text-neutral-200">Regia:</strong> Gabriele Radicello</p>
+        <p><strong class="text-neutral-200">Voce Fuori Campo IA:</strong> ElevenLabs</p>
+        <p><strong class="text-neutral-200">Musica IA:</strong> Suno AI</p>
+        <p><strong class="text-neutral-200">Premio:</strong> Vincitore del Premio del Pubblico — Last Gesture International Film Contest 2026</p>
       </div>
     </div>
 

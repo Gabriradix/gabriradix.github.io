@@ -13,6 +13,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       playsinline 
       webkit-playsinline
       preload="auto"
+      poster="/progetti/a-closer-look/assets/Tdmovieout.0-poster.jpg"
       class="absolute inset-0 w-full h-full object-cover z-0"
     >
       <source src="/progetti/a-closer-look/assets/Tdmovieout.0.webm" type="video/webm" />
@@ -24,7 +25,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         const v = document.querySelector('video') as HTMLVideoElement | null;
         if (!v) return;
         v.muted = true;
+        v.defaultMuted = true;
+        v.setAttribute('muted', '');
         v.playsInline = true;
+        v.setAttribute('playsinline', '');
+        v.setAttribute('webkit-playsinline', '');
+
+        if (v.readyState === 0 || v.networkState === 0) {
+          v.load();
+        }
+
         const promise = v.play();
         if (promise !== undefined) {
           promise.catch(() => {
@@ -43,6 +53,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
       playHeroVideo();
       document.addEventListener('astro:page-load', playHeroVideo);
+      document.addEventListener('astro:after-swap', playHeroVideo);
       document.addEventListener('visibilitychange', () => {
         if (!document.hidden) playHeroVideo();
       });
@@ -50,13 +61,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <div class="absolute inset-0 bg-black/60 z-10"></div>
     <div class="relative z-20 text-center px-6">
       <h1 
-        class="text-4xl md:text-8xl font-normal text-white tracking-tight" 
+        class="text-4xl md:text-8xl font-semibold text-white tracking-tight" 
         style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
       >
         A Closer Look
       </h1>
-      <p class="mt-6 text-lg md:text-xl text-neutral-300 font-light max-w-2xl mx-auto">
+      <p class="lang-en mt-6 text-lg md:text-xl text-neutral-300 font-light max-w-2xl mx-auto">
         An interactive installation that investigates censorship and access to documents of the Epstein case.
+      </p>
+      <p class="lang-it mt-6 text-lg md:text-xl text-neutral-300 font-light max-w-2xl mx-auto">
+        Un'installazione interattiva che indaga la censura e l'accesso ai documenti del caso Epstein.
       </p>
     </div>
   </section>
@@ -64,43 +78,84 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <!-- Content Section -->
   <section class="max-w-4xl mx-auto px-6 py-24 md:py-32 text-neutral-300 text-lg leading-8 text-left">
     
-    <div class="mb-16 md:mb-24">
-      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Concept</h2>
-      <div class="grid gap-8">
+    <!-- English Content -->
+    <div class="lang-en">
+      <div class="mb-16 md:mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Concept</h2>
+        <div class="grid gap-8">
+          <p>
+            Following the release of documents regarding the Epstein case by the American Department of Justice, the entire world was caught by a wave of shock and disbelief. This project aims to focus on the theme of documents drafted in an apparently random way.
+          </p>
+          <p>
+            Maintaining the aesthetic but reversing the dynamics of censorship implemented by the American Department of Justice, <em>A Closer Look</em> invites the spectator to unveil portions of images coming from the Epstein files through interaction developed with a camera that records the spectator.
+          </p>
+        </div>
+      </div>
+
+      <div class="mb-16 md:mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Structure</h2>
+        <div class="grid gap-8">
+          <p>
+            A screen displays a black image. As soon as a person approaches the screen, they are recorded by a camera and their silhouette is superimposed on the black image, revealing portions of an infinite series of images coming from the Epstein files database that alternate randomly in rapid succession.
+          </p>
+          <p>
+            For an aesthetic choice and to add an element of truthfulness, the images are accompanied by a caption indicating the file name.
+          </p>
+          <p>
+            The visual part is accompanied by a soundtrack composed of audio excerpts and testimonies coming from the Epstein files database.
+          </p>
+        </div>
+      </div>
+
+      <div class="mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Technology</h2>
         <p>
-          Following the release of documents regarding the Epstein case by the American Department of Justice, the entire world was caught by a wave of shock and disbelief. This project aims to focus on the theme of documents drafted in an apparently random way.
-        </p>
-        <p>
-          Maintaining the aesthetic but reversing the dynamics of censorship implemented by the American Department of Justice, <em>A Closer Look</em> invites the spectator to unveil portions of images coming from the Epstein files through interaction developed with a camera that records the spectator.
+          The project is developed with <strong>Touchdesigner</strong> and uses a <strong>Kinect v2</strong> for motion detection and silhouette extraction.
         </p>
       </div>
     </div>
 
-    <div class="mb-16 md:mb-24">
-      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Structure</h2>
-      <div class="grid gap-8">
+    <!-- Italian Content -->
+    <div class="lang-it">
+      <div class="mb-16 md:mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Concept</h2>
+        <div class="grid gap-8">
+          <p>
+            A seguito della pubblicazione dei documenti relativi al caso Epstein da parte del Dipartimento della Giustizia americano, il mondo intero è stato colto da un'ondata di sconcerto e incredulità. Questo progetto si propone di mettere a fuoco il tema dei documenti redatti e censurati in modo apparentemente casuale.
+          </p>
+          <p>
+            Mantenendo l'estetica ma invertendo la dinamica della censura attuata dal Dipartimento della Giustizia americano, <em>A Closer Look</em> invita lo spettatore a svelare porzioni di immagini provenienti dagli archivi Epstein attraverso un'interazione sviluppata con una telecamera che riprende il visitatore stesso.
+          </p>
+        </div>
+      </div>
+
+      <div class="mb-16 md:mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Struttura</h2>
+        <div class="grid gap-8">
+          <p>
+            Uno schermo mostra un'immagine completamente nera. Non appena una persona si avvicina, viene ripresa da una telecamera e la sua silhouette si sovrappone all'immagine nera, rivelando porzioni di una serie infinita di immagini del database Epstein che si alternano casualmente in rapida successione.
+          </p>
+          <p>
+            Per scelta estetica e per aggiungere un elemento di veridicità, le immagini sono accompagnate da una didascalia che indica il nome originale del file.
+          </p>
+          <p>
+            La parte visiva è accompagnata da una colonna sonora composta da estratti audio e testimonianze provenienti direttamente dal database del caso Epstein.
+          </p>
+        </div>
+      </div>
+
+      <div class="mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Tecnologia</h2>
         <p>
-          A screen displays a black image. As soon as a person approaches the screen, they are recorded by a camera and their silhouette is superimposed on the black image, revealing portions of an infinite series of images coming from the Epstein files database that alternate randomly in rapid succession.
-        </p>
-        <p>
-          For an aesthetic choice and to add an element of truthfulness, the images are accompanied by a caption indicating the file name.
-        </p>
-        <p>
-          The visual part is accompanied by a soundtrack composed of audio excerpts and testimonies coming from the Epstein files database.
+          Il progetto è sviluppato in <strong>TouchDesigner</strong> e utilizza un sensore <strong>Kinect v2</strong> per il tracciamento del movimento e l'estrazione della silhouette.
         </p>
       </div>
-    </div>
-
-    <div class="mb-24">
-      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Technology</h2>
-      <p>
-        The project is developed with <strong>Touchdesigner</strong> and uses a <strong>Kinect v2</strong> for motion detection and silhouette extraction.
-      </p>
     </div>
 
     <!-- Gallery Section -->
     <div class="border-t border-neutral-800 pt-16">
-      <h2 class="text-3xl font-normal text-neutral-50 mb-12" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Gallery</h2>
+      <h2 class="lang-en text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Gallery</h2>
+      <h2 class="lang-it text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Galleria</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <img 
           src={getProxyUrl("/progetti/a-closer-look/assets/IMG_0010.JPG")} data-src="/progetti/a-closer-look/assets/IMG_0010.JPG" 

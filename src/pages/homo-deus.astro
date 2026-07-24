@@ -13,25 +13,71 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       playsinline 
       webkit-playsinline
       preload="auto"
+      poster="/progetti/homo-deus/video-poster.jpg"
       class="absolute inset-0 w-full h-full object-cover z-0 opacity-80"
     >
       <source src="/progetti/homo-deus/video.webm" type="video/webm" />
       <source src="/progetti/homo-deus/video.mp4" type="video/mp4" />
     </video>
+
+    <script>
+      function playHeroVideo() {
+        const v = document.querySelector('video') as HTMLVideoElement | null;
+        if (!v) return;
+        v.muted = true;
+        v.defaultMuted = true;
+        v.setAttribute('muted', '');
+        v.playsInline = true;
+        v.setAttribute('playsinline', '');
+        v.setAttribute('webkit-playsinline', '');
+
+        if (v.readyState === 0 || v.networkState === 0) {
+          v.load();
+        }
+
+        const promise = v.play();
+        if (promise !== undefined) {
+          promise.catch(() => {
+            const resumeOnTouch = () => {
+              v.play().catch(() => {});
+              window.removeEventListener('touchstart', resumeOnTouch);
+              window.removeEventListener('scroll', resumeOnTouch);
+              window.removeEventListener('click', resumeOnTouch);
+            };
+            window.addEventListener('touchstart', resumeOnTouch, { passive: true });
+            window.addEventListener('scroll', resumeOnTouch, { passive: true });
+            window.addEventListener('click', resumeOnTouch, { passive: true });
+          });
+        }
+      }
+
+      playHeroVideo();
+      document.addEventListener('astro:page-load', playHeroVideo);
+      document.addEventListener('astro:after-swap', playHeroVideo);
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) playHeroVideo();
+      });
+    </script>
     <div class="absolute inset-0 bg-black/60 z-10"></div>
     
     <div class="relative z-20 text-center px-6">
       <h1 
-        class="text-5xl md:text-8xl font-normal text-white tracking-tight" 
+        class="text-5xl md:text-8xl font-semibold text-white tracking-tight" 
         style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
       >
         Homo Deus
       </h1>
-      <p class="mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto italic">
+      <p class="lang-en mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto italic">
         Do you want to feel like a god?
       </p>
-      <p class="mt-4 text-sm text-neutral-400">
+      <p class="lang-it mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto italic">
+        Vuoi sentirti come un dio?
+      </p>
+      <p class="lang-en mt-4 text-sm text-neutral-400">
         An interactive installation by Marta Bravi and Gabriele Radicello
+      </p>
+      <p class="lang-it mt-4 text-sm text-neutral-400">
+        Un'installazione interattiva di Marta Bravi e Gabriele Radicello
       </p>
     </div>
   </section>
@@ -39,58 +85,62 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <!-- Content Section -->
   <section class="max-w-4xl mx-auto px-6 py-24 md:py-32 text-neutral-300 text-lg leading-8 text-left">
     
-    <div class="mb-16 md:mb-24">
-      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Concept</h2>
-      <div class="grid gap-8">
-        <p>
-          <strong>Homo Deus</strong> is an interactive installation inspired by Yuval Noah Harari's book, which explores how modern humans, through technology, attempt to assume divine attributes: control over time, omniscience, immortality, destruction, and judgment.
-        </p>
-        <p>
-          The spectator enters an immersive space where they can manipulate videos with their gestures, but soon discovers that the perceived power is merely a technological illusion.
-        </p>
+    <!-- English Content -->
+    <div class="lang-en">
+      <div class="mb-16 md:mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Concept</h2>
+        <div class="grid gap-8">
+          <p>
+            <strong>Homo Deus</strong> is an interactive installation inspired by Yuval Noah Harari's book, which explores how modern humans, through technology, attempt to assume divine attributes: control over time, omniscience, immortality, destruction, and judgment.
+          </p>
+          <p>
+            The spectator enters an immersive space where they can manipulate videos with their gestures, but soon discovers that the perceived power is merely a technological illusion.
+          </p>
+        </div>
       </div>
-    </div>
 
-    <div class="mb-16 md:mb-24">
-      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">How it works</h2>
-      <div class="grid gap-8">
-        <p>
-          The installation is developed in TouchDesigner, with body tracking via Kinect 360 and MediaPipe. When the spectator approaches:
-        </p>
-        <ul class="list-disc pl-6 space-y-2">
-          <li>The left arm controls time (forward/backward in the videos)</li>
-          <li>The right arm activates glitch and pixel sorting effects</li>
-          <li>In the absence of interaction, the provocative text appears: <em>"Do you want to feel like a god?"</em></li>
-        </ul>
+      <div class="mb-16 md:mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">How it works</h2>
+        <div class="grid gap-8">
+          <p>
+            The installation is developed in TouchDesigner, with body tracking via Kinect 360 and MediaPipe. When the spectator approaches:
+          </p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>The left arm controls time (forward/backward in the videos)</li>
+            <li>The right arm activates glitch and pixel sorting effects</li>
+            <li>In the absence of interaction, the provocative text appears: <em>"Do you want to feel like a god?"</em></li>
+          </ul>
+        </div>
       </div>
-    </div>
 
-    <!-- Video Tematici Section -->
-    <div class="mb-24">
-      <h2 class="text-3xl font-normal text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">The Themes</h2>
-      <div class="grid md:grid-cols-2 gap-12">
-        <div>
-          <h3 class="text-xl font-bold text-white mb-2">Time Manipulation</h3>
-          <p class="text-base text-neutral-400">A clock with accelerated hands overlaps a run through the landscape: nature is compressed and distorted as if it were a video file.</p>
-        </div>
-        <div>
-          <h3 class="text-xl font-bold text-white mb-2">Immortality</h3>
-          <p class="text-base text-neutral-400">A nanorobot in the blood eliminates superfluous cells. Eternal life appears as an algorithmic maintenance of the body.</p>
-        </div>
-        <div>
-          <h3 class="text-xl font-bold text-white mb-2">Destruction</h3>
-          <p class="text-base text-neutral-400">An airplane drops an atomic bomb on a city. Destruction becomes a divine gesture, yet ruthlessly human.</p>
-        </div>
-        <div>
-          <h3 class="text-xl font-bold text-white mb-2">Judgment</h3>
-          <p class="text-base text-neutral-400">A scale shows a "like" and a "dislike". Today every user feels like an absolute judge thanks to social media.</p>
+      <div class="mb-24">
+        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">The Themes</h2>
+        <div class="grid md:grid-cols-2 gap-12">
+          <div>
+            <h3 class="text-xl font-bold text-white mb-2">Time Manipulation</h3>
+            <p class="text-base text-neutral-400">A clock with accelerated hands overlaps a run through the landscape: nature is compressed and distorted as if it were a video file.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white mb-2">Immortality</h3>
+            <p class="text-base text-neutral-400">A nanorobot in the blood eliminates superfluous cells. Eternal life appears as an algorithmic maintenance of the body.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white mb-2">Destruction</h3>
+            <p class="text-base text-neutral-400">An airplane drops an atomic bomb on a city. Destruction becomes a divine gesture, yet ruthlessly human.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white mb-2">Judgment</h3>
+            <p class="text-base text-neutral-400">A scale shows a "like" and a "dislike". Today every user feels like an absolute judge thanks to social media.</p>
+          </div>
         </div>
       </div>
+
     </div>
 
     <!-- Gallery Section -->
     <div class="border-t border-neutral-800 pt-16">
-      <h2 class="text-3xl font-normal text-neutral-50 mb-12" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Gallery</h2>
+      <h2 class="lang-en text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Gallery</h2>
+      <h2 class="lang-it text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Galleria</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <img src={getProxyUrl("/progetti/homo-deus/1.png")} data-src="/progetti/homo-deus/1.png" alt="Schermata dell'installazione interattiva TouchDesigner con un orologio digitale deformato dal tracciamento corporeo" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
         <img src={getProxyUrl("/progetti/homo-deus/2.png")} data-src="/progetti/homo-deus/2.png" alt="Grafica generativa in tempo reale che mostra particelle e flussi di dati controllati dai movimenti dello spettatore" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
