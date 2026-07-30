@@ -696,8 +696,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       let silMaxY = -Infinity;
 
       if (rawSilhouetteRows.length > 0) {
+        const yShift = isMobile ? -20 : 0;
         for (const row of rawSilhouetteRows) {
-          const heroY = liveGlOffsetY + row.yRatio * liveGlH;
+          const heroY = liveGlOffsetY + row.yRatio * liveGlH + yShift;
           const snappedY = Math.round(heroY / lineHeight) * lineHeight;
           const heroLeft = liveGlOffsetX + row.leftRatio * liveGlW - padding;
           const heroRight = liveGlOffsetX + row.rightRatio * liveGlW + padding;
