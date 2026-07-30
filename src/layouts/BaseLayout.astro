@@ -553,7 +553,7 @@ const { favicon = dynamicFavicon } = Astro.props;
           v.setAttribute('webkit-playsinline', '');
 
           // Force loading if video is uninitialized (common on client-side navigation swaps)
-          if (v.readyState === 0 || v.networkState === 0) {
+          if (v.networkState === 0) {
             v.load();
           }
 

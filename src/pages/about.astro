@@ -150,6 +150,19 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             }
           });
 
+          // Camera (70mm FOV portrait perspective)
+          const cameraEntity = new pc.Entity('Camera');
+          cameraEntity.addComponent('camera', {
+            fov: 28,
+            horizontalFov: false, // false = vertical FOV (portrait 70mm equivalent)
+            clearColor: new pc.Color(0, 0, 0, 0)
+          });
+          app.root.addChild(cameraEntity);
+
+          // Head Entity for SOG Splat Model
+          headEntity = new pc.Entity('SOGHead');
+          app.root.addChild(headEntity);
+
           app.setCanvasFillMode(pc.FILLMODE_NONE);
           app.setCanvasResolution(pc.RESOLUTION_FIXED, 1, 1);
           app.start();
@@ -163,19 +176,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             updateLayoutCache();
           };
           syncCanvasSize();
-
-          // Camera (70mm FOV portrait perspective)
-          const cameraEntity = new pc.Entity('Camera');
-          cameraEntity.addComponent('camera', {
-            fov: 28,
-            horizontalFov: false, // false = vertical FOV (portrait 70mm equivalent)
-            clearColor: new pc.Color(0, 0, 0, 0)
-          });
-          app.root.addChild(cameraEntity);
-
-          // Head Entity for SOG Splat Model
-          headEntity = new pc.Entity('SOGHead');
-          app.root.addChild(headEntity);
 
           // SuperSplat Orbit Camera System state
           const focalPoint = new pc.Vec3(0, -0.04, 0);
@@ -612,6 +612,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       const hero = document.getElementById('about-hero');
       if (!canvas || !hero) return;
 
+      if (!layoutCacheValid) {
+        updateLayoutCache();
+      }
+
       const currentLang = document.documentElement.getAttribute('data-lang') || 'it';
       const paragraphs = bioText[currentLang] || bioText.it;
 
@@ -643,31 +647,63 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
       const margin = isMobile ? 12 : 20;
       const colGap = 30;
-      const padding = isMobile ? 12 : 36;
+      const padding = isMobile ? 24 : 36;
 
-      // Rebuild silhouetteMap from cached ratios + cached rect (0 getBoundingClientRect calls)
-      silhouetteMap = new Map();
-      if (layoutCacheValid && rawSilhouetteRows.length > 0) {
-        for (const row of rawSilhouetteRows) {
-          const heroY = cachedGlOffsetY + row.yRatio * cachedGlH;
-          const snappedY = Math.round(heroY / lineHeight) * lineHeight;
-          const heroLeft = cachedGlOffsetX + row.leftRatio * cachedGlW - padding;
-          const heroRight = cachedGlOffsetX + row.rightRatio * cachedGlW + padding;
+      // On mobile with sticky container, get current live vertical offset of 3D canvas inside hero
+      let liveGlOffsetY = cachedGlOffsetY;
+      let liveGlOffsetX = cachedGlOffsetX;
+      let liveGlW = cachedGlW;
+      let liveGlH = cachedGlH;
 
-          if (!silhouetteMap.has(snappedY) || heroLeft < silhouetteMap.get(snappedY)[0]) {
-            silhouetteMap.set(snappedY, [heroLeft, heroRight]);
+      if (isMobile) {
+        const wrapper = document.getElementById('splat-canvas-wrapper');
+        if (wrapper) {
+          const glCanvas = wrapper.querySelector('canvas');
+          if (glCanvas) {
+            const heroRect = hero.getBoundingClientRect();
+            const glRect = glCanvas.getBoundingClientRect();
+            liveGlOffsetY = glRect.top - heroRect.top;
+            liveGlOffsetX = glRect.left - heroRect.left;
+            liveGlW = glRect.width;
+            liveGlH = glRect.height;
           }
         }
       }
 
+      // Rebuild silhouetteMap from cached ratios + live rect
+      silhouetteMap = new Map();
+      let minMobileSilLeft = Infinity;
+
+      if (rawSilhouetteRows.length > 0) {
+        for (const row of rawSilhouetteRows) {
+          const heroY = liveGlOffsetY + row.yRatio * liveGlH;
+          const snappedY = Math.round(heroY / lineHeight) * lineHeight;
+          const heroLeft = liveGlOffsetX + row.leftRatio * liveGlW - padding;
+          const heroRight = liveGlOffsetX + row.rightRatio * liveGlW + padding;
+
+          if (!silhouetteMap.has(snappedY)) {
+            silhouetteMap.set(snappedY, [heroLeft, heroRight]);
+          } else {
+            const cur = silhouetteMap.get(snappedY);
+            cur[0] = Math.min(cur[0], heroLeft);
+            cur[1] = Math.max(cur[1], heroRight);
+          }
+          minMobileSilLeft = Math.min(minMobileSilLeft, heroLeft);
+        }
+      }
+
+      const headTop = liveGlOffsetY;
+      const headBottom = liveGlOffsetY + liveGlH;
+
       function getMobileSilhouetteLeft(y) {
-        if (cachedGlH > 0 && (y < cachedGlOffsetY - 30 || y > cachedGlOffsetY + cachedGlH + 30)) {
+        if (liveGlH > 0 && (y < headTop - 10 || y > headBottom + 10)) {
           return null;
         }
         const snappedY = Math.round(y / lineHeight) * lineHeight;
         if (silhouetteMap.has(snappedY)) return silhouetteMap.get(snappedY)[0];
         if (silhouetteMap.has(snappedY - lineHeight)) return silhouetteMap.get(snappedY - lineHeight)[0];
         if (silhouetteMap.has(snappedY + lineHeight)) return silhouetteMap.get(snappedY + lineHeight)[0];
+        if (minMobileSilLeft !== Infinity) return minMobileSilLeft;
         return null;
       }
 
@@ -696,31 +732,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       if (isMobile) {
         let y = startY;
         const fullW = heroW - margin * 2;
-        const headBottom = cachedGlOffsetY + cachedGlH + 30;
 
         paragraphs.forEach((text) => {
           const prepared = getPrep(text);
-          // If Y is completely below the 3D head, use cached full-width lines for instant 0ms calculation
-          if (cachedGlH > 0 && y > headBottom) {
-            const cachedLines = getFullWidthLines(text, fullW, prepared, fontSpec);
-            for (let i = 0; i < cachedLines.length; i++) {
-              collectLine(cachedLines[i], margin, y, 'left');
-              y += lineHeight;
+          let cursor = { segmentIndex: 0, graphemeIndex: 0 };
+          while (true) {
+            let availW = fullW;
+            const silLeft = getMobileSilhouetteLeft(y);
+            if (silLeft !== null) {
+              const computedW = silLeft - margin;
+              availW = Math.max(180, Math.min(fullW, computedW));
             }
-          } else {
-            let cursor = { segmentIndex: 0, graphemeIndex: 0 };
-            while (true) {
-              let availW = fullW;
-              const silLeft = getMobileSilhouetteLeft(y);
-              if (silLeft !== null) {
-                availW = Math.max(60, silLeft - margin);
-              }
-              const line = layoutNextLine(prepared, cursor, availW);
-              if (!line) break;
-              collectLine(line.text, margin, y, 'left');
-              cursor = line.end;
-              y += lineHeight;
-            }
+            const line = layoutNextLine(prepared, cursor, availW);
+            if (!line) break;
+            collectLine(line.text, margin, y, 'left');
+            cursor = line.end;
+            y += lineHeight;
           }
           y += lineHeight;
         });
@@ -811,6 +838,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         canvas.removeChild(existingSpans[i]);
       }
     }
+
+    // Real-time mobile scroll reflow (throttled via requestAnimationFrame)
+    let isScrollReflowScheduled = false;
+    window.addEventListener('scroll', () => {
+      if (cachedIsMobile && !isScrollReflowScheduled) {
+        isScrollReflowScheduled = true;
+        requestAnimationFrame(() => {
+          isScrollReflowScheduled = false;
+          renderPretextLayout();
+        });
+      }
+    }, { passive: true });
 
     // Init & View Transition cleanup listeners
     document.addEventListener('DOMContentLoaded', initAboutPage);

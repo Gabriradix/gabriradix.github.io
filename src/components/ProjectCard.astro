@@ -432,7 +432,7 @@ const isBrainrot = title === "Brainrot Pavilion";
       vid.setAttribute('playsinline', '');
       vid.setAttribute('webkit-playsinline', '');
 
-      if (vid.readyState === 0 || vid.networkState === 0) {
+      if (vid.networkState === 0) {
         vid.load();
       }
 
