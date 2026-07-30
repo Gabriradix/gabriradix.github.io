@@ -683,18 +683,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       let liveGlH = cachedGlH;
 
       if (isMobile) {
-        const wrapper = document.getElementById('splat-canvas-wrapper');
-        if (wrapper) {
-          const glCanvas = wrapper.querySelector('canvas');
-          if (glCanvas) {
-            const heroRect = hero.getBoundingClientRect();
-            const glRect = glCanvas.getBoundingClientRect();
-            liveGlOffsetY = glRect.top - heroRect.top;
-            liveGlOffsetX = glRect.left - heroRect.left;
-            liveGlW = glRect.width;
-            liveGlH = glRect.height;
-          }
-        }
+        const heroRect = hero.getBoundingClientRect();
+        liveGlOffsetY = Math.max(0, 280 - heroRect.top);
+        liveGlOffsetX = cachedGlOffsetX;
+        liveGlW = cachedGlW || 300;
+        liveGlH = cachedGlH || 500;
       }
 
       // Rebuild silhouetteMap from cached ratios + live rect
@@ -762,19 +755,30 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
         paragraphs.forEach((text) => {
           const prepared = getPrep(text);
-          let cursor = { segmentIndex: 0, graphemeIndex: 0 };
-          while (true) {
-            let availW = fullW;
-            const silLeft = getMobileSilhouetteLeft(y);
-            if (silLeft !== null) {
-              const computedW = silLeft - margin;
-              availW = Math.max(140, Math.min(fullW, computedW));
+          const fullLines = getFullWidthLines(text, fullW, prepared, fontSpec);
+          const paraH = fullLines.length * lineHeight;
+
+          // Fast path: if paragraph is completely above or below head bounds, use cached fullLines directly
+          if (y + paraH < headTop - 10 || y > headBottom + 10) {
+            for (let i = 0; i < fullLines.length; i++) {
+              collectLine(fullLines[i], margin, y, 'left');
+              y += lineHeight;
             }
-            const line = layoutNextLine(prepared, cursor, availW);
-            if (!line) break;
-            collectLine(line.text, margin, y, 'left');
-            cursor = line.end;
-            y += lineHeight;
+          } else {
+            let cursor = { segmentIndex: 0, graphemeIndex: 0 };
+            while (true) {
+              let availW = fullW;
+              const silLeft = getMobileSilhouetteLeft(y);
+              if (silLeft !== null) {
+                const computedW = silLeft - margin;
+                availW = Math.max(140, Math.min(fullW, computedW));
+              }
+              const line = layoutNextLine(prepared, cursor, availW);
+              if (!line) break;
+              collectLine(line.text, margin, y, 'left');
+              cursor = line.end;
+              y += lineHeight;
+            }
           }
           y += lineHeight;
         });
