@@ -554,7 +554,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           const g = data[idx + 1];
           const b = data[idx + 2];
           const a = data[idx + 3];
-          if (a > 5 || r > 10 || g > 10 || b > 10) {
+          if (a > 0 || r > 2 || g > 2 || b > 2) {
             if (leftMost === -1 || x < leftMost) leftMost = x;
             if (x > rightMost) rightMost = x;
           }
@@ -723,6 +723,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         if (silhouetteMap.has(snappedY)) return silhouetteMap.get(snappedY)[1];
         if (silhouetteMap.has(snappedY - lineHeight)) return silhouetteMap.get(snappedY - lineHeight)[1];
         if (silhouetteMap.has(snappedY + lineHeight)) return silhouetteMap.get(snappedY + lineHeight)[1];
+        if (silhouetteMap.has(snappedY - 2 * lineHeight)) return silhouetteMap.get(snappedY - 2 * lineHeight)[1];
+        if (silhouetteMap.has(snappedY + 2 * lineHeight)) return silhouetteMap.get(snappedY + 2 * lineHeight)[1];
         if (maxMobileSilRight !== -Infinity) return maxMobileSilRight;
         return null;
       }
