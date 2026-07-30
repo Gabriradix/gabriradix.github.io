@@ -687,8 +687,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       let liveGlH = cachedGlH;
 
       if (isMobile) {
-        const heroTop = (cachedHeroDocTop || hero.offsetTop) - window.scrollY;
-        liveGlOffsetY = Math.max(0, 280 - heroTop);
+        const heroRect = hero.getBoundingClientRect();
+        liveGlOffsetY = Math.max(0, 280 - heroRect.top);
         liveGlOffsetX = cachedGlOffsetX;
         liveGlW = cachedGlW || 300;
         liveGlH = cachedGlH || 500;
@@ -884,7 +884,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     };
 
     onScroll = () => {
-      if (cachedIsMobile) {
+      const isMobile = window.innerWidth < 768;
+      if (isMobile) {
         if (!isScrollReflowScheduled) {
           isScrollReflowScheduled = true;
           requestAnimationFrame(() => {
@@ -899,12 +900,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         scrollSettleTimer = setTimeout(() => {
           scrollSettleTimer = null;
           performScrollReflow();
-        }, 50);
+        }, 40);
       }
     };
 
     onScrollEnd = () => {
-      if (cachedIsMobile) {
+      const isMobile = window.innerWidth < 768;
+      if (isMobile) {
         performScrollReflow();
       }
     };
