@@ -97,24 +97,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       ]
     };
 
-    var app = null;
-    var headEntity = null;
-    var isInitialized = false;
+    let app = null;
+    let headEntity = null;
+    let isInitialized = false;
 
     // ---- Silhouette sampling state ----
-    var silhouetteMap = new Map();
-    var samplingCanvas = null;
-    var samplingCtx = null;
+    let silhouetteMap = new Map();
+    let samplingCanvas = null;
+    let samplingCtx = null;
 
     // ---- Window Listener Handles for Clean Teardown ----
-    var onMouseMove = null;
-    var onMouseUp = null;
-    var onTouchStart = null;
-    var onTouchMove = null;
-    var onTouchEnd = null;
-    var onTouchCancel = null;
-    var onResize = null;
-    var onScroll = null;
+    let onMouseMove = null;
+    let onMouseUp = null;
+    let onTouchEnd = null;
+    let onTouchCancel = null;
+    let onResize = null;
+    let onScroll = null;
 
     function cleanupAboutPage() {
       if (app) {
@@ -135,7 +133,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
       if (onMouseMove) { window.removeEventListener('mousemove', onMouseMove); onMouseMove = null; }
       if (onMouseUp) { window.removeEventListener('mouseup', onMouseUp); onMouseUp = null; }
-      if (onTouchMove) { window.removeEventListener('touchmove', onTouchMove); onTouchMove = null; }
       if (onTouchEnd) { window.removeEventListener('touchend', onTouchEnd); onTouchEnd = null; }
       if (onTouchCancel) { window.removeEventListener('touchcancel', onTouchCancel); onTouchCancel = null; }
       if (onResize) { window.removeEventListener('resize', onResize); onResize = null; }
@@ -363,9 +360,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
           const isPixelHit = (clientX, clientY) => {
             const wrapper = document.getElementById('splat-canvas-wrapper');
-            if (!wrapper) return true;
+            if (!wrapper) return false;
             const glCanvas = wrapper.querySelector('canvas');
-            if (!glCanvas) return true;
+            if (!glCanvas) return false;
 
             const rect = glCanvas.getBoundingClientRect();
             const x = clientX - rect.left;
@@ -378,7 +375,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             const sampleX = Math.floor((x / rect.width) * sampleW);
             const sampleY = Math.floor((y / rect.height) * sampleH);
 
-            if (!samplingCtx || sampleX < 0 || sampleX >= sampleW || sampleY < 0 || sampleY >= sampleH) return true;
+            if (!samplingCtx || sampleX < 0 || sampleX >= sampleW || sampleY < 0 || sampleY >= sampleH) return false;
 
             try {
               const pixel = samplingCtx.getImageData(sampleX, sampleY, 1, 1).data;
@@ -445,37 +442,29 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             }
           });
 
+          canvas.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) {
+              startDrag(e.touches[0].clientX, e.touches[0].clientY);
+            }
+          }, { passive: true });
+
+          canvas.addEventListener('touchmove', (e) => {
+            if (isDragging && e.touches.length > 0) {
+              if (e.cancelable) e.preventDefault();
+              moveDrag(e.touches[0].clientX, e.touches[0].clientY);
+            }
+          }, { passive: false });
+
           onMouseMove = (e) => moveDrag(e.clientX, e.clientY);
           onMouseUp = () => {
             endDrag();
             if (canvas) canvas.style.cursor = 'default';
           };
-          const handleTouchStart = (e) => {
-            if (e.touches.length > 0) {
-              startDrag(e.touches[0].clientX, e.touches[0].clientY);
-            }
-          };
-
-          const handleTouchMove = (e) => {
-            if (isDragging && e.touches.length > 0) {
-              if (e.cancelable) e.preventDefault();
-              moveDrag(e.touches[0].clientX, e.touches[0].clientY);
-            }
-          };
-
-          onTouchStart = handleTouchStart;
-          onTouchMove = handleTouchMove;
           onTouchEnd = endDrag;
           onTouchCancel = endDrag;
 
-          canvas.addEventListener('touchstart', handleTouchStart, { passive: true });
-          canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
-          wrapper.addEventListener('touchstart', handleTouchStart, { passive: true });
-          wrapper.addEventListener('touchmove', handleTouchMove, { passive: false });
-
           window.addEventListener('mousemove', onMouseMove);
           window.addEventListener('mouseup', onMouseUp);
-          window.addEventListener('touchmove', handleTouchMove, { passive: false });
           window.addEventListener('touchend', onTouchEnd);
           window.addEventListener('touchcancel', onTouchCancel);
 
@@ -656,7 +645,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       const currentLang = document.documentElement.getAttribute('data-lang') || 'it';
       const paragraphs = bioText[currentLang] || bioText.it;
 
-      const isMobile = window.innerWidth < 768;
+      const isMobile = cachedIsMobile;
       const fontSize = 20;
       const lineHeight = isMobile ? 30 : 32;
       const fontSpec = `${fontSize}px 'Apple Garamond Custom', 'EB Garamond', Garamond, serif`;
@@ -879,10 +868,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       }
     }
 
-    // Real-time scroll reflow (throttled via requestAnimationFrame)
+    // Real-time mobile scroll reflow (throttled via requestAnimationFrame)
     let isScrollReflowScheduled = false;
     onScroll = () => {
-      if (!isScrollReflowScheduled) {
+      if (cachedIsMobile && !isScrollReflowScheduled) {
         isScrollReflowScheduled = true;
         requestAnimationFrame(() => {
           isScrollReflowScheduled = false;
