@@ -550,6 +550,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     let cachedPrepared = new Map();
     let cachedLang = '';
     let cachedFontSpec = '';
+    let maxObservedHeroHeight = 0;
 
     // Cached layout rect (updated in sampleSilhouette, used in renderPretextLayout without getBoundingClientRect)
     let cachedGlOffsetX = 0;
@@ -563,6 +564,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
     function invalidateLayoutCache() {
       layoutCacheValid = false;
+      maxObservedHeroHeight = 0;
     }
 
     function updateLayoutCache() {
@@ -630,6 +632,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         cachedFullWidthLines = new Map();
         cachedLang = currentLang;
         cachedFontSpec = fontSpec;
+        maxObservedHeroHeight = 0;
       }
 
       const getPrep = (text) => {
@@ -752,9 +755,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           y += lineHeight;
         });
 
-        const targetMinHeight = (y + lineHeight) + 'px';
-        if (hero.style.minHeight !== targetMinHeight) {
-          hero.style.minHeight = targetMinHeight;
+        const currentReqH = y + lineHeight;
+        if (currentReqH > maxObservedHeroHeight) {
+          maxObservedHeroHeight = currentReqH;
+          hero.style.minHeight = maxObservedHeroHeight + 'px';
         }
       } else {
         let yLeft = startY;
@@ -790,9 +794,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         });
 
         const maxDesktopY = Math.max(yLeft, yRight) + lineHeight;
-        const targetMinHeight = Math.max(530, maxDesktopY) + 'px';
-        if (hero.style.minHeight !== targetMinHeight) {
-          hero.style.minHeight = targetMinHeight;
+        const currentReqH = Math.max(530, maxDesktopY);
+        if (currentReqH > maxObservedHeroHeight) {
+          maxObservedHeroHeight = currentReqH;
+          hero.style.minHeight = maxObservedHeroHeight + 'px';
         }
       }
 
