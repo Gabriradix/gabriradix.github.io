@@ -106,6 +106,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     let samplingCanvas = null;
     let samplingCtx = null;
 
+    // ---- Touch Displacement State for Real-Time Finger Drag Reflow ----
+    let touchDragActive = false;
+    let touchStartY = 0;
+    let heroStartY = 0;
+    let liveTouchHeroTop = null;
+    let onTouchStartScroll = null;
+    let onTouchMoveScroll = null;
+    let onTouchEndScroll = null;
+
     // ---- Window Listener Handles for Clean Teardown ----
     let onMouseMove = null;
     let onMouseUp = null;
@@ -144,6 +153,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         onScroll = null; 
       }
       if (onScrollEnd) { window.removeEventListener('scrollend', onScrollEnd); onScrollEnd = null; }
+      if (onTouchStartScroll) { window.removeEventListener('touchstart', onTouchStartScroll); onTouchStartScroll = null; }
+      if (onTouchMoveScroll) { window.removeEventListener('touchmove', onTouchMoveScroll); onTouchMoveScroll = null; }
+      if (onTouchEndScroll) { window.removeEventListener('touchend', onTouchEndScroll); onTouchEndScroll = null; }
       if (scrollSettleTimer !== null) { clearTimeout(scrollSettleTimer); scrollSettleTimer = null; }
     }
 
@@ -687,8 +699,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       let liveGlH = cachedGlH;
 
       if (isMobile) {
-        const heroRect = hero.getBoundingClientRect();
-        liveGlOffsetY = Math.max(0, 280 - heroRect.top);
+        const heroTop = liveTouchHeroTop !== null ? liveTouchHeroTop : hero.getBoundingClientRect().top;
+        liveGlOffsetY = Math.max(0, 280 - heroTop);
         liveGlOffsetX = cachedGlOffsetX;
         liveGlW = cachedGlW || 300;
         liveGlH = cachedGlH || 500;
@@ -911,8 +923,48 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       }
     };
 
+    onTouchStartScroll = (e) => {
+      const isMobile = window.innerWidth < 768;
+      if (isMobile && e.touches.length > 0) {
+        touchDragActive = true;
+        touchStartY = e.touches[0].clientY;
+        const hero = document.getElementById('about-hero');
+        if (hero) {
+          heroStartY = hero.getBoundingClientRect().top;
+        }
+      }
+    };
+
+    onTouchMoveScroll = (e) => {
+      const isMobile = window.innerWidth < 768;
+      if (isMobile && touchDragActive && e.touches.length > 0) {
+        const currentY = e.touches[0].clientY;
+        const deltaY = touchStartY - currentY;
+        liveTouchHeroTop = heroStartY - deltaY;
+
+        if (!isScrollReflowScheduled) {
+          isScrollReflowScheduled = true;
+          requestAnimationFrame(() => {
+            isScrollReflowScheduled = false;
+            performScrollReflow();
+          });
+        }
+      }
+    };
+
+    onTouchEndScroll = () => {
+      touchDragActive = false;
+      liveTouchHeroTop = null;
+      if (window.innerWidth < 768) {
+        performScrollReflow();
+      }
+    };
+
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('touchmove', onScroll, { passive: true });
+    window.addEventListener('touchstart', onTouchStartScroll, { passive: true });
+    window.addEventListener('touchmove', onTouchMoveScroll, { passive: true });
+    window.addEventListener('touchend', onTouchEndScroll, { passive: true });
+    window.addEventListener('touchcancel', onTouchEndScroll, { passive: true });
     window.addEventListener('scrollend', onScrollEnd, { passive: true });
 
     // Init & View Transition cleanup listeners
