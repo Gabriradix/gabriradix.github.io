@@ -138,7 +138,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       if (onTouchEnd) { window.removeEventListener('touchend', onTouchEnd); onTouchEnd = null; }
       if (onTouchCancel) { window.removeEventListener('touchcancel', onTouchCancel); onTouchCancel = null; }
       if (onResize) { window.removeEventListener('resize', onResize); onResize = null; }
-      if (onScroll) { window.removeEventListener('scroll', onScroll); onScroll = null; }
+      if (onScroll) { 
+        window.removeEventListener('scroll', onScroll); 
+        window.removeEventListener('touchmove', onScroll); 
+        onScroll = null; 
+      }
       if (onScrollEnd) { window.removeEventListener('scrollend', onScrollEnd); onScrollEnd = null; }
       if (scrollSettleTimer !== null) { clearTimeout(scrollSettleTimer); scrollSettleTimer = null; }
     }
@@ -906,6 +910,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('touchmove', onScroll, { passive: true });
     window.addEventListener('scrollend', onScrollEnd, { passive: true });
 
     // Init & View Transition cleanup listeners
