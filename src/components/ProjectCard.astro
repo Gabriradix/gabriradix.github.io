@@ -68,12 +68,12 @@ const isBrainrot = title === "Brainrot Pavilion";
               muted
               playsinline
               webkit-playsinline
-              preload="auto"
+              preload="metadata"
               class="h-full w-auto max-w-none object-cover shrink-0 mr-[5px]"
               draggable="false"
             >
-              <source src={webmSrc} type="video/webm" />
               <source src={img} type="video/mp4" />
+              <source src={webmSrc} type="video/webm" />
             </video>
           ) : (
             <img

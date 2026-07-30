@@ -12,12 +12,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       loop 
       playsinline 
       webkit-playsinline
-      preload="auto"
+      preload="metadata"
       poster="/progetti/homo-deus/video-poster.jpg"
       class="absolute inset-0 w-full h-full object-cover z-0 opacity-80"
     >
-      <source src="/progetti/homo-deus/video.webm" type="video/webm" />
       <source src="/progetti/homo-deus/video.mp4" type="video/mp4" />
+      <source src="/progetti/homo-deus/video.webm" type="video/webm" />
     </video>
 
     <script>
