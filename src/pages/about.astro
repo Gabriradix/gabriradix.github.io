@@ -699,11 +699,21 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       let liveGlH = cachedGlH;
 
       if (isMobile) {
-        const heroTop = liveTouchHeroTop !== null ? liveTouchHeroTop : hero.getBoundingClientRect().top;
-        liveGlOffsetY = Math.max(0, 140 - heroTop);
-        liveGlOffsetX = cachedGlOffsetX;
-        liveGlW = cachedGlW || 300;
-        liveGlH = cachedGlH || 500;
+        const wrapper = document.getElementById('splat-canvas-wrapper');
+        const glCanvas = wrapper ? wrapper.querySelector('canvas') : null;
+        if (glCanvas) {
+          const heroRect = hero.getBoundingClientRect();
+          const glRect = glCanvas.getBoundingClientRect();
+          liveGlOffsetY = glRect.top - heroRect.top;
+          liveGlOffsetX = glRect.left - heroRect.left;
+          liveGlW = glRect.width;
+          liveGlH = glRect.height;
+        } else {
+          const heroTop = liveTouchHeroTop !== null ? liveTouchHeroTop : hero.getBoundingClientRect().top;
+          liveGlOffsetY = Math.max(0, 140 - heroTop);
+          liveGlW = cachedGlW || 300;
+          liveGlH = cachedGlH || 500;
+        }
       }
 
       // Rebuild silhouetteMap from cached ratios + live rect
@@ -799,8 +809,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           y += lineHeight;
         });
 
-        const currentReqH = y + 10;
-        hero.style.minHeight = currentReqH + 'px';
+        const currentReqH = Math.max(640, y + 20);
+        if (currentReqH > maxObservedHeroHeight) {
+          maxObservedHeroHeight = currentReqH;
+          hero.style.minHeight = maxObservedHeroHeight + 'px';
+        }
       } else {
         let yLeft = startY;
         [paragraphs[0], paragraphs[1]].forEach((text) => {
