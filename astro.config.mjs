@@ -39,10 +39,28 @@ function progettiIndexRewrite() {
   };
 }
 
+function mediaHeadersPlugin() {
+  return {
+    name: "media-headers-plugin",
+    /**
+     * @param {import('vite').ViteDevServer} server
+     */
+    configureServer(server) {
+      server.middlewares.use((/** @type {import('http').IncomingMessage} */ req, /** @type {import('http').ServerResponse} */ res, /** @type {Function} */ next) => {
+        if (req.url && (req.url.includes(".mp4") || req.url.includes(".webm") || req.url.includes(".mov"))) {
+          res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+          res.setHeader("Accept-Ranges", "bytes");
+        }
+        next();
+      });
+    },
+  };
+}
+
 export default defineConfig({
   site: "https://www.gabriradix.it",
   base: "/",
   vite: {
-    plugins: [tailwindcss(), progettiIndexRewrite()],
+    plugins: [tailwindcss(), progettiIndexRewrite(), mediaHeadersPlugin()],
   },
 });
