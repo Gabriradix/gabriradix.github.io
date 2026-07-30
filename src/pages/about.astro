@@ -656,7 +656,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       const currentLang = document.documentElement.getAttribute('data-lang') || 'it';
       const paragraphs = bioText[currentLang] || bioText.it;
 
-      const isMobile = cachedIsMobile;
+      const isMobile = window.innerWidth < 768;
       const fontSize = 20;
       const lineHeight = isMobile ? 30 : 32;
       const fontSpec = `${fontSize}px 'Apple Garamond Custom', 'EB Garamond', Garamond, serif`;
@@ -879,10 +879,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       }
     }
 
-    // Real-time mobile scroll reflow (throttled via requestAnimationFrame)
+    // Real-time scroll reflow (throttled via requestAnimationFrame)
     let isScrollReflowScheduled = false;
     onScroll = () => {
-      if (cachedIsMobile && !isScrollReflowScheduled) {
+      if (!isScrollReflowScheduled) {
         isScrollReflowScheduled = true;
         requestAnimationFrame(() => {
           isScrollReflowScheduled = false;
