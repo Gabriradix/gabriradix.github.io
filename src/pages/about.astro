@@ -692,7 +692,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
       // Rebuild silhouetteMap from cached ratios + live rect
       silhouetteMap = new Map();
-      let maxMobileSilRight = -Infinity;
+      let silMinY = Infinity;
+      let silMaxY = -Infinity;
 
       if (rawSilhouetteRows.length > 0) {
         for (const row of rawSilhouetteRows) {
@@ -708,24 +709,19 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             cur[0] = Math.min(cur[0], heroLeft);
             cur[1] = Math.max(cur[1], heroRight);
           }
-          maxMobileSilRight = Math.max(maxMobileSilRight, heroRight);
+          silMinY = Math.min(silMinY, heroY);
+          silMaxY = Math.max(silMaxY, heroY);
         }
       }
 
-      const headTop = liveGlOffsetY;
-      const headBottom = liveGlOffsetY + liveGlH;
-
       function getMobileSilhouetteRight(y) {
-        if (liveGlH > 0 && (y < headTop - 10 || y > headBottom + 10)) {
+        if (silMinY === Infinity || y < silMinY - 10 || y > silMaxY + 10) {
           return null;
         }
         const snappedY = Math.round(y / lineHeight) * lineHeight;
         if (silhouetteMap.has(snappedY)) return silhouetteMap.get(snappedY)[1];
         if (silhouetteMap.has(snappedY - lineHeight)) return silhouetteMap.get(snappedY - lineHeight)[1];
         if (silhouetteMap.has(snappedY + lineHeight)) return silhouetteMap.get(snappedY + lineHeight)[1];
-        if (silhouetteMap.has(snappedY - 2 * lineHeight)) return silhouetteMap.get(snappedY - 2 * lineHeight)[1];
-        if (silhouetteMap.has(snappedY + 2 * lineHeight)) return silhouetteMap.get(snappedY + 2 * lineHeight)[1];
-        if (maxMobileSilRight !== -Infinity) return maxMobileSilRight;
         return null;
       }
 
@@ -761,7 +757,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           const paraH = fullLines.length * lineHeight;
 
           // Fast path: if paragraph is completely above or below head bounds, use cached fullLines directly
-          if (y + paraH < headTop - 10 || y > headBottom + 10) {
+          if (y + paraH < silMinY - 10 || y > silMaxY + 10) {
             for (let i = 0; i < fullLines.length; i++) {
               collectLine(fullLines[i], margin, y, 'left');
               y += lineHeight;
