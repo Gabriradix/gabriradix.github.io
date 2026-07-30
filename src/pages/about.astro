@@ -332,21 +332,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             startReflowLoop();
           });
 
-          // Throttled reflow during drag to prevent GPU ReadPixels pipeline stalls (3D camera turns at 60 FPS)
-          let lastReflowTime = 0;
           let isReflowScheduled = false;
           const scheduleReflow = () => {
-            const now = performance.now();
-            if (now - lastReflowTime >= 60) {
-              lastReflowTime = now;
-              if (!isReflowScheduled) {
-                isReflowScheduled = true;
-                requestAnimationFrame(() => {
-                  isReflowScheduled = false;
-                  sampleSilhouette();
-                  renderPretextLayout();
-                });
-              }
+            if (!isReflowScheduled) {
+              isReflowScheduled = true;
+              requestAnimationFrame(() => {
+                isReflowScheduled = false;
+                sampleSilhouette();
+                renderPretextLayout();
+              });
             }
           };
 
@@ -583,6 +577,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     let cachedGlH = 0;
     let cachedHeroW = 0;
     let cachedHeroH = 0;
+    let cachedHeroDocTop = 0;
     let cachedIsMobile = false;
     let layoutCacheValid = false;
 
@@ -606,6 +601,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       cachedGlH = glRect.height;
       cachedHeroW = hero.offsetWidth;
       cachedHeroH = hero.offsetHeight;
+      cachedHeroDocTop = heroRect.top + window.scrollY;
       cachedIsMobile = window.innerWidth < 768;
       layoutCacheValid = true;
     }
@@ -683,8 +679,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       let liveGlH = cachedGlH;
 
       if (isMobile) {
-        const heroRect = hero.getBoundingClientRect();
-        liveGlOffsetY = Math.max(0, 280 - heroRect.top);
+        const heroTop = (cachedHeroDocTop || hero.offsetTop) - window.scrollY;
+        liveGlOffsetY = Math.max(0, 280 - heroTop);
         liveGlOffsetX = cachedGlOffsetX;
         liveGlW = cachedGlW || 300;
         liveGlH = cachedGlH || 500;
