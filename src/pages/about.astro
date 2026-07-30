@@ -106,9 +106,21 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     let samplingCanvas = null;
     let samplingCtx = null;
 
+    // ---- Window Listener Handles for Clean Teardown ----
+    let onMouseMove = null;
+    let onMouseUp = null;
+    let onTouchEnd = null;
+    let onTouchCancel = null;
+    let onResize = null;
+    let onScroll = null;
+
     function cleanupAboutPage() {
       if (app) {
         try {
+          app.autoRender = false;
+          app.render = () => {};
+          app.update = () => {};
+          app.off();
           app.destroy();
         } catch(e) {}
         app = null;
@@ -118,6 +130,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       samplingCanvas = null;
       samplingCtx = null;
       layoutCacheValid = false;
+
+      if (onMouseMove) { window.removeEventListener('mousemove', onMouseMove); onMouseMove = null; }
+      if (onMouseUp) { window.removeEventListener('mouseup', onMouseUp); onMouseUp = null; }
+      if (onTouchEnd) { window.removeEventListener('touchend', onTouchEnd); onTouchEnd = null; }
+      if (onTouchCancel) { window.removeEventListener('touchcancel', onTouchCancel); onTouchCancel = null; }
+      if (onResize) { window.removeEventListener('resize', onResize); onResize = null; }
+      if (onScroll) { window.removeEventListener('scroll', onScroll); onScroll = null; }
     }
 
     function initAboutPage() {
@@ -423,30 +442,21 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             }
           });
 
-          window.addEventListener('mousemove', (e) => moveDrag(e.clientX, e.clientY));
-          window.addEventListener('mouseup', () => {
+          onMouseMove = (e) => moveDrag(e.clientX, e.clientY);
+          onMouseUp = () => {
             endDrag();
             if (canvas) canvas.style.cursor = 'default';
-          });
+          };
+          onTouchEnd = endDrag;
+          onTouchCancel = endDrag;
 
-          canvas.addEventListener('touchstart', (e) => {
-            if (e.touches.length > 0) {
-              startDrag(e.touches[0].clientX, e.touches[0].clientY);
-            }
-          }, { passive: true });
-
-          canvas.addEventListener('touchmove', (e) => {
-            if (isDragging && e.touches.length > 0) {
-              if (e.cancelable) e.preventDefault();
-              moveDrag(e.touches[0].clientX, e.touches[0].clientY);
-            }
-          }, { passive: false });
-
-          window.addEventListener('touchend', endDrag);
-          window.addEventListener('touchcancel', endDrag);
+          window.addEventListener('mousemove', onMouseMove);
+          window.addEventListener('mouseup', onMouseUp);
+          window.addEventListener('touchend', onTouchEnd);
+          window.addEventListener('touchcancel', onTouchCancel);
 
           let resizeReflowTimer = null;
-          window.addEventListener('resize', () => {
+          onResize = () => {
             syncCanvasSize();
 
             if (resizeReflowTimer !== null) {
@@ -456,7 +466,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             resizeReflowTimer = requestAnimationFrame(() => {
               resizeReflowTimer = requestAnimationFrame(() => {
                 resizeReflowTimer = null;
-                app.autoRender = true;
+                if (app) app.autoRender = true;
                 let n = 0;
                 const resizeReflow = () => {
                   sampleSilhouette();
@@ -468,7 +478,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                 resizeReflow();
               });
             });
-          });
+          };
+          window.addEventListener('resize', onResize);
 
           isInitialized = true;
         } catch (e) {
@@ -846,7 +857,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
     // Real-time mobile scroll reflow (throttled via requestAnimationFrame)
     let isScrollReflowScheduled = false;
-    window.addEventListener('scroll', () => {
+    onScroll = () => {
       if (cachedIsMobile && !isScrollReflowScheduled) {
         isScrollReflowScheduled = true;
         requestAnimationFrame(() => {
@@ -854,7 +865,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           renderPretextLayout();
         });
       }
-    }, { passive: true });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     // Init & View Transition cleanup listeners
     document.addEventListener('DOMContentLoaded', initAboutPage);
