@@ -113,6 +113,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     let onTouchCancel = null;
     let onResize = null;
     let onScroll = null;
+    let onScrollEnd = null;
+    let scrollSettleTimer = null;
 
     function cleanupAboutPage() {
       if (app) {
@@ -137,6 +139,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       if (onTouchCancel) { window.removeEventListener('touchcancel', onTouchCancel); onTouchCancel = null; }
       if (onResize) { window.removeEventListener('resize', onResize); onResize = null; }
       if (onScroll) { window.removeEventListener('scroll', onScroll); onScroll = null; }
+      if (onScrollEnd) { window.removeEventListener('scrollend', onScrollEnd); onScrollEnd = null; }
+      if (scrollSettleTimer !== null) { clearTimeout(scrollSettleTimer); scrollSettleTimer = null; }
     }
 
     function initAboutPage() {
@@ -868,18 +872,41 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       }
     }
 
-    // Real-time mobile scroll reflow (throttled via requestAnimationFrame)
+    // Real-time mobile scroll reflow with momentum scroll end detection
     let isScrollReflowScheduled = false;
+
+    const performScrollReflow = () => {
+      renderPretextLayout();
+    };
+
     onScroll = () => {
-      if (cachedIsMobile && !isScrollReflowScheduled) {
-        isScrollReflowScheduled = true;
-        requestAnimationFrame(() => {
-          isScrollReflowScheduled = false;
-          renderPretextLayout();
-        });
+      if (cachedIsMobile) {
+        if (!isScrollReflowScheduled) {
+          isScrollReflowScheduled = true;
+          requestAnimationFrame(() => {
+            isScrollReflowScheduled = false;
+            performScrollReflow();
+          });
+        }
+        if (scrollSettleTimer !== null) {
+          clearTimeout(scrollSettleTimer);
+        }
+        // Ensure final momentum scroll resting position is captured
+        scrollSettleTimer = setTimeout(() => {
+          scrollSettleTimer = null;
+          performScrollReflow();
+        }, 50);
       }
     };
+
+    onScrollEnd = () => {
+      if (cachedIsMobile) {
+        performScrollReflow();
+      }
+    };
+
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scrollend', onScrollEnd, { passive: true });
 
     // Init & View Transition cleanup listeners
     document.addEventListener('DOMContentLoaded', initAboutPage);
