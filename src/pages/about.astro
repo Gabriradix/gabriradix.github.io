@@ -21,7 +21,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <div 
         id="pretext-canvas" 
         class="absolute inset-0 z-[3] pointer-events-none" 
-        style="font-family: 'Apple Garamond Custom', 'EB Garamond', Garamond, serif; color: #d4d4d4; letter-spacing: 0.01em;"
+        style="font-family: 'Apple Garamond Custom', 'Apple Garamond', 'EB Garamond', Garamond, serif; font-size: 20px; color: #d4d4d4; letter-spacing: 0.01em;"
       >
       </div>
 
@@ -648,7 +648,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       const isMobile = cachedIsMobile;
       const fontSize = 20;
       const lineHeight = isMobile ? 30 : 32;
-      const fontSpec = `${fontSize}px 'Apple Garamond Custom', 'EB Garamond', Garamond, serif`;
+      const fontSpec = `${fontSize}px 'Apple Garamond Custom', 'Apple Garamond', 'EB Garamond', Garamond, serif`;
 
       // Re-prepare segments only if language or font changed
       if (currentLang !== cachedLang || fontSpec !== cachedFontSpec) {
