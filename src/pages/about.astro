@@ -97,22 +97,24 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       ]
     };
 
-    let app = null;
-    let headEntity = null;
-    let isInitialized = false;
+    var app = null;
+    var headEntity = null;
+    var isInitialized = false;
 
     // ---- Silhouette sampling state ----
-    let silhouetteMap = new Map();
-    let samplingCanvas = null;
-    let samplingCtx = null;
+    var silhouetteMap = new Map();
+    var samplingCanvas = null;
+    var samplingCtx = null;
 
     // ---- Window Listener Handles for Clean Teardown ----
-    let onMouseMove = null;
-    let onMouseUp = null;
-    let onTouchEnd = null;
-    let onTouchCancel = null;
-    let onResize = null;
-    let onScroll = null;
+    var onMouseMove = null;
+    var onMouseUp = null;
+    var onTouchStart = null;
+    var onTouchMove = null;
+    var onTouchEnd = null;
+    var onTouchCancel = null;
+    var onResize = null;
+    var onScroll = null;
 
     function cleanupAboutPage() {
       if (app) {
@@ -133,6 +135,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
       if (onMouseMove) { window.removeEventListener('mousemove', onMouseMove); onMouseMove = null; }
       if (onMouseUp) { window.removeEventListener('mouseup', onMouseUp); onMouseUp = null; }
+      if (onTouchMove) { window.removeEventListener('touchmove', onTouchMove); onTouchMove = null; }
       if (onTouchEnd) { window.removeEventListener('touchend', onTouchEnd); onTouchEnd = null; }
       if (onTouchCancel) { window.removeEventListener('touchcancel', onTouchCancel); onTouchCancel = null; }
       if (onResize) { window.removeEventListener('resize', onResize); onResize = null; }
@@ -360,9 +363,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
           const isPixelHit = (clientX, clientY) => {
             const wrapper = document.getElementById('splat-canvas-wrapper');
-            if (!wrapper) return false;
+            if (!wrapper) return true;
             const glCanvas = wrapper.querySelector('canvas');
-            if (!glCanvas) return false;
+            if (!glCanvas) return true;
 
             const rect = glCanvas.getBoundingClientRect();
             const x = clientX - rect.left;
@@ -375,7 +378,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             const sampleX = Math.floor((x / rect.width) * sampleW);
             const sampleY = Math.floor((y / rect.height) * sampleH);
 
-            if (!samplingCtx || sampleX < 0 || sampleX >= sampleW || sampleY < 0 || sampleY >= sampleH) return false;
+            if (!samplingCtx || sampleX < 0 || sampleX >= sampleW || sampleY < 0 || sampleY >= sampleH) return true;
 
             try {
               const pixel = samplingCtx.getImageData(sampleX, sampleY, 1, 1).data;
@@ -447,11 +450,32 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             endDrag();
             if (canvas) canvas.style.cursor = 'default';
           };
+          const handleTouchStart = (e) => {
+            if (e.touches.length > 0) {
+              startDrag(e.touches[0].clientX, e.touches[0].clientY);
+            }
+          };
+
+          const handleTouchMove = (e) => {
+            if (isDragging && e.touches.length > 0) {
+              if (e.cancelable) e.preventDefault();
+              moveDrag(e.touches[0].clientX, e.touches[0].clientY);
+            }
+          };
+
+          onTouchStart = handleTouchStart;
+          onTouchMove = handleTouchMove;
           onTouchEnd = endDrag;
           onTouchCancel = endDrag;
 
+          canvas.addEventListener('touchstart', handleTouchStart, { passive: true });
+          canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+          wrapper.addEventListener('touchstart', handleTouchStart, { passive: true });
+          wrapper.addEventListener('touchmove', handleTouchMove, { passive: false });
+
           window.addEventListener('mousemove', onMouseMove);
           window.addEventListener('mouseup', onMouseUp);
+          window.addEventListener('touchmove', handleTouchMove, { passive: false });
           window.addEventListener('touchend', onTouchEnd);
           window.addEventListener('touchcancel', onTouchCancel);
 
