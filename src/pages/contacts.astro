@@ -93,8 +93,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       border-color: #ffffff !important;
       box-shadow: 0 0 12px rgba(255, 255, 255, 0.35) !important;
       transform: scale(1.02); /* premium scale effect */
-      z-index: 30;
-      position: relative;
+      z-index: 101 !important;
+      position: relative !important;
     }
 
     .contact-card div {
@@ -119,26 +119,26 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         
         const handleEnter = () => {
           if (Date.now() - lastTouchTime < 1000) return;
-          card.classList.add('hovered-card');
+          card.classList.add('hovered-target', 'hovered-card');
           document.documentElement.classList.add('ascii-active');
           document.dispatchEvent(new CustomEvent('ascii-start'));
         };
 
         const handleLeave = () => {
           if (Date.now() - lastTouchTime < 1000) return;
-          card.classList.remove('hovered-card');
+          card.classList.remove('hovered-target', 'hovered-card');
           document.documentElement.classList.remove('ascii-active');
           document.dispatchEvent(new CustomEvent('ascii-stop'));
         };
 
         const handleEnterForce = () => {
-          card.classList.add('hovered-card');
+          card.classList.add('hovered-target', 'hovered-card');
           document.documentElement.classList.add('ascii-active');
           document.dispatchEvent(new CustomEvent('ascii-start'));
         };
 
         const handleLeaveForce = () => {
-          card.classList.remove('hovered-card');
+          card.classList.remove('hovered-target', 'hovered-card');
           document.documentElement.classList.remove('ascii-active');
           document.dispatchEvent(new CustomEvent('ascii-stop'));
         };

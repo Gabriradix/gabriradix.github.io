@@ -305,86 +305,119 @@ const isBrainrot = title === "Brainrot Pavilion";
     });
   }
 
+  let pageLoadTime = Date.now();
+  document.addEventListener('astro:page-load', () => { pageLoadTime = Date.now(); });
+  document.addEventListener('astro:after-swap', () => { pageLoadTime = Date.now(); });
+
   function initAsciiHover() {
     const cards = document.querySelectorAll('.project-card');
     let lastTouchTime = 0;
 
     cards.forEach(node => {
       const card = node as HTMLElement;
-      const carousel = card.querySelector('.carousel-container');
-      const titleLink = card.querySelector('h3 a');
+      const carousel = card.querySelector('.carousel-container') as HTMLElement;
+      const titleLink = card.querySelector('h3 a') as HTMLElement;
       
-      const handleEnter = () => {
+      const handleEnterTarget = (targetEl: HTMLElement) => {
         if (Date.now() - lastTouchTime < 1000) return;
+        if (Date.now() - pageLoadTime < 1500) return;
+        if (Date.now() - ((window as any)._lastNavTime || 0) < 1500) return;
+        
+        document.querySelectorAll('.hovered-target').forEach(el => el.classList.remove('hovered-target'));
+        document.querySelectorAll('.hovered-card').forEach(el => el.classList.remove('hovered-card'));
+        
+        targetEl.classList.add('hovered-target');
         card.classList.add('hovered-card');
         document.documentElement.classList.add('ascii-active');
         document.dispatchEvent(new CustomEvent('ascii-start'));
       };
 
-      const handleLeave = () => {
+      const handleLeaveTarget = (targetEl: HTMLElement) => {
         if (Date.now() - lastTouchTime < 1000) return;
+        targetEl.classList.remove('hovered-target');
         card.classList.remove('hovered-card');
         document.documentElement.classList.remove('ascii-active');
         document.dispatchEvent(new CustomEvent('ascii-stop'));
       };
 
-      const handleEnterForce = () => {
+      const handleEnterForceTarget = (targetEl: HTMLElement) => {
+        document.querySelectorAll('.hovered-target').forEach(el => el.classList.remove('hovered-target'));
+        document.querySelectorAll('.hovered-card').forEach(el => el.classList.remove('hovered-card'));
+        
+        targetEl.classList.add('hovered-target');
         card.classList.add('hovered-card');
         document.documentElement.classList.add('ascii-active');
         document.dispatchEvent(new CustomEvent('ascii-start'));
       };
 
-      const handleLeaveForce = () => {
+      const handleLeaveForceTarget = (targetEl: HTMLElement) => {
+        targetEl.classList.remove('hovered-target');
         card.classList.remove('hovered-card');
         document.documentElement.classList.remove('ascii-active');
         document.dispatchEvent(new CustomEvent('ascii-stop'));
       };
 
       // Register triggers on both the carousel and the title link!
-      let touchStartVal = 0;
-      let touchTimeout: number | null = null;
-
-      const handleTouchStart = () => {
-        lastTouchTime = Date.now();
-        touchStartVal = Date.now();
-        if (touchTimeout) {
-          clearTimeout(touchTimeout);
-          touchTimeout = null;
-        }
-        handleEnterForce();
-      };
-
-      const handleTouchEnd = () => {
-        lastTouchTime = Date.now();
-        const elapsed = Date.now() - touchStartVal;
-        const minDuration = 500; // Guarantee at least half a second of active ASCII waves
-        
-        if (elapsed < minDuration) {
-          const remaining = minDuration - elapsed;
-          if (touchTimeout) clearTimeout(touchTimeout);
-          touchTimeout = setTimeout(() => {
-            handleLeaveForce();
-            touchTimeout = null;
-          }, remaining) as unknown as number;
-        } else {
-          handleLeaveForce();
-        }
-      };
-
       if (carousel) {
-        carousel.addEventListener('mouseenter', handleEnter);
-        carousel.addEventListener('mouseleave', handleLeave);
-        carousel.addEventListener('touchstart', handleTouchStart, { passive: true });
-        carousel.addEventListener('touchend', handleTouchEnd, { passive: true });
-        carousel.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+        let touchStartVal = 0;
+        let touchTimeout: number | null = null;
+
+        carousel.addEventListener('mouseenter', () => handleEnterTarget(carousel));
+        carousel.addEventListener('mouseleave', () => handleLeaveTarget(carousel));
+        carousel.addEventListener('touchstart', () => {
+          lastTouchTime = Date.now();
+          touchStartVal = Date.now();
+          if (touchTimeout) clearTimeout(touchTimeout);
+          handleEnterForceTarget(carousel);
+        }, { passive: true });
+        
+        const handleTouchEndCarousel = () => {
+          lastTouchTime = Date.now();
+          const elapsed = Date.now() - touchStartVal;
+          const minDuration = 500;
+          if (elapsed < minDuration) {
+            if (touchTimeout) clearTimeout(touchTimeout);
+            touchTimeout = setTimeout(() => {
+              handleLeaveForceTarget(carousel);
+              touchTimeout = null;
+            }, minDuration - elapsed) as unknown as number;
+          } else {
+            handleLeaveForceTarget(carousel);
+          }
+        };
+        carousel.addEventListener('touchend', handleTouchEndCarousel, { passive: true });
+        carousel.addEventListener('touchcancel', handleTouchEndCarousel, { passive: true });
       }
 
       if (titleLink) {
-        titleLink.addEventListener('mouseenter', handleEnter);
-        titleLink.addEventListener('mouseleave', handleLeave);
-        titleLink.addEventListener('touchstart', handleTouchStart, { passive: true });
-        titleLink.addEventListener('touchend', handleTouchEnd, { passive: true });
-        titleLink.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+        let touchStartVal = 0;
+        let touchTimeout: number | null = null;
+
+        titleLink.addEventListener('mouseenter', () => handleEnterTarget(titleLink));
+        titleLink.addEventListener('mouseleave', () => handleLeaveTarget(titleLink));
+        titleLink.addEventListener('touchstart', () => {
+          lastTouchTime = Date.now();
+          touchStartVal = Date.now();
+          if (touchTimeout) clearTimeout(touchTimeout);
+          handleEnterForceTarget(titleLink);
+        }, { passive: true });
+        
+        const handleTouchEndTitle = () => {
+          lastTouchTime = Date.now();
+          const elapsed = Date.now() - touchStartVal;
+          const minDuration = 500;
+          if (elapsed < minDuration) {
+            if (touchTimeout) clearTimeout(touchTimeout);
+            touchTimeout = setTimeout(() => {
+              handleLeaveForceTarget(titleLink);
+              touchTimeout = null;
+            }, minDuration - elapsed) as unknown as number;
+          } else {
+            handleLeaveForceTarget(titleLink);
+          }
+        };
+        titleLink.addEventListener('touchend', handleTouchEndTitle, { passive: true });
+        titleLink.addEventListener('touchcancel', handleTouchEndTitle, { passive: true });
       }
     });
   }

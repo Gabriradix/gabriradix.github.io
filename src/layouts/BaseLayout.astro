@@ -44,7 +44,7 @@ const { favicon = dynamicFavicon } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <title>{title}</title>
@@ -54,7 +54,7 @@ const { favicon = dynamicFavicon } = Astro.props;
     )}
     <script is:inline>
       (function() {
-        const savedLang = localStorage.getItem('lang') || 'it';
+        const savedLang = localStorage.getItem('lang') || 'en';
         document.documentElement.setAttribute('data-lang', savedLang);
       })();
     </script>
@@ -260,10 +260,14 @@ const { favicon = dynamicFavicon } = Astro.props;
         pointer-events: none;
       }
 
-      /* Ensure header is on top and transition works smoothly */
+      /* Ensure ASCII canvas overlay (z-index 99) covers page content, while hovered items (z-index 101) rise above it */
       header {
         z-index: 40 !important;
         transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      html.logo-active header,
+      header:has(.hovered-logo) {
+        z-index: 101 !important;
       }
       #header-nav {
         transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -276,12 +280,13 @@ const { favicon = dynamicFavicon } = Astro.props;
       }
       main {
         position: relative;
-        z-index: 10;
+        z-index: auto;
         transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         will-change: opacity, filter;
       }
-      .hovered-card {
-        z-index: 30 !important;
+      .hovered-card,
+      .hovered-logo {
+        z-index: 101 !important;
         position: relative !important;
       }
     </style>
@@ -295,7 +300,7 @@ const { favicon = dynamicFavicon } = Astro.props;
     <canvas 
       id="global-ascii-canvas" 
       class="fixed inset-0 w-full h-full pointer-events-none transition-opacity duration-700 ease-in-out"
-      style="z-index: 100; opacity: 1;"
+      style="z-index: 99; opacity: 1;"
     ></canvas>
     <script is:inline>
       (function() {
@@ -364,7 +369,7 @@ const { favicon = dynamicFavicon } = Astro.props;
         // Render frame 0 synchronously RIGHT NOW
         loop();
 
-        // After 1.5 seconds, fade out to transparency
+        // After 400ms, fade out to transparency
         setTimeout(function() {
           canvas.style.opacity = "0";
           setTimeout(function() {
@@ -372,8 +377,8 @@ const { favicon = dynamicFavicon } = Astro.props;
             isRunning = false;
             window._asciiIntroActive = false;
             if (animId) cancelAnimationFrame(animId);
-          }, 700);
-        }, 1500);
+          }, 400);
+        }, 400);
       })();
     </script>
 
@@ -583,6 +588,7 @@ const { favicon = dynamicFavicon } = Astro.props;
       let ctx: CanvasRenderingContext2D | null = null;
       let animationFrameId: number | null = null;
       let isAnimating = false;
+      let isIntroRunning = false;
       
       // Initialize mouse coordinates to the center of the viewport to ensure drawing works instantly
       let mouseX = window.innerWidth / 2;
@@ -617,7 +623,13 @@ const { favicon = dynamicFavicon } = Astro.props;
       window.addEventListener("touchstart", handleTouchCoord, { passive: true });
       window.addEventListener("touchmove", handleTouchCoord, { passive: true });
 
+      let lastNavTime = 0;
+      let suppressUntil = 0;
+
       function handleBeforePreparation(e: any) {
+        suppressUntil = 0;
+        lastNavTime = Date.now();
+        (window as any)._lastNavTime = lastNavTime;
         document.documentElement.classList.add("ascii-loading");
         
         // Disable transition during startup to show the loading background instantly
@@ -638,20 +650,31 @@ const { favicon = dynamicFavicon } = Astro.props;
           });
         }
 
-        // Wrap e.loader in a function so that it returns a delayed promise, guaranteeing at least 600ms of ASCII visibility
+        // Wrap e.loader in a function so that it returns a delayed promise, guaranteeing smooth transition
         if (e && typeof e.loader === "function") {
           const originalLoader = e.loader;
           e.loader = () => {
-            const delayPromise = new Promise(resolve => setTimeout(resolve, 600));
+            const delayPromise = new Promise(resolve => setTimeout(resolve, 150));
             return Promise.all([originalLoader(), delayPromise]).then(results => results[0]);
           };
         }
       }
 
       function handlePageLoad() {
+        suppressUntil = Date.now() + 1200;
         document.documentElement.classList.remove("ascii-loading");
-        stopAsciiLoop();
+        document.documentElement.classList.remove("ascii-active");
+        document.documentElement.classList.remove("logo-active");
+        document.querySelectorAll('.hovered-card').forEach(el => el.classList.remove('hovered-card'));
+        document.querySelectorAll('.hovered-logo').forEach(el => el.classList.remove('hovered-logo'));
+        isIntroRunning = false;
+        (window as any)._asciiIntroActive = false;
+        stopAsciiLoop(true);
         initAsciiEngine();
+
+        // Safety backups to clear any mouseenter triggers right after page swap
+        setTimeout(() => stopAsciiLoop(true), 100);
+        setTimeout(() => stopAsciiLoop(true), 300);
       }
 
       function initAsciiEngine() {
@@ -671,23 +694,38 @@ const { favicon = dynamicFavicon } = Astro.props;
 
         // View Transition triggers
         document.removeEventListener("astro:before-preparation", handleBeforePreparation);
+        document.removeEventListener("astro:after-preparation", handlePageLoad);
         document.removeEventListener("astro:page-load", handlePageLoad);
+        document.removeEventListener("astro:after-swap", handlePageLoad);
         document.addEventListener("astro:before-preparation", handleBeforePreparation);
+        document.addEventListener("astro:after-preparation", handlePageLoad);
         document.addEventListener("astro:page-load", handlePageLoad);
+        document.addEventListener("astro:after-swap", handlePageLoad);
+
+        // Global link click cleanup
+        document.addEventListener('click', (e) => {
+          const link = (e.target as HTMLElement)?.closest('a, button');
+          if (link) {
+            document.querySelectorAll('.hovered-card').forEach(el => el.classList.remove('hovered-card'));
+            document.querySelectorAll('.hovered-logo').forEach(el => el.classList.remove('hovered-logo'));
+            document.documentElement.classList.remove('ascii-active', 'logo-active');
+          }
+        });
 
         // Logo hover triggers
         const logoLink = document.getElementById("logo-link");
         if (logoLink) {
           const handleLogoEnter = () => {
-            logoLink.classList.add("hovered-logo");
+            if (Date.now() - lastNavTime < 1200) return;
+            logoLink.classList.add("hovered-target", "hovered-logo");
             document.documentElement.classList.add("logo-active");
             startAsciiLoop();
           };
 
           const handleLogoLeave = () => {
-            logoLink.classList.remove("hovered-logo");
+            logoLink.classList.remove("hovered-target", "hovered-logo");
             document.documentElement.classList.remove("logo-active");
-            stopAsciiLoop();
+            stopAsciiLoop(true);
           };
 
           logoLink.addEventListener("mouseenter", handleLogoEnter);
@@ -699,6 +737,7 @@ const { favicon = dynamicFavicon } = Astro.props;
 
       function startAsciiLoop() {
         if ((window as any)._asciiIntroActive) return;
+        if (Date.now() < suppressUntil) return;
         // Defensive re-query if elements were swapped or not initialized yet (prevents click requirement)
         if (!canvas || !ctx) {
           initAsciiEngine();
@@ -711,7 +750,8 @@ const { favicon = dynamicFavicon } = Astro.props;
         }
 
         if (canvas && !isIntroRunning) {
-          canvas.style.opacity = "0.8"; // beautiful semi-transparent overlay
+          canvas.style.zIndex = "99";
+          canvas.style.opacity = "0.8"; // Overall animation opacity set to 0.8 as requested
         }
 
         if (isAnimating) return;
@@ -719,10 +759,12 @@ const { favicon = dynamicFavicon } = Astro.props;
         loop();
       }
 
-      function stopAsciiLoop() {
-        if (isIntroRunning) return;
-        // If there is still any hovered card or hovered logo, keep the loop active!
-        if (document.querySelector('.hovered-card') || document.querySelector('.hovered-logo')) return;
+      function stopAsciiLoop(force = false) {
+        if (!force) {
+          if (isIntroRunning) return;
+          // If there is still any hovered card or hovered logo, keep the loop active!
+          if (document.querySelector('.hovered-card') || document.querySelector('.hovered-logo')) return;
+        }
 
         if (canvas) {
           canvas.style.opacity = "0";
@@ -739,6 +781,7 @@ const { favicon = dynamicFavicon } = Astro.props;
           }
           if (ctx && canvas) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas.style.zIndex = "2";
           }
           fadeOutTimeoutId = null;
         }, 700) as unknown as number; // 700ms matching transition-opacity duration-700
@@ -756,9 +799,100 @@ const { favicon = dynamicFavicon } = Astro.props;
         const cols = Math.floor(w / charWidth);
         const rows = Math.floor(h / charHeight);
 
-        // Clear with background color matching the portfolio theme
+        // Get bounding rect of active hovered target element (isolated image/video or logo)
+        const hoveredEl = document.querySelector('.hovered-target') || document.querySelector('.hovered-card') || document.querySelector('.hovered-logo');
+        let clipLeft = -9999, clipTop = -9999, clipRight = -9999, clipBottom = -9999;
+        let hasCutout = false;
+
+        if (hoveredEl) {
+          const rect = hoveredEl.getBoundingClientRect();
+          const padding = 2;
+          clipLeft = rect.left - padding;
+          clipTop = rect.top - padding;
+          clipRight = rect.right + padding;
+          clipBottom = rect.bottom + padding;
+          hasCutout = true;
+        }
+
+        // 1. Fill background with solid theme color so all unhovered elements are 100% masked
         ctx.fillStyle = "#171717";
         ctx.fillRect(0, 0, w, h);
+
+        // 2. Carve soft feathered edge cutout window over the isolated image/element
+        let feather = 20;
+        let coreLeft = clipLeft + 10;
+        let coreTop = clipTop + 10;
+        let coreRight = clipRight - 10;
+        let coreBottom = clipBottom - 10;
+
+        if (hasCutout) {
+          const clipW = clipRight - clipLeft;
+          const clipH = clipBottom - clipTop;
+          feather = Math.min(24, Math.max(8, Math.min(clipW, clipH) * 0.2));
+
+          ctx.save();
+          ctx.globalCompositeOperation = 'destination-out';
+
+          const innerX = clipLeft + feather;
+          const innerY = clipTop + feather;
+          const innerW = Math.max(1, clipW - feather * 2);
+          const innerH = Math.max(1, clipH - feather * 2);
+
+          coreLeft = innerX;
+          coreTop = innerY;
+          coreRight = innerX + innerW;
+          coreBottom = innerY + innerH;
+
+          // Center solid clear area
+          ctx.fillStyle = 'rgba(0,0,0,1)';
+          ctx.fillRect(innerX, innerY, innerW, innerH);
+
+          // Top edge feather gradient
+          const gradTop = ctx.createLinearGradient(0, clipTop, 0, innerY);
+          gradTop.addColorStop(0, 'rgba(0,0,0,0)');
+          gradTop.addColorStop(1, 'rgba(0,0,0,1)');
+          ctx.fillStyle = gradTop;
+          ctx.fillRect(innerX, clipTop, innerW, feather);
+
+          // Bottom edge feather gradient
+          const gradBottom = ctx.createLinearGradient(0, innerY + innerH, 0, clipBottom);
+          gradBottom.addColorStop(0, 'rgba(0,0,0,1)');
+          gradBottom.addColorStop(1, 'rgba(0,0,0,0)');
+          ctx.fillStyle = gradBottom;
+          ctx.fillRect(innerX, innerY + innerH, innerW, feather);
+
+          // Left edge feather gradient
+          const gradLeft = ctx.createLinearGradient(clipLeft, 0, innerX, 0);
+          gradLeft.addColorStop(0, 'rgba(0,0,0,0)');
+          gradLeft.addColorStop(1, 'rgba(0,0,0,1)');
+          ctx.fillStyle = gradLeft;
+          ctx.fillRect(clipLeft, innerY, feather, innerH);
+
+          // Right edge feather gradient
+          const gradRight = ctx.createLinearGradient(innerX + innerW, 0, clipRight, 0);
+          gradRight.addColorStop(0, 'rgba(0,0,0,1)');
+          gradRight.addColorStop(1, 'rgba(0,0,0,0)');
+          ctx.fillStyle = gradRight;
+          ctx.fillRect(innerX + innerW, innerY, feather, innerH);
+
+          // Feathered Corners
+          const drawCorner = (cx: number, cy: number) => {
+            const radGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, feather);
+            radGrad.addColorStop(0, 'rgba(0,0,0,1)');
+            radGrad.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.fillStyle = radGrad;
+            ctx.beginPath();
+            ctx.arc(cx, cy, feather, 0, Math.PI * 2);
+            ctx.fill();
+          };
+
+          drawCorner(innerX, innerY);
+          drawCorner(innerX + innerW, innerY);
+          drawCorner(innerX, innerY + innerH);
+          drawCorner(innerX + innerW, innerY + innerH);
+
+          ctx.restore();
+        }
 
         ctx.font = `${charHeight - 2}px monospace`;
         ctx.textBaseline = "top";
@@ -770,7 +904,18 @@ const { favicon = dynamicFavicon } = Astro.props;
         const mouseRow = Math.floor(mouseY / charHeight);
 
         for (let r = 0; r < rows; r++) {
+          const charY = r * charHeight;
+          const charBottom = charY + charHeight;
+
           for (let c = 0; c < cols; c++) {
+            const charX = c * charWidth;
+            const charRight = charX + charWidth;
+
+            // Skip rendering ASCII characters inside the core image cutout window!
+            if (hasCutout && charRight >= coreLeft && charX <= coreRight && charBottom >= coreTop && charY <= coreBottom) {
+              continue;
+            }
+
             // Generative mathematical wave equations combining noise and coordinate ripples
             const dx = c - mouseCol;
             const dy = r - mouseRow;
@@ -802,7 +947,7 @@ const { favicon = dynamicFavicon } = Astro.props;
             const brightness = Math.floor(40 + (z + 1) * 0.5 * 80); // gray levels from 40 to 120
             ctx.fillStyle = `rgba(${brightness}, ${brightness}, ${brightness + 10}, 0.85)`;
 
-            ctx.fillText(char, c * charWidth, r * charHeight);
+            ctx.fillText(char, charX, charY);
           }
         }
 

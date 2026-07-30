@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Apple Garamond Custom';
+  src: url('/fonts/AppleGaramond.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Custom';
+  src: url('/fonts/Helvetica.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --font-sans: "Helvetica Custom", Helvetica, Arial, sans-serif;
   --font-serif: "Apple Garamond Custom", "Apple Garamond", "EB Garamond", Garamond, ui-serif, Georgia, serif;
