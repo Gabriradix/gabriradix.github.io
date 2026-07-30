@@ -650,7 +650,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
       const margin = isMobile ? 12 : 20;
       const colGap = 30;
-      const padding = isMobile ? 24 : 36;
+      const padding = isMobile ? 12 : 36;
 
       // On mobile with sticky container, get current live vertical offset of 3D canvas inside hero
       let liveGlOffsetY = cachedGlOffsetY;
@@ -744,7 +744,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             const silLeft = getMobileSilhouetteLeft(y);
             if (silLeft !== null) {
               const computedW = silLeft - margin;
-              availW = Math.max(180, Math.min(fullW, computedW));
+              availW = Math.max(140, Math.min(fullW, computedW));
             }
             const line = layoutNextLine(prepared, cursor, availW);
             if (!line) break;
