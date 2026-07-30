@@ -642,8 +642,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         updateLayoutCache();
       }
 
-      const currentLang = document.documentElement.getAttribute('data-lang') || 'it';
-      const paragraphs = bioText[currentLang] || bioText.it;
+      const currentLang = document.documentElement.getAttribute('data-lang') || 'en';
+      const paragraphs = bioText[currentLang] || bioText.en;
 
       const isMobile = cachedIsMobile;
       const fontSize = 20;
