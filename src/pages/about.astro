@@ -706,49 +706,48 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         liveGlH = cachedGlH || 500;
       }
 
-      // Rebuild silhouetteMap from cached ratios + live rect
-      silhouetteMap = new Map();
+      // Rebuild continuous silhouette bounds from cached ratios + live rect
       let silMinY = Infinity;
       let silMaxY = -Infinity;
 
       if (rawSilhouetteRows.length > 0) {
         const yShift = isMobile ? -20 : 0;
-        for (const row of rawSilhouetteRows) {
-          const heroY = liveGlOffsetY + row.yRatio * liveGlH + yShift;
-          const snappedY = Math.round(heroY / lineHeight) * lineHeight;
-          const heroLeft = liveGlOffsetX + row.leftRatio * liveGlW - padding;
-          const heroRight = liveGlOffsetX + row.rightRatio * liveGlW + padding;
-
-          if (!silhouetteMap.has(snappedY)) {
-            silhouetteMap.set(snappedY, [heroLeft, heroRight]);
-          } else {
-            const cur = silhouetteMap.get(snappedY);
-            cur[0] = Math.min(cur[0], heroLeft);
-            cur[1] = Math.max(cur[1], heroRight);
-          }
-          silMinY = Math.min(silMinY, heroY);
-          silMaxY = Math.max(silMaxY, heroY);
-        }
+        silMinY = liveGlOffsetY + rawSilhouetteRows[0].yRatio * liveGlH + yShift;
+        silMaxY = liveGlOffsetY + rawSilhouetteRows[rawSilhouetteRows.length - 1].yRatio * liveGlH + yShift;
       }
 
       function getMobileSilhouetteRight(y) {
-        if (silMinY === Infinity || y < silMinY - 10 || y > silMaxY + 10) {
-          return null;
-        }
-        const snappedY = Math.round(y / lineHeight) * lineHeight;
-        if (silhouetteMap.has(snappedY)) return silhouetteMap.get(snappedY)[1];
-        if (silhouetteMap.has(snappedY - lineHeight)) return silhouetteMap.get(snappedY - lineHeight)[1];
-        if (silhouetteMap.has(snappedY + lineHeight)) return silhouetteMap.get(snappedY + lineHeight)[1];
-        return null;
+        if (rawSilhouetteRows.length === 0 || liveGlH <= 0 || silMinY === Infinity) return null;
+        if (y < silMinY - 10 || y > silMaxY + 10) return null;
+
+        const yShift = isMobile ? -20 : 0;
+        const relativeY = y - liveGlOffsetY - yShift;
+        const targetRatio = relativeY / liveGlH;
+
+        const rowCount = rawSilhouetteRows.length;
+        const idx = Math.max(0, Math.min(rowCount - 1, Math.round(targetRatio * rowCount)));
+        const row = rawSilhouetteRows[idx];
+
+        if (!row) return null;
+        return liveGlOffsetX + row.rightRatio * liveGlW + padding;
       }
 
       function getColumnEdges(y) {
-        const snappedY = Math.round(y / lineHeight) * lineHeight;
-        if (silhouetteMap.has(snappedY)) {
-          const [silLeft, silRight] = silhouetteMap.get(snappedY);
+        if (rawSilhouetteRows.length === 0 || liveGlH <= 0) return [cx - colGap / 2, cx + colGap / 2];
+
+        const relativeY = y - liveGlOffsetY;
+        const targetRatio = relativeY / liveGlH;
+
+        const rowCount = rawSilhouetteRows.length;
+        const idx = Math.max(0, Math.min(rowCount - 1, Math.round(targetRatio * rowCount)));
+        const row = rawSilhouetteRows[idx];
+
+        if (row && targetRatio >= 0 && targetRatio <= 1) {
+          const heroLeft = liveGlOffsetX + row.leftRatio * liveGlW - padding;
+          const heroRight = liveGlOffsetX + row.rightRatio * liveGlW + padding;
           return [
-            Math.min(silLeft, cx - colGap / 2),
-            Math.max(silRight, cx + colGap / 2)
+            Math.min(heroLeft, cx - colGap / 2),
+            Math.max(heroRight, cx + colGap / 2)
           ];
         }
         return [cx - colGap / 2, cx + colGap / 2];
