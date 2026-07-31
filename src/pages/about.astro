@@ -604,6 +604,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     function invalidateLayoutCache() {
       layoutCacheValid = false;
       maxObservedHeroHeight = 0;
+      if (cachedPrepared) cachedPrepared.clear();
+      if (cachedFullWidthLines) cachedFullWidthLines.clear();
+      cachedLang = '';
+      cachedFontSpec = '';
     }
 
     function updateLayoutCache() {
@@ -977,9 +981,24 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     window.addEventListener('touchcancel', onTouchEndScroll, { passive: true });
     window.addEventListener('scrollend', onScrollEnd, { passive: true });
 
+    const triggerReflowAfterTransition = () => {
+      invalidateLayoutCache();
+      renderPretextLayout();
+    };
+
+    const handlePageLoad = () => {
+      initAboutPage();
+      if (document.fonts) {
+        document.fonts.ready.then(triggerReflowAfterTransition);
+      }
+      requestAnimationFrame(triggerReflowAfterTransition);
+      setTimeout(triggerReflowAfterTransition, 100);
+      setTimeout(triggerReflowAfterTransition, 300);
+    };
+
     // Init & View Transition cleanup listeners
-    document.addEventListener('DOMContentLoaded', initAboutPage);
-    document.addEventListener('astro:page-load', initAboutPage);
+    document.addEventListener('DOMContentLoaded', handlePageLoad);
+    document.addEventListener('astro:page-load', handlePageLoad);
     document.addEventListener('astro:before-swap', cleanupAboutPage);
 
     // Language toggle
