@@ -282,12 +282,16 @@ const { favicon = dynamicFavicon } = Astro.props;
         position: relative;
         z-index: auto;
         transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        will-change: opacity, filter;
       }
       .hovered-card,
       .hovered-logo {
         z-index: 101 !important;
         position: relative !important;
+      }
+      .hovered-target,
+      .hovered-logo {
+        /* Aggiungiamo un drop-shadow che crea un alone scuro perfettamente aderente alle curve del font o SVG, mascherando i caratteri ASCII in modo organico */
+        filter: drop-shadow(0 0 8px #171717) drop-shadow(0 0 16px #171717) drop-shadow(0 0 32px #171717) drop-shadow(0 0 64px #171717) !important;
       }
     </style>
 
@@ -371,8 +375,13 @@ const { favicon = dynamicFavicon } = Astro.props;
 
         // After 400ms, fade out to transparency
         setTimeout(function() {
+          if (!window._asciiIntroActive) return; // Abort fade out if hijacked by a hover!
           canvas.style.opacity = "0";
           setTimeout(function() {
+            if (!window._asciiIntroActive) {
+               canvas.style.opacity = "0.8"; // Restore opacity if hijacked during the fade out
+               return; 
+            }
             canvas.style.zIndex = "2";
             isRunning = false;
             window._asciiIntroActive = false;
@@ -716,7 +725,6 @@ const { favicon = dynamicFavicon } = Astro.props;
         const logoLink = document.getElementById("logo-link");
         if (logoLink) {
           const handleLogoEnter = () => {
-            if (Date.now() - lastNavTime < 1200) return;
             logoLink.classList.add("hovered-target", "hovered-logo");
             document.documentElement.classList.add("logo-active");
             startAsciiLoop();
@@ -736,8 +744,29 @@ const { favicon = dynamicFavicon } = Astro.props;
       }
 
       function startAsciiLoop() {
-        if ((window as any)._asciiIntroActive) return;
-        if (Date.now() < suppressUntil) return;
+        if ((window as any)._asciiIntroActive) {
+          // User hovered DURING the initial page load intro!
+          // Hijack the intro so it doesn't shut down the canvas.
+          (window as any)._asciiIntroActive = false; 
+          if (canvas) {
+            canvas.style.zIndex = "99";
+            canvas.style.opacity = "0.8";
+          }
+          isAnimating = true;
+          return;
+        }
+
+        const now = Date.now();
+        if (now < suppressUntil) {
+           // Instead of dropping the event, schedule it to start when suppression ends,
+           // provided the user is STILL hovering an element.
+           setTimeout(() => {
+             if (document.querySelector('.hovered-card') || document.querySelector('.hovered-logo')) {
+               startAsciiLoop();
+             }
+           }, suppressUntil - now);
+           return;
+        }
         // Defensive re-query if elements were swapped or not initialized yet (prevents click requirement)
         if (!canvas || !ctx) {
           initAsciiEngine();
@@ -754,6 +783,16 @@ const { favicon = dynamicFavicon } = Astro.props;
           canvas.style.opacity = "0.8"; // Overall animation opacity set to 0.8 as requested
         }
 
+        // Forcefully ensure hovered elements are in the foreground (combats transition-induced stacking context bugs)
+        document.querySelectorAll('.hovered-card, .hovered-logo').forEach((el) => {
+          (el as HTMLElement).style.zIndex = "101";
+          (el as HTMLElement).style.position = "relative";
+        });
+        const header = document.getElementById('main-header');
+        if (header && document.querySelector('.hovered-logo')) {
+          header.style.zIndex = "101";
+        }
+
         if (isAnimating) return;
         isAnimating = true;
         loop();
@@ -765,6 +804,14 @@ const { favicon = dynamicFavicon } = Astro.props;
           // If there is still any hovered card or hovered logo, keep the loop active!
           if (document.querySelector('.hovered-card') || document.querySelector('.hovered-logo')) return;
         }
+
+        // Clean up inline styles
+        document.querySelectorAll('.project-card, .contact-card, .hovered-logo').forEach((el) => {
+          (el as HTMLElement).style.zIndex = "";
+          (el as HTMLElement).style.position = "";
+        });
+        const header = document.getElementById('main-header');
+        if (header) header.style.zIndex = "";
 
         if (canvas) {
           canvas.style.opacity = "0";
@@ -799,100 +846,9 @@ const { favicon = dynamicFavicon } = Astro.props;
         const cols = Math.floor(w / charWidth);
         const rows = Math.floor(h / charHeight);
 
-        // Get bounding rect of active hovered target element (isolated image/video or logo)
-        const hoveredEl = document.querySelector('.hovered-target') || document.querySelector('.hovered-card') || document.querySelector('.hovered-logo');
-        let clipLeft = -9999, clipTop = -9999, clipRight = -9999, clipBottom = -9999;
-        let hasCutout = false;
-
-        if (hoveredEl) {
-          const rect = hoveredEl.getBoundingClientRect();
-          const padding = 2;
-          clipLeft = rect.left - padding;
-          clipTop = rect.top - padding;
-          clipRight = rect.right + padding;
-          clipBottom = rect.bottom + padding;
-          hasCutout = true;
-        }
-
         // 1. Fill background with solid theme color so all unhovered elements are 100% masked
         ctx.fillStyle = "#171717";
         ctx.fillRect(0, 0, w, h);
-
-        // 2. Carve soft feathered edge cutout window over the isolated image/element
-        let feather = 20;
-        let coreLeft = clipLeft + 10;
-        let coreTop = clipTop + 10;
-        let coreRight = clipRight - 10;
-        let coreBottom = clipBottom - 10;
-
-        if (hasCutout) {
-          const clipW = clipRight - clipLeft;
-          const clipH = clipBottom - clipTop;
-          feather = Math.min(24, Math.max(8, Math.min(clipW, clipH) * 0.2));
-
-          ctx.save();
-          ctx.globalCompositeOperation = 'destination-out';
-
-          const innerX = clipLeft + feather;
-          const innerY = clipTop + feather;
-          const innerW = Math.max(1, clipW - feather * 2);
-          const innerH = Math.max(1, clipH - feather * 2);
-
-          coreLeft = innerX;
-          coreTop = innerY;
-          coreRight = innerX + innerW;
-          coreBottom = innerY + innerH;
-
-          // Center solid clear area
-          ctx.fillStyle = 'rgba(0,0,0,1)';
-          ctx.fillRect(innerX, innerY, innerW, innerH);
-
-          // Top edge feather gradient
-          const gradTop = ctx.createLinearGradient(0, clipTop, 0, innerY);
-          gradTop.addColorStop(0, 'rgba(0,0,0,0)');
-          gradTop.addColorStop(1, 'rgba(0,0,0,1)');
-          ctx.fillStyle = gradTop;
-          ctx.fillRect(innerX, clipTop, innerW, feather);
-
-          // Bottom edge feather gradient
-          const gradBottom = ctx.createLinearGradient(0, innerY + innerH, 0, clipBottom);
-          gradBottom.addColorStop(0, 'rgba(0,0,0,1)');
-          gradBottom.addColorStop(1, 'rgba(0,0,0,0)');
-          ctx.fillStyle = gradBottom;
-          ctx.fillRect(innerX, innerY + innerH, innerW, feather);
-
-          // Left edge feather gradient
-          const gradLeft = ctx.createLinearGradient(clipLeft, 0, innerX, 0);
-          gradLeft.addColorStop(0, 'rgba(0,0,0,0)');
-          gradLeft.addColorStop(1, 'rgba(0,0,0,1)');
-          ctx.fillStyle = gradLeft;
-          ctx.fillRect(clipLeft, innerY, feather, innerH);
-
-          // Right edge feather gradient
-          const gradRight = ctx.createLinearGradient(innerX + innerW, 0, clipRight, 0);
-          gradRight.addColorStop(0, 'rgba(0,0,0,1)');
-          gradRight.addColorStop(1, 'rgba(0,0,0,0)');
-          ctx.fillStyle = gradRight;
-          ctx.fillRect(innerX + innerW, innerY, feather, innerH);
-
-          // Feathered Corners
-          const drawCorner = (cx: number, cy: number) => {
-            const radGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, feather);
-            radGrad.addColorStop(0, 'rgba(0,0,0,1)');
-            radGrad.addColorStop(1, 'rgba(0,0,0,0)');
-            ctx.fillStyle = radGrad;
-            ctx.beginPath();
-            ctx.arc(cx, cy, feather, 0, Math.PI * 2);
-            ctx.fill();
-          };
-
-          drawCorner(innerX, innerY);
-          drawCorner(innerX + innerW, innerY);
-          drawCorner(innerX, innerY + innerH);
-          drawCorner(innerX + innerW, innerY + innerH);
-
-          ctx.restore();
-        }
 
         ctx.font = `${charHeight - 2}px monospace`;
         ctx.textBaseline = "top";
@@ -910,11 +866,6 @@ const { favicon = dynamicFavicon } = Astro.props;
           for (let c = 0; c < cols; c++) {
             const charX = c * charWidth;
             const charRight = charX + charWidth;
-
-            // Skip rendering ASCII characters inside the core image cutout window!
-            if (hasCutout && charRight >= coreLeft && charX <= coreRight && charBottom >= coreTop && charY <= coreBottom) {
-              continue;
-            }
 
             // Generative mathematical wave equations combining noise and coordinate ripples
             const dx = c - mouseCol;

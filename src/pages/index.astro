@@ -7,7 +7,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 <BaseLayout title="Gabriele Radicello">
   <main class="pt-40 pb-24 md:pt-64 md:pb-32 max-w-7xl mx-auto pl-6 md:pl-12 relative">
-    <section class="flex flex-col gap-12 md:gap-20 relative z-10" id="projects-section">
+    <section class="flex flex-col gap-12 md:gap-20 relative" id="projects-section">
       {projects.map((project) => <ProjectCard {...project} />)}
     </section>
   </main>
