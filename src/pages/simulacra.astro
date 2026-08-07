@@ -21,7 +21,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         Simulacra
       </h1>
       <p class="mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto">
-        An interactive journey into oneself, in digital and dreamlike form.
+        <span class="lang-en">An interactive journey into oneself, in digital and dreamlike form.</span>
+        <span class="lang-it">Un viaggio interattivo dentro se stessi, in forma digitale e onirica.</span>
       </p>
     </div>
   </section>
@@ -30,17 +31,31 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <section class="max-w-4xl mx-auto px-6 py-24 md:py-32 text-neutral-300 text-lg leading-8 text-left">
     
     <div class="mb-16 md:mb-24">
-      <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Concept</h2>
+      <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+        <span class="lang-en">Concept</span>
+        <span class="lang-it">Concept</span>
+      </h2>
       <div class="grid gap-8">
-        <p>
-          An immersive map inspired by the 'cube in the desert' psychological test. The experience unfolds as an introspective journey where the player navigates a surreal landscape generated within the Roblox environment.
-        </p>
-        <p>
-          The digital simulacra become the projection of the user's unconscious, breathing life into an environment where every spatial element corresponds to a psychological state. Playful interaction transforms into a tool for self-analysis and discovery.
-        </p>
+        <div class="lang-en">
+          <p>
+            An immersive map inspired by the 'cube in the desert' psychological test. The experience unfolds as an introspective journey where the player navigates a surreal landscape generated within the Roblox environment.
+          </p>
+          <p>
+            The digital simulacra become the projection of the user's unconscious, breathing life into an environment where every spatial element corresponds to a psychological state. Playful interaction transforms into a tool for self-analysis and discovery.
+          </p>
+        </div>
+        <div class="lang-it">
+          <p>
+            Una mappa immersiva ispirata al test psicologico del 'cubo nel deserto'. L'esperienza si sviluppa come un viaggio introspettivo in cui il giocatore naviga in un paesaggio surreale generato all'interno dell'ambiente di Roblox.
+          </p>
+          <p>
+            I simulacri digitali diventano la proiezione dell'inconscio dell'utente, dando vita a un ambiente in cui ogni elemento spaziale corrisponde a uno stato psicologico. L'interazione ludica si trasforma in uno strumento di autoanalisi e scoperta.
+          </p>
+        </div>
         <div class="mt-4">
           <a href="https://www.roblox.com/it/games/127574761671806/Simulacra" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-3 border border-neutral-700 text-neutral-300 hover:bg-white hover:text-black transition-colors duration-300 font-medium tracking-wide text-sm uppercase">
-            Play on Roblox
+            <span class="lang-en">Play on Roblox</span>
+            <span class="lang-it">Gioca su Roblox</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
           </a>
         </div>
@@ -49,7 +64,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
     <!-- Gallery Section -->
     <div class="border-t border-neutral-800 pt-16">
-      <h2 class="text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Gallery</h2>
+      <h2 class="text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+        <span class="lang-en">Gallery</span>
+        <span class="lang-it">Galleria</span>
+      </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <img src={getProxyUrl("/progetti/simulacra/2.png")} data-src="/progetti/simulacra/2.png" alt="Una scala metallica infinita sospesa in un cielo notturno denso di nebbia e stelle cadenti" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
         <img src={getProxyUrl("/progetti/simulacra/3.png")} data-src="/progetti/simulacra/3.png" alt="Un deserto arido sotto un sole artificiale accecante, con una piramide nera che si staglia all'orizzonte" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />

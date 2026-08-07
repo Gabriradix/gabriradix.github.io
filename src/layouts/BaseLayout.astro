@@ -54,8 +54,12 @@ const { favicon = dynamicFavicon } = Astro.props;
     )}
     <script is:inline>
       (function() {
-        const savedLang = localStorage.getItem('lang') || 'en';
-        document.documentElement.setAttribute('data-lang', savedLang);
+        const setLang = () => {
+          const savedLang = localStorage.getItem('lang') || 'en';
+          document.documentElement.setAttribute('data-lang', savedLang);
+        };
+        setLang();
+        document.addEventListener('astro:after-swap', setLang);
       })();
     </script>
     <style is:global>
