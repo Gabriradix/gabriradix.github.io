@@ -1,0 +1,653 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { tools } from "../data/tools";
+---
+
+<BaseLayout title="Tools - Gabriele Radicello" description="Personal tool stash & media utilities">
+  <section class="mx-auto flex min-h-screen flex-col items-center justify-start gap-12 px-6 pt-36 md:pt-48 pb-24 text-left max-w-5xl">
+    
+    <!-- Header Page -->
+    <div class="w-full flex flex-col md:flex-row md:items-end justify-between border-b border-neutral-800 pb-8 gap-6">
+      <div>
+        <div class="text-xs uppercase font-mono tracking-widest text-neutral-500 mb-2">
+          Personal Utility Hub
+        </div>
+        <h1
+          class="text-4xl md:text-6xl font-normal leading-none tracking-tight text-neutral-50"
+          style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
+        >
+          TOOLS
+        </h1>
+        <p class="mt-4 text-base md:text-lg text-neutral-400 font-light max-w-xl">
+          <span class="lang-en">Personal stash of curated tools, media downloaders, and utilities.</span>
+          <span class="lang-it">Raccolta personale di strumenti, utility e downloader multimediali.</span>
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-neutral-800 bg-neutral-900/80 text-xs font-mono text-neutral-400">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="lang-en">1 Active Tool</span>
+          <span class="lang-it">1 Strumento attivo</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Cobalt Live Downloader Interface -->
+    <div class="w-full rounded-2xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-10 backdrop-blur-xl shadow-2xl transition-all duration-500 hover:border-neutral-700">
+      
+      <!-- Tool Header -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-neutral-800/80">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-neutral-800 border border-neutral-700 flex items-center justify-center text-white shadow-inner font-mono font-bold text-xl">
+            ⚡
+          </div>
+          <div>
+            <div class="flex items-center gap-3">
+              <h2 class="text-2xl font-bold tracking-tight text-neutral-100 uppercase" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+                Cobalt Media Downloader
+              </h2>
+              <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded border border-neutral-700 bg-neutral-800/80 text-neutral-300">
+                YouTube & Social
+              </span>
+            </div>
+            <p class="text-xs text-neutral-400 mt-1">
+              <span class="lang-en">Download media without ads, watermarks, or trackers.</span>
+              <span class="lang-it">Scarica video, audio e media senza pubblicità, watermark o tracker.</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 text-xs">
+          <a
+            href="https://github.com/imputnet/cobalt"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-3 py-1.5 rounded-lg border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors flex items-center gap-1.5"
+          >
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+            GitHub
+          </a>
+          <a
+            href="https://cobalt.tools"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-3 py-1.5 rounded-lg border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors flex items-center gap-1.5"
+          >
+            cobalt.tools ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- Supported Platforms Bar -->
+      <div class="flex flex-wrap items-center gap-2 py-4 text-[11px] font-mono text-neutral-400">
+        <span class="text-neutral-500">
+          <span class="lang-en">Supports:</span>
+          <span class="lang-it">Supporta:</span>
+        </span>
+        <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">YouTube</span>
+        <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">Instagram</span>
+        <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">TikTok</span>
+        <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">Twitter / X</span>
+        <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">Reddit</span>
+        <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">SoundCloud</span>
+        <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">Vimeo</span>
+        <span class="text-neutral-500 text-[10px]">+ 30 more</span>
+      </div>
+
+      <!-- Input Form -->
+      <div class="mt-4 flex flex-col gap-4">
+        <div class="relative flex flex-col md:flex-row items-stretch gap-3">
+          <div class="relative flex-1">
+            <input
+              type="url"
+              id="cobalt-url-input"
+              placeholder="Paste video/media URL (e.g. https://www.youtube.com/watch?v=...)"
+              class="w-full rounded-xl border border-neutral-700 bg-neutral-950/80 px-4 py-3.5 pr-20 text-sm md:text-base text-neutral-100 placeholder-neutral-500 outline-none transition-all duration-300 focus:border-white focus:ring-1 focus:ring-white"
+            />
+            <div class="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+              <button
+                type="button"
+                id="cobalt-paste-btn"
+                title="Paste from clipboard"
+                class="px-2.5 py-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white text-xs font-mono transition-colors"
+              >
+                <span class="lang-en">Paste</span>
+                <span class="lang-it">Incolla</span>
+              </button>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            id="cobalt-submit-btn"
+            class="px-8 py-3.5 rounded-xl font-bold text-sm tracking-wider uppercase bg-white text-neutral-950 hover:bg-neutral-200 transition-all duration-300 shadow-lg shadow-white/5 active:scale-95 flex items-center justify-center gap-2 font-mono cursor-pointer"
+          >
+            <span id="btn-text">
+              <span class="lang-en">Download</span>
+              <span class="lang-it">Scarica</span>
+            </span>
+            <svg id="btn-spinner" class="hidden w-4 h-4 animate-spin text-neutral-950" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Options Bar -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+          
+          <!-- Mode Selector -->
+          <div class="flex flex-col gap-1">
+            <label for="cobalt-mode" class="text-[11px] font-mono uppercase tracking-wider text-neutral-400">
+              <span class="lang-en">Format / Mode</span>
+              <span class="lang-it">Modalità</span>
+            </label>
+            <select
+              id="cobalt-mode"
+              class="rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-xs text-neutral-200 outline-none focus:border-neutral-500 cursor-pointer"
+            >
+              <option value="auto">Video & Audio (Auto)</option>
+              <option value="audio">Audio Only (MP3)</option>
+              <option value="mute">Video Only (Mute)</option>
+            </select>
+          </div>
+
+          <!-- Video Quality Selector -->
+          <div class="flex flex-col gap-1" id="quality-container">
+            <label for="cobalt-quality" class="text-[11px] font-mono uppercase tracking-wider text-neutral-400">
+              <span class="lang-en">Video Quality</span>
+              <span class="lang-it">Qualità Video</span>
+            </label>
+            <select
+              id="cobalt-quality"
+              class="rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-xs text-neutral-200 outline-none focus:border-neutral-500 cursor-pointer"
+            >
+              <option value="1080">1080p (Recommended)</option>
+              <option value="max">Max Quality (4K / 2K)</option>
+              <option value="720">720p HD</option>
+              <option value="480">480p</option>
+              <option value="360">360p</option>
+            </select>
+          </div>
+
+          <!-- YouTube Codec Selector -->
+          <div class="flex flex-col gap-1" id="codec-container">
+            <label for="cobalt-codec" class="text-[11px] font-mono uppercase tracking-wider text-neutral-400">
+              <span class="lang-en">YouTube Codec</span>
+              <span class="lang-it">Codec YouTube</span>
+            </label>
+            <select
+              id="cobalt-codec"
+              class="rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-xs text-neutral-200 outline-none focus:border-neutral-500 cursor-pointer"
+            >
+              <option value="h264">H.264 (Universal MP4)</option>
+              <option value="av1">AV1 (Best Efficiency)</option>
+              <option value="vp9">VP9 (WebM)</option>
+            </select>
+          </div>
+
+        </div>
+
+        <!-- Custom API Instance Settings Drawer (Collapsible) -->
+        <details class="mt-2 group text-xs">
+          <summary class="cursor-pointer font-mono text-[11px] text-neutral-500 hover:text-neutral-300 transition-colors list-none flex items-center gap-1.5 select-none">
+            <span class="transition-transform duration-200 group-open:rotate-90">›</span>
+            <span class="lang-en">Custom API Instance & Settings</span>
+            <span class="lang-it">Configurazione Istanza API & Server</span>
+          </summary>
+          <div class="mt-3 p-4 rounded-xl border border-neutral-800 bg-neutral-950/70 flex flex-col sm:flex-row items-center gap-3">
+            <div class="flex-1 w-full">
+              <label for="cobalt-custom-api" class="block text-[10px] font-mono uppercase text-neutral-400 mb-1">
+                <span class="lang-en">Cobalt API Endpoint (optional):</span>
+                <span class="lang-it">URL Istanza Cobalt (opzionale):</span>
+              </label>
+              <input
+                type="text"
+                id="cobalt-custom-api"
+                placeholder="https://api.cobalt.tools (leave empty for auto pool)"
+                class="w-full rounded-lg border border-neutral-800 bg-neutral-900 px-3 py-1.5 text-xs text-neutral-200 placeholder-neutral-600 outline-none focus:border-neutral-600 font-mono"
+              />
+            </div>
+            <button
+              type="button"
+              id="cobalt-save-api-btn"
+              class="w-full sm:w-auto px-4 py-2 mt-4 sm:mt-0 rounded-lg border border-neutral-700 bg-neutral-800 text-neutral-300 hover:text-white hover:bg-neutral-700 text-xs font-mono transition-colors"
+            >
+              <span class="lang-en">Save</span>
+              <span class="lang-it">Salva</span>
+            </button>
+          </div>
+        </details>
+
+        <!-- Status & Result Box -->
+        <div id="cobalt-status-box" class="hidden mt-4 rounded-xl border p-4 transition-all duration-300">
+          <div id="cobalt-status-content"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Catalog of Personal Tools -->
+    <div class="w-full mt-8">
+      <div class="flex items-center justify-between mb-6">
+        <h2
+          class="text-2xl md:text-3xl font-normal text-neutral-50 tracking-tight"
+          style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
+        >
+          <span class="lang-en">ALL TOOLS</span>
+          <span class="lang-it">TUTTI GLI STRUMENTI</span>
+        </h2>
+        <span class="text-xs font-mono text-neutral-500 uppercase">Archive / Stash</span>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2">
+        {tools.map((tool) => (
+          <div
+            class="tool-card rounded-2xl border border-neutral-800 bg-neutral-900/40 p-6 backdrop-blur-md flex flex-col justify-between"
+          >
+            <div>
+              <div class="flex items-center justify-between gap-4 mb-3">
+                <span class="text-xs font-mono text-neutral-400 uppercase tracking-wider">
+                  <span class="lang-en">{tool.category.en}</span>
+                  <span class="lang-it">{tool.category.it}</span>
+                </span>
+                {tool.badge && (
+                  <span class="px-2 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-[10px] font-mono text-emerald-400">
+                    <span class="lang-en">{tool.badge.en}</span>
+                    <span class="lang-it">{tool.badge.it}</span>
+                  </span>
+                )}
+              </div>
+
+              <h3
+                class="text-2xl font-bold tracking-tight text-neutral-100 uppercase mb-2"
+                style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
+              >
+                {tool.name}
+              </h3>
+
+              <p class="text-sm text-neutral-400 font-light leading-relaxed mb-6">
+                <span class="lang-en">{tool.description.en}</span>
+                <span class="lang-it">{tool.description.it}</span>
+              </p>
+
+              <div class="flex flex-wrap gap-1.5 mb-6">
+                {tool.tags.map((tag) => (
+                  <span class="px-2 py-0.5 rounded bg-neutral-800/80 text-[10px] font-mono text-neutral-400">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3 border-t border-neutral-800/80 pt-4 text-xs font-mono">
+              {tool.webUrl && (
+                <a
+                  href={tool.webUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-3.5 py-1.5 rounded-lg border border-neutral-700 bg-neutral-800/40 text-neutral-300 hover:text-white hover:border-neutral-500 hover:bg-neutral-800 transition-all flex items-center gap-1"
+                >
+                  Web App ↗
+                </a>
+              )}
+              {tool.githubUrl && (
+                <a
+                  href={tool.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-3.5 py-1.5 rounded-lg border border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-700 transition-all flex items-center gap-1"
+                >
+                  GitHub ↗
+                </a>
+              )}
+              {tool.docsUrl && (
+                <a
+                  href={tool.docsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-3.5 py-1.5 rounded-lg border border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-700 transition-all"
+                >
+                  Docs
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </section>
+
+  <style>
+    .tool-card {
+      transition: border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                  box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                  transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                  background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: border-color, box-shadow, transform, background-color;
+    }
+
+    .tool-card:hover {
+      background-color: rgba(38, 38, 38, 0.6) !important;
+      border-color: #ffffff !important;
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.15) !important;
+      transform: translateY(-2px);
+    }
+  </style>
+
+  <script>
+    function initCobaltTools() {
+      const urlInput = document.getElementById("cobalt-url-input") as HTMLInputElement | null;
+      const pasteBtn = document.getElementById("cobalt-paste-btn");
+      const submitBtn = document.getElementById("cobalt-submit-btn");
+      const btnText = document.getElementById("btn-text");
+      const btnSpinner = document.getElementById("btn-spinner");
+      const modeSelect = document.getElementById("cobalt-mode") as HTMLSelectElement | null;
+      const qualitySelect = document.getElementById("cobalt-quality") as HTMLSelectElement | null;
+      const codecSelect = document.getElementById("cobalt-codec") as HTMLSelectElement | null;
+      const statusBox = document.getElementById("cobalt-status-box");
+      const statusContent = document.getElementById("cobalt-status-content");
+      const customApiInput = document.getElementById("cobalt-custom-api") as HTMLInputElement | null;
+      const saveApiBtn = document.getElementById("cobalt-save-api-btn");
+      const qualityContainer = document.getElementById("quality-container");
+
+      if (!urlInput || !submitBtn || !statusBox || !statusContent) return;
+
+      // Load saved custom instance
+      const savedInstance = localStorage.getItem("cobalt_custom_instance");
+      if (savedInstance && customApiInput) {
+        customApiInput.value = savedInstance;
+      }
+
+      if (saveApiBtn && customApiInput) {
+        saveApiBtn.addEventListener("click", () => {
+          const val = customApiInput.value.trim().replace(/\/$/, "");
+          if (val) {
+            localStorage.setItem("cobalt_custom_instance", val);
+            showStatus("success", `Custom API instance saved: ${val}`);
+          } else {
+            localStorage.removeItem("cobalt_custom_instance");
+            showStatus("info", "Reset to default API instance pool.");
+          }
+        });
+      }
+
+      // Mode change listener to toggle quality options visibility
+      if (modeSelect && qualityContainer) {
+        modeSelect.addEventListener("change", () => {
+          if (modeSelect.value === "audio") {
+            qualityContainer.classList.add("opacity-40", "pointer-events-none");
+          } else {
+            qualityContainer.classList.remove("opacity-40", "pointer-events-none");
+          }
+        });
+      }
+
+      // Paste from clipboard button
+      if (pasteBtn) {
+        pasteBtn.addEventListener("click", async () => {
+          try {
+            const text = await navigator.clipboard.readText();
+            if (text) {
+              urlInput.value = text;
+              urlInput.focus();
+            }
+          } catch (err) {
+            console.error("Clipboard error:", err);
+          }
+        });
+      }
+
+      // Enter key submits form
+      urlInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          submitBtn.click();
+        }
+      });
+
+      function setLoading(isLoading: boolean) {
+        if (!submitBtn || !btnText || !btnSpinner) return;
+        submitBtn.toggleAttribute("disabled", isLoading);
+        if (isLoading) {
+          btnText.textContent = "Processing...";
+          btnSpinner.classList.remove("hidden");
+          submitBtn.classList.add("opacity-80");
+        } else {
+          btnText.textContent = "Download";
+          btnSpinner.classList.add("hidden");
+          submitBtn.classList.remove("opacity-80");
+        }
+      }
+
+      function showStatus(type: "loading" | "success" | "error" | "info" | "picker", data: any) {
+        if (!statusBox || !statusContent) return;
+        statusBox.classList.remove("hidden");
+
+        if (type === "loading") {
+          statusBox.className = "mt-4 rounded-xl border border-neutral-700 bg-neutral-900/80 p-4 transition-all duration-300";
+          statusContent.innerHTML = `
+            <div class="flex items-center gap-3 text-sm text-neutral-300 font-mono">
+              <svg class="w-4 h-4 animate-spin text-white" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+              </svg>
+              <span>Processing media via Cobalt...</span>
+            </div>
+          `;
+        } else if (type === "success") {
+          statusBox.className = "mt-4 rounded-xl border border-emerald-500/40 bg-emerald-950/20 p-5 transition-all duration-300";
+          const downloadUrl = data.url || data;
+          const filename = data.filename || "file-download";
+          statusContent.innerHTML = `
+            <div class="flex flex-col gap-3">
+              <div class="flex items-center gap-2 text-emerald-400 font-mono text-sm font-semibold">
+                <span>✓ Media ready for download!</span>
+              </div>
+              <div class="flex flex-wrap items-center gap-3">
+                <a
+                  href="${downloadUrl}"
+                  target="_blank"
+                  download="${filename}"
+                  class="px-5 py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold text-xs uppercase font-mono tracking-wider transition-all duration-200 shadow-md shadow-emerald-950 flex items-center gap-2"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                  </svg>
+                  Direct File Download
+                </a>
+                <a
+                  href="${downloadUrl}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-4 py-2.5 rounded-lg border border-neutral-700 bg-neutral-900 text-neutral-300 hover:text-white text-xs font-mono transition-colors"
+                >
+                  Stream / Preview ↗
+                </a>
+              </div>
+            </div>
+          `;
+        } else if (type === "picker") {
+          statusBox.className = "mt-4 rounded-xl border border-blue-500/40 bg-blue-950/20 p-5 transition-all duration-300";
+          const pickerItems = data.picker || [];
+          let itemsHtml = "";
+          pickerItems.forEach((item: any, idx: number) => {
+            itemsHtml += `
+              <a
+                href="${item.url}"
+                target="_blank"
+                download="media-${idx + 1}"
+                class="px-3 py-2 rounded-lg border border-neutral-700 bg-neutral-900 hover:border-neutral-500 text-xs font-mono text-neutral-200 flex items-center justify-between gap-2 transition-colors"
+              >
+                <span>Item #${idx + 1} (${item.type || 'media'})</span>
+                <span class="text-neutral-400">Download ↗</span>
+              </a>
+            `;
+          });
+          statusContent.innerHTML = `
+            <div class="flex flex-col gap-3">
+              <div class="text-blue-400 font-mono text-sm font-semibold">
+                Multiple items detected (select item to download):
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1">
+                ${itemsHtml}
+              </div>
+            </div>
+          `;
+        } else if (type === "error") {
+          statusBox.className = "mt-4 rounded-xl border border-red-500/40 bg-red-950/20 p-5 transition-all duration-300";
+          const fallbackCobaltWeb = `https://cobalt.tools`;
+          statusContent.innerHTML = `
+            <div class="flex flex-col gap-3">
+              <div class="flex items-center gap-2 text-red-400 font-mono text-sm font-semibold">
+                <span>✕ ${typeof data === "string" ? data : "Unable to complete download."}</span>
+              </div>
+              <p class="text-xs text-neutral-400">
+                If the public API instance is currently rate-limited or protected by Cloudflare, you can download it instantly directly on <strong>cobalt.tools</strong>:
+              </p>
+              <div class="flex items-center gap-3 mt-1">
+                <a
+                  href="${fallbackCobaltWeb}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-4 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-white font-mono text-xs transition-colors flex items-center gap-1.5"
+                >
+                  Open on cobalt.tools ↗
+                </a>
+              </div>
+            </div>
+          `;
+        } else if (type === "info") {
+          statusBox.className = "mt-4 rounded-xl border border-neutral-700 bg-neutral-900/60 p-4 transition-all duration-300";
+          statusContent.innerHTML = `
+            <div class="text-neutral-300 font-mono text-xs">
+              ${data}
+            </div>
+          `;
+        }
+      }
+
+      // Main submit logic
+      submitBtn.addEventListener("click", async () => {
+        const rawUrl = urlInput.value.trim();
+        if (!rawUrl) {
+          showStatus("error", "Please paste or enter a valid URL.");
+          urlInput.focus();
+          return;
+        }
+
+        const mode = modeSelect ? modeSelect.value : "auto";
+        const quality = qualitySelect ? qualitySelect.value : "1080";
+        const codec = codecSelect ? codecSelect.value : "h264";
+
+        const payload: Record<string, any> = {
+          url: rawUrl,
+          videoQuality: quality,
+          downloadMode: mode,
+          youtubeVideoCodec: codec,
+          audioFormat: "mp3"
+        };
+
+        setLoading(true);
+        showStatus("loading", null);
+
+        // Instance pool
+        const customInstance = localStorage.getItem("cobalt_custom_instance") || "";
+        const apiPool = [
+          customInstance,
+          "https://api.cobalt.tools",
+          "https://cobalt-api.kwiatekm.com",
+          "https://api.wuk.sh"
+        ].filter((x) => typeof x === "string" && x.length > 0);
+
+        let success = false;
+        let lastErrorMsg = "";
+
+        for (const instanceUrl of apiPool) {
+          try {
+            const cleanUrl = instanceUrl.replace(/\/$/, "");
+            const endpoint = `${cleanUrl}/`;
+
+            const res = await fetch(endpoint, {
+              method: "POST",
+              headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify(payload)
+            });
+
+            if (!res.ok) {
+              const errorData = await res.json().catch(() => null);
+              const msg = errorData?.error?.code || errorData?.text || `HTTP ${res.status}`;
+              lastErrorMsg = `Instance ${cleanUrl}: ${msg}`;
+              continue;
+            }
+
+            const data = await res.json();
+
+            if (data.status === "stream" || data.status === "redirect" || data.status === "tunnel") {
+              showStatus("success", data);
+              if (data.url) {
+                const tempLink = document.createElement("a");
+                tempLink.href = data.url;
+                tempLink.download = data.filename || "";
+                tempLink.target = "_blank";
+                document.body.appendChild(tempLink);
+                tempLink.click();
+                document.body.removeChild(tempLink);
+              }
+              success = true;
+              break;
+            } else if (data.status === "picker") {
+              showStatus("picker", data);
+              success = true;
+              break;
+            } else if (data.status === "error") {
+              lastErrorMsg = data.error?.code || data.text || "Unknown error returned by Cobalt.";
+              continue;
+            }
+          } catch (err: any) {
+            lastErrorMsg = err.message || "Connection error.";
+          }
+        }
+
+        setLoading(false);
+
+        if (!success) {
+          showStatus("error", lastErrorMsg || "No public API instance responded successfully.");
+        }
+      });
+    }
+
+    // ASCII Canvas Hover Integration
+    function initAsciiHover() {
+      const cards = document.querySelectorAll('.tool-card');
+      cards.forEach(node => {
+        const card = node as HTMLElement;
+        card.addEventListener('mouseenter', () => {
+          card.classList.add('hovered-card');
+          document.documentElement.classList.add('ascii-active');
+          document.dispatchEvent(new CustomEvent('ascii-start'));
+        });
+        card.addEventListener('mouseleave', () => {
+          card.classList.remove('hovered-card');
+          document.documentElement.classList.remove('ascii-active');
+          document.dispatchEvent(new CustomEvent('ascii-stop'));
+        });
+      });
+    }
+
+    // Initialize on direct load and Astro view transitions
+    initCobaltTools();
+    initAsciiHover();
+    document.addEventListener("astro:page-load", () => {
+      initCobaltTools();
+      initAsciiHover();
+    });
+  </script>
+</BaseLayout>

@@ -4,6 +4,15 @@ import { join } from "node:path";
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 
+// Evita conflitti EBUSY causati dal file locking di Google Drive sui binari nativi Windows
+if (!process.env.ESBUILD_BINARY_PATH) {
+  const localAppData = process.env.LOCALAPPDATA || "";
+  const localEsbuild = join(localAppData, "esbuild-bin", "esbuild.exe");
+  if (existsSync(localEsbuild)) {
+    process.env.ESBUILD_BINARY_PATH = localEsbuild;
+  }
+}
+
 /**
  * @returns {any}
  */
