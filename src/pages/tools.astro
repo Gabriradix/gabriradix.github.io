@@ -507,7 +507,8 @@ import { tools } from "../data/tools";
                 <span>✕ ${typeof data === "string" ? data : "Unable to complete download."}</span>
               </div>
               <p class="text-xs text-neutral-400">
-                If the public API instance is currently rate-limited or protected by Cloudflare, you can download it instantly directly on <strong>cobalt.tools</strong>:
+                <span class="lang-en">Official public instances protect against scraping and third-party CORS. You can download directly on <strong>cobalt.tools</strong> or connect your self-hosted private instance in the settings above:</span>
+                <span class="lang-it">Le istanze pubbliche ufficiali bloccano richieste esterne (CORS). Puoi scaricare direttamente su <strong>cobalt.tools</strong> oppure collegare la tua istanza privata nelle impostazioni sopra:</span>
               </p>
               <div class="flex items-center gap-3 mt-1">
                 <a
@@ -516,7 +517,8 @@ import { tools } from "../data/tools";
                   rel="noopener noreferrer"
                   class="px-4 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-white font-mono text-xs transition-colors flex items-center gap-1.5"
                 >
-                  Open on cobalt.tools ↗
+                  <span class="lang-en">Open on cobalt.tools ↗</span>
+                  <span class="lang-it">Apri su cobalt.tools ↗</span>
                 </a>
               </div>
             </div>
