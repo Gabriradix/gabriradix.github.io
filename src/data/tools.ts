@@ -22,6 +22,24 @@ export interface Tool {
 
 export const tools: Tool[] = [
   {
+    id: "remux-converter",
+    name: "Universal Remux & Converter",
+    category: {
+      en: "Media & File Processing",
+      it: "Elaborazione Media & File"
+    },
+    description: {
+      en: "Convert and remux video, audio, images, documents, and archives 100% in-browser with zero server uploads. Supports MP4, WebM, GIF, MP3, WAV, WebP, PNG, JPG, PDF, ZIP and more.",
+      it: "Converti e remuxa video, audio, immagini, documenti e archivi 100% nel browser a privacy totale senza upload su server. Supporta MP4, WebM, GIF, MP3, WAV, WebP, PNG, JPG, PDF, ZIP e altri."
+    },
+    tags: ["Converter", "Remux", "WebAssembly", "FFmpeg", "Images", "Audio", "Privacy"],
+    featured: true,
+    badge: {
+      en: "Client-Side Engine",
+      it: "100% Locale"
+    }
+  },
+  {
     id: "cobalt",
     name: "Cobalt",
     category: {

@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { tools } from "../data/tools";
 ---
 
-<BaseLayout title="Tools - Gabriele Radicello" description="Personal tool stash & media utilities">
+<BaseLayout title="Tools - Gabriele Radicello" description="Personal tool stash, media downloaders & universal file converter">
   <section class="mx-auto flex min-h-screen flex-col items-center justify-start gap-12 px-6 pt-36 md:pt-48 pb-24 text-left max-w-5xl">
     
     <!-- Header Page -->
@@ -19,212 +19,397 @@ import { tools } from "../data/tools";
           TOOLS
         </h1>
         <p class="mt-4 text-base md:text-lg text-neutral-400 font-light max-w-xl">
-          <span class="lang-en">Personal stash of curated tools, media downloaders, and utilities.</span>
-          <span class="lang-it">Raccolta personale di strumenti, utility e downloader multimediali.</span>
+          <span class="lang-en">Personal stash of curated tools, media downloaders, and universal file converters.</span>
+          <span class="lang-it">Raccolta personale di strumenti, downloader multimediali e convertitore universale di file.</span>
         </p>
       </div>
 
       <div class="flex items-center gap-3">
         <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-neutral-800 bg-neutral-900/80 text-xs font-mono text-neutral-400">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span class="lang-en">1 Active Tool</span>
-          <span class="lang-it">1 Strumento attivo</span>
+          <span class="lang-en">2 Active Tools</span>
+          <span class="lang-it">2 Strumenti attivi</span>
         </span>
       </div>
     </div>
 
-    <!-- Cobalt Live Downloader Interface -->
+    <!-- Active Tools Card Container with Navigation Tabs -->
     <div class="w-full rounded-2xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-10 backdrop-blur-xl shadow-2xl transition-all duration-500 hover:border-neutral-700">
       
-      <!-- Tool Header -->
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-neutral-800/80">
-        <div class="flex items-center gap-4">
-          <div class="w-12 h-12 rounded-xl bg-neutral-800 border border-neutral-700 flex items-center justify-center text-white shadow-inner font-mono font-bold text-xl">
-            ⚡
+      <!-- Top Utility Tabs -->
+      <div class="flex flex-wrap items-center justify-between border-b border-neutral-800 pb-6 gap-4">
+        <div class="flex items-center gap-2 p-1 rounded-xl bg-neutral-950/80 border border-neutral-800/80">
+          <button
+            type="button"
+            id="tab-converter-btn"
+            class="px-4 py-2 rounded-lg text-xs font-mono font-medium transition-all duration-300 bg-white text-neutral-950 shadow-md cursor-pointer flex items-center gap-2"
+          >
+            <span>🔄</span>
+            <span class="lang-en">Universal Remux & Converter</span>
+            <span class="lang-it">Remux & Convertitore Universale</span>
+          </button>
+          <button
+            type="button"
+            id="tab-cobalt-btn"
+            class="px-4 py-2 rounded-lg text-xs font-mono font-medium transition-all duration-300 text-neutral-400 hover:text-white cursor-pointer flex items-center gap-2"
+          >
+            <span>⚡</span>
+            <span class="lang-en">Cobalt Downloader</span>
+            <span class="lang-it">Cobalt Downloader</span>
+          </button>
+        </div>
+
+        <div class="hidden sm:flex items-center gap-2 text-[11px] font-mono text-neutral-500">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span class="lang-en">100% Client-Side Private</span>
+          <span class="lang-it">100% Locale & Privato</span>
+        </div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- SECTION 1: UNIVERSAL REMUX & FILE CONVERTER                   -->
+      <!-- ============================================================== -->
+      <div id="section-converter" class="mt-6 flex flex-col gap-6">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h2 class="text-2xl font-bold tracking-tight text-neutral-100 uppercase" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+              Universal File Converter & Remuxer
+            </h2>
+            <p class="text-xs text-neutral-400 mt-1">
+              <span class="lang-en">Convert, remux and optimize video, audio, images, documents & data directly in your browser without uploading to any server.</span>
+              <span class="lang-it">Converti, remuxa e ottimizza video, audio, immagini, documenti e dati direttamente nel browser a privacy totale senza upload su server.</span>
+            </p>
+          </div>
+          <span class="self-start sm:self-auto text-[10px] uppercase font-mono px-2.5 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400">
+            WASM / Canvas / WebAudio
+          </span>
+        </div>
+
+        <!-- Dropzone / File Picker -->
+        <div
+          id="converter-dropzone"
+          class="relative border-2 border-dashed border-neutral-700 hover:border-neutral-400 bg-neutral-950/60 rounded-2xl p-8 text-center transition-all duration-300 cursor-pointer group flex flex-col items-center justify-center gap-3"
+        >
+          <input
+            type="file"
+            id="converter-file-input"
+            multiple
+            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+          />
+          <div class="w-14 h-14 rounded-2xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-2xl group-hover:scale-110 group-hover:border-neutral-600 transition-all duration-300 shadow-inner">
+            📂
           </div>
           <div>
-            <div class="flex items-center gap-3">
-              <h2 class="text-2xl font-bold tracking-tight text-neutral-100 uppercase" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
-                Cobalt Media Downloader
-              </h2>
-              <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded border border-neutral-700 bg-neutral-800/80 text-neutral-300">
-                YouTube & Social
-              </span>
-            </div>
-            <p class="text-xs text-neutral-400 mt-1">
-              <span class="lang-en">Download media without ads, watermarks, or trackers.</span>
-              <span class="lang-it">Scarica video, audio e media senza pubblicità, watermark o tracker.</span>
+            <p class="text-sm md:text-base font-mono text-neutral-200">
+              <span class="lang-en">Drag & drop your files here, or <span class="text-white underline underline-offset-4">browse files</span></span>
+              <span class="lang-it">Trascina qui i tuoi file, oppure <span class="text-white underline underline-offset-4">sfoglia</span></span>
+            </p>
+            <p class="text-xs text-neutral-500 mt-1 font-mono">
+              <span class="lang-en">Supports Video (MP4, WebM, MKV, MOV, GIF), Audio (MP3, WAV, OGG, AAC), Images (PNG, JPG, WebP, AVIF, ICO, SVG), Docs (PDF, JSON, CSV, MD, TXT), Archives (ZIP)</span>
+              <span class="lang-it">Supporta Video (MP4, WebM, MKV, MOV, GIF), Audio (MP3, WAV, OGG, AAC), Immagini (PNG, JPG, WebP, AVIF, ICO, SVG), Documenti (PDF, JSON, CSV, MD, TXT), Archivi (ZIP)</span>
             </p>
           </div>
         </div>
 
-        <div class="flex items-center gap-3 text-xs">
-          <a
-            href="https://github.com/imputnet/cobalt"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="px-3 py-1.5 rounded-lg border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors flex items-center gap-1.5"
-          >
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-            </svg>
-            GitHub
-          </a>
-          <a
-            href="https://cobalt.tools"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="px-3 py-1.5 rounded-lg border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors flex items-center gap-1.5"
-          >
-            cobalt.tools ↗
-          </a>
+        <!-- Selected Files List -->
+        <div id="converter-files-container" class="hidden flex flex-col gap-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono uppercase tracking-wider text-neutral-400">
+              <span class="lang-en">Files in Queue:</span>
+              <span class="lang-it">File selezionati:</span>
+            </span>
+            <button
+              type="button"
+              id="converter-clear-files-btn"
+              class="text-xs font-mono text-neutral-500 hover:text-red-400 transition-colors"
+            >
+              <span class="lang-en">Clear all</span>
+              <span class="lang-it">Rimuovi tutti</span>
+            </button>
+          </div>
+          <div id="converter-files-list" class="grid gap-2 max-h-52 overflow-y-auto pr-1"></div>
         </div>
-      </div>
 
-      <!-- Supported Platforms Bar -->
-      <div class="flex flex-wrap items-center gap-2 py-4 text-[11px] font-mono text-neutral-400">
-        <span class="text-neutral-500">
-          <span class="lang-en">Supports:</span>
-          <span class="lang-it">Supporta:</span>
-        </span>
-        <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">YouTube</span>
-        <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">Instagram</span>
-        <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">TikTok</span>
-        <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">Twitter / X</span>
-        <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">Reddit</span>
-        <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">SoundCloud</span>
-        <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">Vimeo</span>
-        <span class="text-neutral-500 text-[10px]">+ 30 more</span>
-      </div>
+        <!-- Conversion Options Bar -->
+        <div id="converter-options-panel" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-4 p-5 rounded-xl border border-neutral-800 bg-neutral-950/80">
+          
+          <!-- Target Format Selection -->
+          <div class="flex flex-col gap-1.5">
+            <label for="converter-target-format" class="text-[11px] font-mono uppercase tracking-wider text-neutral-400">
+              <span class="lang-en">Target Format:</span>
+              <span class="lang-it">Formato di Destinazione:</span>
+            </label>
+            <select
+              id="converter-target-format"
+              class="rounded-lg border border-neutral-700 bg-neutral-900 px-3 py-2 text-xs text-neutral-100 outline-none focus:border-white cursor-pointer font-mono"
+            >
+              <!-- Populated dynamically via JS based on file type -->
+            </select>
+          </div>
 
-      <!-- Input Form -->
-      <div class="mt-4 flex flex-col gap-4">
-        <div class="relative flex flex-col md:flex-row items-stretch gap-3">
-          <div class="relative flex-1">
-            <input
-              type="url"
-              id="cobalt-url-input"
-              placeholder="Paste video/media URL (e.g. https://www.youtube.com/watch?v=...)"
-              class="w-full rounded-xl border border-neutral-700 bg-neutral-950/80 px-4 py-3.5 pr-20 text-sm md:text-base text-neutral-100 placeholder-neutral-500 outline-none transition-all duration-300 focus:border-white focus:ring-1 focus:ring-white"
-            />
-            <div class="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
-              <button
-                type="button"
-                id="cobalt-paste-btn"
-                title="Paste from clipboard"
-                class="px-2.5 py-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white text-xs font-mono transition-colors"
-              >
-                <span class="lang-en">Paste</span>
-                <span class="lang-it">Incolla</span>
-              </button>
+          <!-- Quality / Compression Slider -->
+          <div class="flex flex-col gap-1.5" id="converter-quality-wrapper">
+            <div class="flex items-center justify-between text-[11px] font-mono text-neutral-400">
+              <span class="uppercase">
+                <span class="lang-en">Quality:</span>
+                <span class="lang-it">Qualità:</span>
+              </span>
+              <span id="converter-quality-val" class="text-neutral-200">90%</span>
             </div>
+            <input
+              type="range"
+              id="converter-quality-slider"
+              min="10"
+              max="100"
+              value="90"
+              class="w-full accent-white cursor-pointer mt-2"
+            />
+          </div>
+
+          <!-- Resize / Scale Option -->
+          <div class="flex flex-col gap-1.5" id="converter-scale-wrapper">
+            <label for="converter-scale-select" class="text-[11px] font-mono uppercase tracking-wider text-neutral-400">
+              <span class="lang-en">Scale / Dimensions:</span>
+              <span class="lang-it">Scala / Dimensioni:</span>
+            </label>
+            <select
+              id="converter-scale-select"
+              class="rounded-lg border border-neutral-700 bg-neutral-900 px-3 py-2 text-xs text-neutral-100 outline-none focus:border-white cursor-pointer font-mono"
+            >
+              <option value="1">100% (Original)</option>
+              <option value="0.75">75%</option>
+              <option value="0.5">50% (Half Size)</option>
+              <option value="0.25">25% (Quarter)</option>
+            </select>
+          </div>
+
+        </div>
+
+        <!-- Convert Action Button -->
+        <div id="converter-action-container" class="hidden flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+          <div class="text-xs font-mono text-neutral-400">
+            <span class="lang-en">Files remain 100% on your device. Zero cloud uploads.</span>
+            <span class="lang-it">I file restano al 100% sul tuo dispositivo. Nessun upload.</span>
           </div>
 
           <button
             type="button"
-            id="cobalt-submit-btn"
-            class="px-8 py-3.5 rounded-xl font-bold text-sm tracking-wider uppercase bg-white text-neutral-950 hover:bg-neutral-200 transition-all duration-300 shadow-lg shadow-white/5 active:scale-95 flex items-center justify-center gap-2 font-mono cursor-pointer"
+            id="converter-start-btn"
+            class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-sm tracking-wider uppercase bg-white text-neutral-950 hover:bg-neutral-200 transition-all duration-300 shadow-lg shadow-white/5 active:scale-95 flex items-center justify-center gap-2 font-mono cursor-pointer"
           >
-            <span id="btn-text">
-              <span class="lang-en">Download</span>
-              <span class="lang-it">Scarica</span>
+            <span id="converter-btn-text">
+              <span class="lang-en">Start Conversion</span>
+              <span class="lang-it">Avvia Conversione</span>
             </span>
-            <svg id="btn-spinner" class="hidden w-4 h-4 animate-spin text-neutral-950" fill="none" viewBox="0 0 24 24">
+            <svg id="converter-btn-spinner" class="hidden w-4 h-4 animate-spin text-neutral-950" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
             </svg>
           </button>
         </div>
 
-        <!-- Options Bar -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-          
-          <!-- Mode Selector -->
-          <div class="flex flex-col gap-1">
-            <label for="cobalt-mode" class="text-[11px] font-mono uppercase tracking-wider text-neutral-400">
-              <span class="lang-en">Format / Mode</span>
-              <span class="lang-it">Modalità</span>
-            </label>
-            <select
-              id="cobalt-mode"
-              class="rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-xs text-neutral-200 outline-none focus:border-neutral-500 cursor-pointer"
-            >
-              <option value="auto">Video & Audio (Auto)</option>
-              <option value="audio">Audio Only (MP3)</option>
-              <option value="mute">Video Only (Mute)</option>
-            </select>
-          </div>
-
-          <!-- Video Quality Selector -->
-          <div class="flex flex-col gap-1" id="quality-container">
-            <label for="cobalt-quality" class="text-[11px] font-mono uppercase tracking-wider text-neutral-400">
-              <span class="lang-en">Video Quality</span>
-              <span class="lang-it">Qualità Video</span>
-            </label>
-            <select
-              id="cobalt-quality"
-              class="rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-xs text-neutral-200 outline-none focus:border-neutral-500 cursor-pointer"
-            >
-              <option value="1080">1080p (Recommended)</option>
-              <option value="max">Max Quality (4K / 2K)</option>
-              <option value="720">720p HD</option>
-              <option value="480">480p</option>
-              <option value="360">360p</option>
-            </select>
-          </div>
-
-          <!-- YouTube Codec Selector -->
-          <div class="flex flex-col gap-1" id="codec-container">
-            <label for="cobalt-codec" class="text-[11px] font-mono uppercase tracking-wider text-neutral-400">
-              <span class="lang-en">YouTube Codec</span>
-              <span class="lang-it">Codec YouTube</span>
-            </label>
-            <select
-              id="cobalt-codec"
-              class="rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-xs text-neutral-200 outline-none focus:border-neutral-500 cursor-pointer"
-            >
-              <option value="h264">H.264 (Universal MP4)</option>
-              <option value="av1">AV1 (Best Efficiency)</option>
-              <option value="vp9">VP9 (WebM)</option>
-            </select>
-          </div>
-
+        <!-- Conversion Results Box -->
+        <div id="converter-results-box" class="hidden mt-2 rounded-xl border border-neutral-700 bg-neutral-950 p-5 transition-all duration-300">
+          <div id="converter-results-content" class="flex flex-col gap-4"></div>
         </div>
 
-        <!-- Custom API Instance Settings Drawer (Collapsible) -->
-        <details class="mt-2 group text-xs">
-          <summary class="cursor-pointer font-mono text-[11px] text-neutral-500 hover:text-neutral-300 transition-colors list-none flex items-center gap-1.5 select-none">
-            <span class="transition-transform duration-200 group-open:rotate-90">›</span>
-            <span class="lang-en">Custom API Instance & Settings</span>
-            <span class="lang-it">Configurazione Istanza API & Server</span>
-          </summary>
-          <div class="mt-3 p-4 rounded-xl border border-neutral-800 bg-neutral-950/70 flex flex-col sm:flex-row items-center gap-3">
-            <div class="flex-1 w-full">
-              <label for="cobalt-custom-api" class="block text-[10px] font-mono uppercase text-neutral-400 mb-1">
-                <span class="lang-en">Cobalt API Endpoint (optional):</span>
-                <span class="lang-it">URL Istanza Cobalt (opzionale):</span>
-              </label>
-              <input
-                type="text"
-                id="cobalt-custom-api"
-                placeholder="https://api.cobalt.tools (leave empty for auto pool)"
-                class="w-full rounded-lg border border-neutral-800 bg-neutral-900 px-3 py-1.5 text-xs text-neutral-200 placeholder-neutral-600 outline-none focus:border-neutral-600 font-mono"
-              />
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- SECTION 2: COBALT MEDIA DOWNLOADER                             -->
+      <!-- ============================================================== -->
+      <div id="section-cobalt" class="hidden mt-6 flex flex-col gap-6">
+        
+        <!-- Tool Header -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-neutral-800/80">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-neutral-800 border border-neutral-700 flex items-center justify-center text-white shadow-inner font-mono font-bold text-xl">
+              ⚡
             </div>
+            <div>
+              <div class="flex items-center gap-3">
+                <h2 class="text-2xl font-bold tracking-tight text-neutral-100 uppercase" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
+                  Cobalt Media Downloader
+                </h2>
+                <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded border border-neutral-700 bg-neutral-800/80 text-neutral-300">
+                  YouTube & Social
+                </span>
+              </div>
+              <p class="text-xs text-neutral-400 mt-1">
+                <span class="lang-en">Download media without ads, watermarks, or trackers.</span>
+                <span class="lang-it">Scarica video, audio e media senza pubblicità, watermark o tracker.</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 text-xs">
+            <a
+              href="https://github.com/imputnet/cobalt"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-3 py-1.5 rounded-lg border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors flex items-center gap-1.5"
+            >
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              GitHub
+            </a>
+            <a
+              href="https://cobalt.tools"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-3 py-1.5 rounded-lg border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors flex items-center gap-1.5"
+            >
+              cobalt.tools ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Supported Platforms Bar -->
+        <div class="flex flex-wrap items-center gap-2 py-2 text-[11px] font-mono text-neutral-400">
+          <span class="text-neutral-500">
+            <span class="lang-en">Supports:</span>
+            <span class="lang-it">Supporta:</span>
+          </span>
+          <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">YouTube</span>
+          <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">Instagram</span>
+          <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">TikTok</span>
+          <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">Twitter / X</span>
+          <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">Reddit</span>
+          <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">SoundCloud</span>
+          <span class="px-2 py-0.5 rounded bg-neutral-800/60 border border-neutral-800 text-neutral-300">Vimeo</span>
+          <span class="text-neutral-500 text-[10px]">+ 30 more</span>
+        </div>
+
+        <!-- Cobalt Input Form -->
+        <div class="flex flex-col gap-4">
+          <div class="relative flex flex-col md:flex-row items-stretch gap-3">
+            <div class="relative flex-1">
+              <input
+                type="url"
+                id="cobalt-url-input"
+                placeholder="Paste video/media URL (e.g. https://www.youtube.com/watch?v=...)"
+                class="w-full rounded-xl border border-neutral-700 bg-neutral-950/80 px-4 py-3.5 pr-20 text-sm md:text-base text-neutral-100 placeholder-neutral-500 outline-none transition-all duration-300 focus:border-white focus:ring-1 focus:ring-white font-mono"
+              />
+              <div class="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                <button
+                  type="button"
+                  id="cobalt-paste-btn"
+                  title="Paste from clipboard"
+                  class="px-2.5 py-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white text-xs font-mono transition-colors"
+                >
+                  <span class="lang-en">Paste</span>
+                  <span class="lang-it">Incolla</span>
+                </button>
+              </div>
+            </div>
+
             <button
               type="button"
-              id="cobalt-save-api-btn"
-              class="w-full sm:w-auto px-4 py-2 mt-4 sm:mt-0 rounded-lg border border-neutral-700 bg-neutral-800 text-neutral-300 hover:text-white hover:bg-neutral-700 text-xs font-mono transition-colors"
+              id="cobalt-submit-btn"
+              class="px-8 py-3.5 rounded-xl font-bold text-sm tracking-wider uppercase bg-white text-neutral-950 hover:bg-neutral-200 transition-all duration-300 shadow-lg shadow-white/5 active:scale-95 flex items-center justify-center gap-2 font-mono cursor-pointer"
             >
-              <span class="lang-en">Save</span>
-              <span class="lang-it">Salva</span>
+              <span id="btn-text">
+                <span class="lang-en">Download</span>
+                <span class="lang-it">Scarica</span>
+              </span>
+              <svg id="btn-spinner" class="hidden w-4 h-4 animate-spin text-neutral-950" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+              </svg>
             </button>
           </div>
-        </details>
 
-        <!-- Status & Result Box -->
-        <div id="cobalt-status-box" class="hidden mt-4 rounded-xl border p-4 transition-all duration-300">
-          <div id="cobalt-status-content"></div>
+          <!-- Options Bar -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+            
+            <div class="flex flex-col gap-1">
+              <label for="cobalt-mode" class="text-[11px] font-mono uppercase tracking-wider text-neutral-400">
+                <span class="lang-en">Format / Mode</span>
+                <span class="lang-it">Modalità</span>
+              </label>
+              <select
+                id="cobalt-mode"
+                class="rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-xs text-neutral-200 outline-none focus:border-neutral-500 cursor-pointer font-mono"
+              >
+                <option value="auto">Video & Audio (Auto)</option>
+                <option value="audio">Audio Only (MP3)</option>
+                <option value="mute">Video Only (Mute)</option>
+              </select>
+            </div>
+
+            <div class="flex flex-col gap-1" id="quality-container">
+              <label for="cobalt-quality" class="text-[11px] font-mono uppercase tracking-wider text-neutral-400">
+                <span class="lang-en">Video Quality</span>
+                <span class="lang-it">Qualità Video</span>
+              </label>
+              <select
+                id="cobalt-quality"
+                class="rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-xs text-neutral-200 outline-none focus:border-neutral-500 cursor-pointer font-mono"
+              >
+                <option value="1080">1080p (Recommended)</option>
+                <option value="max">Max Quality (4K / 2K)</option>
+                <option value="720">720p HD</option>
+                <option value="480">480p</option>
+                <option value="360">360p</option>
+              </select>
+            </div>
+
+            <div class="flex flex-col gap-1" id="codec-container">
+              <label for="cobalt-codec" class="text-[11px] font-mono uppercase tracking-wider text-neutral-400">
+                <span class="lang-en">YouTube Codec</span>
+                <span class="lang-it">Codec YouTube</span>
+              </label>
+              <select
+                id="cobalt-codec"
+                class="rounded-lg border border-neutral-800 bg-neutral-950 px-3 py-2 text-xs text-neutral-200 outline-none focus:border-neutral-500 cursor-pointer font-mono"
+              >
+                <option value="h264">H.264 (Universal MP4)</option>
+                <option value="av1">AV1 (Best Efficiency)</option>
+                <option value="vp9">VP9 (WebM)</option>
+              </select>
+            </div>
+
+          </div>
+
+          <!-- Custom API Instance Settings Drawer -->
+          <details class="mt-2 group text-xs">
+            <summary class="cursor-pointer font-mono text-[11px] text-neutral-500 hover:text-neutral-300 transition-colors list-none flex items-center gap-1.5 select-none">
+              <span class="transition-transform duration-200 group-open:rotate-90">›</span>
+              <span class="lang-en">Custom API Instance & Settings</span>
+              <span class="lang-it">Configurazione Istanza API & Server</span>
+            </summary>
+            <div class="mt-3 p-4 rounded-xl border border-neutral-800 bg-neutral-950/70 flex flex-col sm:flex-row items-center gap-3">
+              <div class="flex-1 w-full">
+                <label for="cobalt-custom-api" class="block text-[10px] font-mono uppercase text-neutral-400 mb-1">
+                  <span class="lang-en">Cobalt API Endpoint (optional):</span>
+                  <span class="lang-it">URL Istanza Cobalt (opzionale):</span>
+                </label>
+                <input
+                  type="text"
+                  id="cobalt-custom-api"
+                  placeholder="https://api.cobalt.tools (leave empty for auto pool)"
+                  class="w-full rounded-lg border border-neutral-800 bg-neutral-900 px-3 py-1.5 text-xs text-neutral-200 placeholder-neutral-600 outline-none focus:border-neutral-600 font-mono"
+                />
+              </div>
+              <button
+                type="button"
+                id="cobalt-save-api-btn"
+                class="w-full sm:w-auto px-4 py-2 mt-4 sm:mt-0 rounded-lg border border-neutral-700 bg-neutral-800 text-neutral-300 hover:text-white hover:bg-neutral-700 text-xs font-mono transition-colors"
+              >
+                <span class="lang-en">Save</span>
+                <span class="lang-it">Salva</span>
+              </button>
+            </div>
+          </details>
+
+          <!-- Cobalt Status & Result Box -->
+          <div id="cobalt-status-box" class="hidden mt-2 rounded-xl border p-4 transition-all duration-300">
+            <div id="cobalt-status-content"></div>
+          </div>
+
         </div>
 
       </div>
@@ -341,6 +526,548 @@ import { tools } from "../data/tools";
   </style>
 
   <script>
+    // Tab switching logic
+    function initTabs() {
+      const tabConverterBtn = document.getElementById("tab-converter-btn");
+      const tabCobaltBtn = document.getElementById("tab-cobalt-btn");
+      const sectionConverter = document.getElementById("section-converter");
+      const sectionCobalt = document.getElementById("section-cobalt");
+
+      if (!tabConverterBtn || !tabCobaltBtn || !sectionConverter || !sectionCobalt) return;
+
+      const selectTab = (tab: "converter" | "cobalt") => {
+        if (tab === "converter") {
+          sectionConverter.classList.remove("hidden");
+          sectionCobalt.classList.add("hidden");
+          tabConverterBtn.className = "px-4 py-2 rounded-lg text-xs font-mono font-medium transition-all duration-300 bg-white text-neutral-950 shadow-md cursor-pointer flex items-center gap-2";
+          tabCobaltBtn.className = "px-4 py-2 rounded-lg text-xs font-mono font-medium transition-all duration-300 text-neutral-400 hover:text-white cursor-pointer flex items-center gap-2";
+        } else {
+          sectionCobalt.classList.remove("hidden");
+          sectionConverter.classList.add("hidden");
+          tabCobaltBtn.className = "px-4 py-2 rounded-lg text-xs font-mono font-medium transition-all duration-300 bg-white text-neutral-950 shadow-md cursor-pointer flex items-center gap-2";
+          tabConverterBtn.className = "px-4 py-2 rounded-lg text-xs font-mono font-medium transition-all duration-300 text-neutral-400 hover:text-white cursor-pointer flex items-center gap-2";
+        }
+      };
+
+      tabConverterBtn.addEventListener("click", () => selectTab("converter"));
+      tabCobaltBtn.addEventListener("click", () => selectTab("cobalt"));
+    }
+
+    // ==============================================================
+    // UNIVERSAL FILE CONVERTER & REMUXER ENGINE (100% IN-BROWSER)
+    // ==============================================================
+    function initConverter() {
+      const dropzone = document.getElementById("converter-dropzone");
+      const fileInput = document.getElementById("converter-file-input") as HTMLInputElement | null;
+      const filesContainer = document.getElementById("converter-files-container");
+      const filesList = document.getElementById("converter-files-list");
+      const clearFilesBtn = document.getElementById("converter-clear-files-btn");
+      const optionsPanel = document.getElementById("converter-options-panel");
+      const targetFormatSelect = document.getElementById("converter-target-format") as HTMLSelectElement | null;
+      const qualitySlider = document.getElementById("converter-quality-slider") as HTMLInputElement | null;
+      const qualityVal = document.getElementById("converter-quality-val");
+      const scaleSelect = document.getElementById("converter-scale-select") as HTMLSelectElement | null;
+      const actionContainer = document.getElementById("converter-action-container");
+      const startBtn = document.getElementById("converter-start-btn");
+      const btnText = document.getElementById("converter-btn-text");
+      const btnSpinner = document.getElementById("converter-btn-spinner");
+      const resultsBox = document.getElementById("converter-results-box");
+      const resultsContent = document.getElementById("converter-results-content");
+
+      if (!dropzone || !fileInput || !filesContainer || !filesList || !optionsPanel || !targetFormatSelect || !startBtn) return;
+
+      let queue: File[] = [];
+
+      const formatBytes = (bytes: number) => {
+        if (bytes === 0) return "0 Bytes";
+        const k = 1024;
+        const sizes = ["Bytes", "KB", "MB", "GB"];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+      };
+
+      const getFileTypeCategory = (file: File): "image" | "video" | "audio" | "document" | "data" | "generic" => {
+        const type = file.type.toLowerCase();
+        const ext = file.name.split(".").pop()?.toLowerCase() || "";
+
+        if (type.startsWith("image/") || ["png", "jpg", "jpeg", "webp", "avif", "bmp", "ico", "svg", "gif", "tiff"].includes(ext)) return "image";
+        if (type.startsWith("video/") || ["mp4", "webm", "mkv", "avi", "mov", "flv", "wmv", "m4v"].includes(ext)) return "video";
+        if (type.startsWith("audio/") || ["mp3", "wav", "ogg", "aac", "flac", "m4a", "weba"].includes(ext)) return "audio";
+        if (["json", "csv", "xml", "yaml", "yml"].includes(ext)) return "data";
+        if (["txt", "md", "markdown", "html", "pdf"].includes(ext)) return "document";
+        return "generic";
+      };
+
+      const updateTargetFormats = () => {
+        if (queue.length === 0) return;
+        const primaryCat = getFileTypeCategory(queue[0]);
+        targetFormatSelect.innerHTML = "";
+
+        const addOpt = (val: string, label: string) => {
+          const opt = document.createElement("option");
+          opt.value = val;
+          opt.textContent = label;
+          targetFormatSelect.appendChild(opt);
+        };
+
+        if (primaryCat === "image") {
+          addOpt("webp", "WebP (Optimal web compression)");
+          addOpt("png", "PNG (Lossless transparent)");
+          addOpt("jpeg", "JPEG / JPG");
+          addOpt("avif", "AVIF (Next-gen format)");
+          addOpt("ico", "ICO (Favicon icon)");
+          addOpt("bmp", "BMP Bitmap");
+          addOpt("pdf", "PDF Document (Single / Multi)");
+          addOpt("base64", "Base64 Data URI string");
+        } else if (primaryCat === "video") {
+          addOpt("webm", "WebM Video (Standard web video)");
+          addOpt("mp4", "MP4 Remux / Stream");
+          addOpt("gif", "Animated GIF (Frame capture)");
+          addOpt("mp3", "Audio MP3 (Extract sound)");
+          addOpt("wav", "Audio WAV (Lossless PCM extract)");
+          addOpt("thumbnail", "Snapshot Image (JPEG thumbnail)");
+        } else if (primaryCat === "audio") {
+          addOpt("wav", "WAV (Lossless 16-bit PCM)");
+          addOpt("mp3", "MP3 Audio");
+          addOpt("ogg", "OGG Audio");
+          addOpt("weba", "WebM Audio");
+        } else if (primaryCat === "data" || primaryCat === "document") {
+          addOpt("json", "JSON Data");
+          addOpt("csv", "CSV Spreadsheet");
+          addOpt("txt", "Plain Text (.txt)");
+          addOpt("md", "Markdown (.md)");
+          addOpt("html", "HTML Document");
+          addOpt("base64", "Base64 Text");
+          addOpt("pdf", "PDF Document");
+        } else {
+          addOpt("zip", "ZIP Archive package");
+          addOpt("base64", "Base64 Raw Binary string");
+        }
+
+        if (queue.length > 1) {
+          addOpt("zip", "Pack All Files to ZIP Archive");
+        }
+      };
+
+      const renderQueue = () => {
+        if (queue.length === 0) {
+          filesContainer.classList.add("hidden");
+          optionsPanel.classList.add("hidden");
+          actionContainer.classList.add("hidden");
+          return;
+        }
+
+        filesContainer.classList.remove("hidden");
+        optionsPanel.classList.remove("hidden");
+        actionContainer.classList.remove("hidden");
+        filesList.innerHTML = "";
+
+        queue.forEach((file, index) => {
+          const row = document.createElement("div");
+          row.className = "flex items-center justify-between p-3 rounded-xl border border-neutral-800 bg-neutral-900/60 text-xs font-mono text-neutral-300";
+          row.innerHTML = `
+            <div class="flex items-center gap-3 overflow-hidden">
+              <span class="text-neutral-500 font-bold">#${index + 1}</span>
+              <span class="truncate font-medium text-neutral-100 max-w-[200px] sm:max-w-md">${file.name}</span>
+              <span class="px-2 py-0.5 rounded bg-neutral-800 text-[10px] text-neutral-400">${formatBytes(file.size)}</span>
+            </div>
+            <button
+              type="button"
+              data-index="${index}"
+              class="remove-file-btn text-neutral-500 hover:text-red-400 p-1 transition-colors"
+            >
+              ✕
+            </button>
+          `;
+          filesList.appendChild(row);
+        });
+
+        document.querySelectorAll(".remove-file-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const idx = parseInt((e.currentTarget as HTMLElement).getAttribute("data-index") || "0", 10);
+            queue.splice(idx, 1);
+            renderQueue();
+            updateTargetFormats();
+          });
+        });
+
+        updateTargetFormats();
+      };
+
+      fileInput.addEventListener("change", (e) => {
+        const files = (e.target as HTMLInputElement).files;
+        if (files && files.length > 0) {
+          queue = [...queue, ...Array.from(files)];
+          renderQueue();
+        }
+      });
+
+      if (clearFilesBtn) {
+        clearFilesBtn.addEventListener("click", () => {
+          queue = [];
+          renderQueue();
+          if (resultsBox) resultsBox.classList.add("hidden");
+        });
+      }
+
+      if (qualitySlider && qualityVal) {
+        qualitySlider.addEventListener("input", () => {
+          qualityVal.textContent = `${qualitySlider.value}%`;
+        });
+      }
+
+      // -------------------------------------------------------------
+      // CORE CONVERSION HANDLERS
+      // -------------------------------------------------------------
+      
+      // 1. Image Converter via Canvas
+      const convertImage = async (file: File, targetFormat: string, quality: number, scale: number): Promise<{ blob: Blob; filename: string }> => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          const reader = new FileReader();
+
+          reader.onload = (e) => {
+            img.src = e.target?.result as string;
+          };
+
+          img.onload = () => {
+            const canvas = document.createElement("canvas");
+            const w = Math.round(img.width * scale);
+            const h = Math.round(img.height * scale);
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return reject(new Error("Canvas context failed"));
+
+            ctx.drawImage(img, 0, 0, w, h);
+
+            let mime = "image/png";
+            let ext = targetFormat;
+
+            if (targetFormat === "webp") mime = "image/webp";
+            else if (targetFormat === "jpeg" || targetFormat === "jpg") mime = "image/jpeg";
+            else if (targetFormat === "avif") mime = "image/avif";
+            else if (targetFormat === "bmp") mime = "image/bmp";
+            else if (targetFormat === "ico") {
+              mime = "image/png";
+              ext = "ico";
+            }
+
+            canvas.toBlob((blob) => {
+              if (!blob) return reject(new Error("Image conversion failed"));
+              const baseName = file.name.substring(0, file.name.lastIndexOf(".")) || file.name;
+              resolve({ blob, filename: `${baseName}.${ext}` });
+            }, mime, quality);
+          };
+
+          img.onerror = () => reject(new Error("Failed to load image file"));
+          reader.readAsDataURL(file);
+        });
+      };
+
+      // 2. Audio Conversion / Extraction via Web Audio API (Outputs Studio 16-bit PCM WAV)
+      const convertAudioToWav = async (file: File): Promise<{ blob: Blob; filename: string }> => {
+        const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+        const arrayBuffer = await file.arrayBuffer();
+        const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+
+        const numChannels = audioBuffer.numberOfChannels;
+        const sampleRate = audioBuffer.sampleRate;
+        const format = 1; // PCM
+        const bitDepth = 16;
+
+        let result: Float32Array;
+        if (numChannels === 2) {
+          const ch1 = audioBuffer.getChannelData(0);
+          const ch2 = audioBuffer.getChannelData(1);
+          result = new Float32Array(ch1.length + ch2.length);
+          let offset = 0;
+          for (let i = 0; i < ch1.length; i++) {
+            result[offset++] = ch1[i];
+            result[offset++] = ch2[i];
+          }
+        } else {
+          result = audioBuffer.getChannelData(0);
+        }
+
+        const dataLength = result.length * (bitDepth / 8);
+        const buffer = new ArrayBuffer(44 + dataLength);
+        const view = new DataView(buffer);
+
+        const writeString = (view: DataView, offset: number, str: string) => {
+          for (let i = 0; i < str.length; i++) {
+            view.setUint8(offset + i, str.charCodeAt(i));
+          }
+        };
+
+        // WAV Header
+        writeString(view, 0, "RIFF");
+        view.setUint32(4, 36 + dataLength, true);
+        writeString(view, 8, "WAVE");
+        writeString(view, 12, "fmt ");
+        view.setUint32(16, 16, true);
+        view.setUint16(20, format, true);
+        view.setUint16(22, numChannels, true);
+        view.setUint32(24, sampleRate, true);
+        view.setUint32(28, sampleRate * numChannels * (bitDepth / 8), true);
+        view.setUint16(32, numChannels * (bitDepth / 8), true);
+        view.setUint16(34, bitDepth, true);
+        writeString(view, 36, "data");
+        view.setUint32(40, dataLength, true);
+
+        // Float to 16-bit PCM
+        let index = 44;
+        for (let i = 0; i < result.length; i++) {
+          let s = Math.max(-1, Math.min(1, result[i]));
+          s = s < 0 ? s * 0x8000 : s * 0x7FFF;
+          view.setInt16(index, s, true);
+          index += 2;
+        }
+
+        const baseName = file.name.substring(0, file.name.lastIndexOf(".")) || file.name;
+        const blob = new Blob([buffer], { type: "audio/wav" });
+        return { blob, filename: `${baseName}.wav` };
+      };
+
+      // 3. Text / Data Conversion (JSON <-> CSV <-> Markdown <-> Base64)
+      const convertTextData = async (file: File, targetFormat: string): Promise<{ blob: Blob; filename: string }> => {
+        const text = await file.text();
+        const baseName = file.name.substring(0, file.name.lastIndexOf(".")) || file.name;
+
+        let outputContent = "";
+        let mime = "text/plain";
+        let ext = targetFormat;
+
+        if (targetFormat === "csv") {
+          try {
+            const data = JSON.parse(text);
+            const arr = Array.isArray(data) ? data : [data];
+            if (arr.length > 0) {
+              const headers = Object.keys(arr[0]);
+              const rows = arr.map((item: any) => headers.map((h) => JSON.stringify(item[h] ?? "")).join(","));
+              outputContent = [headers.join(","), ...rows].join("\n");
+              mime = "text/csv";
+            } else {
+              outputContent = text;
+            }
+          } catch {
+            outputContent = text;
+          }
+        } else if (targetFormat === "json") {
+          if (file.name.endsWith(".csv")) {
+            const lines = text.trim().split("\n");
+            if (lines.length > 1) {
+              const headers = lines[0].split(",").map((h) => h.trim().replace(/^"|"$/g, ""));
+              const items = lines.slice(1).map((line) => {
+                const vals = line.split(",").map((v) => v.trim().replace(/^"|"$/g, ""));
+                const obj: Record<string, string> = {};
+                headers.forEach((h, i) => (obj[h] = vals[i] || ""));
+                return obj;
+              });
+              outputContent = JSON.stringify(items, null, 2);
+              mime = "application/json";
+            } else {
+              outputContent = JSON.stringify({ content: text }, null, 2);
+            }
+          } else {
+            outputContent = JSON.stringify({ content: text }, null, 2);
+            mime = "application/json";
+          }
+        } else if (targetFormat === "base64") {
+          outputContent = btoa(unescape(encodeURIComponent(text)));
+          mime = "text/plain";
+          ext = "txt";
+        } else {
+          outputContent = text;
+        }
+
+        const blob = new Blob([outputContent], { type: mime });
+        return { blob, filename: `${baseName}.${ext}` };
+      };
+
+      // 4. Standalone Image to Single-Page PDF Builder in Pure JS
+      const convertImageToPdf = async (file: File): Promise<{ blob: Blob; filename: string }> => {
+        const img = await createImageBitmap(file);
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext("2d");
+        ctx?.drawImage(img, 0, 0);
+
+        const jpegDataUrl = canvas.toDataURL("image/jpeg", 0.92);
+        const rawBase64 = jpegDataUrl.split(",")[1];
+        const binaryJpeg = atob(rawBase64);
+        const jpegLength = binaryJpeg.length;
+
+        const w = img.width;
+        const h = img.height;
+        const baseName = file.name.substring(0, file.name.lastIndexOf(".")) || file.name;
+
+        // Construct standard PDF 1.4 objects
+        const header = `%PDF-1.4\n`;
+        const obj1 = `1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n`;
+        const obj2 = `2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n`;
+        const obj3 = `3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${w} ${h}] /Contents 4 0 R /Resources << /XObject << /Im1 5 0 R >> >> >>\nendobj\n`;
+        const streamContent = `q\n${w} 0 0 ${h} 0 0 cm\n/Im1 Do\nQ`;
+        const obj4 = `4 0 obj\n<< /Length ${streamContent.length} >>\nstream\n${streamContent}\nendstream\nendobj\n`;
+        const obj5Header = `5 0 obj\n<< /Type /XObject /Subtype /Image /Width ${w} /Height ${h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpegLength} >>\nstream\n`;
+        const obj5Footer = `\nendstream\nendobj\n`;
+
+        // Calculate byte offsets for xref table
+        let offset = header.length;
+        const offsets = [0];
+        offsets.push(offset); offset += obj1.length;
+        offsets.push(offset); offset += obj2.length;
+        offsets.push(offset); offset += obj3.length;
+        offsets.push(offset); offset += obj4.length;
+        offsets.push(offset); offset += obj5Header.length + jpegLength + obj5Footer.length;
+
+        let xref = `xref\n0 6\n0000000000 65535 f \n`;
+        for (let i = 1; i <= 5; i++) {
+          xref += `${String(offsets[i]).padStart(10, "0")} 00000 n \n`;
+        }
+
+        const trailer = `trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n${offset}\n%%EOF`;
+
+        // Assemble binary chunks
+        const enc = new TextEncoder();
+        const binJpegArray = new Uint8Array(jpegLength);
+        for (let i = 0; i < jpegLength; i++) {
+          binJpegArray[i] = binaryJpeg.charCodeAt(i);
+        }
+
+        const fullPdfBlob = new Blob([
+          enc.encode(header),
+          enc.encode(obj1),
+          enc.encode(obj2),
+          enc.encode(obj3),
+          enc.encode(obj4),
+          enc.encode(obj5Header),
+          binJpegArray,
+          enc.encode(obj5Footer),
+          enc.encode(xref),
+          enc.encode(trailer)
+        ], { type: "application/pdf" });
+
+        return { blob: fullPdfBlob, filename: `${baseName}.pdf` };
+      };
+
+      // -------------------------------------------------------------
+      // MAIN CONVERT DISPATCHER
+      // -------------------------------------------------------------
+      startBtn.addEventListener("click", async () => {
+        if (queue.length === 0) return;
+
+        const targetFormat = targetFormatSelect.value;
+        const quality = parseInt(qualitySlider?.value || "90", 10) / 100;
+        const scale = parseFloat(scaleSelect?.value || "1");
+
+        startBtn.setAttribute("disabled", "true");
+        btnText?.classList.add("hidden");
+        btnSpinner?.classList.remove("hidden");
+
+        resultsBox?.classList.remove("hidden");
+        if (resultsContent) {
+          resultsContent.innerHTML = `
+            <div class="flex items-center gap-3 text-sm font-mono text-neutral-300">
+              <svg class="w-4 h-4 animate-spin text-white" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+              </svg>
+              <span>Conversion in progress (${queue.length} file/s)...</span>
+            </div>
+          `;
+        }
+
+        const convertedResults: Array<{ blob: Blob; filename: string; originalSize: number }> = [];
+
+        try {
+          for (let i = 0; i < queue.length; i++) {
+            const file = queue[i];
+            const cat = getFileTypeCategory(file);
+
+            let res: { blob: Blob; filename: string };
+
+            if (cat === "image" && targetFormat === "pdf") {
+              res = await convertImageToPdf(file);
+            } else if (cat === "image") {
+              res = await convertImage(file, targetFormat, quality, scale);
+            } else if ((cat === "video" || cat === "audio") && (targetFormat === "wav" || targetFormat === "mp3" || targetFormat === "ogg")) {
+              res = await convertAudioToWav(file);
+            } else if (cat === "data" || cat === "document") {
+              res = await convertTextData(file, targetFormat);
+            } else {
+              res = await convertImage(file, "webp", quality, scale).catch(() => ({ blob: file, filename: file.name }));
+            }
+
+            convertedResults.push({ ...res, originalSize: file.size });
+          }
+
+          // Render Success Items
+          if (resultsContent) {
+            let itemsHtml = "";
+            convertedResults.forEach((item, idx) => {
+              const url = URL.createObjectURL(item.blob);
+              const orig = formatBytes(item.originalSize);
+              const converted = formatBytes(item.blob.size);
+              const diffPercent = Math.round(((item.blob.size - item.originalSize) / item.originalSize) * 100);
+              const diffText = diffPercent <= 0 ? `${diffPercent}%` : `+${diffPercent}%`;
+              const diffClass = diffPercent <= 0 ? "text-emerald-400" : "text-neutral-400";
+
+              itemsHtml += `
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-xl border border-neutral-800 bg-neutral-900/80">
+                  <div class="flex flex-col gap-1 overflow-hidden">
+                    <span class="font-mono font-medium text-sm text-neutral-100 truncate">${item.filename}</span>
+                    <div class="flex items-center gap-2 text-xs font-mono text-neutral-400">
+                      <span>${orig} ➔ <strong class="text-white">${converted}</strong></span>
+                      <span class="${diffClass} font-bold">(${diffText})</span>
+                    </div>
+                  </div>
+                  <a
+                    href="${url}"
+                    download="${item.filename}"
+                    class="px-5 py-2.5 rounded-lg bg-white text-neutral-950 hover:bg-neutral-200 font-bold text-xs font-mono uppercase tracking-wider transition-all duration-200 shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                    Download File
+                  </a>
+                </div>
+              `;
+            });
+
+            resultsContent.innerHTML = `
+              <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
+                <span class="text-emerald-400 font-mono text-sm font-semibold flex items-center gap-2">
+                  <span>✓</span>
+                  <span>Conversion completed successfully! (${convertedResults.length} file/s ready)</span>
+                </span>
+              </div>
+              <div class="flex flex-col gap-3">
+                ${itemsHtml}
+              </div>
+            `;
+          }
+        } catch (err: any) {
+          if (resultsContent) {
+            resultsContent.innerHTML = `
+              <div class="p-4 rounded-xl border border-red-500/40 bg-red-950/20 text-red-400 font-mono text-xs">
+                ✕ Error during conversion: ${err.message || "Failed processing file."}
+              </div>
+            `;
+          }
+        } finally {
+          startBtn.removeAttribute("disabled");
+          btnText?.classList.remove("hidden");
+          btnSpinner?.classList.add("hidden");
+        }
+      });
+    }
+
+    // ==============================================================
+    // COBALT MEDIA DOWNLOADER ENGINE
+    // ==============================================================
     function initCobaltTools() {
       const urlInput = document.getElementById("cobalt-url-input") as HTMLInputElement | null;
       const pasteBtn = document.getElementById("cobalt-paste-btn");
@@ -358,7 +1085,6 @@ import { tools } from "../data/tools";
 
       if (!urlInput || !submitBtn || !statusBox || !statusContent) return;
 
-      // Load saved custom instance
       const savedInstance = localStorage.getItem("cobalt_custom_instance");
       if (savedInstance && customApiInput) {
         customApiInput.value = savedInstance;
@@ -377,7 +1103,6 @@ import { tools } from "../data/tools";
         });
       }
 
-      // Mode change listener to toggle quality options visibility
       if (modeSelect && qualityContainer) {
         modeSelect.addEventListener("change", () => {
           if (modeSelect.value === "audio") {
@@ -388,7 +1113,6 @@ import { tools } from "../data/tools";
         });
       }
 
-      // Paste from clipboard button
       if (pasteBtn) {
         pasteBtn.addEventListener("click", async () => {
           try {
@@ -403,7 +1127,6 @@ import { tools } from "../data/tools";
         });
       }
 
-      // Enter key submits form
       urlInput.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
           submitBtn.click();
@@ -533,7 +1256,6 @@ import { tools } from "../data/tools";
         }
       }
 
-      // Main submit logic
       submitBtn.addEventListener("click", async () => {
         const rawUrl = urlInput.value.trim();
         if (!rawUrl) {
@@ -557,7 +1279,6 @@ import { tools } from "../data/tools";
         setLoading(true);
         showStatus("loading", null);
 
-        // Instance pool
         const customInstance = localStorage.getItem("cobalt_custom_instance") || "";
         const apiPool = [
           customInstance,
@@ -645,11 +1366,14 @@ import { tools } from "../data/tools";
     }
 
     // Initialize on direct load and Astro view transitions
-    initCobaltTools();
-    initAsciiHover();
-    document.addEventListener("astro:page-load", () => {
+    function initAll() {
+      initTabs();
+      initConverter();
       initCobaltTools();
       initAsciiHover();
-    });
+    }
+
+    initAll();
+    document.addEventListener("astro:page-load", initAll);
   </script>
 </BaseLayout>
