@@ -78,7 +78,7 @@ const { logoHref = "/" } = Astro.props;
       let shouldBeCompact = forceCompact || window.scrollY > 50;
 
       if (shouldBeCompact) {
-        header.classList.remove("py-12", "py-6");
+        header.classList.remove("py-12", "py-6", "md:py-12");
         header.classList.add("py-4");
         logo.classList.add("scale-75");
         name.classList.add(
@@ -89,7 +89,8 @@ const { logoHref = "/" } = Astro.props;
         nav.classList.add("opacity-0", "pointer-events-none");
       } else {
         header.classList.remove("py-4");
-        header.classList.add("py-12");
+        header.classList.remove("py-12");
+        header.classList.add("py-6", "md:py-12");
         logo.classList.remove("scale-75");
         name.classList.remove(
           "opacity-0",

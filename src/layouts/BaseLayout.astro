@@ -432,6 +432,7 @@ const { favicon = dynamicFavicon } = Astro.props;
     </div>
 
     <script>
+      import { getGestureAxis } from '../utils/gesture';
       let currentImageIndex = 0;
       let galleryImages: HTMLImageElement[] = [];
 
@@ -474,12 +475,14 @@ const { favicon = dynamicFavicon } = Astro.props;
 
       // Swipe support via global event delegation
       let touchStartX = 0;
+      let touchStartY = 0;
       let touchEndX = 0;
 
       document.addEventListener('touchstart', (e) => {
         const lightbox = document.getElementById('lightbox');
         if (!lightbox || !lightbox.classList.contains('active')) return;
         touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
       }, { passive: true });
 
       document.addEventListener('touchend', (e) => {
@@ -488,6 +491,7 @@ const { favicon = dynamicFavicon } = Astro.props;
 
         touchEndX = e.changedTouches[0].screenX;
         const swipeThreshold = 50;
+        if (getGestureAxis(touchEndX - touchStartX, e.changedTouches[0].screenY - touchStartY, swipeThreshold) !== 'horizontal') return;
         if (touchEndX < touchStartX - swipeThreshold) {
           showImage(currentImageIndex + 1, 'next');
         } else if (touchEndX > touchStartX + swipeThreshold) {
@@ -545,6 +549,7 @@ const { favicon = dynamicFavicon } = Astro.props;
 
       // Progressive Image Loading
       let imageObserver: IntersectionObserver | null = null;
+      let embedObserver: IntersectionObserver | null = null;
       const pendingImages = new WeakSet<HTMLImageElement>();
 
       function loadOriginalImage(img: HTMLImageElement) {
@@ -574,6 +579,16 @@ const { favicon = dynamicFavicon } = Astro.props;
 
       function initProgressiveImages() {
         imageObserver?.disconnect();
+        embedObserver?.disconnect();
+        embedObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const iframe = entry.target as HTMLIFrameElement;
+            if (iframe.dataset.src) iframe.src = iframe.dataset.src;
+            embedObserver?.unobserve(iframe);
+          });
+        }, { rootMargin: '200px 0px' });
+        document.querySelectorAll('iframe[data-lazy-embed]').forEach(iframe => embedObserver?.observe(iframe));
         imageObserver = new IntersectionObserver(entries => {
           entries.forEach(entry => {
             if (!entry.isIntersecting) return;
@@ -590,7 +605,10 @@ const { favicon = dynamicFavicon } = Astro.props;
 
       initProgressiveImages();
       document.addEventListener('astro:page-load', initProgressiveImages);
-      document.addEventListener('astro:before-swap', () => imageObserver?.disconnect());
+      document.addEventListener('astro:before-swap', () => {
+        imageObserver?.disconnect();
+        embedObserver?.disconnect();
+      });
     </script>
 
     <script>

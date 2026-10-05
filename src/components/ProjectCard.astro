@@ -131,6 +131,7 @@ const isBrainrot = title === "Brainrot Pavilion";
 </article>
 
 <script>
+  import { getGestureAxis } from '../utils/gesture';
   const carouselCleanups = new Set<() => void>();
   let mediaObserver: IntersectionObserver | null = null;
   let mediaEvents: AbortController | null = null;
@@ -306,18 +307,38 @@ const isBrainrot = title === "Brainrot Pavilion";
       window.addEventListener('mouseup', handleEnd, { signal: events.signal });
 
       // Touch events
+      let touchStartY = 0;
+      let touchAxis: 'pending' | 'horizontal' | 'vertical' = 'pending';
       container.addEventListener('touchstart', (e) => {
-        handleStart((e as TouchEvent).touches[0].pageX);
+        const touch = (e as TouchEvent).touches[0];
+        if (!touch) return;
+        touchStartY = touch.pageY;
+        touchAxis = 'pending';
+        handleStart(touch.pageX);
       }, { passive: true });
 
       window.addEventListener('touchmove', (e) => {
         if (isDragging) {
-          handleMove((e as TouchEvent).touches[0].pageX);
+          const touch = (e as TouchEvent).touches[0];
+          if (!touch) return;
+          if (touchAxis === 'pending') touchAxis = getGestureAxis(touch.pageX - startX, touch.pageY - touchStartY);
+          if (touchAxis === 'vertical') {
+            velocity = 0;
+            wasDragged = true;
+            handleEnd();
+            return;
+          }
+          if (touchAxis !== 'horizontal') return;
+          handleMove(touch.pageX);
           if (wasDragged && e.cancelable) e.preventDefault();
         }
       }, { passive: false, signal: events.signal });
 
       window.addEventListener('touchend', handleEnd, { signal: events.signal });
+      window.addEventListener('touchcancel', () => {
+        velocity = 0;
+        handleEnd();
+      }, { signal: events.signal });
 
       // Wheel/Trackpad support
       container.addEventListener('wheel', (e) => {
