@@ -2,6 +2,7 @@
 import Header from "../components/Header.astro";
 import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
+import { projects } from "../data/projects";
 
 interface Props {
   title: string;
@@ -12,17 +13,26 @@ interface Props {
   brandColor?: string;
   transparentHeader?: boolean;
   logoHref?: string;
+  noindex?: boolean;
 }
 
 const { 
   title = "Portfolio", 
-  description = "Portfolio of Gabriele Radicello",
+  description,
   hideHeader = false,
   logoHoverColor,
   brandColor,
   transparentHeader = false,
-  logoHref
+  logoHref,
+  noindex = false
 } = Astro.props;
+
+const pagePath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const project = projects.find(project => project.href === pagePath);
+const pageDescription = description || project?.text || "Gabriele Radicello, multimedia artist. Selected work in performance, installations, audiovisual art and virtual worlds.";
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const shareImage = project?.images.find(image => /\.(png|jpe?g|webp)$/i.test(image)) || '/assets/aboutphoto.JPEG';
+const shareImageUrl = new URL(shareImage, Astro.site);
 
 // Standardized branding logic
 const finalLogoHover = brandColor || logoHoverColor;
@@ -38,8 +48,17 @@ const { favicon = dynamicFavicon } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={description} />
+    <meta name="description" content={pageDescription} />
     <meta name="viewport" content="width=device-width" />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Gabriele Radicello" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={shareImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" type="image/svg+xml" href={favicon} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -57,6 +76,7 @@ const { favicon = dynamicFavicon } = Astro.props;
         const setLang = () => {
           const savedLang = localStorage.getItem('lang') || 'en';
           document.documentElement.setAttribute('data-lang', savedLang);
+          document.documentElement.lang = savedLang;
         };
         setLang();
         document.addEventListener('astro:after-swap', setLang);
@@ -68,12 +88,14 @@ const { favicon = dynamicFavicon } = Astro.props;
         src: url('/fonts/AppleGaramond.ttf') format('truetype');
         font-weight: bold;
         font-style: normal;
+        font-display: swap;
       }
       @font-face {
         font-family: 'Helvetica Custom';
         src: url('/fonts/Helvetica.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
+        font-display: swap;
       }
 
       h1, h2, h3, h4, h5, h6 {
@@ -324,6 +346,11 @@ const { favicon = dynamicFavicon } = Astro.props;
         var asciiRamp = " .:-=+*#%@";
         var isRunning = true;
         var animId = null;
+        window._stopAsciiIntro = function() {
+          isRunning = false;
+          if (animId) cancelAnimationFrame(animId);
+          window._asciiIntroActive = false;
+        };
 
         var mouseX = window.innerWidth / 2;
         var mouseY = window.innerHeight / 2;
@@ -387,9 +414,7 @@ const { favicon = dynamicFavicon } = Astro.props;
                return; 
             }
             canvas.style.zIndex = "2";
-            isRunning = false;
-            window._asciiIntroActive = false;
-            if (animId) cancelAnimationFrame(animId);
+            window._stopAsciiIntro();
           }, 400);
         }, 400);
       })();
@@ -430,7 +455,7 @@ const { favicon = dynamicFavicon } = Astro.props;
           
           setTimeout(() => {
             currentImageIndex = index;
-            lightboxImg.src = galleryImages[currentImageIndex].src;
+            lightboxImg.src = galleryImages[currentImageIndex].dataset.src || galleryImages[currentImageIndex].src;
             lightboxImg.alt = galleryImages[currentImageIndex].alt || "Visualizzazione ingrandita dell'immagine";
             lightboxImg.classList.remove(outClass);
             lightboxImg.classList.add(inClass);
@@ -442,7 +467,7 @@ const { favicon = dynamicFavicon } = Astro.props;
           }, 200);
         } else {
           currentImageIndex = index;
-          lightboxImg.src = galleryImages[currentImageIndex].src;
+          lightboxImg.src = galleryImages[currentImageIndex].dataset.src || galleryImages[currentImageIndex].src;
           lightboxImg.alt = galleryImages[currentImageIndex].alt || "Visualizzazione ingrandita dell'immagine";
         }
       };
@@ -519,44 +544,59 @@ const { favicon = dynamicFavicon } = Astro.props;
       });
 
       // Progressive Image Loading
-      function initProgressiveImages() {
-        const images = document.querySelectorAll('img[data-src]');
-        images.forEach(node => {
-          const img = node as HTMLImageElement;
-          const highResUrl = img.getAttribute('data-src');
-          if (!highResUrl) return;
+      let imageObserver: IntersectionObserver | null = null;
+      const pendingImages = new WeakSet<HTMLImageElement>();
 
-          // If high-res is already loaded or cached, update directly
-          const tempImg = new Image();
-          tempImg.src = highResUrl;
-          
-          if (tempImg.complete) {
-            img.src = highResUrl;
-            img.classList.remove('img-loading');
-            img.removeAttribute('data-src');
-          } else {
-            img.classList.add('img-loading');
-            
-            const onload = () => {
-              img.src = highResUrl;
-              img.classList.remove('img-loading');
-              img.removeAttribute('data-src');
-              tempImg.removeEventListener('load', onload);
-            };
-            
-            tempImg.addEventListener('load', onload);
-          }
+      function loadOriginalImage(img: HTMLImageElement) {
+        const highResUrl = img.dataset.src;
+        if (!highResUrl || pendingImages.has(img)) return;
+        pendingImages.add(img);
+
+        const finish = () => {
+          img.classList.remove('img-loading');
+          img.removeAttribute('data-src');
+        };
+        if (img.getAttribute('src') === highResUrl) {
+          finish();
+          return;
+        }
+
+        const original = new Image();
+        original.onload = () => {
+          img.src = highResUrl;
+          finish();
+        };
+        // Keep the available preview readable if the original cannot load.
+        original.onerror = finish;
+        img.classList.add('img-loading');
+        original.src = highResUrl;
+      }
+
+      function initProgressiveImages() {
+        imageObserver?.disconnect();
+        imageObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            imageObserver?.unobserve(entry.target);
+            loadOriginalImage(entry.target as HTMLImageElement);
+          });
+        }, { rootMargin: '300px 0px' });
+        document.querySelectorAll<HTMLImageElement>('img[data-src]').forEach(img => {
+          // GIFs and SVGs have no blurred proxy to upgrade.
+          if (img.getAttribute('src') === img.dataset.src) loadOriginalImage(img);
+          else imageObserver?.observe(img);
         });
       }
 
       initProgressiveImages();
       document.addEventListener('astro:page-load', initProgressiveImages);
+      document.addEventListener('astro:before-swap', () => imageObserver?.disconnect());
     </script>
 
     <script>
       // Global Video Autoplay & Reload Manager for Astro View Transitions (ClientRouter)
       function ensureAllVideosPlay() {
-        const videos = document.querySelectorAll<HTMLVideoElement>('video');
+        const videos = document.querySelectorAll<HTMLVideoElement>('video[autoplay]:not([data-carousel-video])');
         videos.forEach(v => {
           v.muted = true;
           v.defaultMuted = true;
@@ -639,6 +679,21 @@ const { favicon = dynamicFavicon } = Astro.props;
       let lastNavTime = 0;
       let suppressUntil = 0;
 
+      document.addEventListener('click', (e) => {
+        const link = (e.target as HTMLElement)?.closest('a, button');
+        if (!link) return;
+        document.querySelectorAll('.hovered-card, .hovered-logo').forEach(el => {
+          el.classList.remove('hovered-card', 'hovered-logo');
+        });
+        document.documentElement.classList.remove('ascii-active', 'logo-active');
+      });
+      document.addEventListener('astro:before-swap', () => {
+        (window as any)._stopAsciiIntro?.();
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+        isAnimating = false;
+      });
+
       function handleBeforePreparation(e: any) {
         suppressUntil = 0;
         lastNavTime = Date.now();
@@ -681,7 +736,7 @@ const { favicon = dynamicFavicon } = Astro.props;
         document.querySelectorAll('.hovered-card').forEach(el => el.classList.remove('hovered-card'));
         document.querySelectorAll('.hovered-logo').forEach(el => el.classList.remove('hovered-logo'));
         isIntroRunning = false;
-        (window as any)._asciiIntroActive = false;
+        (window as any)._stopAsciiIntro?.();
         stopAsciiLoop(true);
         initAsciiEngine();
 
@@ -715,19 +770,10 @@ const { favicon = dynamicFavicon } = Astro.props;
         document.addEventListener("astro:page-load", handlePageLoad);
         document.addEventListener("astro:after-swap", handlePageLoad);
 
-        // Global link click cleanup
-        document.addEventListener('click', (e) => {
-          const link = (e.target as HTMLElement)?.closest('a, button');
-          if (link) {
-            document.querySelectorAll('.hovered-card').forEach(el => el.classList.remove('hovered-card'));
-            document.querySelectorAll('.hovered-logo').forEach(el => el.classList.remove('hovered-logo'));
-            document.documentElement.classList.remove('ascii-active', 'logo-active');
-          }
-        });
-
         // Logo hover triggers
         const logoLink = document.getElementById("logo-link");
-        if (logoLink) {
+        if (logoLink && !logoLink.hasAttribute('data-ascii-logo-initialized')) {
+          logoLink.setAttribute('data-ascii-logo-initialized', 'true');
           const handleLogoEnter = () => {
             logoLink.classList.add("hovered-target", "hovered-logo");
             document.documentElement.classList.add("logo-active");
@@ -751,13 +797,12 @@ const { favicon = dynamicFavicon } = Astro.props;
         if ((window as any)._asciiIntroActive) {
           // User hovered DURING the initial page load intro!
           // Hijack the intro so it doesn't shut down the canvas.
-          (window as any)._asciiIntroActive = false; 
+          (window as any)._stopAsciiIntro?.();
           if (canvas) {
             canvas.style.zIndex = "99";
             canvas.style.opacity = "0.8";
           }
-          isAnimating = true;
-          return;
+          isAnimating = false;
         }
 
         const now = Date.now();

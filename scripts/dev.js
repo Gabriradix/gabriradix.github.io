@@ -23,11 +23,10 @@ if (process.platform === "win32") {
   }
 }
 
-const isWindows = process.platform === "win32";
-const astroCmd = isWindows ? "npx.cmd" : "npx";
-const child = spawn(astroCmd, ["astro", "dev", ...process.argv.slice(2)], {
+const astroCli = join(process.cwd(), "node_modules", "astro", "bin", "astro.mjs");
+const child = spawn(process.execPath, [astroCli, "dev", ...process.argv.slice(2)], {
   stdio: "inherit",
-  shell: true,
+  shell: false,
   env: process.env
 });
 

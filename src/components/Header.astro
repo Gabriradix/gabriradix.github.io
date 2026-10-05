@@ -65,6 +65,7 @@ const { logoHref = "/" } = Astro.props;
   let forceCompact = false;
 
   function initHeader() {
+    forceCompact = window.location.pathname.replace(/\/$/, '') === '/surreal-splat-void' && window.innerWidth >= 768;
     header = document.getElementById("main-header");
     logo = document.getElementById("logo-root");
     name = document.getElementById("header-name");
@@ -129,6 +130,7 @@ const { logoHref = "/" } = Astro.props;
         const next = current === 'it' ? 'en' : 'it';
         localStorage.setItem('lang', next);
         document.documentElement.setAttribute('data-lang', next);
+        document.documentElement.lang = next;
       }
     });
   }

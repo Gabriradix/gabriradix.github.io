@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /secret-dream-editor
+Disallow: /guidosegniedition/secret-dream-editor
+
+Sitemap: https://www.gabriradix.it/sitemap.xml

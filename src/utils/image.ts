@@ -1,3 +1,17 @@
+import previews from "../data/image-previews.json";
+
+interface PreviewImage {
+  src: string;
+  poster?: string;
+  width?: number;
+  height?: number;
+}
+
+/** Homepage previews keep full-resolution artwork on its project page. */
+export function getPreviewImage(url: string): PreviewImage {
+  return (previews as Record<string, PreviewImage>)[url] || { src: url };
+}
+
 /**
  * Helper to resolve the generated low-resolution proxy image URL
  * from an original project image URL.
@@ -22,7 +36,7 @@ export function getProxyUrl(url: string): string {
   const originalExt = url.substring(lastDot);
 
   // Only proxy standard image extensions
-  const imageExtensions = [".png", ".jpg", ".jpeg", ".webp", ".gif", ".tiff", ".bmp"];
+  const imageExtensions = [".png", ".jpg", ".jpeg", ".webp"];
   if (!imageExtensions.includes(ext)) {
     return url;
   }

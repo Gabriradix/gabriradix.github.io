@@ -1,5 +1,5 @@
 ---
-import { getProxyUrl } from "../utils/image";
+import { getPreviewImage } from "../utils/image";
 
 interface Props {
   title: string;
@@ -11,9 +11,10 @@ interface Props {
   category?: string;
   category_it?: string;
   brandColor?: string;
+  priority?: boolean;
 }
 
-const { title, text, text_it, href, images, year, category, category_it, brandColor } = Astro.props;
+const { title, text, text_it, href, images, year, category, category_it, brandColor, priority = false } = Astro.props;
 const hasCarousel = images.length > 1;
 const carouselImages = hasCarousel ? [...images, ...images] : images;
 const animationDuration = images.length * 20;
@@ -61,27 +62,34 @@ const isBrainrot = title === "Brainrot Pavilion";
         {carouselImages.map((img, i) => {
           const isVid = img.toLowerCase().endsWith('.mp4') || img.toLowerCase().endsWith('.mov') || img.toLowerCase().endsWith('.webm');
           const webmSrc = img.replace(/\.(mp4|mov)$/i, '.webm');
+          const preview = getPreviewImage(img);
           return isVid ? (
             <video
-              autoplay
+              data-carousel-video
               loop
               muted
               playsinline
               webkit-playsinline
-              preload="metadata"
+              preload="none"
+              poster={preview.poster}
+              width={preview.width}
+              height={preview.height}
               class="h-full w-auto max-w-none object-cover shrink-0 mr-[5px]"
               draggable="false"
             >
-              <source src={img} type="video/mp4" />
-              <source src={webmSrc} type="video/webm" />
+              <source data-src={img} type="video/mp4" />
+              {webmSrc !== img && <source data-src={webmSrc} type="video/webm" />}
             </video>
           ) : (
             <img
-              src={getProxyUrl(img)}
-              data-src={img}
+              src={preview.src}
+              width={preview.width}
+              height={preview.height}
               alt={`${title} ${(i % images.length) + 1}`}
               class={isBrainrot ? 'brainrot-carousel-gif shrink-0' : 'h-full w-auto max-w-none object-cover shrink-0 mr-[5px]'}
-              loading="lazy"
+              loading={priority && i === 0 ? "eager" : "lazy"}
+              fetchpriority={priority && i === 0 ? "high" : "auto"}
+              decoding="async"
               draggable="false"
             />
           );
@@ -91,22 +99,29 @@ const isBrainrot = title === "Brainrot Pavilion";
       <div class="block h-full w-full">
         {images[0] && (images[0].toLowerCase().endsWith('.mp4') || images[0].toLowerCase().endsWith('.mov')) ? (
           <video
-            src={images[0]}
-            autoplay
+            data-carousel-video
+            data-src={images[0]}
             loop
             muted
             playsinline
             webkit-playsinline
-            preload="auto"
+            preload="none"
+            poster={getPreviewImage(images[0]).poster}
+            width={getPreviewImage(images[0]).width}
+            height={getPreviewImage(images[0]).height}
             class="w-full h-full object-cover"
             draggable="false"
           ></video>
         ) : (
           <img
-            src={getProxyUrl(images[0])}
-            data-src={images[0]}
+            src={getPreviewImage(images[0]).src}
+            width={getPreviewImage(images[0]).width}
+            height={getPreviewImage(images[0]).height}
             alt={title}
             class="w-full h-full object-cover"
+            loading={priority ? "eager" : "lazy"}
+            fetchpriority={priority ? "high" : "auto"}
+            decoding="async"
             draggable="false"
           />
         )}
@@ -116,6 +131,10 @@ const isBrainrot = title === "Brainrot Pavilion";
 </article>
 
 <script>
+  const carouselCleanups = new Set<() => void>();
+  let mediaObserver: IntersectionObserver | null = null;
+  let mediaEvents: AbortController | null = null;
+
   function initCarousels() {
     const containers = document.querySelectorAll('.carousel-container');
     
@@ -141,8 +160,10 @@ const isBrainrot = title === "Brainrot Pavilion";
         iterations: Infinity,
         easing: 'linear'
       });
+      animation.pause();
 
       let isDragging = false;
+      let isInViewport = false;
       let startX = 0;
       let lastX = 0;
       let lastTime = 0;
@@ -150,6 +171,29 @@ const isBrainrot = title === "Brainrot Pavilion";
       let startProgress = 0;
       let wasDragged = false;
       let inertiaFrameId: number | null = null;
+      const events = new AbortController();
+
+      const resumeAnimation = () => {
+        if (isInViewport && !document.hidden && !isDragging) animation.play();
+        else animation.pause();
+      };
+      const observer = new IntersectionObserver(entries => {
+        isInViewport = entries[0].isIntersecting;
+        if (!isInViewport && inertiaFrameId) {
+          cancelAnimationFrame(inertiaFrameId);
+          inertiaFrameId = null;
+        }
+        resumeAnimation();
+      }, { rootMargin: '200px 0px' });
+      observer.observe(container);
+      document.addEventListener('visibilitychange', resumeAnimation, { signal: events.signal });
+      carouselCleanups.add(() => {
+        events.abort();
+        observer.disconnect();
+        animation.cancel();
+        if (inertiaFrameId) cancelAnimationFrame(inertiaFrameId);
+        container.removeAttribute('data-carousel-initialized');
+      });
 
       const getProgress = () => {
         const currentTime = (animation.currentTime as number) || 0;
@@ -226,13 +270,13 @@ const isBrainrot = title === "Brainrot Pavilion";
             velocity *= Math.exp(-frictionRate * dt);
 
             if (Math.abs(velocity) < minVelocity) {
-              animation.play();
+              resumeAnimation();
               return;
             }
 
             const halfWidth = strip.offsetWidth / 2;
             if (halfWidth <= 0) {
-              animation.play();
+              resumeAnimation();
               return;
             }
 
@@ -248,7 +292,7 @@ const isBrainrot = title === "Brainrot Pavilion";
 
           inertiaFrameId = requestAnimationFrame(runInertia);
         } else {
-          animation.play();
+          resumeAnimation();
         }
       };
 
@@ -258,8 +302,8 @@ const isBrainrot = title === "Brainrot Pavilion";
         handleStart((e as MouseEvent).pageX);
       });
 
-      window.addEventListener('mousemove', (e) => handleMove((e as MouseEvent).pageX));
-      window.addEventListener('mouseup', handleEnd);
+      window.addEventListener('mousemove', (e) => handleMove((e as MouseEvent).pageX), { signal: events.signal });
+      window.addEventListener('mouseup', handleEnd, { signal: events.signal });
 
       // Touch events
       container.addEventListener('touchstart', (e) => {
@@ -271,9 +315,9 @@ const isBrainrot = title === "Brainrot Pavilion";
           handleMove((e as TouchEvent).touches[0].pageX);
           if (wasDragged && e.cancelable) e.preventDefault();
         }
-      }, { passive: false });
+      }, { passive: false, signal: events.signal });
 
-      window.addEventListener('touchend', handleEnd);
+      window.addEventListener('touchend', handleEnd, { signal: events.signal });
 
       // Wheel/Trackpad support
       container.addEventListener('wheel', (e) => {
@@ -315,6 +359,8 @@ const isBrainrot = title === "Brainrot Pavilion";
 
     cards.forEach(node => {
       const card = node as HTMLElement;
+      if (card.hasAttribute('data-ascii-initialized')) return;
+      card.setAttribute('data-ascii-initialized', 'true');
       const carousel = card.querySelector('.carousel-container') as HTMLElement;
       const titleLink = card.querySelector('h3 a') as HTMLElement;
       
@@ -420,60 +466,80 @@ const isBrainrot = title === "Brainrot Pavilion";
     });
   }
 
-  function ensureAllVideosPlay() {
-    document.querySelectorAll('.carousel-container video').forEach(v => {
-      const vid = v as HTMLVideoElement;
-      vid.muted = true;
-      vid.defaultMuted = true;
-      vid.setAttribute('muted', '');
-      vid.playsInline = true;
-      vid.setAttribute('playsinline', '');
-      vid.setAttribute('webkit-playsinline', '');
+  function initCarouselVideos() {
+    mediaObserver?.disconnect();
+    mediaEvents?.abort();
+    mediaEvents = new AbortController();
+    const visibleVideos = new Set<HTMLVideoElement>();
 
-      if (vid.networkState === 0) {
-        vid.load();
-      }
-
-      const p = vid.play();
-      if (p !== undefined) {
-        p.catch(() => {
-          const resumeOnTouch = () => {
-            vid.play().catch(() => {});
-            window.removeEventListener('touchstart', resumeOnTouch);
-            window.removeEventListener('scroll', resumeOnTouch);
-            window.removeEventListener('click', resumeOnTouch);
-          };
-          window.addEventListener('touchstart', resumeOnTouch, { passive: true });
-          window.addEventListener('scroll', resumeOnTouch, { passive: true });
-          window.addEventListener('click', resumeOnTouch, { passive: true });
+    const playVisibleVideos = () => {
+      visibleVideos.forEach(video => {
+        if (document.hidden) {
+          video.pause();
+          return;
+        }
+        let needsLoad = false;
+        if (video.dataset.src) {
+          video.src = video.dataset.src;
+          delete video.dataset.src;
+          needsLoad = true;
+        }
+        video.querySelectorAll<HTMLSourceElement>('source[data-src]').forEach(source => {
+          source.src = source.dataset.src || '';
+          delete source.dataset.src;
+          needsLoad = true;
         });
-      }
+        if (needsLoad) video.load();
+        video.play().catch(() => {});
+      });
+    };
+
+    mediaObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const video = entry.target as HTMLVideoElement;
+        if (entry.isIntersecting) visibleVideos.add(video);
+        else {
+          visibleVideos.delete(video);
+          video.pause();
+        }
+      });
+      playVisibleVideos();
     });
+    document.querySelectorAll<HTMLVideoElement>('video[data-carousel-video]').forEach(video => {
+      video.muted = true;
+      video.defaultMuted = true;
+      mediaObserver?.observe(video);
+    });
+    document.addEventListener('visibilitychange', playVisibleVideos, { signal: mediaEvents.signal });
+    document.addEventListener('pointerdown', playVisibleVideos, { passive: true, signal: mediaEvents.signal });
   }
+
+  document.addEventListener('astro:before-swap', () => {
+    carouselCleanups.forEach(cleanup => cleanup());
+    carouselCleanups.clear();
+    mediaObserver?.disconnect();
+    mediaEvents?.abort();
+    document.querySelectorAll<HTMLVideoElement>('video[data-carousel-video]').forEach(video => video.pause());
+  });
 
   // Initialize
   initCarousels();
   initAsciiHover();
-  ensureAllVideosPlay();
+  initCarouselVideos();
 
   // Support View Transitions and Visibility Changes
   document.addEventListener('astro:page-load', () => {
     initCarousels();
     initAsciiHover();
-    ensureAllVideosPlay();
+    initCarouselVideos();
   });
 
   document.addEventListener('astro:after-swap', () => {
     initCarousels();
     initAsciiHover();
-    ensureAllVideosPlay();
+    initCarouselVideos();
   });
 
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) {
-      ensureAllVideosPlay();
-    }
-  });
 </script>
 
 <style>
