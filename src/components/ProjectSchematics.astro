@@ -100,29 +100,29 @@ const interfaceItems = dream ? [
   @layer base {
     .schematics h3{font-size:clamp(1.4rem,3vw,2rem)!important;line-height:1.2!important;font-weight:500!important}
     .schematics h4{font-size:1.05rem!important;line-height:1.35!important;font-weight:600!important;text-transform:none!important;letter-spacing:0!important}
-    .schematics .intro{font-size:1rem!important;line-height:1.65!important}
-    .schematics li p{font-size:.9375rem!important;line-height:1.6!important}
+    .schematics .intro{font-size:1.25rem!important;line-height:1.65!important}
+    .schematics li p{font-size:1.125rem!important;line-height:1.6!important}
   }
   .schematics{--diagram-accent:#e5e5e5;--diagram-bg:#101010;--diagram-panel:#171717;--diagram-rule:#404040;--diagram-muted:#b5b5b5;color:#e5e5e5;font-family:'Helvetica Custom',Helvetica,Arial,sans-serif}
-  .schematics.cheese{--diagram-accent:#f5c842;--diagram-bg:#13110b;--diagram-panel:#1c1910;--diagram-rule:#66542d;--diagram-muted:#c5bda9}
+  .schematics.cheese{--diagram-accent:#f5c842}
   .diagram-section{margin:0 0 4rem;border-top:1px solid #404040;padding-top:2.5rem}
   h3{font-size:clamp(1.4rem,3vw,2rem);line-height:1.2;font-weight:500;letter-spacing:-.025em;margin:0 0 1rem}
-  .intro{color:var(--diagram-muted);font-size:1rem;line-height:1.65;max-width:68ch;margin:0 0 1.75rem}
+  .intro{color:var(--diagram-muted);font-size:1rem;line-height:1.65;max-width:68ch;margin:0 0 1.75rem;font-family:'Apple Garamond Custom',Garamond,serif}
   figure{margin:0;background:var(--diagram-bg);border:1px solid var(--diagram-rule);padding:clamp(1rem,3vw,2rem)}
-  figcaption{border-top:1px solid var(--diagram-rule);padding-top:1rem;margin-top:1.5rem;color:var(--diagram-muted);font-size:.875rem;line-height:1.5}
+  figcaption{border-top:1px solid var(--diagram-rule);padding-top:1rem;margin-top:1.5rem;color:var(--diagram-muted);font-size:1rem;line-height:1.5;font-family:'Apple Garamond Custom',Garamond,serif}
   .flow,.reveal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:2rem}
   .flow li{position:relative;border-top:2px solid var(--diagram-accent);padding-top:1rem;min-width:0}
   .flow li:not(:last-child)::after{content:'→';position:absolute;top:0;right:-1.5rem;color:var(--diagram-accent);font-size:1.5rem}
   .step-number{color:var(--diagram-accent);font-size:.875rem;font-variant-numeric:tabular-nums;display:inline-block;margin-bottom:.75rem}
   h4{font-size:1.05rem;line-height:1.35;font-weight:600;margin:0 0 .75rem}
-  li p{font-size:.9375rem;line-height:1.6;color:var(--diagram-muted);margin:0 0 1rem}
+  li p{font-size:.9375rem;line-height:1.6;color:var(--diagram-muted);margin:0 0 1rem;font-family:'Apple Garamond Custom',Garamond,serif}
   code{display:block;font: .75rem/1.6 monospace;color:var(--diagram-accent);overflow-wrap:anywhere;margin-top:.75rem}
   .graph-example,.interface-map{display:grid;grid-template-columns:1.25fr 1fr;gap:2rem;align-items:center}
   .network svg{display:block;width:100%;height:auto;max-height:320px}
   .network circle{fill:var(--diagram-panel);stroke:var(--diagram-accent);stroke-width:2}.network .unlinked{stroke-dasharray:4 4}
   .network-link{stroke:var(--diagram-accent);stroke-width:2;fill:none}.network text{fill:var(--diagram-accent);text-anchor:middle;font-size:18px;font-family:monospace}
-  .network-legend{font-size:.875rem;line-height:1.5;color:var(--diagram-muted);max-width:45ch}
-  dl{margin:0}dt{font-weight:600;color:var(--diagram-accent);font-size:1rem}dd{margin:.4rem 0 0;color:var(--diagram-muted);font-size:.9375rem;line-height:1.6}
+  .network-legend{font-size:1rem;line-height:1.5;color:var(--diagram-muted);max-width:45ch;font-family:'Apple Garamond Custom',Garamond,serif}
+  dl{margin:0}dt{font-weight:600;color:#e5e5e5;font-size:1rem}dd{margin:.4rem 0 0;color:var(--diagram-muted);font-size:1rem;line-height:1.6;font-family:'Apple Garamond Custom',Garamond,serif}
   .mechanics>div,.interface-key>div{padding:1rem 0;border-bottom:1px solid var(--diagram-rule)}.mechanics>div:first-child,.interface-key>div:first-child{padding-top:0}.mechanics>div:last-child,.interface-key>div:last-child{border-bottom:0;padding-bottom:0}
   .reveal{grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem}.reveal h4 .step-number{margin-right:.75rem;margin-bottom:0}
   .word-pool{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem .5rem;min-height:180px;align-content:center;padding:1rem;border:1px solid var(--diagram-rule);margin:1rem 0;font-family:'Apple Garamond Custom',Garamond,serif;font-size:1.25rem;color:var(--diagram-muted)}

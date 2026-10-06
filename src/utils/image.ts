@@ -5,11 +5,17 @@ interface PreviewImage {
   poster?: string;
   width?: number;
   height?: number;
+  fingerprint?: string;
 }
 
 /** Homepage previews keep full-resolution artwork on its project page. */
 export function getPreviewImage(url: string): PreviewImage {
-  return (previews as Record<string, PreviewImage>)[url] || { src: url };
+  const preview = (previews as Record<string, PreviewImage>)[url] || { src: url };
+  // SVG previews retain their filenames, so version them when their contents change.
+  if (url.endsWith('.svg') && preview.fingerprint) {
+    return { ...preview, src: `${preview.src}?v=${preview.fingerprint.slice(0, 12)}` };
+  }
+  return preview;
 }
 
 /**
