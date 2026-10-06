@@ -1,4 +1,6 @@
 ---
+import ProjectSchematics from "../components/ProjectSchematics.astro";
+import dreamRecords from "../../public/progetti/dream-catalogue/dreams.json";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getProxyUrl } from "../utils/image";
 import { projects } from "../data/projects";
@@ -180,167 +182,13 @@ const project = projects.find((p) => p.href === "/dream-catalogue");
           <span class="lang-it">Rifiutando i cliché organici o surrealisti tipicamente associati alla rappresentazione dei sogni, il progetto ricontestualizza le registrazioni soggettive dei sogni in una fredda matrice di telemetria monocromatica alimentata dalla cinetica dei grafi in tempo reale.</span>
         </p>
         <p>
-          <span class="lang-en">Each dream entry (N=30) is converted into an attribute vector containing both quantitative metrics (<em>Importance</em>, <em>Weirdness</em>, <em>Memory</em>, <em>Lucidity</em>, <em>Duration</em>) and qualitative taxonomies (<em>Mood</em>, <em>Setting</em>, <em>Objects</em>, <em>People</em>, <em>Perspective</em>).</span>
-          <span class="lang-it">Ogni voce onirica (N=30) viene convertita in un vettore di attributi contenente sia metriche quantitative (<em>Importanza</em>, <em>Stranezza</em>, <em>Memoria</em>, <em>Lucidità</em>, <em>Durata</em>) che tassonomie qualitative (<em>Umore</em>, <em>Ambientazione</em>, <em>Oggetti</em>, <em>Persone</em>, <em>Prospettiva</em>).</span>
+          <span class="lang-en">Each of the {dreamRecords.length} dream records contains quantitative metrics (<em>Importance</em>, <em>Weirdness</em>, <em>Memory</em>, <em>Lucidity</em>, <em>Duration</em>) and qualitative attributes (<em>Mood</em>, <em>Setting</em>, <em>Objects</em>, <em>People</em>, <em>Perspective</em>).</span>
+          <span class="lang-it">Ognuna delle {dreamRecords.length} voci oniriche contiene metriche quantitative (<em>Importanza</em>, <em>Bizzarria</em>, <em>Ricordo</em>, <em>Lucidità</em>, <em>Durata</em>) e attributi qualitativi (<em>Umore</em>, <em>Ambientazione</em>, <em>Oggetti</em>, <em>Persone</em>, <em>Prospettiva</em>).</span>
         </p>
       </div>
     </div>
 
-    <!-- Vector Graphic 1: Data & Pipeline Architecture -->
-    <div class="mb-28 border-t border-neutral-800 pt-16">
-      <div class="mb-8">
-        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-2">Vector Specification // Diagram 01</span>
-        <h3 class="text-2xl font-semibold text-neutral-50" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
-          <span class="lang-en">01. Data Pipeline &amp; Ingestion Architecture</span>
-          <span class="lang-it">01. Pipeline dei Dati &amp; Architettura di Acquisizione</span>
-        </h3>
-      </div>
-      <p class="mb-8 text-base text-neutral-400">
-        <span class="lang-en">The vector diagram below illustrates the ingestion pipeline: from raw structured JSON entries to attribute vectorization, D3.js force physics computation, and final monochromatic web rendering.</span>
-        <span class="lang-it">Il diagramma vettoriale di seguito illustra la pipeline di acquisizione: dalle voci JSON strutturate grezze alla vettorizzazione degli attributi, al calcolo della fisica delle forze D3.js e al rendering web monocromatico finale.</span>
-      </p>
-
-      <div class="w-full border border-neutral-800 bg-neutral-950 p-2 md:p-4 rounded-sm overflow-hidden mb-6 shadow-2xl">
-        <img 
-          src="/progetti/dream-catalogue/diagram-data-pipeline.svg" 
-          alt="Dream Catalogue System Architecture and Data Pipeline Vector Diagram"
-          class="w-full h-auto object-contain"
-        />
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-6 text-sm text-neutral-400 font-mono pt-4 border-t border-neutral-900">
-        <div class="lang-en">
-          <strong class="text-neutral-200 block mb-1">01. JSON Ingestion</strong>
-          Structured dataset parsing containing multi-dimensional parameters for each cataloged dream state.
-        </div>
-        <div class="lang-it">
-          <strong class="text-neutral-200 block mb-1">01. Acquisizione JSON</strong>
-          Parsing di dataset strutturati contenenti parametri multidimensionali per ogni stato onirico catalogato.
-        </div>
-
-        <div class="lang-en">
-          <strong class="text-neutral-200 block mb-1">02. Taxonomy Matrix</strong>
-          Distance calculation evaluating categorical overlaps across mood, objects, and settings.
-        </div>
-        <div class="lang-it">
-          <strong class="text-neutral-200 block mb-1">02. Matrice di Tassonomia</strong>
-          Calcolo della distanza che valuta le sovrapposizioni categoriali tra stati d'animo, oggetti e ambientazioni.
-        </div>
-
-        <div class="lang-en">
-          <strong class="text-neutral-200 block mb-1">03. Physics &amp; UI</strong>
-          60 FPS force simulation feeding live telemetry data into a monochromatic layout.
-        </div>
-        <div class="lang-it">
-          <strong class="text-neutral-200 block mb-1">03. Fisica &amp; Interfaccia Utente</strong>
-          Simulazione di forze a 60 FPS che alimenta i dati di telemetria in tempo reale in un layout monocromatico.
-        </div>
-      </div>
-    </div>
-
-    <!-- Vector Graphic 2: Graph Mechanics & Force Field -->
-    <div class="mb-28 border-t border-neutral-800 pt-16">
-      <div class="mb-8">
-        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-2">Vector Specification // Diagram 02</span>
-        <h3 class="text-2xl font-semibold text-neutral-50" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
-          <span class="lang-en">02. Topological Graph Dynamics &amp; Force Field</span>
-          <span class="lang-it">02. Dinamiche del Grafo Topologico &amp; Campo di Forze</span>
-        </h3>
-      </div>
-      <p class="mb-8 text-base text-neutral-400">
-        <span class="lang-en">This diagram details the mathematical model governing node radius scaling, categorical link formation, and force attraction versus repulsion dynamics.</span>
-        <span class="lang-it">Questo diagramma descrive in dettaglio il modello matematico che governa il ridimensionamento del raggio dei nodi, la formazione di collegamenti categoriali e le dinamiche di forza di attrazione rispetto alla repulsione.</span>
-      </p>
-
-      <div class="w-full border border-neutral-800 bg-neutral-950 p-2 md:p-4 rounded-sm overflow-hidden mb-6 shadow-2xl">
-        <img 
-          src="/progetti/dream-catalogue/diagram-graph-mechanics.svg" 
-          alt="Dream Catalogue Topological Graph Dynamics and Force Field Vector Diagram"
-          class="w-full h-auto object-contain"
-        />
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-6 text-sm text-neutral-400 font-mono pt-4 border-t border-neutral-900">
-        <div class="lang-en">
-          <strong class="text-neutral-200 block mb-1">Node Radius Kinetics</strong>
-          Dynamic radius scaling derived from user-selected metrics (Importance, Weirdness, Memory).
-        </div>
-        <div class="lang-it">
-          <strong class="text-neutral-200 block mb-1">Cinetica del Raggio del Nodo</strong>
-          Ridimensionamento dinamico del raggio derivato dalle metriche selezionate dall'utente (Importanza, Stranezza, Memoria).
-        </div>
-
-        <div class="lang-en">
-          <strong class="text-neutral-200 block mb-1">Link Attraction</strong>
-          Distance attraction connecting shared categories based on similarity.
-        </div>
-        <div class="lang-it">
-          <strong class="text-neutral-200 block mb-1">Attrazione dei Collegamenti</strong>
-          Attrazione a distanza che collega le categorie condivise in base alla somiglianza.
-        </div>
-
-        <div class="lang-en">
-          <strong class="text-neutral-200 block mb-1">Many-Body Repulsion</strong>
-          Inverse-square repulsion maintaining structural equilibrium.
-        </div>
-        <div class="lang-it">
-          <strong class="text-neutral-200 block mb-1">Repulsione a Molti Corpi</strong>
-          Repulsione del quadrato inverso che mantiene l'equilibrio strutturale.
-        </div>
-      </div>
-    </div>
-
-    <!-- Vector Graphic 3: Clinical UI & Telemetry Inspector -->
-    <div class="mb-28 border-t border-neutral-800 pt-16">
-      <div class="mb-8">
-        <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-2">Vector Specification // Diagram 03</span>
-        <h3 class="text-2xl font-semibold text-neutral-50" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">
-          <span class="lang-en">03. Clinical Interface &amp; Telemetry Layout</span>
-          <span class="lang-it">03. Interfaccia Clinica &amp; Layout di Telemetria</span>
-        </h3>
-      </div>
-      <p class="mb-8 text-base text-neutral-400">
-        <span class="lang-en">The layout specification breakdown of the interface components: telemetry header bar, filter controls, interactive D3 canvas, and clinical detail inspector.</span>
-        <span class="lang-it">La ripartizione delle specifiche di layout dei componenti dell'interfaccia: barra dell'intestazione di telemetria, controlli dei filtri, tela interattiva in D3 e ispettore dei dettagli clinici.</span>
-      </p>
-
-      <div class="w-full border border-neutral-800 bg-neutral-950 p-2 md:p-4 rounded-sm overflow-hidden mb-6 shadow-2xl">
-        <img 
-          src="/progetti/dream-catalogue/diagram-ui-telemetry.svg" 
-          alt="Dream Catalogue Clinical Interface Specification and Telemetry Layout Vector Diagram"
-          class="w-full h-auto object-contain"
-        />
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-6 text-sm text-neutral-400 font-mono pt-4 border-t border-neutral-900">
-        <div class="lang-en">
-          <strong class="text-neutral-200 block mb-1">Header &amp; Count</strong>
-          Live entry counter (N=30), language switcher (IT/EN), and real-time clock.
-        </div>
-        <div class="lang-it">
-          <strong class="text-neutral-200 block mb-1">Intestazione &amp; Conteggio</strong>
-          Contatore di voci in tempo reale (N=30), selettore della lingua (IT/EN) e orologio in tempo reale.
-        </div>
-
-        <div class="lang-en">
-          <strong class="text-neutral-200 block mb-1">Dynamic Filter Controls</strong>
-          `CONNECT BY` and `SIZE BY` selectors triggering instant graph reconfiguration.
-        </div>
-        <div class="lang-it">
-          <strong class="text-neutral-200 block mb-1">Controlli Filtro Dinamici</strong>
-          Selettori `CONNECT BY` e `SIZE BY` che innescano la riconfigurazione istantanea del grafo.
-        </div>
-
-        <div class="lang-en">
-          <strong class="text-neutral-200 block mb-1">Detail Inspector</strong>
-          Clinical telemetry panel displaying dream metadata, timestamps, and audio cues.
-        </div>
-        <div class="lang-it">
-          <strong class="text-neutral-200 block mb-1">Ispettore dei Dettagli</strong>
-          Pannello di telemetria clinica che visualizza metadati dei sogni, timestamp e segnali audio.
-        </div>
-      </div>
-    </div>
+    <ProjectSchematics project="dream" />
 
   </section>
 </BaseLayout>

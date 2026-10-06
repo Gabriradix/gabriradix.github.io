@@ -1,0 +1,137 @@
+---
+interface Props { project: 'dream' | 'cheese' }
+const { project } = Astro.props;
+const dream = project === 'dream';
+const flow = dream ? [
+  { en: 'Record a dream', it: 'Registra un sogno', detailEn: 'Title, memory, mood, objects and people become a structured record.', detailIt: 'Titolo, ricordo, umore, oggetti e persone diventano una voce strutturata.', sample: 'dreams.json' },
+  { en: 'Choose the criteria', it: 'Scegli i criteri', detailEn: 'One criterion connects dreams; another controls the size of each node.', detailIt: 'Un criterio collega i sogni; un altro determina la dimensione dei nodi.', sample: 'CONNECT BY / SIZE BY' },
+  { en: 'Build the relationships', it: 'Costruisci le relazioni', detailEn: 'Shared attributes create links. D3 positions the nodes through attraction, repulsion and collision forces.', detailIt: 'Gli attributi comuni creano collegamenti. D3 dispone i nodi tramite attrazione, repulsione e collisioni.', sample: 'nodes + links' },
+  { en: 'Explore the archive', it: 'Esplora l’archivio', detailEn: 'Select a node to read its record and highlight the dreams connected to it.', detailIt: 'Seleziona un nodo per leggere la sua scheda ed evidenziare i sogni collegati.', sample: 'graph → detail' }
+] : [
+  { en: 'Choose a prophecy', it: 'Scegli una profezia', detailEn: 'The application randomly selects an aphorism from a predefined collection.', detailIt: 'L’applicazione sceglie casualmente un aforisma da una raccolta predefinita.', sample: 'FORTUNES' },
+  { en: 'Hide it in the text', it: 'Nascondila nel testo', detailEn: 'Its words are placed among random filler words. The surrounding text keeps changing.', detailIt: 'Le sue parole vengono inserite fra parole casuali. Il testo circostante continua a cambiare.', sample: 'buildText()' },
+  { en: 'Freeze the words', it: 'Ferma le parole', detailEn: 'Generate stops the shuffle in a cascade, then locates the words belonging to the prophecy.', detailIt: 'Genera ferma il rimescolamento a cascata, poi individua le parole della profezia.', sample: 'cascadeStop()' },
+  { en: 'Reveal and collect', it: 'Svela e conserva', detailEn: 'A cheese-shaped mask reveals the chosen words. Download the card or start again.', detailIt: 'Una maschera a forma di formaggio rivela le parole scelte. Scarica la carta o ricomincia.', sample: 'SVG mask → PNG' }
+];
+const words = ['Every', 'river', 'ending', 'stone', 'holds', 'sky', 'a', 'seed'];
+const chosen = [0, 2, 4, 6, 7];
+const interfaceItems = dream ? [
+  { letter: 'A', en: 'Filters', it: 'Filtri', detailEn: 'Choose how to connect and size the dreams.', detailIt: 'Scegli come collegare e dimensionare i sogni.' },
+  { letter: 'B', en: 'Graph', it: 'Grafo', detailEn: 'Pan, zoom, drag a node or select it.', detailIt: 'Sposta la vista, ingrandisci, trascina o seleziona un nodo.' },
+  { letter: 'C', en: 'Dream details', it: 'Dettagli del sogno', detailEn: 'Read the title, metrics and shared attributes.', detailIt: 'Leggi titolo, metriche e attributi condivisi.' }
+] : [
+  { letter: 'A', en: 'Shuffling text', it: 'Testo in movimento', detailEn: 'The word pool is the material from which the prophecy emerges.', detailIt: 'La raccolta di parole è il materiale da cui emerge la profezia.' },
+  { letter: 'B', en: 'Reveal', it: 'Rivelazione', detailEn: 'The cheese mask and the complete aphorism appear together.', detailIt: 'La maschera di formaggio e l’aforisma completo compaiono insieme.' },
+  { letter: 'C', en: 'Actions', it: 'Azioni', detailEn: 'Generate, then download the card or create another prophecy.', detailIt: 'Genera, poi scarica la carta o crea un’altra profezia.' }
+];
+---
+
+<div class:list={['schematics', { cheese: !dream }]}>
+  <section class="diagram-section" aria-labelledby={`${project}-flow-title`}>
+    <h3 id={`${project}-flow-title`}><span class="lang-en">From {dream ? 'dream' : 'words'} to {dream ? 'archive' : 'prophecy'}</span><span class="lang-it">{dream ? 'Dal sogno all’archivio' : 'Dalle parole alla profezia'}</span></h3>
+    <p class="intro"><span class="lang-en">{dream ? 'How a personal record becomes part of an explorable network.' : 'The result is chosen first; the visual ritual makes it emerge from apparent randomness.'}</span><span class="lang-it">{dream ? 'Come un ricordo personale entra in una rete da esplorare.' : 'Il risultato viene scelto prima: il rituale visivo lo fa emergere da un’apparente casualità.'}</span></p>
+    <figure>
+      <ol class="flow">
+        {flow.map((step, i) => <li>
+          <span class="step-number" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <h4><span class="lang-en">{step.en}</span><span class="lang-it">{step.it}</span></h4>
+          <p><span class="lang-en">{step.detailEn}</span><span class="lang-it">{step.detailIt}</span></p>
+          <code>{step.sample}</code>
+        </li>)}
+      </ol>
+      <figcaption><span class="lang-en">Read from left to right; from top to bottom on a phone.</span><span class="lang-it">Leggi da sinistra a destra; dall’alto verso il basso sul telefono.</span></figcaption>
+    </figure>
+  </section>
+
+  <section class="diagram-section" aria-labelledby={`${project}-mechanics-title`}>
+    <h3 id={`${project}-mechanics-title`}><span class="lang-en">{dream ? 'What the graph encodes' : 'How the reveal works'}</span><span class="lang-it">{dream ? 'Cosa rappresenta il grafo' : 'Come funziona la rivelazione'}</span></h3>
+    <p class="intro"><span class="lang-en">{dream ? 'Node size and links describe different aspects of a dream. Distance comes from the force simulation.' : 'The mask does not invent the phrase: its holes expose words already present in the text.'}</span><span class="lang-it">{dream ? 'Dimensione e collegamenti descrivono aspetti diversi del sogno. La distanza deriva dalla simulazione delle forze.' : 'La maschera non inventa la frase: i suoi buchi mostrano parole già presenti nel testo.'}</span></p>
+    <figure>
+      {dream ? <div class="graph-example">
+        <div class="network">
+          <svg viewBox="0 0 480 250" aria-hidden="true">
+            <path d="M95 145L280 110" class="network-link" />
+            <circle cx="95" cy="145" r="31.2" /><circle cx="280" cy="110" r="52.8" /><circle cx="415" cy="170" r="20.4" class="unlinked" />
+            <text x="95" y="151">30</text><text x="280" y="116">70</text><text x="415" y="176">10</text>
+          </svg>
+          <div class="network-legend"><span class="lang-en">Illustrative metric values. The two linked dreams share an attribute.</span><span class="lang-it">Valori esemplificativi di una metrica. I due sogni collegati condividono un attributo.</span></div>
+        </div>
+        <dl class="mechanics">
+          <div><dt><span class="lang-en">Size</span><span class="lang-it">Dimensione</span></dt><dd><span class="lang-en">Importance, weirdness or memory. A larger value produces a larger node.</span><span class="lang-it">Importanza, bizzarria o ricordo. Un valore maggiore produce un nodo più grande.</span><code>r = 5 + 0.18 × value</code></dd></div>
+          <div><dt><span class="lang-en">Links</span><span class="lang-it">Collegamenti</span></dt><dd><span class="lang-en">Shared mood, objects, setting, people or perspective, according to the selected filter.</span><span class="lang-it">Umore, oggetti, ambientazione, persone o prospettiva in comune, secondo il filtro selezionato.</span></dd></div>
+          <div><dt><span class="lang-en">Position</span><span class="lang-it">Posizione</span></dt><dd><span class="lang-en">Links attract; nodes repel. Collision forces limit overlap.</span><span class="lang-it">I collegamenti attraggono; i nodi si respingono. Le collisioni limitano le sovrapposizioni.</span></dd></div>
+        </dl>
+      </div> : <ol class="reveal">
+        {['pool', 'selection', 'mask'].map((state, i) => <li>
+          <h4><span class="step-number" aria-hidden="true">{i + 1}</span><span class="lang-en">{['Word pool', 'Located words', 'Through the holes'][i]}</span><span class="lang-it">{['Raccolta di parole', 'Parole individuate', 'Attraverso i buchi'][i]}</span></h4>
+          <div class:list={['word-pool', state]} aria-hidden="true">{words.map((word, j) => <span class:list={{ chosen: chosen.includes(j) }}>{word}</span>)}</div>
+          <p><span class="lang-en">{['The phrase is dispersed among filler words.', 'Its words are identified in reading order.', 'Only the selected words remain visible.'][i]}</span><span class="lang-it">{['La frase è dispersa fra parole di riempimento.', 'Le sue parole sono individuate nell’ordine di lettura.', 'Restano visibili solo le parole selezionate.'][i]}</span></p>
+        </li>)}
+      </ol>}
+      <figcaption><span class="lang-en">{dream ? 'The drawing is explanatory: it is not a live snapshot of the archive.' : 'Illustrative phrase from the application: “Every ending holds a seed”.'}</span><span class="lang-it">{dream ? 'Il disegno è esplicativo: non è una fotografia in tempo reale dell’archivio.' : 'Frase esemplificativa tratta dall’applicazione: “Every ending holds a seed”.'}</span></figcaption>
+    </figure>
+  </section>
+
+  <section class="diagram-section" aria-labelledby={`${project}-interface-title`}>
+    <h3 id={`${project}-interface-title`}><span class="lang-en">Reading the interface</span><span class="lang-it">Leggere l’interfaccia</span></h3>
+    <p class="intro"><span class="lang-en">{dream ? 'Controls change the network; selecting a dream opens its details.' : 'The interface moves from an unstable field of words to a card you can keep.'}</span><span class="lang-it">{dream ? 'I controlli modificano la rete; la selezione di un sogno apre i suoi dettagli.' : 'L’interfaccia passa da un campo instabile di parole a una carta da conservare.'}</span></p>
+    <figure>
+      <div class="interface-map">
+        <div class:list={['wireframe', { 'dream-wireframe': dream }]} aria-hidden="true">
+          <div class="wire-top">{dream ? 'Dream Catalogue' : 'The Cheese Prophecy'}<span class="wire-dot"></span></div>
+          {dream ? <>
+            <div class="wire-controls"><b>A</b><span>CONNECT BY</span><span>SIZE BY</span></div>
+            <div class="wire-body"><div class="wire-graph"><b>B</b><svg viewBox="0 0 260 160"><path d="M45 90L130 45L210 110L45 90M130 45L125 125"/><circle cx="45" cy="90" r="12"/><circle cx="130" cy="45" r="19"/><circle cx="210" cy="110" r="15"/><circle cx="125" cy="125" r="10"/></svg></div><div class="wire-detail"><b>C</b><span class="lang-en">Dream record</span><span class="lang-it">Scheda del sogno</span><i></i><i></i><i></i></div></div>
+          </> : <>
+            <div class="wire-text"><b>A</b><span>river · seed · every · light · ending</span><span>stone · holds · sky · a · silence</span></div>
+            <div class="wire-prophecy"><b>B</b><span>Every ending<br/>holds a seed.</span></div>
+            <div class="wire-actions"><b>C</b><span class="lang-en">Generate / Download / New prophecy</span><span class="lang-it">Genera / Scarica / Nuova profezia</span></div>
+          </>}
+        </div>
+        <dl class="interface-key">{interfaceItems.map(item => <div><dt><b>{item.letter}</b><span class="lang-en">{item.en}</span><span class="lang-it">{item.it}</span></dt><dd><span class="lang-en">{item.detailEn}</span><span class="lang-it">{item.detailIt}</span></dd></div>)}</dl>
+      </div>
+      <figcaption><span class="lang-en">Simplified map of the interface, not an additional application.</span><span class="lang-it">Mappa semplificata dell’interfaccia, non un’applicazione aggiuntiva.</span></figcaption>
+    </figure>
+  </section>
+</div>
+
+<style>
+  /* Keep diagram labels readable despite the site's enlarged heading rules. */
+  @layer base {
+    .schematics h3{font-size:clamp(1.4rem,3vw,2rem)!important;line-height:1.2!important;font-weight:500!important}
+    .schematics h4{font-size:1.05rem!important;line-height:1.35!important;font-weight:600!important;text-transform:none!important;letter-spacing:0!important}
+    .schematics .intro{font-size:1rem!important;line-height:1.65!important}
+    .schematics li p{font-size:.9375rem!important;line-height:1.6!important}
+  }
+  .schematics{--diagram-accent:#e5e5e5;--diagram-bg:#101010;--diagram-panel:#171717;--diagram-rule:#404040;--diagram-muted:#b5b5b5;color:#e5e5e5;font-family:'Helvetica Custom',Helvetica,Arial,sans-serif}
+  .schematics.cheese{--diagram-accent:#f5c842;--diagram-bg:#13110b;--diagram-panel:#1c1910;--diagram-rule:#66542d;--diagram-muted:#c5bda9}
+  .diagram-section{margin:0 0 4rem;border-top:1px solid #404040;padding-top:2.5rem}
+  h3{font-size:clamp(1.4rem,3vw,2rem);line-height:1.2;font-weight:500;letter-spacing:-.025em;margin:0 0 1rem}
+  .intro{color:var(--diagram-muted);font-size:1rem;line-height:1.65;max-width:68ch;margin:0 0 1.75rem}
+  figure{margin:0;background:var(--diagram-bg);border:1px solid var(--diagram-rule);padding:clamp(1rem,3vw,2rem)}
+  figcaption{border-top:1px solid var(--diagram-rule);padding-top:1rem;margin-top:1.5rem;color:var(--diagram-muted);font-size:.875rem;line-height:1.5}
+  .flow,.reveal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:2rem}
+  .flow li{position:relative;border-top:2px solid var(--diagram-accent);padding-top:1rem;min-width:0}
+  .flow li:not(:last-child)::after{content:'→';position:absolute;top:0;right:-1.5rem;color:var(--diagram-accent);font-size:1.5rem}
+  .step-number{color:var(--diagram-accent);font-size:.875rem;font-variant-numeric:tabular-nums;display:inline-block;margin-bottom:.75rem}
+  h4{font-size:1.05rem;line-height:1.35;font-weight:600;margin:0 0 .75rem}
+  li p{font-size:.9375rem;line-height:1.6;color:var(--diagram-muted);margin:0 0 1rem}
+  code{display:block;font: .75rem/1.6 monospace;color:var(--diagram-accent);overflow-wrap:anywhere;margin-top:.75rem}
+  .graph-example,.interface-map{display:grid;grid-template-columns:1.25fr 1fr;gap:2rem;align-items:center}
+  .network svg{display:block;width:100%;height:auto;max-height:320px}
+  .network circle{fill:var(--diagram-panel);stroke:var(--diagram-accent);stroke-width:2}.network .unlinked{stroke-dasharray:4 4}
+  .network-link{stroke:var(--diagram-accent);stroke-width:2;fill:none}.network text{fill:var(--diagram-accent);text-anchor:middle;font-size:18px;font-family:monospace}
+  .network-legend{font-size:.875rem;line-height:1.5;color:var(--diagram-muted);max-width:45ch}
+  dl{margin:0}dt{font-weight:600;color:var(--diagram-accent);font-size:1rem}dd{margin:.4rem 0 0;color:var(--diagram-muted);font-size:.9375rem;line-height:1.6}
+  .mechanics>div,.interface-key>div{padding:1rem 0;border-bottom:1px solid var(--diagram-rule)}.mechanics>div:first-child,.interface-key>div:first-child{padding-top:0}.mechanics>div:last-child,.interface-key>div:last-child{border-bottom:0;padding-bottom:0}
+  .reveal{grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem}.reveal h4 .step-number{margin-right:.75rem;margin-bottom:0}
+  .word-pool{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem .5rem;min-height:180px;align-content:center;padding:1rem;border:1px solid var(--diagram-rule);margin:1rem 0;font-family:'Apple Garamond Custom',Garamond,serif;font-size:1.25rem;color:var(--diagram-muted)}
+  .selection .chosen{color:var(--diagram-accent);text-decoration:underline;text-underline-offset:.25em}.mask{background:var(--diagram-accent);color:#211a09;border-color:var(--diagram-accent)}.mask span:not(.chosen){visibility:hidden}.mask .chosen{border-radius:50%;background:var(--diagram-bg);color:var(--diagram-accent);text-align:center}
+  .wireframe{border:1px solid var(--diagram-rule);background:var(--diagram-panel);min-width:0}.wire-top{padding:1rem;border-bottom:1px solid var(--diagram-rule);display:flex;justify-content:space-between;gap:1rem;font-size:.875rem}.wire-dot{height:.5rem;width:.5rem;border-radius:50%;background:var(--diagram-accent);align-self:center}
+  .wireframe b,.interface-key b{font-size:.75rem;color:var(--diagram-accent);font-weight:500;border:1px solid var(--diagram-rule);display:inline-flex;align-items:center;justify-content:center;width:1.5rem;height:1.5rem;flex-shrink:0}.interface-key dt{display:flex;gap:.75rem;align-items:center}
+  .wire-controls,.wire-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;padding:1rem;font-size:.75rem;border-bottom:1px solid var(--diagram-rule)}.wire-body{display:grid;grid-template-columns:1.6fr 1fr}.wire-graph{padding:1rem;border-right:1px solid var(--diagram-rule)}.wire-graph svg{display:block;width:100%;height:auto;margin-top:.5rem}.wire-graph path{stroke:var(--diagram-rule);fill:none}.wire-graph circle{stroke:var(--diagram-accent);fill:var(--diagram-bg)}
+  .wire-detail{padding:1rem;display:flex;flex-direction:column;gap:.75rem;font-size:.75rem}.wire-detail i{display:block;height:2px;width:100%;background:var(--diagram-rule)}.wire-detail i:last-child{width:65%}
+  .wire-text{padding:1rem;display:flex;flex-direction:column;gap:.5rem;font-size:.875rem;color:var(--diagram-muted)}.wire-prophecy{margin:0 1rem 1rem;padding:1rem;border:1px solid var(--diagram-accent);display:flex;gap:1rem;align-items:flex-start}.wire-prophecy>span{font-family:'Apple Garamond Custom',Garamond,serif;font-size:1.65rem;line-height:1.2;color:var(--diagram-accent)}.wire-actions{border-bottom:0;border-top:1px solid var(--diagram-rule)}
+  @media(max-width:900px){.flow{grid-template-columns:repeat(2,minmax(0,1fr))}.flow li::after{display:none}}
+  @media(max-width:640px){.flow,.reveal,.graph-example,.interface-map{grid-template-columns:1fr;gap:1.5rem}.flow li{padding-left:2.5rem;border-top:0;border-left:1px solid var(--diagram-rule);padding-top:0;padding-bottom:.5rem}.flow .step-number{position:absolute;left:.65rem;top:0}.flow li:not(:last-child)::after{display:block;content:'↓';top:auto;right:auto;bottom:-1.1rem;left:.65rem;font-size:1rem}.network svg{min-height:160px}.network text{font-size:28px}.word-pool{min-height:150px;grid-template-columns:repeat(4,minmax(0,1fr));font-size:1rem;padding:.75rem;gap:.75rem .25rem}.wire-body{grid-template-columns:1.4fr 1fr}.wire-graph,.wire-detail{padding:.75rem}.diagram-section{margin-bottom:3rem;padding-top:2rem}}
+</style>
