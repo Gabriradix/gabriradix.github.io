@@ -7,57 +7,19 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <!-- Hero Section -->
   <section class="relative h-[100svh] md:h-[100dvh] w-full overflow-hidden flex items-center justify-center">
     <video 
-      autoplay 
+      data-autoplay
       muted 
       loop 
       playsinline 
       webkit-playsinline
-      preload="metadata"
+      preload="none"
       poster="/progetti/a-closer-look/assets/Tdmovieout.0-poster.jpg"
       class="absolute inset-0 w-full h-full object-cover z-0"
     >
-      <source src="/progetti/a-closer-look/assets/Tdmovieout.0.mp4" type="video/mp4" />
-      <source src="/progetti/a-closer-look/assets/Tdmovieout.0.webm" type="video/webm" />
+      <source data-src="/progetti/a-closer-look/assets/Tdmovieout.0.mp4" type="video/mp4" />
+      <source data-src="/progetti/a-closer-look/assets/Tdmovieout.0.webm" type="video/webm" />
     </video>
 
-    <script>
-      function playHeroVideo() {
-        const v = document.querySelector('video') as HTMLVideoElement | null;
-        if (!v) return;
-        v.muted = true;
-        v.defaultMuted = true;
-        v.setAttribute('muted', '');
-        v.playsInline = true;
-        v.setAttribute('playsinline', '');
-        v.setAttribute('webkit-playsinline', '');
-
-        if (v.networkState === 0) {
-          v.load();
-        }
-
-        const promise = v.play();
-        if (promise !== undefined) {
-          promise.catch(() => {
-            const resumeOnTouch = () => {
-              v.play().catch(() => {});
-              window.removeEventListener('touchstart', resumeOnTouch);
-              window.removeEventListener('scroll', resumeOnTouch);
-              window.removeEventListener('click', resumeOnTouch);
-            };
-            window.addEventListener('touchstart', resumeOnTouch, { passive: true });
-            window.addEventListener('scroll', resumeOnTouch, { passive: true });
-            window.addEventListener('click', resumeOnTouch, { passive: true });
-          });
-        }
-      }
-
-      playHeroVideo();
-      document.addEventListener('astro:page-load', playHeroVideo);
-      document.addEventListener('astro:after-swap', playHeroVideo);
-      document.addEventListener('visibilitychange', () => {
-        if (!document.hidden) playHeroVideo();
-      });
-    </script>
     <div class="absolute inset-0 bg-black/60 z-10"></div>
     <div class="relative z-20 text-center px-6">
       <h1 
@@ -157,43 +119,43 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <h2 class="lang-en text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Gallery</h2>
       <h2 class="lang-it text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;">Galleria</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <img 
+        <img decoding="async"
           src={getProxyUrl("/progetti/a-closer-look/assets/IMG_0010.JPG")} data-src="/progetti/a-closer-look/assets/IMG_0010.JPG" 
           alt="Spazio espositivo dell'installazione interattiva, con lo schermo acceso e la videocamera Kinect posizionata per il tracciamento dei visitatori" 
           class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" 
           loading="lazy" 
         />
-        <img 
+        <img decoding="async"
           src={getProxyUrl("/progetti/a-closer-look/assets/IMG_0012.JPG")} data-src="/progetti/a-closer-look/assets/IMG_0012.JPG" 
           alt="Spettatore in piedi di fronte all'installazione, la cui silhouette tracciata rivela frammenti di testo dai documenti Epstein sul display" 
           class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" 
           loading="lazy" 
         />
-        <img 
+        <img decoding="async"
           src={getProxyUrl("/progetti/a-closer-look/assets/IMG_0013.JPG")} data-src="/progetti/a-closer-look/assets/IMG_0013.JPG" 
           alt="Inquadratura prospettica dell'installazione a parete con un utente che sperimenta l'opera muovendo le braccia" 
           class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" 
           loading="lazy" 
         />
-        <img 
+        <img decoding="async"
           src={getProxyUrl("/progetti/a-closer-look/assets/TDMovieOut.0.png")} data-src="/progetti/a-closer-look/assets/TDMovieOut.0.png" 
           alt="Esportazione video da TouchDesigner che mostra l'effetto visivo della silhouette umana che funge da maschera di decensura" 
           class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" 
           loading="lazy" 
         />
-        <img 
+        <img decoding="async"
           src={getProxyUrl("/progetti/a-closer-look/assets/sample.png")} data-src="/progetti/a-closer-look/assets/sample.png" 
           alt="Esempio di documento giudiziario con pesanti censure nere rettangolari, tipiche dei file federali rilasciati" 
           class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" 
           loading="lazy" 
         />
-        <img 
+        <img decoding="async"
           src={getProxyUrl("/progetti/a-closer-look/assets/Screenshot (3).png")} data-src="/progetti/a-closer-look/assets/Screenshot (3).png" 
           alt="Cattura di schermata ad alta risoluzione del software con la silhouette che si muove svelando le pagine dell'inchiesta" 
           class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" 
           loading="lazy" 
         />
-        <img 
+        <img decoding="async"
           src={getProxyUrl("/progetti/a-closer-look/assets/Screenshot (15).png")} data-src="/progetti/a-closer-look/assets/Screenshot (15).png" 
           alt="Dettaglio dell'interfaccia utente con metadati, intestazioni federali e trascrizioni audio scansionate che scorrono velocemente" 
           class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" 

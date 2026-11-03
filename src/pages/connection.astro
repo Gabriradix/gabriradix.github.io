@@ -7,7 +7,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <!-- Hero Section -->
   <section class="relative h-[100svh] md:h-[100dvh] w-full overflow-hidden flex items-center justify-center">
     <!-- Use the featured image as background -->
-    <img 
+    <img loading="eager" fetchpriority="high" decoding="async"
       src={getProxyUrl("/progetti/connection/assets/copertina.jpeg")} data-src="/progetti/connection/assets/copertina.jpeg" 
       alt="I due performer avvolti da matasse di cavi elettrici neri durante la performance Connection"
       class="absolute inset-0 w-full h-full object-cover z-0 opacity-50"
@@ -126,11 +126,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <span class="lang-it">Galleria</span>
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <img src={getProxyUrl("/progetti/connection/assets/copertina.jpeg")} data-src="/progetti/connection/assets/copertina.jpeg" alt="I due performer seduti a terra in una luce drammatica, avvolti da un intricato groviglio di cavi" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/connection/assets/1.jpg")} data-src="/progetti/connection/assets/1.jpg" alt="Visualizzazione sul palco della performance, con la proiezione posteriore che riflette la silhouette in tempo reale" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/connection/assets/demo1.jpeg")} data-src="/progetti/connection/assets/demo1.jpeg" alt="Dettaglio del live visual in TouchDesigner con elaborazione ad alto contrasto dei movimenti del corpo" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/connection/assets/demo2.jpeg")} data-src="/progetti/connection/assets/demo2.jpeg" alt="Silhouette catturate tramite Kinect rielaborate digitalmente come ombre cibernetiche sul muro di fondo" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/connection/assets/render disegnato.png")} data-src="/progetti/connection/assets/render disegnato.png" alt="Schema tecnico e bozzetto scenografico delle postazioni dei performer e della telecamera a infrarossi" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/connection/assets/copertina.jpeg")} data-src="/progetti/connection/assets/copertina.jpeg" alt="I due performer seduti a terra in una luce drammatica, avvolti da un intricato groviglio di cavi" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/connection/assets/1.jpg")} data-src="/progetti/connection/assets/1.jpg" alt="Visualizzazione sul palco della performance, con la proiezione posteriore che riflette la silhouette in tempo reale" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/connection/assets/demo1.jpeg")} data-src="/progetti/connection/assets/demo1.jpeg" alt="Dettaglio del live visual in TouchDesigner con elaborazione ad alto contrasto dei movimenti del corpo" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/connection/assets/demo2.jpeg")} data-src="/progetti/connection/assets/demo2.jpeg" alt="Silhouette catturate tramite Kinect rielaborate digitalmente come ombre cibernetiche sul muro di fondo" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/connection/assets/render disegnato.png")} data-src="/progetti/connection/assets/render disegnato.png" alt="Schema tecnico e bozzetto scenografico delle postazioni dei performer e della telecamera a infrarossi" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
       </div>
     </div>
 

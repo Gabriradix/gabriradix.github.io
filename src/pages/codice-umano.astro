@@ -10,7 +10,7 @@ const pdfManifesto = "https://www.cityopenmuseum.com/wp-content/uploads/2026/06/
 <BaseLayout title="Codice Umano - La Fura dels Baus x Gabriele Radicello">
   <!-- Hero Section -->
   <section class="relative h-[100svh] md:h-[100dvh] w-full overflow-hidden flex items-center justify-center">
-    <img 
+    <img loading="eager" fetchpriority="high" decoding="async"
       src={getProxyUrl("/progetti/codice-umano/cover.jpg")} 
       data-src="/progetti/codice-umano/cover.jpg"
       alt="Codice Umano - La Fura dels Baus"
@@ -150,21 +150,21 @@ const pdfManifesto = "https://www.cityopenmuseum.com/wp-content/uploads/2026/06/
         Galleria
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <img src={getProxyUrl("/progetti/codice-umano/1.jpg")} data-src="/progetti/codice-umano/1.jpg" alt="Codice Umano - La Fura dels Baus performance frame 1" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/codice-umano/2.jpg")} data-src="/progetti/codice-umano/2.jpg" alt="Codice Umano - La Fura dels Baus performance frame 2" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/codice-umano/3.jpg")} data-src="/progetti/codice-umano/3.jpg" alt="Codice Umano - La Fura dels Baus performance frame 3" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/codice-umano/4.jpg")} data-src="/progetti/codice-umano/4.jpg" alt="Codice Umano - La Fura dels Baus performance frame 4" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/codice-umano/5.jpg")} data-src="/progetti/codice-umano/5.jpg" alt="Codice Umano - La Fura dels Baus performance frame 5" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/codice-umano/6.jpg")} data-src="/progetti/codice-umano/6.jpg" alt="Codice Umano - La Fura dels Baus performance frame 6" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/codice-umano/7.jpg")} data-src="/progetti/codice-umano/7.jpg" alt="Codice Umano - La Fura dels Baus performance frame 7" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/codice-umano/8.jpg")} data-src="/progetti/codice-umano/8.jpg" alt="Codice Umano - La Fura dels Baus performance frame 8" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/codice-umano/9.jpg")} data-src="/progetti/codice-umano/9.jpg" alt="Codice Umano - La Fura dels Baus performance frame 9" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/codice-umano/10.jpg")} data-src="/progetti/codice-umano/10.jpg" alt="Codice Umano - La Fura dels Baus performance frame 10" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/codice-umano/11.jpg")} data-src="/progetti/codice-umano/11.jpg" alt="Codice Umano - La Fura dels Baus performance frame 11" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/codice-umano/12.jpg")} data-src="/progetti/codice-umano/12.jpg" alt="Codice Umano - La Fura dels Baus performance frame 12" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/codice-umano/13.jpg")} data-src="/progetti/codice-umano/13.jpg" alt="Codice Umano - La Fura dels Baus performance frame 13" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/codice-umano/14.jpg")} data-src="/progetti/codice-umano/14.jpg" alt="Codice Umano - La Fura dels Baus performance frame 14" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img src={getProxyUrl("/progetti/codice-umano/15.jpg")} data-src="/progetti/codice-umano/15.jpg" alt="Codice Umano - La Fura dels Baus performance frame 15" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/codice-umano/1.jpg")} data-src="/progetti/codice-umano/1.jpg" alt="Codice Umano - La Fura dels Baus performance frame 1" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/codice-umano/2.jpg")} data-src="/progetti/codice-umano/2.jpg" alt="Codice Umano - La Fura dels Baus performance frame 2" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/codice-umano/3.jpg")} data-src="/progetti/codice-umano/3.jpg" alt="Codice Umano - La Fura dels Baus performance frame 3" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/codice-umano/4.jpg")} data-src="/progetti/codice-umano/4.jpg" alt="Codice Umano - La Fura dels Baus performance frame 4" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/codice-umano/5.jpg")} data-src="/progetti/codice-umano/5.jpg" alt="Codice Umano - La Fura dels Baus performance frame 5" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/codice-umano/6.jpg")} data-src="/progetti/codice-umano/6.jpg" alt="Codice Umano - La Fura dels Baus performance frame 6" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/codice-umano/7.jpg")} data-src="/progetti/codice-umano/7.jpg" alt="Codice Umano - La Fura dels Baus performance frame 7" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/codice-umano/8.jpg")} data-src="/progetti/codice-umano/8.jpg" alt="Codice Umano - La Fura dels Baus performance frame 8" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/codice-umano/9.jpg")} data-src="/progetti/codice-umano/9.jpg" alt="Codice Umano - La Fura dels Baus performance frame 9" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/codice-umano/10.jpg")} data-src="/progetti/codice-umano/10.jpg" alt="Codice Umano - La Fura dels Baus performance frame 10" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/codice-umano/11.jpg")} data-src="/progetti/codice-umano/11.jpg" alt="Codice Umano - La Fura dels Baus performance frame 11" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/codice-umano/12.jpg")} data-src="/progetti/codice-umano/12.jpg" alt="Codice Umano - La Fura dels Baus performance frame 12" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/codice-umano/13.jpg")} data-src="/progetti/codice-umano/13.jpg" alt="Codice Umano - La Fura dels Baus performance frame 13" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/codice-umano/14.jpg")} data-src="/progetti/codice-umano/14.jpg" alt="Codice Umano - La Fura dels Baus performance frame 14" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <img decoding="async" src={getProxyUrl("/progetti/codice-umano/15.jpg")} data-src="/progetti/codice-umano/15.jpg" alt="Codice Umano - La Fura dels Baus performance frame 15" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
       </div>
     </div>
 

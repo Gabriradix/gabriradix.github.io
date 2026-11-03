@@ -132,9 +132,8 @@ const isBrainrot = title === "Brainrot Pavilion";
 
 <script>
   import { getGestureAxis } from '../utils/gesture';
+  import { loadCarouselImages } from '../utils/carousel-images';
   const carouselCleanups = new Set<() => void>();
-  let mediaObserver: IntersectionObserver | null = null;
-  let mediaEvents: AbortController | null = null;
 
   function initCarousels() {
     const containers = document.querySelectorAll('.carousel-container');
@@ -144,7 +143,20 @@ const isBrainrot = title === "Brainrot Pavilion";
       if (container.getAttribute('data-carousel-initialized')) return;
       
       const strip = container.querySelector('.carousel-strip') as HTMLElement;
-      if (!strip) return;
+      if (!strip) {
+        container.setAttribute('data-carousel-initialized', 'true');
+        const imagesObserver = new IntersectionObserver(entries => {
+          if (!entries[0].isIntersecting) return;
+          loadCarouselImages(container);
+          imagesObserver.disconnect();
+        }, { rootMargin: '200px 0px' });
+        imagesObserver.observe(container);
+        carouselCleanups.add(() => {
+          imagesObserver.disconnect();
+          container.removeAttribute('data-carousel-initialized');
+        });
+        return;
+      }
 
       container.setAttribute('data-carousel-initialized', 'true');
 
@@ -180,6 +192,7 @@ const isBrainrot = title === "Brainrot Pavilion";
       };
       const observer = new IntersectionObserver(entries => {
         isInViewport = entries[0].isIntersecting;
+        if (isInViewport) loadCarouselImages(container);
         if (!isInViewport && inertiaFrameId) {
           cancelAnimationFrame(inertiaFrameId);
           inertiaFrameId = null;
@@ -487,78 +500,24 @@ const isBrainrot = title === "Brainrot Pavilion";
     });
   }
 
-  function initCarouselVideos() {
-    mediaObserver?.disconnect();
-    mediaEvents?.abort();
-    mediaEvents = new AbortController();
-    const visibleVideos = new Set<HTMLVideoElement>();
-
-    const playVisibleVideos = () => {
-      visibleVideos.forEach(video => {
-        if (document.hidden) {
-          video.pause();
-          return;
-        }
-        let needsLoad = false;
-        if (video.dataset.src) {
-          video.src = video.dataset.src;
-          delete video.dataset.src;
-          needsLoad = true;
-        }
-        video.querySelectorAll<HTMLSourceElement>('source[data-src]').forEach(source => {
-          source.src = source.dataset.src || '';
-          delete source.dataset.src;
-          needsLoad = true;
-        });
-        if (needsLoad) video.load();
-        video.play().catch(() => {});
-      });
-    };
-
-    mediaObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        const video = entry.target as HTMLVideoElement;
-        if (entry.isIntersecting) visibleVideos.add(video);
-        else {
-          visibleVideos.delete(video);
-          video.pause();
-        }
-      });
-      playVisibleVideos();
-    });
-    document.querySelectorAll<HTMLVideoElement>('video[data-carousel-video]').forEach(video => {
-      video.muted = true;
-      video.defaultMuted = true;
-      mediaObserver?.observe(video);
-    });
-    document.addEventListener('visibilitychange', playVisibleVideos, { signal: mediaEvents.signal });
-    document.addEventListener('pointerdown', playVisibleVideos, { passive: true, signal: mediaEvents.signal });
-  }
-
   document.addEventListener('astro:before-swap', () => {
     carouselCleanups.forEach(cleanup => cleanup());
     carouselCleanups.clear();
-    mediaObserver?.disconnect();
-    mediaEvents?.abort();
-    document.querySelectorAll<HTMLVideoElement>('video[data-carousel-video]').forEach(video => video.pause());
   });
 
   // Initialize
   initCarousels();
   initAsciiHover();
-  initCarouselVideos();
 
   // Support View Transitions and Visibility Changes
   document.addEventListener('astro:page-load', () => {
     initCarousels();
     initAsciiHover();
-    initCarouselVideos();
   });
 
   document.addEventListener('astro:after-swap', () => {
     initCarousels();
     initAsciiHover();
-    initCarouselVideos();
   });
 
 </script>

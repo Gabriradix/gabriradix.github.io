@@ -144,7 +144,7 @@ const pieces = [
           
           <!-- Digital Display Frame (Vitrine) -->
           <div class="exhibition-vitrine w-full md:w-1/2 aspect-square max-w-[460px] bg-neutral-100 flex items-center justify-center p-8 border-4 border-neutral-950 overflow-hidden relative select-none shrink-0">
-            <img 
+            <img decoding="async"
               src={getProxyUrl(`/progetti/brainrot-pavillion/${piece.filename}`)} 
               data-src={`/progetti/brainrot-pavillion/${piece.filename}`}
               alt={`3D spinning reconstruction of the Italian brainrot subject ${piece.title}`}

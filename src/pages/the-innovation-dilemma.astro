@@ -9,7 +9,7 @@ const project = projects.find((p) => p.href === "/the-innovation-dilemma");
 <BaseLayout title="The Innovation Dilemma - Gabriele Radicello">
   <!-- Hero Section -->
   <section class="relative h-[100svh] md:h-[100dvh] w-full overflow-hidden flex items-center justify-center">
-    <img 
+    <img loading="eager" fetchpriority="high" decoding="async"
       src={getProxyUrl("/progetti/the-innovation-dilemma/1.jpg")} 
       data-src="/progetti/the-innovation-dilemma/1.jpg"
       alt="The Innovation Dilemma documentary cover"
@@ -186,10 +186,10 @@ const project = projects.find((p) => p.href === "/the-innovation-dilemma");
 
     <!-- Common Stills Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <img src={getProxyUrl("/progetti/the-innovation-dilemma/1.jpg")} data-src="/progetti/the-innovation-dilemma/1.jpg" alt="Frame 1" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-      <img src={getProxyUrl("/progetti/the-innovation-dilemma/2.jpg")} data-src="/progetti/the-innovation-dilemma/2.jpg" alt="Frame 2" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-      <img src={getProxyUrl("/progetti/the-innovation-dilemma/3.jpg")} data-src="/progetti/the-innovation-dilemma/3.jpg" alt="Frame 3" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-      <img src={getProxyUrl("/progetti/the-innovation-dilemma/4.jpg")} data-src="/progetti/the-innovation-dilemma/4.jpg" alt="Frame 4" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+      <img decoding="async" src={getProxyUrl("/progetti/the-innovation-dilemma/1.jpg")} data-src="/progetti/the-innovation-dilemma/1.jpg" alt="Frame 1" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+      <img decoding="async" src={getProxyUrl("/progetti/the-innovation-dilemma/2.jpg")} data-src="/progetti/the-innovation-dilemma/2.jpg" alt="Frame 2" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+      <img decoding="async" src={getProxyUrl("/progetti/the-innovation-dilemma/3.jpg")} data-src="/progetti/the-innovation-dilemma/3.jpg" alt="Frame 3" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+      <img decoding="async" src={getProxyUrl("/progetti/the-innovation-dilemma/4.jpg")} data-src="/progetti/the-innovation-dilemma/4.jpg" alt="Frame 4" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
     </div>
 
     <!-- Credits Section -->

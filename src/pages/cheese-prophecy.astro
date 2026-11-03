@@ -10,7 +10,7 @@ const project = projects.find((p) => p.href === "/cheese-prophecy");
 <BaseLayout title="The Cheese Prophecy - Gabriele Radicello" brandColor={project?.brandColor}>
   <!-- Hero Section -->
   <section class="relative h-[100svh] md:h-[100dvh] w-full overflow-hidden flex items-center justify-center">
-    <img 
+    <img loading="eager" fetchpriority="high" decoding="async"
       src="/progetti/the-cheese-prophecy/cover.png" 
       alt="The Cheese Prophecy Cover"
       class="absolute inset-0 w-full h-full object-cover z-0 opacity-25"
@@ -85,6 +85,7 @@ const project = projects.find((p) => p.href === "/cheese-prophecy");
   </section>
 
   <script>
+    import { loadLazyEmbed } from '../utils/lazy-media';
     function setupFullscreenExpander() {
       const heroBtn = document.getElementById("hero-fullscreen-btn");
       const btn = document.getElementById("fullscreen-btn");
@@ -106,6 +107,8 @@ const project = projects.find((p) => p.href === "/cheese-prophecy");
         }
 
         if (isFullscreen) {
+          const iframe = container.querySelector('iframe');
+          if (iframe) loadLazyEmbed(iframe);
           savedScrollY = window.scrollY;
           window.scrollTo(0, 0);
 

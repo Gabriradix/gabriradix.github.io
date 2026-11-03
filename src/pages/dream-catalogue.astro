@@ -11,7 +11,7 @@ const project = projects.find((p) => p.href === "/dream-catalogue");
 <BaseLayout title="Dream Catalogue - Gabriele Radicello">
   <!-- Hero Section -->
   <section class="relative h-[100svh] md:h-[100dvh] w-full overflow-hidden flex items-center justify-center">
-    <img 
+    <img loading="eager" fetchpriority="high" decoding="async"
       src={getProxyUrl("/progetti/dream-catalogue/cover.png")} 
       data-src="/progetti/dream-catalogue/cover.png"
       alt="Dream Catalogue Cover"
@@ -87,6 +87,7 @@ const project = projects.find((p) => p.href === "/dream-catalogue");
   </section>
 
   <script>
+    import { loadLazyEmbed } from '../utils/lazy-media';
     function setupFullscreenExpander() {
       const heroBtn = document.getElementById("hero-fullscreen-btn");
       const btn = document.getElementById("fullscreen-btn");
@@ -108,6 +109,8 @@ const project = projects.find((p) => p.href === "/dream-catalogue");
         }
 
         if (isFullscreen) {
+          const iframe = container.querySelector('iframe');
+          if (iframe) loadLazyEmbed(iframe);
           savedScrollY = window.scrollY;
           window.scrollTo(0, 0);
 

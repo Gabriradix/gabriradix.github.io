@@ -48,7 +48,7 @@ const altTexts: Record<string, string> = {
 <BaseLayout title="What's an Artist? - Gabriele Radicello">
   <!-- Hero Section -->
   <section class="relative h-[100svh] md:h-[100dvh] w-full overflow-hidden flex items-center justify-center">
-    <img 
+    <img loading="eager" fetchpriority="high" decoding="async"
       src={getProxyUrl("/progetti/whats-an-artist/copertina.png")} data-src="/progetti/whats-an-artist/copertina.png" 
       alt="Interfaccia web interattiva con la domanda 'What is an artist?' in bianco su sfondo scuro con flussi digitali"
       class="absolute inset-0 w-full h-full object-cover z-0 opacity-50"
@@ -112,7 +112,7 @@ const altTexts: Record<string, string> = {
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {galleryImages.map((img, i) => (
-          <img 
+          <img decoding="async"
             src={getProxyUrl(`/progetti/whats-an-artist/${img}`)} 
             data-src={`/progetti/whats-an-artist/${img}`} 
             alt={altTexts[img] || `What's an Artist? - Immagine della galleria ${i + 1}`} 

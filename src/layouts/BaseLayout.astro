@@ -428,11 +428,12 @@ const { favicon = dynamicFavicon } = Astro.props;
 
     <!-- Lightbox Overlay -->
     <div id="lightbox" aria-hidden="true">
-      <img id="lightbox-img" src="" alt="Visualizzazione ingrandita dell'immagine" />
+      <img id="lightbox-img" decoding="async" alt="Visualizzazione ingrandita dell'immagine" />
     </div>
 
     <script>
       import { getGestureAxis } from '../utils/gesture';
+      import { loadOriginalImage, loadLazyEmbed, prepareImageRetry } from '../utils/lazy-media';
       let currentImageIndex = 0;
       let galleryImages: HTMLImageElement[] = [];
 
@@ -456,7 +457,7 @@ const { favicon = dynamicFavicon } = Astro.props;
           
           setTimeout(() => {
             currentImageIndex = index;
-            lightboxImg.src = galleryImages[currentImageIndex].dataset.src || galleryImages[currentImageIndex].src;
+            lightboxImg.src = galleryImages[currentImageIndex].dataset.fullSrc || galleryImages[currentImageIndex].dataset.src || galleryImages[currentImageIndex].src;
             lightboxImg.alt = galleryImages[currentImageIndex].alt || "Visualizzazione ingrandita dell'immagine";
             lightboxImg.classList.remove(outClass);
             lightboxImg.classList.add(inClass);
@@ -468,7 +469,7 @@ const { favicon = dynamicFavicon } = Astro.props;
           }, 200);
         } else {
           currentImageIndex = index;
-          lightboxImg.src = galleryImages[currentImageIndex].dataset.src || galleryImages[currentImageIndex].src;
+          lightboxImg.src = galleryImages[currentImageIndex].dataset.fullSrc || galleryImages[currentImageIndex].dataset.src || galleryImages[currentImageIndex].src;
           lightboxImg.alt = galleryImages[currentImageIndex].alt || "Visualizzazione ingrandita dell'immagine";
         }
       };
@@ -547,44 +548,18 @@ const { favicon = dynamicFavicon } = Astro.props;
         }
       });
 
-      // Progressive Image Loading
+      // Progressive images and deferred embeds
       let imageObserver: IntersectionObserver | null = null;
       let embedObserver: IntersectionObserver | null = null;
-      const pendingImages = new WeakSet<HTMLImageElement>();
-
-      function loadOriginalImage(img: HTMLImageElement) {
-        const highResUrl = img.dataset.src;
-        if (!highResUrl || pendingImages.has(img)) return;
-        pendingImages.add(img);
-
-        const finish = () => {
-          img.classList.remove('img-loading');
-          img.removeAttribute('data-src');
-        };
-        if (img.getAttribute('src') === highResUrl) {
-          finish();
-          return;
-        }
-
-        const original = new Image();
-        original.onload = () => {
-          img.src = highResUrl;
-          finish();
-        };
-        // Keep the available preview readable if the original cannot load.
-        original.onerror = finish;
-        img.classList.add('img-loading');
-        original.src = highResUrl;
-      }
-
       function initProgressiveImages() {
+        document.querySelectorAll<HTMLImageElement>('img[src]:not([data-src]):not(#lightbox-img)').forEach(prepareImageRetry);
         imageObserver?.disconnect();
         embedObserver?.disconnect();
         embedObserver = new IntersectionObserver(entries => {
           entries.forEach(entry => {
             if (!entry.isIntersecting) return;
             const iframe = entry.target as HTMLIFrameElement;
-            if (iframe.dataset.src) iframe.src = iframe.dataset.src;
+            loadLazyEmbed(iframe);
             embedObserver?.unobserve(iframe);
           });
         }, { rootMargin: '200px 0px' });
@@ -597,8 +572,7 @@ const { favicon = dynamicFavicon } = Astro.props;
           });
         }, { rootMargin: '300px 0px' });
         document.querySelectorAll<HTMLImageElement>('img[data-src]').forEach(img => {
-          // GIFs and SVGs have no blurred proxy to upgrade.
-          if (img.getAttribute('src') === img.dataset.src) loadOriginalImage(img);
+          if (img.loading !== 'lazy') loadOriginalImage(img);
           else imageObserver?.observe(img);
         });
       }
@@ -612,45 +586,15 @@ const { favicon = dynamicFavicon } = Astro.props;
     </script>
 
     <script>
-      // Global Video Autoplay & Reload Manager for Astro View Transitions (ClientRouter)
-      function ensureAllVideosPlay() {
-        const videos = document.querySelectorAll<HTMLVideoElement>('video[autoplay]:not([data-carousel-video])');
-        videos.forEach(v => {
-          v.muted = true;
-          v.defaultMuted = true;
-          v.setAttribute('muted', '');
-          v.playsInline = true;
-          v.setAttribute('playsinline', '');
-          v.setAttribute('webkit-playsinline', '');
-
-          // Force loading if video is uninitialized (common on client-side navigation swaps)
-          if (v.networkState === 0) {
-            v.load();
-          }
-
-          const promise = v.play();
-          if (promise !== undefined) {
-            promise.catch(() => {
-              const resumeOnInteraction = () => {
-                v.play().catch(() => {});
-                window.removeEventListener('touchstart', resumeOnInteraction);
-                window.removeEventListener('scroll', resumeOnInteraction);
-                window.removeEventListener('click', resumeOnInteraction);
-              };
-              window.addEventListener('touchstart', resumeOnInteraction, { passive: true });
-              window.addEventListener('scroll', resumeOnInteraction, { passive: true });
-              window.addEventListener('click', resumeOnInteraction, { passive: true });
-            });
-          }
-        });
+      import { observeAutoplayVideos } from '../utils/lazy-media';
+      let stopVideos: (() => void) | undefined;
+      function initVideos() {
+        stopVideos?.();
+        stopVideos = observeAutoplayVideos();
       }
-
-      ensureAllVideosPlay();
-      document.addEventListener('astro:page-load', ensureAllVideosPlay);
-      document.addEventListener('astro:after-swap', ensureAllVideosPlay);
-      document.addEventListener('visibilitychange', () => {
-        if (!document.hidden) ensureAllVideosPlay();
-      });
+      initVideos();
+      document.addEventListener('astro:page-load', initVideos);
+      document.addEventListener('astro:before-swap', () => stopVideos?.());
     </script>
 
     <script>
