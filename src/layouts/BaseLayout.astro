@@ -790,7 +790,7 @@ const { favicon = dynamicFavicon } = Astro.props;
 
         // Logo hover triggers
         const logoLink = document.getElementById("logo-link");
-        if (logoLink && !logoLink.hasAttribute('data-ascii-logo-initialized')) {
+        if (logoLink?.hasAttribute('data-ascii-logo') && !logoLink.hasAttribute('data-ascii-logo-initialized')) {
           logoLink.setAttribute('data-ascii-logo-initialized', 'true');
           const handleLogoEnter = () => {
             logoLink.classList.add("hovered-target", "hovered-logo");

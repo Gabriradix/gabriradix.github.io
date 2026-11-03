@@ -81,6 +81,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <script>
     import * as pc from 'playcanvas';
     import { prepareWithSegments, layoutNextLine } from '@chenglou/pretext';
+    import { bindMobileReflow } from '../utils/about-scroll';
 
     const bioText = {
       en: [
@@ -106,26 +107,26 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     let samplingCanvas = null;
     let samplingCtx = null;
 
-    // ---- Touch Displacement State for Real-Time Finger Drag Reflow ----
-    let touchDragActive = false;
-    let touchStartY = 0;
-    let heroStartY = 0;
-    let liveTouchHeroTop = null;
-    let onTouchStartScroll = null;
-    let onTouchMoveScroll = null;
-    let onTouchEndScroll = null;
-
     // ---- Window Listener Handles for Clean Teardown ----
     let onMouseMove = null;
     let onMouseUp = null;
     let onTouchEnd = null;
     let onTouchCancel = null;
     let onResize = null;
-    let onScroll = null;
-    let onScrollEnd = null;
-    let scrollSettleTimer = null;
+    let stopScrollReflow: (() => void) | null = null;
+    let modelVisibilityObserver: IntersectionObserver | null = null;
+    let modelVisible = true;
+
+    function keepMobileModelRendering() {
+      return window.innerWidth < 768 && modelVisible;
+    }
 
     function cleanupAboutPage() {
+      stopScrollReflow?.();
+      stopScrollReflow = null;
+      modelVisibilityObserver?.disconnect();
+      modelVisibilityObserver = null;
+      modelVisible = true;
       if (app) {
         try {
           app.autoRender = false;
@@ -147,16 +148,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       if (onTouchEnd) { window.removeEventListener('touchend', onTouchEnd); onTouchEnd = null; }
       if (onTouchCancel) { window.removeEventListener('touchcancel', onTouchCancel); onTouchCancel = null; }
       if (onResize) { window.removeEventListener('resize', onResize); onResize = null; }
-      if (onScroll) { 
-        window.removeEventListener('scroll', onScroll); 
-        window.removeEventListener('touchmove', onScroll); 
-        onScroll = null; 
-      }
-      if (onScrollEnd) { window.removeEventListener('scrollend', onScrollEnd); onScrollEnd = null; }
-      if (onTouchStartScroll) { window.removeEventListener('touchstart', onTouchStartScroll); onTouchStartScroll = null; }
-      if (onTouchMoveScroll) { window.removeEventListener('touchmove', onTouchMoveScroll); onTouchMoveScroll = null; }
-      if (onTouchEndScroll) { window.removeEventListener('touchend', onTouchEndScroll); onTouchEndScroll = null; }
-      if (scrollSettleTimer !== null) { clearTimeout(scrollSettleTimer); scrollSettleTimer = null; }
     }
 
     function initAboutPage() {
@@ -188,6 +179,17 @@ import BaseLayout from "../layouts/BaseLayout.astro";
               powerPreference: 'default'
             }
           });
+          app.systems.gsplat.on('frame:request', () => {
+            if (app) app.renderNextFrame = true;
+          });
+          // Mobile sticky compositing needs a live WebGL layer. Pause it offscreen.
+          modelVisibilityObserver = new IntersectionObserver(([entry]) => {
+            modelVisible = entry.isIntersecting;
+            if (app && window.innerWidth < 768) {
+              app.autoRender = modelVisible;
+            }
+          });
+          modelVisibilityObserver.observe(document.getElementById('about-hero') || wrapper);
 
           // Camera (70mm FOV portrait perspective)
           const cameraEntity = new pc.Entity('Camera');
@@ -296,7 +298,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
               if (sampleCounter < 6) {
                 requestAnimationFrame(reflow);
               } else if (!isDragging && app) {
-                app.autoRender = false; // Pause GPU rendering after sampling completes
+                app.autoRender = keepMobileModelRendering();
               }
             };
             requestAnimationFrame(reflow);
@@ -426,6 +428,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           };
 
           const endDrag = () => {
+            if (!isDragging) return;
             isDragging = false;
             app.autoRender = true;
             let settle = 0;
@@ -436,7 +439,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
               if (settle < 4) {
                 requestAnimationFrame(settleFn);
               } else {
-                if (app) app.autoRender = false; // GPU idle — no drag, no render
+                if (app) app.autoRender = keepMobileModelRendering();
               }
             };
             requestAnimationFrame(settleFn);
@@ -485,6 +488,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
           let resizeReflowTimer = null;
           onResize = () => {
+            invalidateLayoutCache();
             syncCanvasSize();
 
             if (resizeReflowTimer !== null) {
@@ -501,7 +505,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                   renderPretextLayout();
                   n++;
                   if (n < 4) requestAnimationFrame(resizeReflow);
-                  else if (!isDragging && app) app.autoRender = false;
+                  else if (!isDragging && app) app.autoRender = keepMobileModelRendering();
                 };
                 resizeReflow();
               });
@@ -515,6 +519,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         }
       }
 
+      if (!stopScrollReflow) stopScrollReflow = bindMobileReflow(renderPretextLayout);
       renderPretextLayout();
     }
 
@@ -714,7 +719,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           liveGlW = glRect.width;
           liveGlH = glRect.height;
         } else {
-          const heroTop = liveTouchHeroTop !== null ? liveTouchHeroTop : hero.getBoundingClientRect().top;
+          const heroTop = hero.getBoundingClientRect().top;
           liveGlOffsetY = Math.max(0, 140 - heroTop);
           liveGlW = cachedGlW || 300;
           liveGlH = cachedGlH || 500;
@@ -727,9 +732,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       let silMaxY = -Infinity;
 
       if (rawSilhouetteRows.length > 0) {
-        const yShift = isMobile ? -20 : 0;
         for (const row of rawSilhouetteRows) {
-          const heroY = liveGlOffsetY + row.yRatio * liveGlH + yShift;
+          const heroY = liveGlOffsetY + row.yRatio * liveGlH;
           const snappedY = Math.round(heroY / lineHeight) * lineHeight;
           const heroLeft = liveGlOffsetX + row.leftRatio * liveGlW - padding;
           const heroRight = liveGlOffsetX + row.rightRatio * liveGlW + padding;
@@ -747,14 +751,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       }
 
       function getMobileSilhouetteRight(y) {
-        if (silMinY === Infinity || y < silMinY - 10 || y > silMaxY + 10) {
+        if (silMinY === Infinity || y + lineHeight < silMinY - padding || y > silMaxY + padding) {
           return null;
         }
-        const snappedY = Math.round(y / lineHeight) * lineHeight;
-        if (silhouetteMap.has(snappedY)) return silhouetteMap.get(snappedY)[1];
-        if (silhouetteMap.has(snappedY - lineHeight)) return silhouetteMap.get(snappedY - lineHeight)[1];
-        if (silhouetteMap.has(snappedY + lineHeight)) return silhouetteMap.get(snappedY + lineHeight)[1];
-        return null;
+        // Exclude the whole line box, including the top/bottom padding of the model.
+        let right = null;
+        const firstRow = Math.round((y - padding) / lineHeight) * lineHeight;
+        const lastRow = Math.round((y + lineHeight + padding) / lineHeight) * lineHeight;
+        for (let rowY = firstRow; rowY <= lastRow; rowY += lineHeight) {
+          const bounds = silhouetteMap.get(rowY);
+          if (bounds) right = Math.max(right ?? -Infinity, bounds[1]);
+        }
+        return right;
       }
 
       function getColumnEdges(y) {
@@ -789,7 +797,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           const paraH = fullLines.length * lineHeight;
 
           // Fast path: if paragraph is completely above or below head bounds, use cached fullLines directly
-          if (y + paraH < silMinY - 10 || y > silMaxY + 10) {
+          if (y + paraH < silMinY - padding || y > silMaxY + padding) {
             for (let i = 0; i < fullLines.length; i++) {
               collectLine(fullLines[i], margin, y, 'left');
               y += lineHeight;
@@ -801,8 +809,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
               let availW = fullW;
               const silRight = getMobileSilhouetteRight(y);
               if (silRight !== null) {
-                lineX = Math.max(margin, Math.min(heroW - 140, silRight));
-                availW = Math.max(140, heroW - margin - lineX);
+                lineX = Math.max(margin, silRight);
+                availW = heroW - margin - lineX;
+                if (availW < fontSize * 2) {
+                  y += lineHeight;
+                  continue;
+                }
               }
               const line = layoutNextLine(prepared, cursor, availW);
               if (!line) break;
@@ -902,85 +914,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         canvas.removeChild(existingSpans[i]);
       }
     }
-
-    // Real-time mobile scroll reflow with momentum scroll end detection
-    let isScrollReflowScheduled = false;
-
-    const performScrollReflow = () => {
-      renderPretextLayout();
-    };
-
-    onScroll = () => {
-      const isMobile = window.innerWidth < 768;
-      if (isMobile) {
-        if (!isScrollReflowScheduled) {
-          isScrollReflowScheduled = true;
-          requestAnimationFrame(() => {
-            isScrollReflowScheduled = false;
-            performScrollReflow();
-          });
-        }
-        if (scrollSettleTimer !== null) {
-          clearTimeout(scrollSettleTimer);
-        }
-        // Ensure final momentum scroll resting position is captured
-        scrollSettleTimer = setTimeout(() => {
-          scrollSettleTimer = null;
-          performScrollReflow();
-        }, 40);
-      }
-    };
-
-    onScrollEnd = () => {
-      const isMobile = window.innerWidth < 768;
-      if (isMobile) {
-        performScrollReflow();
-      }
-    };
-
-    onTouchStartScroll = (e) => {
-      const isMobile = window.innerWidth < 768;
-      if (isMobile && e.touches.length > 0) {
-        touchDragActive = true;
-        touchStartY = e.touches[0].clientY;
-        const hero = document.getElementById('about-hero');
-        if (hero) {
-          heroStartY = hero.getBoundingClientRect().top;
-        }
-      }
-    };
-
-    onTouchMoveScroll = (e) => {
-      const isMobile = window.innerWidth < 768;
-      if (isMobile && touchDragActive && e.touches.length > 0) {
-        const currentY = e.touches[0].clientY;
-        const deltaY = touchStartY - currentY;
-        liveTouchHeroTop = heroStartY - deltaY;
-
-        if (!isScrollReflowScheduled) {
-          isScrollReflowScheduled = true;
-          requestAnimationFrame(() => {
-            isScrollReflowScheduled = false;
-            performScrollReflow();
-          });
-        }
-      }
-    };
-
-    onTouchEndScroll = () => {
-      touchDragActive = false;
-      liveTouchHeroTop = null;
-      if (window.innerWidth < 768) {
-        performScrollReflow();
-      }
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('touchstart', onTouchStartScroll, { passive: true });
-    window.addEventListener('touchmove', onTouchMoveScroll, { passive: true });
-    window.addEventListener('touchend', onTouchEndScroll, { passive: true });
-    window.addEventListener('touchcancel', onTouchEndScroll, { passive: true });
-    window.addEventListener('scrollend', onScrollEnd, { passive: true });
 
     const triggerReflowAfterTransition = () => {
       invalidateLayoutCache();

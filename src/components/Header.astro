@@ -3,6 +3,8 @@ interface Props {
   logoHref?: string;
 }
 const { logoHref = "/" } = Astro.props;
+const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const isHome = pathname === "/" || pathname === "/index.html";
 ---
 <header
   id="main-header"
@@ -12,7 +14,11 @@ const { logoHref = "/" } = Astro.props;
     <a
       id="logo-link"
       class="flex items-center gap-2 md:gap-4 text-xl md:text-3xl font-normal tracking-tight text-neutral-300 transition-colors hover:text-white"
-      href={logoHref}
+      href={isHome ? "#" : logoHref}
+      data-scroll-top={isHome || undefined}
+      data-ascii-logo={!isHome || undefined}
+      aria-label={isHome ? "Back to top" : undefined}
+      aria-current={isHome ? "page" : undefined}
       style="font-family: 'Apple Garamond Custom', serif;"
     >
       <svg 
@@ -36,11 +42,17 @@ const { logoHref = "/" } = Astro.props;
       aria-label="Main navigation"
       id="header-nav"
     >
-      <a class="transition-colors hover:text-white" href="/about">
+      <a class="transition-colors hover:text-white" href={pathname === "/about" ? undefined : "/about"}
+        aria-current={pathname === "/about" ? "page" : undefined}
+        aria-disabled={pathname === "/about" ? "true" : undefined}
+      >
         <span class="lang-en">about</span>
         <span class="lang-it">chi sono</span>
       </a>
-      <a class="transition-colors hover:text-white" href="/contacts">
+      <a class="transition-colors hover:text-white" href={pathname === "/contacts" ? undefined : "/contacts"}
+        aria-current={pathname === "/contacts" ? "page" : undefined}
+        aria-disabled={pathname === "/contacts" ? "true" : undefined}
+      >
         <span class="lang-en">contacts</span>
         <span class="lang-it">contatti</span>
       </a>
@@ -57,54 +69,132 @@ const { logoHref = "/" } = Astro.props;
   </div>
 </header>
 
+<style>
+  #main-header {
+    transition: padding 0.4s ease,
+      opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+      filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #main-header::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 -1rem;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgb(0 0 0 / 0.95),
+      rgb(0 0 0 / 0.85) 55%,
+      transparent
+    );
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  #main-header[data-contrast]::before {
+    opacity: 1;
+  }
+
+  #main-header[data-compact] {
+    padding-block: 1rem;
+  }
+
+  #main-header[data-compact] #logo-root {
+    transform: scale(0.75);
+  }
+
+  #main-header[data-compact] #header-name {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-1rem);
+  }
+
+  #main-header[data-compact] #header-nav {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #header-nav [aria-current="page"] {
+    color: white;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
+  }
+
+  [aria-disabled="true"] {
+    cursor: default;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #main-header,
+    #main-header::before {
+      transition: none;
+    }
+  }
+</style>
+
 <script>
-  let header = null;
-  let logo = null;
-  let name = null;
-  let nav = null;
+  let header: HTMLElement | null = null;
+  let nav: HTMLElement | null = null;
   let forceCompact = false;
+  let previousScrollY = 0;
+  let scrollingUp = true;
+
+  function getScrollY() {
+    // Clamp overscroll so bouncing at the page edges cannot change direction.
+    const maxScrollY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    return Math.min(maxScrollY, Math.max(0, window.scrollY));
+  }
 
   function initHeader() {
-    forceCompact = window.location.pathname.replace(/\/$/, '') === '/surreal-splat-void' && window.innerWidth >= 768;
     header = document.getElementById("main-header");
-    logo = document.getElementById("logo-root");
-    name = document.getElementById("header-name");
     nav = document.getElementById("header-nav");
+    forceCompact = window.location.pathname.replace(/\/$/, '') === '/surreal-splat-void' && window.innerWidth >= 768;
+    previousScrollY = getScrollY();
+    scrollingUp = true;
+    const logoLink = document.getElementById("logo-link");
+    if (logoLink?.hasAttribute("data-scroll-top")) {
+      logoLink.addEventListener("click", scrollToTop);
+    }
     updateHeaderState();
   }
 
-  function updateHeaderState() {
-    if (header && logo && name && nav) {
-      let shouldBeCompact = forceCompact || window.scrollY > 50;
+  function scrollToTop(event: MouseEvent) {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+    });
+  }
 
-      if (shouldBeCompact) {
-        header.classList.remove("py-12", "py-6", "md:py-12");
-        header.classList.add("py-4");
-        logo.classList.add("scale-75");
-        name.classList.add(
-          "opacity-0",
-          "pointer-events-none",
-          "-translate-x-4",
-        );
-        nav.classList.add("opacity-0", "pointer-events-none");
-      } else {
-        header.classList.remove("py-4");
-        header.classList.remove("py-12");
-        header.classList.add("py-6", "md:py-12");
-        logo.classList.remove("scale-75");
-        name.classList.remove(
-          "opacity-0",
-          "pointer-events-none",
-          "-translate-x-4",
-        );
-        nav.classList.remove("opacity-0", "pointer-events-none");
-      }
+  function updateHeaderState() {
+    if (!header) return;
+
+    const compact = forceCompact || (getScrollY() > 50 && !scrollingUp);
+    header.toggleAttribute("data-compact", compact);
+    header.toggleAttribute("data-contrast", getScrollY() > 50 && !compact);
+    if (nav) nav.inert = compact;
+  }
+
+  function handleScroll() {
+    const scrollY = getScrollY();
+    const delta = scrollY - previousScrollY;
+
+    if (scrollY <= 50) {
+      scrollingUp = true;
+    } else if (Math.abs(delta) < 8) {
+      return;
+    } else {
+      scrollingUp = delta < 0;
     }
+
+    previousScrollY = scrollY;
+    updateHeaderState();
   }
 
   // Initialize
   initHeader();
-  window.addEventListener("scroll", updateHeaderState);
+  window.addEventListener("scroll", handleScroll, { passive: true });
   window.addEventListener("resize", updateHeaderState);
   document.addEventListener("astro:page-load", initHeader);
 
