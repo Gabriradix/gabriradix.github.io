@@ -1,30 +1,70 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { bioText } from "../data/about";
 ---
 
 <BaseLayout title="About - Gabriele Radicello">
   <section class="relative min-h-[90vh] w-full pt-24 md:pt-44 pb-12 px-2 md:px-8 max-w-7xl mx-auto flex flex-col items-center justify-start">
     
+    <div class="about-introduction relative w-full max-w-[1024px] mx-auto mb-6 md:mb-12">
     <!-- Hero / Splat & Pretext Interactive Area -->
-    <div id="about-hero" class="relative w-full max-w-[1024px] mx-auto mb-6 md:mb-12 select-none flex flex-col md:flex-row items-start md:items-center justify-start md:justify-center min-h-[600px] md:min-h-[530px]">
+    <div id="about-hero" class="relative w-full max-w-[1024px] mx-auto select-none flex flex-col md:flex-row items-start md:items-center justify-start md:justify-center min-h-[320px] md:min-h-[530px]">
       
-      <!-- 3D PlayCanvas Canvas Container (Centered on Desktop, Right-Sticky Lowered Near Bottom on Mobile) -->
+      <!-- The portrait stays within the biography while all text flows past it. -->
+      <div class="splat-track absolute inset-x-0 -top-16 bottom-0 min-h-[460px] md:top-0 md:min-h-[530px] pointer-events-none z-[2]">
       <div 
         id="splat-container" 
-        class="sticky md:absolute top-[140px] md:top-0 left-[-45%] md:left-auto right-auto md:right-0 mr-auto md:mr-0 w-[100%] md:w-full h-[500px] md:h-[530px] z-[2] self-start md:self-auto pointer-events-auto cursor-grab active:cursor-grabbing touch-pan-y flex items-center justify-center -translate-x-[100px] md:translate-x-0"
+        class="sticky top-8 md:absolute md:top-0 left-0 md:left-auto right-auto md:right-0 mr-auto md:mr-0 w-[100%] md:w-full h-[460px] md:h-[530px] z-[2] self-start md:self-auto pointer-events-auto cursor-grab active:cursor-grabbing touch-pan-y flex items-center justify-center -translate-x-[110px] md:translate-x-0"
       >
         <div id="splat-canvas-wrapper" class="w-full h-full relative flex items-center justify-center touch-pan-y">
         </div>
       </div>
 
+      </div>
+
       <!-- Pretext Carved Text Canvas: absolutely positioned spans -->
       <div 
-        id="pretext-canvas" 
+        id="pretext-canvas" aria-hidden="true"
         class="absolute inset-0 z-[3] pointer-events-none" 
         style="font-family: 'Apple Garamond Custom', 'Apple Garamond', 'EB Garamond', Garamond, serif; font-size: 20px; color: #d4d4d4; letter-spacing: 0.01em;"
       >
       </div>
 
+      <div class="sr-only">
+        {(["en", "it"] as const).map(language => (
+          <div class={`lang-${language}`}>
+            <p>{bioText[language][0]}</p>
+            <div class="hidden md:block">
+              {bioText[language].slice(1).map(paragraph => <p>{paragraph}</p>)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <details class="mobile-bio absolute inset-0 pointer-events-none md:hidden">
+      <summary aria-controls="mobile-bio-continuation">
+        <span class="bio-open-label">
+          <span class="lang-en">read more</span>
+          <span class="lang-it">leggi di più</span>
+        </span>
+        <span class="bio-close-label">
+          <span class="lang-en">read less</span>
+          <span class="lang-it">leggi meno</span>
+        </span>
+      </summary>
+      <div id="mobile-bio-continuation" class="sr-only">
+        {(["en", "it"] as const).map(language => (
+          <div class={`lang-${language}`}>
+            {bioText[language].slice(1).map(paragraph => <p>{paragraph}</p>)}
+          </div>
+        ))}
+      </div>
+      <button type="button" class="bio-read-less">
+        <span class="lang-en">read less</span>
+        <span class="lang-it">leggi meno</span>
+      </button>
+    </details>
     </div>
 
     <!-- Exhibitions & Education Section (Straight border-t line, rounded-none) -->
@@ -78,25 +118,100 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
   </section>
 
+  <style>
+    :global(html:has(.about-introduction)) {
+      scrollbar-gutter: stable;
+    }
+
+    .about-introduction {
+      overflow-anchor: none;
+    }
+
+    .mobile-bio summary {
+      display: inline-grid;
+      position: absolute;
+      top: var(--bio-toggle-y, 0px);
+      left: var(--bio-toggle-x, 12px);
+      z-index: 4;
+      width: max-content;
+      min-height: 44px;
+      padding-block: 7px;
+      color: #fff;
+      font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;
+      font-size: 0.875rem;
+      line-height: 30px;
+      white-space: nowrap;
+      cursor: pointer;
+      pointer-events: auto;
+      list-style: none;
+    }
+
+    .bio-read-less {
+      position: absolute;
+      top: var(--bio-end-y, 0px);
+      left: var(--bio-end-x, 12px);
+      z-index: 4;
+      min-height: 44px;
+      padding: 7px 0;
+      border: 0;
+      background: transparent;
+      color: #fff;
+      font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;
+      font-size: 0.875rem;
+      line-height: 30px;
+      white-space: nowrap;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+
+    .mobile-bio summary,
+    .bio-read-less {
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-kerning: normal;
+      text-shadow: 0 0 8px rgb(255 255 255 / 35%);
+    }
+
+    .mobile-bio summary:hover,
+    .bio-read-less:hover {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .mobile-bio summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .mobile-bio summary:focus-visible,
+    .bio-read-less:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 4px;
+    }
+
+    .mobile-bio .bio-open-label,
+    .mobile-bio .bio-close-label {
+      grid-area: 1 / 1;
+    }
+
+    .mobile-bio .bio-close-label,
+    .mobile-bio[open] .bio-open-label {
+      visibility: hidden;
+    }
+
+    .mobile-bio[open] .bio-close-label {
+      visibility: visible;
+    }
+
+  </style>
+
   <script>
     import * as pc from 'playcanvas';
     import { prepareWithSegments, layoutNextLine } from '@chenglou/pretext';
     import { bindMobileReflow } from '../utils/about-scroll';
+    import { bioText } from '../data/about';
 
-    const bioText = {
-      en: [
-        "Gabriele Radicello is a multimedia artist whose practice delves into the intricate web of relationships between human sensitivity and algorithmic computation. Driven by a continuous push for innovation, his work is founded on the concept of symbiosis: a complex state where human beings and the digital ecosystem do not exist in isolation, but constantly influence and redefine each other through an uninterrupted dialogue.",
-        "Shaped by a deep investigation into network cultures and the exploration of virtual worlds, the artist acts as an observer of the new landscapes generated by code. His practice merges a critical awareness of the technological medium with the creation of synthetic architectures that serve as true extensions of the psyche.",
-        "Gabriele Radicello explores the liminal and uncanny spaces that reside on the boundary between the organic and the computational, advocating for the dissolution of the self-imposed distance between biology and machine in search of a post-organic aesthetic that makes the richness of this convergence tangible.",
-        "Through his work, the artist questions the very nature of the creative process and the algorithmic sublime, structurally integrating artificial intelligence into his research. Embracing the unpredictability of latent spaces and data, AI is never employed as a mere executive tool, but elevated to the role of co-creator. Through works with a strong immersive resonance, Gabriele Radicello invites the viewer to reconsider the boundaries between the human and the synthetic, encouraging a deeper understanding of the complex hybrid choreography that defines our present."
-      ],
-      it: [
-        "Gabriele Radicello è un artista multimediale la cui pratica indaga l'intricata rete di relazioni tra la sensibilità umana e il calcolo algoritmico. Guidato da una spinta continua verso l'innovazione, il suo lavoro si fonda sul concetto di simbiosi: uno stato complesso in cui l'essere umano e l'ecosistema digitale non esistono separatamente, ma si influenzano e ridefiniscono costantemente attraverso un dialogo ininterrotto.",
-        "Formatosi attraverso un'indagine approfondita sulle culture di rete e l'esplorazione di mondi virtuali, l'artista agisce come un osservatore dei nuovi paesaggi generati dal codice. La sua pratica fonde la consapevolezza critica del mezzo tecnologico con la creazione di architetture sintetiche che fungono da vere e proprie estensioni della psiche.",
-        "Gabriele Radicello esplora gli spazi liminali e perturbanti che risiedono al confine tra l'organico e il computazionale, promuovendo la dissoluzione della distanza autoimposta tra biologia e macchina alla ricerca di un'estetica post-organica che renda tangibile la ricchezza di questa convergenza.",
-        "Attraverso la sua opera, l'artista mette in discussione la natura stessa del processo creativo e del sublime algoritmico, integrando strutturalmente l'intelligenza artificiale nella sua ricerca. Accogliendo l'imprevedibilità degli spazi latenti e dei dati, l'IA non viene mai impiegata come un mero strumento esecutivo, ma elevata al ruolo di co-creatore. Attraverso opere dalla forte risonanza immersiva, Gabriele Radicello invita lo spettatore a riconsiderare i confini tra l'umano e il sintetico, incoraggiando una comprensione più profonda della complessa coreografia ibrida che definisce il nostro presente."
-      ]
-    };
+
 
     let app = null;
     let headEntity = null;
@@ -151,6 +266,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     }
 
     function initAboutPage() {
+      const disclosure = document.querySelector<HTMLDetailsElement>('.mobile-bio');
+      if (disclosure) disclosure.ontoggle = () => {
+        maxObservedHeroHeight = 0;
+        renderPretextLayout();
+      };
+      document.querySelectorAll<HTMLButtonElement>('.bio-read-less').forEach(button => {
+        button.onclick = () => {
+          const disclosure = button.closest('details');
+          if (!disclosure) return;
+          disclosure.open = false;
+          maxObservedHeroHeight = 0;
+          renderPretextLayout();
+          disclosure.querySelector('summary')?.focus();
+        };
+      });
+
       const wrapper = document.getElementById('splat-canvas-wrapper');
       if (!wrapper) return;
 
@@ -159,7 +290,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       }
 
       const isMobile = window.innerWidth < 768;
-      const splatScale = isMobile ? 3.9 : 4.05;
+      const splatScale = 4.05;
 
       if (!isInitialized) {
         try {
@@ -595,6 +726,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     let cachedLang = '';
     let cachedFontSpec = '';
     let maxObservedHeroHeight = 0;
+    let textMeasureContext: CanvasRenderingContext2D | null = null;
 
     // Cached layout rect (updated in sampleSilhouette, used in renderPretextLayout without getBoundingClientRect)
     let cachedGlOffsetX = 0;
@@ -640,7 +772,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     let cachedFullWidthLines = new Map();
 
     function getFullWidthLines(text, width, prepared, fontSpecKey) {
-      const key = fontSpecKey + '_' + width + '_' + text.length;
+      const key = fontSpecKey + '_' + width + '_' + text;
       if (!cachedFullWidthLines.has(key)) {
         let cursor = { segmentIndex: 0, graphemeIndex: 0 };
         const lines = [];
@@ -669,7 +801,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       }
 
       const currentLang = document.documentElement.getAttribute('data-lang') || 'en';
-      const paragraphs = bioText[currentLang] || bioText.en;
+      const biography = bioText[currentLang] || bioText.en;
+      const disclosure = document.querySelector<HTMLDetailsElement>('.mobile-bio');
+      const summary = disclosure?.querySelector('summary');
+      const endButton = disclosure?.querySelector<HTMLButtonElement>('.bio-read-less');
+      const expanded = Boolean(disclosure?.open);
+      const paragraphs = cachedIsMobile && !expanded ? biography.slice(0, 1) : biography;
 
       const isMobile = cachedIsMobile;
       const fontSize = 20;
@@ -785,13 +922,37 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       }
 
       canvas.style.clipPath = '';
-      const startY = isMobile ? 10 : 20;
+      // Align the introduction with the portrait, rather than filling the space above it.
+      const restOffsetY = document.querySelector<HTMLElement>('.splat-track')?.offsetTop ?? -64;
+      // The text origin stays in document space while the silhouette follows the sticky canvas.
+      const restPortraitTop = rawSilhouetteRows.length ? restOffsetY + rawSilhouetteRows[0].yRatio * liveGlH : 12;
+      const restPortraitBottom = rawSilhouetteRows.length
+        ? restOffsetY + rawSilhouetteRows[rawSilhouetteRows.length - 1].yRatio * liveGlH + 12
+        : restOffsetY + liveGlH;
+      const startY = isMobile ? Math.max(24, restPortraitTop + 12) : 20;
+      let introControl = null;
+      let endControl = null;
+
+      if (!textMeasureContext) textMeasureContext = document.createElement('canvas').getContext('2d');
+      if (textMeasureContext) textMeasureContext.font = fontSpec;
+      function placeControl(line, width) {
+        const textWidth = (textMeasureContext?.measureText(line.text).width ?? 0) + line.text.length * 0.2;
+        let x = line.x + textWidth + 8;
+        let y = line.y;
+        if (x + width > heroW - margin) {
+          do {
+            y += lineHeight;
+            x = Math.max(margin, getMobileSilhouetteRight(y) ?? margin);
+          } while (x + width > heroW - margin);
+        }
+        return { x, y };
+      }
 
       if (isMobile) {
         let y = startY;
         const fullW = heroW - margin * 2;
 
-        paragraphs.forEach((text) => {
+        paragraphs.forEach((text, paragraphIndex) => {
           const prepared = getPrep(text);
           const fullLines = getFullWidthLines(text, fullW, prepared, fontSpec);
           const paraH = fullLines.length * lineHeight;
@@ -823,14 +984,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
               y += lineHeight;
             }
           }
+          const lastLine = newLines[newLines.length - 1];
+          if (paragraphIndex === 0 && summary && lastLine) {
+            introControl = placeControl(lastLine, summary.offsetWidth);
+            y = Math.max(y, introControl.y + lineHeight);
+          }
+          if (expanded && paragraphIndex === paragraphs.length - 1 && endButton && lastLine) {
+            endControl = placeControl(lastLine, endButton.offsetWidth);
+            y = Math.max(y, endControl.y + lineHeight);
+          }
           y += lineHeight;
         });
 
-        const currentReqH = Math.max(640, y + 20);
-        if (currentReqH > maxObservedHeroHeight) {
-          maxObservedHeroHeight = currentReqH;
-          hero.style.minHeight = maxObservedHeroHeight + 'px';
-        }
       } else {
         let yLeft = startY;
         [paragraphs[0], paragraphs[1]].forEach((text) => {
@@ -907,6 +1072,23 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           if (span.style.right) span.style.right = '';
           if (span.style.textAlign !== 'left') span.style.textAlign = 'left';
         }
+      }
+
+      // Both disclosure controls share the same moving exclusion as the text.
+      if (isMobile && disclosure && introControl) {
+        disclosure.style.setProperty('--bio-toggle-x', introControl.x + 'px');
+        disclosure.style.setProperty('--bio-toggle-y', (introControl.y - 7) + 'px');
+        if (endControl) {
+          disclosure.style.setProperty('--bio-end-x', endControl.x + 'px');
+          disclosure.style.setProperty('--bio-end-y', (endControl.y - 7) + 'px');
+        }
+        const lastLine = newLines[newCount - 1];
+        const bottomY = Math.max(lastLine?.y ?? 0, introControl.y, endControl?.y ?? 0);
+        const requiredHeight = Math.ceil(Math.max(320, restPortraitBottom, bottomY + lineHeight + 8));
+        // Keep the bottom of the page steady as text rewraps during scrolling.
+        maxObservedHeroHeight = Math.max(maxObservedHeroHeight, requiredHeight);
+        const heightPx = maxObservedHeroHeight + 'px';
+        if (hero.style.minHeight !== heightPx) hero.style.minHeight = heightPx;
       }
 
       // Remove extra spans
