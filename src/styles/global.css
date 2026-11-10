@@ -9,19 +9,29 @@
 }
 
 @font-face {
-  font-family: 'Helvetica Custom';
-  src: url('/fonts/Helvetica.ttf') format('truetype');
-  font-weight: normal;
+  font-family: 'Alte Haas Grotesk';
+  src: url('/fonts/AlteHaasGroteskRegular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Alte Haas Grotesk';
+  src: url('/fonts/AlteHaasGroteskBold.ttf') format('truetype');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @theme {
-  --font-sans: "Helvetica Custom", Helvetica, Arial, sans-serif;
+  --font-sans: "Alte Haas Grotesk", Helvetica, Arial, sans-serif;
   --font-serif: "Apple Garamond Custom", "Apple Garamond", "EB Garamond", Garamond, ui-serif, Georgia, serif;
 }
 
 html, body {
+  background-color: #000;
+  font-kerning: normal;
   scroll-behavior: smooth;
   overflow-x: hidden;
   max-width: 100vw;
@@ -45,10 +55,10 @@ html, body {
   h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase !important;
     font-feature-settings: "ss05" !important;
-    font-family: abcplus, "Helvetica Custom", Helvetica, Arial, sans-serif !important;
+    font-family: "Alte Haas Grotesk", Helvetica, Arial, sans-serif !important;
     font-size: calc(var(--font-size) * 3) !important;
     font-variation-settings: "MONO" 0, "wght" 700 !important;
-    font-weight: 720 !important;
+    font-weight: 700 !important;
     line-height: calc(var(--line) * 2.4) !important;
     letter-spacing: -.03em !important;
   }
@@ -148,6 +158,6 @@ p.text-xl, .text-xl {
 
 /* Header readability overrides (dark drop-shadow mask for scroll contrast) */
 #logo-root, #header-name, #header-nav a {
-  filter: drop-shadow(0 0 6px #171717) drop-shadow(0 0 12px #171717) drop-shadow(0 0 18px #171717) !important;
+  filter: drop-shadow(0 0 6px #000000) drop-shadow(0 0 12px #000000) drop-shadow(0 0 18px #000000) !important;
 }
 

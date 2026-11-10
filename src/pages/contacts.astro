@@ -7,7 +7,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <div class="max-w-4xl w-full">
       <h1
         class="mb-12 text-4xl md:text-6xl font-normal leading-none"
-        style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
+        style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;"
       >
         <span class="lang-en">MORE ON:</span>
         <span class="lang-it">CONTATTI & LINK:</span>
@@ -20,7 +20,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         >
           <div
             class="mb-1 text-base font-bold tracking-wider text-neutral-50 uppercase"
-            style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
+            style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;"
           >
             Email
           </div>
@@ -35,7 +35,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         >
           <div
             class="mb-1 text-base font-bold tracking-wider text-neutral-50 uppercase"
-            style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
+            style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;"
           >
             Instagram
           </div>
@@ -50,7 +50,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         >
           <div
             class="mb-1 text-base font-bold tracking-wider text-neutral-50 uppercase"
-            style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
+            style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;"
           >
             TikTok
           </div>
@@ -65,7 +65,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         >
           <div
             class="mb-1 text-base font-bold tracking-wider text-neutral-50 uppercase"
-            style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
+            style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;"
           >
             X (Twitter)
           </div>
@@ -116,6 +116,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
       cards.forEach(node => {
         const card = node as HTMLElement;
+        if (card.hasAttribute('data-ascii-initialized')) return;
+        card.setAttribute('data-ascii-initialized', 'true');
         
         const handleEnter = () => {
           if (Date.now() - lastTouchTime < 1000) return;

@@ -29,7 +29,7 @@ const isBrainrot = title === "Brainrot Pavilion";
   <div class="w-full md:w-1/3 shrink-0 pr-6 md:pr-12 flex flex-col md:items-end text-left md:text-right pt-[20px] mb-6 md:mb-0">
     <h3
       class="text-2xl font-normal tracking-tight text-neutral-200 mb-2 transition-colors group-hover:text-white"
-      style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
+      style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;"
     >
       <a
         href={href}
@@ -383,10 +383,6 @@ const isBrainrot = title === "Brainrot Pavilion";
     });
   }
 
-  let pageLoadTime = Date.now();
-  document.addEventListener('astro:page-load', () => { pageLoadTime = Date.now(); });
-  document.addEventListener('astro:after-swap', () => { pageLoadTime = Date.now(); });
-
   function initAsciiHover() {
     const cards = document.querySelectorAll('.project-card');
     let lastTouchTime = 0;
@@ -548,7 +544,7 @@ const isBrainrot = title === "Brainrot Pavilion";
   .carousel-container img,
   .carousel-container video {
     transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: box-shadow, transform;
+    will-change: auto;
   }
 
   /* Medium viewports (tablets and desktops): Apply safe padding and hover glow effects */

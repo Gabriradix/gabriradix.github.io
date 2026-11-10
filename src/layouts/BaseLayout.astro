@@ -39,7 +39,7 @@ const finalLogoHover = brandColor || logoHoverColor;
 const faviconColor = brandColor || "#ffffff";
 
 // Dynamic SVG Favicon: a square with the site background and the custom √ symbol
-const dynamicFavicon = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23171717'/%3E%3Cg transform='translate(35, 19) scale(1.1)'%3E%3Cpath d='M12.13 39.45L22.56 10.84L27.17 10.84L13.94 46.39L10.50 46.39L4.52 31.05L0 31.05L0 27.29L7.69 27.29L12.13 39.45Z' fill='${encodeURIComponent(faviconColor)}'/%3E%3C/g%3E%3C/svg%3E`;
+const dynamicFavicon = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000000'/%3E%3Cg transform='translate(35, 19) scale(1.1)'%3E%3Cpath d='M12.13 39.45L22.56 10.84L27.17 10.84L13.94 46.39L10.50 46.39L4.52 31.05L0 31.05L0 27.29L7.69 27.29L12.13 39.45Z' fill='${encodeURIComponent(faviconColor)}'/%3E%3C/g%3E%3C/svg%3E`;
 
 const { favicon = dynamicFavicon } = Astro.props;
 ---
@@ -90,21 +90,13 @@ const { favicon = dynamicFavicon } = Astro.props;
         font-style: normal;
         font-display: swap;
       }
-      @font-face {
-        font-family: 'Helvetica Custom';
-        src: url('/fonts/Helvetica.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-      }
-
       h1, h2, h3, h4, h5, h6 {
         text-transform: uppercase;
         font-feature-settings: "ss05";
-        font-family: abcplus, 'Helvetica Custom', Helvetica, Arial, sans-serif;
+        font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;
         font-size: calc(var(--font-size) * 3);
         font-variation-settings: "MONO" 0, "wght" 700;
-        font-weight: 720;
+        font-weight: 700;
         line-height: calc(var(--line) * 2.4);
         letter-spacing: -.03em;
       }
@@ -242,7 +234,7 @@ const { favicon = dynamicFavicon } = Astro.props;
 
       /* Header readability overrides (dark drop-shadow mask for scroll contrast) */
       #logo-root, #header-name, #header-nav a {
-        filter: drop-shadow(0 0 6px #171717) drop-shadow(0 0 12px #171717) drop-shadow(0 0 18px #171717);
+        filter: drop-shadow(0 0 6px #000000) drop-shadow(0 0 12px #000000) drop-shadow(0 0 18px #000000);
       }
 
 
@@ -254,18 +246,16 @@ const { favicon = dynamicFavicon } = Astro.props;
         pointer-events: none;
       }
       
-      /* Inactive projects and contacts fade and blur during ASCII mode */
+      /* The black canvas already masks inactive media; avoid filtering moving carousel layers. */
       html.ascii-active .project-card:not(.hovered-card),
       html.ascii-active .contact-card:not(.hovered-card) {
         opacity: 0.12 !important;
-        filter: blur(4px) grayscale(0.5);
         pointer-events: none;
       }
 
-      /* When hovering over the logo, dim and blur the ENTIRE page content & nav menu */
+      /* Dim the page during logo hover without rasterizing a filtered full-page layer. */
       html.logo-active main {
         opacity: 0.12 !important;
-        filter: blur(4px) grayscale(0.5);
         pointer-events: none;
       }
       html.logo-active header #header-nav {
@@ -277,7 +267,6 @@ const { favicon = dynamicFavicon } = Astro.props;
       /* ASCII Page Loading transition */
       html.ascii-loading main {
         opacity: 0 !important;
-        filter: blur(8px);
         pointer-events: none;
       }
       html.ascii-loading header #header-nav {
@@ -301,13 +290,12 @@ const { favicon = dynamicFavicon } = Astro.props;
       }
       .project-card,
       .contact-card {
-        transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        will-change: opacity, filter;
+        transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       }
       main {
         position: relative;
         z-index: auto;
-        transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       }
       .hovered-card,
       .hovered-logo {
@@ -316,14 +304,19 @@ const { favicon = dynamicFavicon } = Astro.props;
       }
       .hovered-target,
       .hovered-logo {
-        /* Aggiungiamo un drop-shadow che crea un alone scuro perfettamente aderente alle curve del font o SVG, mascherando i caratteri ASCII in modo organico */
-        filter: drop-shadow(0 0 8px #171717) drop-shadow(0 0 16px #171717) drop-shadow(0 0 32px #171717) drop-shadow(0 0 64px #171717) !important;
+        filter: drop-shadow(0 0 8px #000000) drop-shadow(0 0 16px #000000) !important;
+      }
+      .carousel-container.hovered-target {
+        /* A static backing masks ASCII without re-filtering every moving image. */
+        filter: none !important;
+        background-color: #000000;
+        box-shadow: 0 0 24px #000000;
       }
     </style>
 
   </head>
   <body 
-    class="bg-neutral-900 text-neutral-50 antialiased font-sans" 
+    class="bg-black text-neutral-50 antialiased font-sans"
     style="font-family: 'Apple Garamond Custom', serif;"
   >
     <!-- Fullscreen Generative ASCII Canvas Overlay -->
@@ -365,7 +358,7 @@ const { favicon = dynamicFavicon } = Astro.props;
           var cols = Math.floor(w / charWidth);
           var rows = Math.floor(h / charHeight);
 
-          ctx.fillStyle = "#171717";
+          ctx.fillStyle = "#000000";
           ctx.fillRect(0, 0, w, h);
 
           ctx.font = (charHeight - 2) + "px monospace";
@@ -410,7 +403,7 @@ const { favicon = dynamicFavicon } = Astro.props;
           canvas.style.opacity = "0";
           setTimeout(function() {
             if (!window._asciiIntroActive) {
-               canvas.style.opacity = "0.8"; // Restore opacity if hijacked during the fade out
+               // Hover owns the opacity now; an old intro timer must not revive the overlay.
                return; 
             }
             canvas.style.zIndex = "2";
@@ -598,327 +591,161 @@ const { favicon = dynamicFavicon } = Astro.props;
     </script>
 
     <script>
-      // Highly optimized ASCII generative background wave engine
+      import { createAsciiRenderer, createAsciiPlayback } from '../utils/ascii-renderer';
+
       let canvas: HTMLCanvasElement | null = null;
-      let ctx: CanvasRenderingContext2D | null = null;
-      let animationFrameId: number | null = null;
+      let renderer: ReturnType<typeof createAsciiRenderer> = null;
       let isAnimating = false;
-      let isIntroRunning = false;
-      
-      // Initialize mouse coordinates to the center of the viewport to ensure drawing works instantly
       let mouseX = window.innerWidth / 2;
       let mouseY = window.innerHeight / 2;
-      let fadeOutTimeoutId: number | null = null;
+      let fadeOutTimeoutId: ReturnType<typeof setTimeout> | null = null;
+      let suppressedStartId: ReturnType<typeof setTimeout> | null = null;
+      let suppressUntil = 0;
+      const playback = createAsciiPlayback(time => renderer?.render(time, mouseX, mouseY));
+      const hasHover = () => document.querySelector('.hovered-card, .hovered-logo') !== null;
 
-      // Character ramp for wave mapping (ordered by density)
-      const asciiRamp = " .:-=+*#%@";
-
-      // Module-level resizing function
-      const resizeCanvas = () => {
-        if (canvas) {
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-        }
+      const clearTimers = () => {
+        if (fadeOutTimeoutId !== null) clearTimeout(fadeOutTimeoutId);
+        if (suppressedStartId !== null) clearTimeout(suppressedStartId);
+        fadeOutTimeoutId = suppressedStartId = null;
       };
 
-      // Register module-level event listeners once to prevent leaks
-      window.addEventListener("resize", resizeCanvas);
-
-      window.addEventListener("mousemove", (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+      const resizeCanvas = () => renderer?.resize(window.innerWidth, window.innerHeight);
+      window.addEventListener('resize', resizeCanvas);
+      window.addEventListener('mousemove', event => {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+      }, { passive: true });
+      const handleTouchCoord = (event: TouchEvent) => {
+        if (!event.touches.length) return;
+        mouseX = event.touches[0].clientX;
+        mouseY = event.touches[0].clientY;
+      };
+      window.addEventListener('touchstart', handleTouchCoord, { passive: true });
+      window.addEventListener('touchmove', handleTouchCoord, { passive: true });
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) playback.stop();
+        else if (isAnimating) playback.start();
       });
 
-      const handleTouchCoord = (e: TouchEvent) => {
-        if (e.touches && e.touches.length > 0) {
-          mouseX = e.touches[0].clientX;
-          mouseY = e.touches[0].clientY;
-        }
-      };
-      window.addEventListener("touchstart", handleTouchCoord, { passive: true });
-      window.addEventListener("touchmove", handleTouchCoord, { passive: true });
-
-      let lastNavTime = 0;
-      let suppressUntil = 0;
-
-      document.addEventListener('click', (e) => {
-        const link = (e.target as HTMLElement)?.closest('a, button');
-        if (!link) return;
-        document.querySelectorAll('.hovered-card, .hovered-logo').forEach(el => {
-          el.classList.remove('hovered-card', 'hovered-logo');
+      const clearHover = () => {
+        document.querySelectorAll('.hovered-target, .hovered-card, .hovered-logo').forEach(element => {
+          element.classList.remove('hovered-target', 'hovered-card', 'hovered-logo');
         });
         document.documentElement.classList.remove('ascii-active', 'logo-active');
+      };
+      document.addEventListener('click', event => {
+        if (!(event.target as HTMLElement)?.closest('a, button')) return;
+        clearHover();
+        stopAsciiLoop(true);
       });
       document.addEventListener('astro:before-swap', () => {
         (window as any)._stopAsciiIntro?.();
-        if (animationFrameId) cancelAnimationFrame(animationFrameId);
-        animationFrameId = null;
+        clearTimers();
+        playback.stop();
         isAnimating = false;
+        canvas = null;
+        renderer = null;
       });
 
-      function handleBeforePreparation(e: any) {
+      function handleBeforePreparation(event: any) {
         suppressUntil = 0;
-        lastNavTime = Date.now();
-        (window as any)._lastNavTime = lastNavTime;
-        document.documentElement.classList.add("ascii-loading");
-        
-        // Disable transition during startup to show the loading background instantly
-        if (canvas) {
-          canvas.style.transition = "none";
-          // Force reflow
-          canvas.offsetHeight;
-        }
-
+        document.documentElement.classList.add('ascii-loading');
+        if (canvas) canvas.style.transition = 'none';
         startAsciiLoop();
-
-        // Restore the smooth fade transition for when the loop stops
-        if (canvas) {
-          requestAnimationFrame(() => {
-            if (canvas) {
-              canvas.style.transition = "opacity 0.7s ease-in-out";
-            }
-          });
-        }
-
-        // Wrap e.loader in a function so that it returns a delayed promise, guaranteeing smooth transition
-        if (e && typeof e.loader === "function") {
-          const originalLoader = e.loader;
-          e.loader = () => {
-            const delayPromise = new Promise(resolve => setTimeout(resolve, 150));
-            return Promise.all([originalLoader(), delayPromise]).then(results => results[0]);
-          };
+        // Commit the loading state, then restore the opacity transition without a forced layout.
+        requestAnimationFrame(() => {
+          if (canvas) canvas.style.transition = 'opacity 0.7s ease-in-out';
+        });
+        if (typeof event?.loader === 'function') {
+          const originalLoader = event.loader;
+          event.loader = () => Promise.all([
+            originalLoader(), new Promise(resolve => setTimeout(resolve, 150)),
+          ]).then(results => results[0]);
         }
       }
 
       function handlePageLoad() {
         suppressUntil = Date.now() + 1200;
-        document.documentElement.classList.remove("ascii-loading");
-        document.documentElement.classList.remove("ascii-active");
-        document.documentElement.classList.remove("logo-active");
-        document.querySelectorAll('.hovered-card').forEach(el => el.classList.remove('hovered-card'));
-        document.querySelectorAll('.hovered-logo').forEach(el => el.classList.remove('hovered-logo'));
-        isIntroRunning = false;
+        document.documentElement.classList.remove('ascii-loading');
+        clearHover();
         (window as any)._stopAsciiIntro?.();
-        stopAsciiLoop(true);
         initAsciiEngine();
-
-        // Safety backups to clear any mouseenter triggers right after page swap
-        setTimeout(() => stopAsciiLoop(true), 100);
-        setTimeout(() => stopAsciiLoop(true), 300);
+        stopAsciiLoop(true);
       }
 
       function initAsciiEngine() {
-        canvas = document.getElementById("global-ascii-canvas") as HTMLCanvasElement;
-        if (!canvas) return;
-        ctx = canvas.getContext("2d");
-        if (!ctx) return;
-
-        // Size it initially
-        resizeCanvas();
-
-        // Event listeners from projects
-        document.removeEventListener("ascii-start", startAsciiLoop);
-        document.removeEventListener("ascii-stop", stopAsciiLoop);
-        document.addEventListener("ascii-start", startAsciiLoop);
-        document.addEventListener("ascii-stop", stopAsciiLoop);
-
-        // View Transition triggers
-        document.removeEventListener("astro:before-preparation", handleBeforePreparation);
-        document.removeEventListener("astro:after-preparation", handlePageLoad);
-        document.removeEventListener("astro:page-load", handlePageLoad);
-        document.removeEventListener("astro:after-swap", handlePageLoad);
-        document.addEventListener("astro:before-preparation", handleBeforePreparation);
-        document.addEventListener("astro:after-preparation", handlePageLoad);
-        document.addEventListener("astro:page-load", handlePageLoad);
-        document.addEventListener("astro:after-swap", handlePageLoad);
-
-        // Logo hover triggers
-        const logoLink = document.getElementById("logo-link");
+        const nextCanvas = document.getElementById('global-ascii-canvas') as HTMLCanvasElement | null;
+        if (!nextCanvas) return;
+        if (nextCanvas !== canvas) {
+          playback.stop();
+          isAnimating = false;
+          canvas = nextCanvas;
+          renderer = createAsciiRenderer(canvas);
+          resizeCanvas();
+        }
+        const logoLink = document.getElementById('logo-link');
         if (logoLink?.hasAttribute('data-ascii-logo') && !logoLink.hasAttribute('data-ascii-logo-initialized')) {
           logoLink.setAttribute('data-ascii-logo-initialized', 'true');
-          const handleLogoEnter = () => {
-            logoLink.classList.add("hovered-target", "hovered-logo");
-            document.documentElement.classList.add("logo-active");
+          const enter = () => {
+            logoLink.classList.add('hovered-target', 'hovered-logo');
+            document.documentElement.classList.add('logo-active');
             startAsciiLoop();
           };
-
-          const handleLogoLeave = () => {
-            logoLink.classList.remove("hovered-target", "hovered-logo");
-            document.documentElement.classList.remove("logo-active");
+          const leave = () => {
+            logoLink.classList.remove('hovered-target', 'hovered-logo');
+            document.documentElement.classList.remove('logo-active');
             stopAsciiLoop(true);
           };
-
-          logoLink.addEventListener("mouseenter", handleLogoEnter);
-          logoLink.addEventListener("mouseleave", handleLogoLeave);
-          logoLink.addEventListener("touchstart", handleLogoEnter, { passive: true });
-          logoLink.addEventListener("touchend", handleLogoLeave, { passive: true });
+          logoLink.addEventListener('mouseenter', enter);
+          logoLink.addEventListener('mouseleave', leave);
+          logoLink.addEventListener('touchstart', enter, { passive: true });
+          logoLink.addEventListener('touchend', leave, { passive: true });
+          logoLink.addEventListener('touchcancel', leave, { passive: true });
         }
       }
 
       function startAsciiLoop() {
-        if ((window as any)._asciiIntroActive) {
-          // User hovered DURING the initial page load intro!
-          // Hijack the intro so it doesn't shut down the canvas.
-          (window as any)._stopAsciiIntro?.();
-          if (canvas) {
-            canvas.style.zIndex = "99";
-            canvas.style.opacity = "0.8";
-          }
-          isAnimating = false;
+        (window as any)._stopAsciiIntro?.();
+        clearTimers();
+        const delay = suppressUntil - Date.now();
+        if (delay > 0) {
+          suppressedStartId = setTimeout(() => {
+            suppressedStartId = null;
+            if (hasHover()) startAsciiLoop();
+          }, delay);
+          return;
         }
-
-        const now = Date.now();
-        if (now < suppressUntil) {
-           // Instead of dropping the event, schedule it to start when suppression ends,
-           // provided the user is STILL hovering an element.
-           setTimeout(() => {
-             if (document.querySelector('.hovered-card') || document.querySelector('.hovered-logo')) {
-               startAsciiLoop();
-             }
-           }, suppressUntil - now);
-           return;
-        }
-        // Defensive re-query if elements were swapped or not initialized yet (prevents click requirement)
-        if (!canvas || !ctx) {
-          initAsciiEngine();
-        }
-
-        // Clear any active fade out timer
-        if (fadeOutTimeoutId) {
-          clearTimeout(fadeOutTimeoutId);
-          fadeOutTimeoutId = null;
-        }
-
-        if (canvas && !isIntroRunning) {
-          canvas.style.zIndex = "99";
-          canvas.style.opacity = "0.8"; // Overall animation opacity set to 0.8 as requested
-        }
-
-        // Forcefully ensure hovered elements are in the foreground (combats transition-induced stacking context bugs)
-        document.querySelectorAll('.hovered-card, .hovered-logo').forEach((el) => {
-          (el as HTMLElement).style.zIndex = "101";
-          (el as HTMLElement).style.position = "relative";
-        });
-        const header = document.getElementById('main-header');
-        if (header && document.querySelector('.hovered-logo')) {
-          header.style.zIndex = "101";
-        }
-
-        if (isAnimating) return;
+        if (!canvas || !renderer) initAsciiEngine();
+        if (!canvas || !renderer) return;
+        canvas.style.zIndex = '99';
+        canvas.style.opacity = '0.8';
         isAnimating = true;
-        loop();
+        if (!document.hidden) playback.start();
       }
 
       function stopAsciiLoop(force = false) {
-        if (!force) {
-          if (isIntroRunning) return;
-          // If there is still any hovered card or hovered logo, keep the loop active!
-          if (document.querySelector('.hovered-card') || document.querySelector('.hovered-logo')) return;
-        }
-
-        // Clean up inline styles
-        document.querySelectorAll('.project-card, .contact-card, .hovered-logo').forEach((el) => {
-          (el as HTMLElement).style.zIndex = "";
-          (el as HTMLElement).style.position = "";
-        });
-        const header = document.getElementById('main-header');
-        if (header) header.style.zIndex = "";
-
-        if (canvas) {
-          canvas.style.opacity = "0";
-        }
-
-        // Delay loop termination and canvas clearing to allow the CSS opacity transition to complete smoothly
-        if (fadeOutTimeoutId) clearTimeout(fadeOutTimeoutId);
+        if (!force && hasHover()) return;
+        clearTimers();
+        isAnimating = false;
+        // Fade the last frame in the compositor: no canvas redraws during the 700 ms exit.
+        playback.stop();
+        if (!canvas) return;
+        canvas.style.opacity = '0';
+        const fadingCanvas = canvas;
         fadeOutTimeoutId = setTimeout(() => {
-          if (!isAnimating) return;
-          isAnimating = false;
-          if (animationFrameId) {
-            cancelAnimationFrame(animationFrameId);
-            animationFrameId = null;
-          }
-          if (ctx && canvas) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            canvas.style.zIndex = "2";
-          }
+          fadingCanvas.getContext('2d')?.clearRect(0, 0, fadingCanvas.width, fadingCanvas.height);
+          fadingCanvas.style.zIndex = '2';
           fadeOutTimeoutId = null;
-        }, 700) as unknown as number; // 700ms matching transition-opacity duration-700
+        }, 700);
       }
 
-      function loop() {
-        if (!isAnimating || !canvas || !ctx) return;
-
-        const w = canvas.width;
-        const h = canvas.height;
-
-        // Grid resolution (1 character every 13 pixels horizontally, 18 vertically)
-        const charWidth = 13;
-        const charHeight = 18;
-        const cols = Math.floor(w / charWidth);
-        const rows = Math.floor(h / charHeight);
-
-        // 1. Fill background with solid theme color so all unhovered elements are 100% masked
-        ctx.fillStyle = "#171717";
-        ctx.fillRect(0, 0, w, h);
-
-        ctx.font = `${charHeight - 2}px monospace`;
-        ctx.textBaseline = "top";
-
-        const time = performance.now() * 0.001;
-
-        // Grid coordinates of the mouse
-        const mouseCol = Math.floor(mouseX / charWidth);
-        const mouseRow = Math.floor(mouseY / charHeight);
-
-        for (let r = 0; r < rows; r++) {
-          const charY = r * charHeight;
-          const charBottom = charY + charHeight;
-
-          for (let c = 0; c < cols; c++) {
-            const charX = c * charWidth;
-            const charRight = charX + charWidth;
-
-            // Generative mathematical wave equations combining noise and coordinate ripples
-            const dx = c - mouseCol;
-            const dy = r - mouseRow;
-            const dist = Math.sqrt(dx*dx + dy*dy);
-
-            // Base waves
-            const wave1 = Math.sin(c * 0.12 - time * 2.5) * Math.cos(r * 0.08 + time * 1.5);
-            const wave2 = Math.sin(Math.sqrt(c*c + r*r) * 0.04 - time * 2);
-            
-            // Mouse interactive ripple (decays over distance)
-            const ripple = Math.sin(dist * 0.3 - time * 6) * Math.exp(-dist * 0.07);
-
-            // Combine fields
-            let z = (wave1 + wave2) * 0.4 + ripple * 0.8;
-            
-            // Add a tiny bit of generative background noise for organic glitch texture
-            const noise = Math.sin(c * 2.3 + r * 3.7 + time * 10) * 0.08;
-            z += noise;
-
-            // Clamp and map value from [-1, 1] to character index
-            let index = Math.floor((z + 1) * 0.5 * asciiRamp.length);
-            if (index < 0) index = 0;
-            if (index >= asciiRamp.length) index = asciiRamp.length - 1;
-
-            const char = asciiRamp[index];
-
-            // Render
-            // Subtle, beautiful low-contrast gray color that glows slightly in dark mode
-            const brightness = Math.floor(40 + (z + 1) * 0.5 * 80); // gray levels from 40 to 120
-            ctx.fillStyle = `rgba(${brightness}, ${brightness}, ${brightness + 10}, 0.85)`;
-
-            ctx.fillText(char, charX, charY);
-          }
-        }
-
-        animationFrameId = requestAnimationFrame(loop);
-      }
-
-      // Initialize
+      document.addEventListener('ascii-start', startAsciiLoop);
+      document.addEventListener('ascii-stop', () => stopAsciiLoop());
+      document.addEventListener('astro:before-preparation', handleBeforePreparation);
+      document.addEventListener('astro:after-swap', handlePageLoad);
+      document.addEventListener('astro:page-load', handlePageLoad);
       initAsciiEngine();
-      document.addEventListener("astro:page-load", initAsciiEngine);
     </script>
   </body>
 </html>
