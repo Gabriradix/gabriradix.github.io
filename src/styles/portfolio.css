@@ -19,7 +19,7 @@
 
 .portfolio-editorial-row{
   display:grid;
-  grid-template-columns:224px minmax(0,1fr);
+  grid-template-columns:minmax(240px,280px) minmax(0,1fr);
   gap:48px;
   align-items:start;
   margin-bottom:48px;
@@ -37,17 +37,22 @@
 .portfolio-typeset .portfolio-editorial-title h2,
 .portfolio-typeset .portfolio-editorial-title h3{
   font-family:var(--portfolio-ui)!important;
-  font-size:clamp(22px,2.2vw,30px)!important;
+  font-size:clamp(20px,1.8vw,26px)!important;
   font-weight:700!important;
-  line-height:1.08!important;
+  line-height:1.15!important;
   letter-spacing:-.02em!important;
   text-transform:none!important;
   text-align:right!important;
   color:var(--portfolio-ink)!important;
   margin:0!important;
-  text-wrap:balance;
+  text-wrap:pretty!important;
   overflow-wrap:normal;
   word-break:normal;
+}
+.portfolio-overview-row .portfolio-editorial-title h2,
+#project-overview-heading{
+  white-space:nowrap!important;
+  text-wrap:nowrap!important;
 }
 
 .portfolio-project-prose{
@@ -125,7 +130,7 @@
 .portfolio-typeset .portfolio-brainrot-brief{padding:0;color:var(--portfolio-ink)}
 .portfolio-typeset .portfolio-brainrot-brief .portfolio-project-prose p{color:#333}
 .portfolio-typeset .portfolio-brainrot-brief .portfolio-disclosure{border-color:#bbb}
-.portfolio-typeset .portfolio-brainrot-brief .portfolio-editorial-row{grid-template-columns:224px minmax(0,1fr);gap:48px}
+.portfolio-typeset .portfolio-brainrot-brief .portfolio-editorial-row{grid-template-columns:minmax(240px,280px) minmax(0,1fr);gap:48px}
 .portfolio-typeset .portfolio-brainrot-brief .portfolio-disclosure-body>.grid{display:block}
 .portfolio-typeset .portfolio-brainrot-brief .portfolio-disclosure-body>.grid>div{border-left:none;padding-left:0;margin-bottom:32px}
 .portfolio-typeset .portfolio-brainrot-next{color:#161616;--portfolio-ink:#161616;--portfolio-subtle:#555;--portfolio-line:#aaa}
