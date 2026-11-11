@@ -374,11 +374,17 @@ const { favicon = dynamicFavicon } = Astro.props;
       .hovered-logo {
         filter: drop-shadow(0 0 8px #000000) drop-shadow(0 0 16px #000000) !important;
       }
-      .carousel-container.hovered-target {
-        /* A static backing masks ASCII without re-filtering every moving image. */
+      .project-card.hovered-card .carousel-container {
+        /* Protect the whole active carousel, including when its title triggers ASCII. */
+        position: relative;
+        z-index: 1;
         filter: none !important;
+        background: transparent;
+        box-shadow: none;
+      }
+      .project-card.hovered-card .carousel-container :is(img, video) {
+        /* Mask only actual media, never the carousel's padding or image gaps. */
         background-color: #000000;
-        box-shadow: 0 0 24px #000000;
       }
     </style>
 
