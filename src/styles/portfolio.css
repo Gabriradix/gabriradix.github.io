@@ -77,14 +77,14 @@
 }
 
 /* Disclosure / Deep-dive - Spans full centered width */
-.portfolio-disclosure{width:100%;max-width:1140px;margin:28px 0 0;border-top:1px solid var(--portfolio-line);border-bottom:1px solid var(--portfolio-line);color:inherit}
-.portfolio-disclosure>summary{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:56px;padding:16px 0;cursor:pointer;list-style:none;font:14px/1.4 var(--portfolio-ui);color:inherit}
+.portfolio-disclosure{width:100%;max-width:1140px;margin:28px 0 0;border:none!important;color:inherit}
+.portfolio-disclosure>summary{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:48px;padding:12px 0;cursor:pointer;list-style:none;font:14px/1.4 var(--portfolio-ui);color:inherit}
 .portfolio-disclosure>summary::-webkit-details-marker{display:none}
 .portfolio-disclosure>summary:hover .portfolio-disclosure-label{text-decoration:underline;text-underline-offset:4px}
 .portfolio-disclosure .portfolio-less{display:none}.portfolio-disclosure[open] .portfolio-more{display:none}.portfolio-disclosure[open] .portfolio-less{display:inline}
 .portfolio-disclosure .portfolio-expand-icon{font-size:24px;font-weight:400;transition:transform .25s}
 .portfolio-disclosure[open] .portfolio-expand-icon{transform:rotate(45deg)}
-.portfolio-disclosure-body{padding:48px 0 16px;overflow:hidden}
+.portfolio-disclosure-body{padding:32px 0 16px;overflow:hidden}
 
 /* Original Content Centered Bounds */
 .portfolio-original-content{
@@ -118,9 +118,9 @@
   display:none!important;
 }
 
-/* Next Project Navigation - Compact & Centered */
-.portfolio-next-project{max-width:1140px;margin:0 auto;padding:48px 32px 80px;color:var(--portfolio-ink)}
-.portfolio-next-project>a{display:flex;align-items:center;justify-content:space-between;gap:32px;border-top:1px solid var(--portfolio-line);padding-top:24px;color:inherit;text-decoration:none;min-height:64px}
+/* Next Project Navigation - Single Top Divider Only */
+.portfolio-next-project{max-width:1140px;margin:32px auto 0;padding:48px 32px 80px;color:var(--portfolio-ink);border-top:1px solid var(--portfolio-line)}
+.portfolio-next-project>a{display:flex;align-items:center;justify-content:space-between;gap:32px;border-top:none!important;padding-top:0;color:inherit;text-decoration:none;min-height:64px}
 .portfolio-next-project .portfolio-next-label{font:11px/1.4 var(--portfolio-ui);text-transform:uppercase;letter-spacing:.08em;color:var(--portfolio-subtle);margin-bottom:6px;display:block}
 .portfolio-next-project h2{font-size:clamp(18px,2vw,24px)!important;line-height:1.2!important;letter-spacing:-.01em;font-weight:600!important;margin:0}
 .portfolio-next-project .portfolio-next-arrow{font:400 28px/1 var(--portfolio-ui);transition:transform .25s}
