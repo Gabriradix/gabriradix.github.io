@@ -5,8 +5,9 @@
   "private": true,
   "scripts": {
     "dev": "node ./scripts/dev.js",
-    "prebuild": "node ./scripts/generate-previews.js && node ./scripts/generate-image-delivery.js && node ./scripts/generate-animated-delivery.js",
+    "prebuild": "node ./scripts/generate-favicons.js && node ./scripts/generate-previews.js && node ./scripts/generate-image-delivery.js && node ./scripts/generate-animated-delivery.js",
     "build": "node ./scripts/build.js",
+    "favicons": "node ./scripts/generate-favicons.js",
     "previews": "node ./scripts/generate-previews.js",
     "preview": "npx astro preview",
     "astro": "npx astro",

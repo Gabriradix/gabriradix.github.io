@@ -111,7 +111,8 @@ const faviconColor = brandColor || "#ffffff";
 // Dynamic SVG Favicon: a square with the site background and the custom √ symbol
 const dynamicFavicon = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000000'/%3E%3Cg transform='translate(35, 19) scale(1.1)'%3E%3Cpath d='M12.13 39.45L22.56 10.84L27.17 10.84L13.94 46.39L10.50 46.39L4.52 31.05L0 31.05L0 27.29L7.69 27.29L12.13 39.45Z' fill='${encodeURIComponent(faviconColor)}'/%3E%3C/g%3E%3C/svg%3E`;
 
-const { favicon = dynamicFavicon } = Astro.props;
+const { favicon } = Astro.props;
+const currentFavicon = favicon || (brandColor ? dynamicFavicon : "/favicon.svg");
 ---
 
 <!doctype html>
@@ -134,7 +135,11 @@ const { favicon = dynamicFavicon } = Astro.props;
     <meta name="twitter:image" content={shareImageUrl} />
     {!noindex && <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')} />}
     {noindex && <meta name="robots" content="noindex, nofollow" />}
-    <link rel="icon" type="image/svg+xml" href={favicon} />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href={currentFavicon} />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="preload" href="/fonts/AlteHaasGroteskBold.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="preload" href="/fonts/AlteHaasGroteskRegular.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="preload" href="/fonts/AppleGaramond.ttf" as="font" type="font/ttf" crossorigin />
