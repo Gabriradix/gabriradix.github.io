@@ -1,6 +1,8 @@
 ---
+import ProjectOverview from "../components/ProjectOverview.astro";
+import NextProject from "../components/NextProject.astro";
+import ProgressiveImage from "../components/ProgressiveImage.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getProxyUrl } from "../utils/image";
 import { projects } from "../data/projects";
 
 const project = projects.find((p) => p.href === "/the-innovation-dilemma");
@@ -9,55 +11,40 @@ const project = projects.find((p) => p.href === "/the-innovation-dilemma");
 <BaseLayout title="The Innovation Dilemma - Gabriele Radicello">
   <!-- Hero Section -->
   <section class="relative h-[100svh] md:h-[100dvh] w-full overflow-hidden flex items-center justify-center">
-    <img loading="eager" fetchpriority="high" decoding="async"
-      src={getProxyUrl("/progetti/the-innovation-dilemma/1.jpg")} 
-      data-src="/progetti/the-innovation-dilemma/1.jpg"
+    <ProgressiveImage loading="eager" fetchpriority="high" decoding="auto"
+      src={"/progetti/the-innovation-dilemma/1.jpg"}
       alt="The Innovation Dilemma documentary cover"
       class="absolute inset-0 w-full h-full object-cover z-0 opacity-40"
     />
     <div class="absolute inset-0 bg-black/60 z-10"></div>
-    
+
     <div class="relative z-20 text-center px-6">
-      <h1 
-        class="text-5xl md:text-8xl font-semibold text-white tracking-tight" 
+      <h1
+        class="text-5xl md:text-8xl font-semibold text-white tracking-tight"
         style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;"
       >
         The Innovation Dilemma
       </h1>
-      <p class="lang-en mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto">
-        A documentary short exploring the friction and dialogue between traditional art and Artificial Intelligence.
-      </p>
-      <p class="lang-it mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto">
-        Un cortometraggio documentario che esplora la frizione e il dialogo tra arte tradizionale e Intelligenza Artificiale.
-      </p>
-      <p class="lang-en mt-4 text-sm text-neutral-400">
+      <p class="lang-en mt-6 text-xl text-neutral-300 max-w-2xl mx-auto" lang="en">{"A documentary short exploring the friction and dialogue between traditional art and Artificial Intelligence. Winner of the Audience Award (Premio del Pubblico) at the Last Gesture International Film Contest."}</p>
+      <p class="lang-it mt-6 text-xl text-neutral-300 max-w-2xl mx-auto" lang="it">{"Un documentario sul dialogo tra arte tradizionale e intelligenza artificiale, raccontato dalle persone che lavorano con entrambe."}</p>
+      <p class="lang-en mt-4 text-sm text-neutral-400" lang="en">
         Winner of the Audience Award (Premio del Pubblico) — Last Gesture International Film Contest 2026
       </p>
-      <p class="lang-it mt-4 text-sm text-neutral-400">
+      <p class="lang-it mt-4 text-sm text-neutral-400" lang="it">
         Vincitore del Premio del Pubblico — Last Gesture International Film Contest 2026
       </p>
     </div>
   </section>
 
   <!-- Content Section -->
-  <section class="max-w-4xl mx-auto px-6 py-24 md:py-32 text-neutral-300 text-lg leading-8 text-left">
-    
-    <!-- English Content -->
-    <div class="lang-en">
+  <ProjectOverview projectId="the-innovation-dilemma">
+<div class="lang-en" lang="en">
       <!-- Video Section -->
-      <div class="mb-24">
-        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
+      <div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
           Documentary
-        </h2>
-        <div class="aspect-video w-full rounded-lg overflow-hidden bg-neutral-900 border border-neutral-800">
-          <iframe loading="lazy" data-lazy-embed
-          data-src="https://www.youtube.com/embed/Z6ZvOaz_YmI"
-            title="The Innovation Dilemma"
-            class="w-full h-full border-none"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div>
+        </h2></div><div class="portfolio-project-prose">
+
+
         <div class="mt-6 flex flex-wrap gap-4">
           <a
             href="/progetti/the-innovation-dilemma/Sinossi e Nota d'intenti.pdf"
@@ -68,13 +55,13 @@ const project = projects.find((p) => p.href === "/the-innovation-dilemma");
             Download PDF Presentation
           </a>
         </div>
-      </div>
+      </div></div>
 
       <!-- Synopsis Section -->
-      <div class="mb-16 md:mb-24">
-        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
+      <div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
           Synopsis
-        </h2>
+        </h2></div><div class="portfolio-project-prose">
+
         <div class="grid gap-8">
           <p>
             The short documentary explores the confrontation and dialogue between traditional art and new technologies, questioning the role of Artificial Intelligence and the delegation of creative gesture and thought.
@@ -83,52 +70,42 @@ const project = projects.find((p) => p.href === "/the-innovation-dilemma");
             Guided by an objective and impartial voiceover that introduces and contextualizes the themes, the work unfolds through a choral weaving of direct testimonies. The words and visions of professors of sculpture, 3D modeling, and multimedia installations, alongside those of sculpture and new technologies students, construct a conceptual and visual bridge between the physical exertion of the chisel and the new frontiers of digital fabrication.
           </p>
         </div>
-      </div>
+      </div></div>
 
       <!-- Director's Intent Section -->
-      <div class="mb-16 md:mb-24">
-        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
+      <div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
           Director's Intent
-        </h2>
+        </h2></div><div class="portfolio-project-prose">
+
         <div class="grid gap-8">
           <p>
             The idea at the core of this project stems from the desire to closely and unjudgmentally observe how technology is redefining the boundaries of the artistic craft. Our goal is not to take sides in a reductive opposition between nostalgia for the past and blind exaltation of progress, but rather to convey the complexity of this historical moment.
           </p>
         </div>
-      </div>
+      </div></div>
 
       <!-- Award Section -->
-      <div class="mb-16 md:mb-24">
-        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
+      <div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
           Awards & Festival
-        </h2>
+        </h2></div><div class="portfolio-project-prose">
+
         <p>Winner of the Audience Award (Premio del Pubblico) at the Last Gesture International Film Contest 2026.</p>
-      </div>
+      </div></div>
 
       <!-- Gallery -->
-      <div class="border-t border-neutral-800 pt-16 mb-24">
-        <h2 class="text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
+      <div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
           Film Stills
-        </h2>
-      </div>
-    </div>
+        </h2></div><div class="portfolio-project-prose">
 
-    <!-- Italian Content -->
-    <div class="lang-it">
+      </div></div>
+    </div>
+<div class="lang-it" lang="it">
       <!-- Video Section -->
-      <div class="mb-24">
-        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
+      <div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
           Documentario
-        </h2>
-        <div class="aspect-video w-full rounded-lg overflow-hidden bg-neutral-900 border border-neutral-800">
-          <iframe loading="lazy" data-lazy-embed
-          data-src="https://www.youtube.com/embed/Z6ZvOaz_YmI"
-            title="The Innovation Dilemma"
-            class="w-full h-full border-none"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div>
+        </h2></div><div class="portfolio-project-prose">
+
+
         <div class="mt-6 flex flex-wrap gap-4">
           <a
             href="/progetti/the-innovation-dilemma/Sinossi e Nota d'intenti.pdf"
@@ -139,13 +116,13 @@ const project = projects.find((p) => p.href === "/the-innovation-dilemma");
             Scarica Presentazione PDF
           </a>
         </div>
-      </div>
+      </div></div>
 
       <!-- Synopsis Section -->
-      <div class="mb-16 md:mb-24">
-        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
+      <div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
           Sinossi
-        </h2>
+        </h2></div><div class="portfolio-project-prose">
+
         <div class="grid gap-8">
           <p>
             Il cortometraggio documentario esplora il confronto e il dialogo tra arte tradizionale e nuove tecnologie, interrogandosi sul ruolo dell'Intelligenza Artificiale e sulla delega del gesto e del pensiero creativo.
@@ -154,61 +131,75 @@ const project = projects.find((p) => p.href === "/the-innovation-dilemma");
             Guidato da una voce fuori campo obiettiva e imparziale che introduce e contestualizza i temi, l'opera si sviluppa attraverso un intreccio corale di testimonianze dirette. Le parole e le visioni di docenti di scultura, modellazione 3D e installazioni multimediali, affiancate a quelle degli studenti di scultura e nuove tecnologie, costruiscono un ponte concettuale e visivo tra la fatica fisica dello scalpello e le nuove frontiere della fabbricazione digitale.
           </p>
         </div>
-      </div>
+      </div></div>
 
       <!-- Director's Intent Section -->
-      <div class="mb-16 md:mb-24">
-        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
+      <div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
           Nota d'intenti
-        </h2>
+        </h2></div><div class="portfolio-project-prose">
+
         <div class="grid gap-8">
           <p>
             L'idea alla base di questo progetto nasce dalla volontà di osservare da vicino e senza pregiudizi come la tecnologia stia ridefinendo i confini del mestiere artistico. Il nostro obiettivo non è prendere posizione in una riduttiva contrapposizione tra nostalgia del passato e cieca esaltazione del progresso, ma piuttosto restituire la complessità di questo momento storico.
           </p>
         </div>
-      </div>
+      </div></div>
 
       <!-- Award Section -->
-      <div class="mb-16 md:mb-24">
-        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
+      <div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
           Premi e Festival
-        </h2>
+        </h2></div><div class="portfolio-project-prose">
+
         <p>Vincitore del Premio del Pubblico al Festival Internazionale del Cinema Last Gesture 2026.</p>
-      </div>
+      </div></div>
 
       <!-- Gallery -->
-      <div class="border-t border-neutral-800 pt-16 mb-24">
-        <h2 class="text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
+      <div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
           Fotogrammi del Film
-        </h2>
-      </div>
-    </div>
+        </h2></div><div class="portfolio-project-prose">
 
-    <!-- Common Stills Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <img decoding="async" src={getProxyUrl("/progetti/the-innovation-dilemma/1.jpg")} data-src="/progetti/the-innovation-dilemma/1.jpg" alt="Frame 1" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-      <img decoding="async" src={getProxyUrl("/progetti/the-innovation-dilemma/2.jpg")} data-src="/progetti/the-innovation-dilemma/2.jpg" alt="Frame 2" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-      <img decoding="async" src={getProxyUrl("/progetti/the-innovation-dilemma/3.jpg")} data-src="/progetti/the-innovation-dilemma/3.jpg" alt="Frame 3" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-      <img decoding="async" src={getProxyUrl("/progetti/the-innovation-dilemma/4.jpg")} data-src="/progetti/the-innovation-dilemma/4.jpg" alt="Frame 4" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+      </div></div>
     </div>
+<div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="lang-en text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;" lang="en">Credits</h2></div><div class="portfolio-project-prose">
 
-    <!-- Credits Section -->
-    <div class="border-t border-neutral-800 pt-16 mt-24">
-      <h2 class="lang-en text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Credits</h2>
-      <h2 class="lang-it text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Crediti</h2>
-      <div class="lang-en grid gap-2 text-neutral-400 text-base">
+      <h2 class="lang-it text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;" lang="it">Crediti</h2>
+      <div class="lang-en grid gap-2 text-neutral-400 text-base" lang="en">
         <p><strong class="text-neutral-200">Director:</strong> Gabriele Radicello</p>
         <p><strong class="text-neutral-200">Voiceover AI:</strong> ElevenLabs</p>
         <p><strong class="text-neutral-200">Music AI:</strong> Suno AI</p>
         <p><strong class="text-neutral-200">Award:</strong> Winner of Audience Award — Last Gesture International Film Contest 2026</p>
       </div>
-      <div class="lang-it grid gap-2 text-neutral-400 text-base">
+      <div class="lang-it grid gap-2 text-neutral-400 text-base" lang="it">
         <p><strong class="text-neutral-200">Regia:</strong> Gabriele Radicello</p>
         <p><strong class="text-neutral-200">Voce Fuori Campo IA:</strong> ElevenLabs</p>
         <p><strong class="text-neutral-200">Musica IA:</strong> Suno AI</p>
         <p><strong class="text-neutral-200">Premio:</strong> Vincitore del Premio del Pubblico — Last Gesture International Film Contest 2026</p>
       </div>
-    </div>
-
-  </section>
+    </div></div>
+</ProjectOverview>
+<section class="portfolio-original-content text-neutral-300"><div class="mb-24 lang-en" lang="en"><div class="aspect-video w-full rounded-lg overflow-hidden bg-black border border-neutral-800">
+          <iframe loading="lazy" data-lazy-embed
+          data-src="https://www.youtube.com/embed/Z6ZvOaz_YmI"
+            title="The Innovation Dilemma"
+            class="w-full h-full border-none"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div></div>
+<div class="mb-24 lang-it" lang="it"><div class="aspect-video w-full rounded-lg overflow-hidden bg-black border border-neutral-800">
+          <iframe loading="lazy" data-lazy-embed
+          data-src="https://www.youtube.com/embed/Z6ZvOaz_YmI"
+            title="The Innovation Dilemma"
+            class="w-full h-full border-none"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto" src={"/progetti/the-innovation-dilemma/1.jpg"} alt="Frame 1" class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img" loading="lazy" />
+      <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto" src={"/progetti/the-innovation-dilemma/2.jpg"} alt="Frame 2" class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img" loading="lazy" />
+      <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto" src={"/progetti/the-innovation-dilemma/3.jpg"} alt="Frame 3" class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img" loading="lazy" />
+      <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto" src={"/progetti/the-innovation-dilemma/4.jpg"} alt="Frame 4" class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img" loading="lazy" />
+    </div></section>
+<NextProject projectId="the-innovation-dilemma" />
 </BaseLayout>

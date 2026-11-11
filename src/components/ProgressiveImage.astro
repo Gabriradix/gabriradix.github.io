@@ -1,0 +1,47 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import images from '../data/image-delivery.json';
+import animations from '../data/animated-delivery.json';
+
+interface DeliveryImage {
+  jxl: string;
+  fallback: string;
+  width: number;
+  height: number;
+  fingerprint: string;
+}
+
+interface Props extends HTMLAttributes<'img'> {
+  src: string;
+  alt: string;
+}
+
+const { src, alt, width, height, ...attributes } = Astro.props;
+const delivery = (images as Record<string, DeliveryImage>)[src];
+const animation = (animations as Record<string, DeliveryImage & { poster: string }>)[src];
+const version = delivery?.fingerprint.slice(0, 12);
+// Motion attributes from legacy GIF markup must not load a second animation.
+const { 'data-motion-source': _motionSource, 'data-motion-poster': _motionPoster, ...animationAttributes } = attributes;
+---
+
+{animation ? (
+  <img {...animationAttributes} data-animated-image
+    data-animation-jxl={`${encodeURI(animation.jxl)}?v=${animation.fingerprint.slice(0, 12)}`}
+    data-animation-fallback={`${encodeURI(animation.fallback)}?v=${animation.fingerprint.slice(0, 12)}`}
+    data-animation-poster={`${encodeURI(animation.poster)}?v=${animation.fingerprint.slice(0, 12)}`}
+    src={`${encodeURI(animation.poster)}?v=${animation.fingerprint.slice(0, 12)}`} alt={alt}
+    width={width ?? animation.width} height={height ?? animation.height} />
+  <noscript>
+    <style is:inline>img[data-animated-image] { display: none !important; }</style>
+    <img {...animationAttributes} src={`${encodeURI(animation.fallback)}?v=${animation.fingerprint.slice(0, 12)}`} alt={alt}
+      width={width ?? animation.width} height={height ?? animation.height} />
+  </noscript>
+) : delivery ? (
+  <picture style="display: contents;">
+    <source type="image/jxl" srcset={`${encodeURI(delivery.jxl)}?v=${version}`} />
+    <img {...attributes} src={`${encodeURI(delivery.fallback)}?v=${version}`} alt={alt}
+      width={width ?? delivery.width} height={height ?? delivery.height} />
+  </picture>
+) : (
+  <img {...attributes} src={src} alt={alt} width={width} height={height} />
+)}

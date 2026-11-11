@@ -1,5 +1,8 @@
 ---
-import { getProxyUrl } from "../utils/image";
+import ProjectOverview from "../components/ProjectOverview.astro";
+import NextProject from "../components/NextProject.astro";
+import ProgressiveImage from "../components/ProgressiveImage.astro";
+import { getPreviewImage } from "../utils/image";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const pieces = [
@@ -72,8 +75,8 @@ const pieces = [
     <div class="border-b-4 border-neutral-950 pb-8 mb-16">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <h1 
-            class="text-4xl md:text-7xl font-bold tracking-tighter text-neutral-900 uppercase" 
+          <h1
+            class="text-4xl md:text-7xl font-bold tracking-tighter text-neutral-900 uppercase"
             style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
           >
             Brainrot Pavilion
@@ -81,20 +84,20 @@ const pieces = [
         </div>
         <div class="text-left md:text-right font-mono text-xs text-neutral-500 uppercase tracking-wider">
           <span>GABRIELE RADICELLO</span><br/>
-          <span class="lang-en">SOLO DIGITAL SHOW — 2025</span>
-          <span class="lang-it">MOSTRA DIGITALE PERSONALE — 2025</span>
+          <span class="lang-en" lang="en">SOLO DIGITAL SHOW — 2025</span>
+          <span class="lang-it" lang="it">MOSTRA DIGITALE PERSONALE — 2025</span>
         </div>
       </div>
     </div>
 
     <!-- Curator Essay / Context Plaques -->
-    <div class="grid md:grid-cols-2 gap-12 font-mono text-sm leading-relaxed text-neutral-700">
+    <ProjectOverview projectId="brainrot-pavillion" brainrot><div class="grid md:grid-cols-2 gap-12 font-mono text-sm leading-relaxed text-neutral-700">
       <div class="border-l-4 border-neutral-950 pl-6 space-y-6">
-        <h3 class="text-lg font-bold text-neutral-900 uppercase tracking-tight">
-          <span class="lang-en">00. Curatorial Statement</span>
-          <span class="lang-it">00. Dichiarazione Curatoriale</span>
-        </h3>
-        <div class="lang-en">
+        <h2 class="curatorial-title text-lg font-bold text-neutral-900 uppercase tracking-tight">
+          <span class="lang-en" lang="en">00. Curatorial Statement</span>
+          <span class="lang-it" lang="it">00. Dichiarazione Curatoriale</span>
+        </h2>
+        <div class="lang-en" lang="en">
           <p>
             This project consists of a series of animated GIFs that re-elaborate subjects taken from the Italian "brainrot" scene: funny, grotesque, or surreal animals generated with artificial intelligence and placed at the center of absurd digital narratives. Born and circulated within TikTok, these characters embody a chaotic, disturbing, and deeply comfort-driven aesthetic unique to the post-internet era.
           </p>
@@ -102,7 +105,7 @@ const pieces = [
             Through meticulous 3D modeling and animation, I wanted to strip them of their fleeting meme nature, decontextualizing them from the hyper-accelerated flow of social feeds to place them in a suspended, solemn dimension of contemplation.
           </p>
         </div>
-        <div class="lang-it">
+        <div class="lang-it" lang="it">
           <p>
             Questo progetto è costituito da una serie di GIF animate che rielaborano soggetti tratti dalla scena "brainrot" italiana: animali divertenti, grotteschi o surreali generati con intelligenza artificiale e posti al centro di assurde narrazioni digitali. Nati e circolati su TikTok, questi personaggi incarnano un'estetica caotica, inquietante e profondamente orientata al comfort, tipica dell'era post-internet.
           </p>
@@ -112,11 +115,11 @@ const pieces = [
         </div>
       </div>
       <div class="border-l-4 border-neutral-950 pl-6 space-y-6">
-        <h3 class="text-lg font-bold text-neutral-900 uppercase tracking-tight">
-          <span class="lang-en">01. Digital Ready-Mades</span>
-          <span class="lang-it">01. Ready-Made Digitali</span>
-        </h3>
-        <div class="lang-en">
+        <h2 class="curatorial-title text-lg font-bold text-neutral-900 uppercase tracking-tight">
+          <span class="lang-en" lang="en">01. Digital Ready-Mades</span>
+          <span class="lang-it" lang="it">01. Ready-Made Digitali</span>
+        </h2>
+        <div class="lang-en" lang="en">
           <p>
             Each subject has been isolated, reconstructed in three dimensions, and set in continuous, hypnotic rotation inside a digital showcase—like a sacred object, an archaeological artifact of our present. The resulting GIFs become digital showcases (teche) that display the contemporary absurd in a solemn, museum-grade manner.
           </p>
@@ -124,7 +127,7 @@ const pieces = [
             Inspired by the ready-mades of Marcel Duchamp and the digital exhibitions of Anthony Antonellis, this operation plays with the paradoxical and hallucinatory aesthetic of the contemporary web, freezing chaotic data flows into concrete digital relics.
           </p>
         </div>
-        <div class="lang-it">
+        <div class="lang-it" lang="it">
           <p>
             Ogni soggetto è stato isolato, ricostruito in tre dimensioni e posto in rotazione continua e ipnotica all'interno di una teca digitale—come un oggetto sacro, un reperto archeologico del nostro presente. Le GIF risultanti diventano teche digitali che espongono l'assurdo contemporaneo in modo solenne, da museo.
           </p>
@@ -133,7 +136,7 @@ const pieces = [
           </p>
         </div>
       </div>
-    </div>
+    </div></ProjectOverview>
   </section>
 
   <!-- Exhibition Vitrine Showcase: Spaced scroll-snapping layout -->
@@ -141,12 +144,13 @@ const pieces = [
     <div>
       {pieces.map((piece) => (
         <article class="exhibition-card flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 min-h-[100dvh] w-full py-12 border-b border-neutral-200 last:border-b-0 snap-section">
-          
+
           <!-- Digital Display Frame (Vitrine) -->
           <div class="exhibition-vitrine w-full md:w-1/2 aspect-square max-w-[460px] bg-neutral-100 flex items-center justify-center p-8 border-4 border-neutral-950 overflow-hidden relative select-none shrink-0">
-            <img decoding="async"
-              src={getProxyUrl(`/progetti/brainrot-pavillion/${piece.filename}`)} 
-              data-src={`/progetti/brainrot-pavillion/${piece.filename}`}
+            <ProgressiveImage decoding="auto"
+              src={getPreviewImage(`/progetti/brainrot-pavillion/${piece.filename}`).src}
+              data-motion-poster={getPreviewImage(`/progetti/brainrot-pavillion/${piece.filename}`).src}
+              data-motion-source={`/progetti/brainrot-pavillion/${piece.filename}`}
               alt={`3D spinning reconstruction of the Italian brainrot subject ${piece.title}`}
               class="w-4/5 h-4/5 object-contain select-none"
               draggable="false"
@@ -157,7 +161,7 @@ const pieces = [
           <!-- Museum Plaque Label (Targhetta Museale a Lato) -->
           <div class="w-full md:w-1/2 max-w-[460px] font-mono text-neutral-900 flex flex-col justify-center">
             <div class="mb-6">
-              <h3 
+              <h3
                 class="text-2xl font-bold uppercase tracking-tight text-neutral-900 leading-tight"
                 style="font-family: 'Helvetica Custom', Helvetica, Arial, sans-serif;"
               >
@@ -167,19 +171,19 @@ const pieces = [
 
             <div class="space-y-1 text-xs text-neutral-500 uppercase border-b-2 border-dashed border-neutral-200 pb-4 mb-6">
               <div>
-                <strong><span class="lang-en">Medium:</span><span class="lang-it">Medium:</span></strong> 
-                <span class="lang-en">{piece.medium}</span>
-                <span class="lang-it">{piece.medium_it}</span>
+                <strong><span class="lang-en" lang="en">Medium:</span><span class="lang-it" lang="it">Medium:</span></strong>
+                <span class="lang-en" lang="en">{piece.medium}</span>
+                <span class="lang-it" lang="it">{piece.medium_it}</span>
               </div>
               <div>
-                <strong><span class="lang-en">Dimensions:</span><span class="lang-it">Dimensioni:</span></strong> 
+                <strong><span class="lang-en" lang="en">Dimensions:</span><span class="lang-it" lang="it">Dimensioni:</span></strong>
                 {piece.dimensions}
               </div>
             </div>
 
             <p class="text-sm leading-relaxed text-neutral-600 font-sans text-justify lowercase first-letter:uppercase">
-              <span class="lang-en">{piece.description}</span>
-              <span class="lang-it">{piece.description_it}</span>
+              <span class="lang-en" lang="en">{piece.description}</span>
+              <span class="lang-it" lang="it">{piece.description_it}</span>
             </p>
           </div>
 
@@ -190,11 +194,21 @@ const pieces = [
 
   <!-- Global Brutalist White Cube Scoped Styles -->
   <style is:global>
+    .curatorial-title { --font-size: clamp(.7rem, 1.5vw, .85rem); --line: clamp(.7rem, 1.5vw, .85rem); }
     /* Add 'brainrot-cube' modifier class on body and html */
     body.brainrot-cube {
       background-color: #ffffff !important;
       color: #171717 !important;
       transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1), color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body.brainrot-cube #main-header::before {
+      background: linear-gradient(
+        to bottom,
+        rgb(255 255 255 / 0.95),
+        rgb(255 255 255 / 0.85) 55%,
+        rgb(255 255 255 / 0)
+      );
     }
 
     /* Target specific components in BaseLayout for a stark minimal white cube look */
@@ -249,7 +263,7 @@ const pieces = [
     }
 
     .exhibition-card {
-      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
                   filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       will-change: opacity, filter;
     }
@@ -298,4 +312,5 @@ const pieces = [
     document.addEventListener('astro:page-load', setup);
     document.addEventListener('astro:after-swap', handleCubeThemeToggle);
   </script>
+<NextProject projectId="brainrot-pavillion" />
 </BaseLayout>

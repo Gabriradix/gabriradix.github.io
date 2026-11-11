@@ -1,51 +1,37 @@
 ---
-import ProjectSchematics from "../components/ProjectSchematics.astro";
+import ProjectOverview from "../components/ProjectOverview.astro";
+import NextProject from "../components/NextProject.astro";
+import ProgressiveImage from "../components/ProgressiveImage.astro";
+import ExplainerDiagram from "../components/ExplainerDiagram.astro";
+import AnimatedStudy from "../components/AnimatedStudy.astro";
 import dreamRecords from "../../public/progetti/dream-catalogue/dreams.json";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getProxyUrl } from "../utils/image";
 import { projects } from "../data/projects";
 
 const project = projects.find((p) => p.href === "/dream-catalogue");
 ---
 
-<BaseLayout title="Dream Catalogue - Gabriele Radicello">
+<BaseLayout title="Dream Catalogue - Gabriele Radicello" brandColor={project?.brandColor}>
   <!-- Hero Section -->
   <section class="relative h-[100svh] md:h-[100dvh] w-full overflow-hidden flex items-center justify-center">
-    <img loading="eager" fetchpriority="high" decoding="async"
-      src={getProxyUrl("/progetti/dream-catalogue/cover.png")} 
-      data-src="/progetti/dream-catalogue/cover.png"
-      alt="Dream Catalogue Cover"
-      class="absolute inset-0 w-full h-full object-cover z-0 opacity-30"
+    <ProgressiveImage loading="eager" fetchpriority="high" decoding="auto"
+      src="/progetti/dream-catalogue/hero-constellation.svg"
+      alt="" aria-hidden="true"
+      class="absolute inset-0 w-full h-full object-cover z-0 opacity-60"
     />
-    <div class="absolute inset-0 bg-black/70 z-10"></div>
-    
+    <div class="absolute inset-0 bg-black/45 z-10"></div>
+
     <div class="relative z-20 text-center px-6 max-w-4xl">
-      <div class="inline-block px-3 py-1 mb-6 border border-neutral-700 bg-neutral-950/80 text-xs font-mono text-neutral-400 uppercase tracking-widest">
+      <div class="inline-block px-3 py-1 mb-6 border border-neutral-700 bg-black text-xs font-mono text-neutral-400 uppercase tracking-widest">
         System Architecture &amp; Data Visualization
       </div>
-      <h1 
-        class="text-4xl sm:text-6xl md:text-8xl font-semibold text-white tracking-tight break-words" 
+      <h1
+        class="text-4xl sm:text-6xl md:text-8xl font-semibold text-white tracking-tight break-words"
         style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;"
       >
         Dream Catalogue
       </h1>
-      <p class="mt-4 sm:mt-6 text-base sm:text-xl text-neutral-300 font-light max-w-2xl mx-auto">
-        <span class="lang-en">An interactive clinical web archive cataloging dream states through dynamic graph topology and high-density telemetry.</span>
-        <span class="lang-it">Un archivio web clinico interattivo che cataloga gli stati di sogno attraverso la topologia dinamica dei grafi e la telemetria ad alta densità.</span>
-      </p>
-      <div class="mt-6 sm:mt-8 flex justify-center gap-4">
-        <button
-          id="hero-fullscreen-btn"
-          type="button"
-          class="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 max-w-full border border-neutral-200 bg-white text-black hover:bg-neutral-200 transition-colors duration-300 font-medium tracking-wide text-xs sm:text-sm uppercase cursor-pointer shadow-lg text-center"
-        >
-          <span class="lang-en">Launch Interactive App</span>
-          <span class="lang-it">Lancia App Interattiva</span>
-          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
-          </svg>
-        </button>
-      </div>
+      <p class="mt-6 text-xl text-neutral-300 max-w-2xl mx-auto"><span class="lang-en" lang="en">{"An interactive web archive for cataloging dreams, presented through a clinical and aseptic interface."}</span><span class="lang-it" lang="it">{"Un archivio interattivo che collega 33 sogni attraverso emozioni, luoghi, oggetti e ricordi."}</span></p>
     </div>
   </section>
 
@@ -56,24 +42,24 @@ const project = projects.find((p) => p.href === "/dream-catalogue");
       <div id="app-header-bar" class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
         <h2 class="text-xs sm:text-sm font-mono text-neutral-400 uppercase tracking-widest flex items-center gap-2 flex-wrap">
           <span class="w-2 h-2 rounded-full bg-white animate-pulse shrink-0"></span>
-          <span class="lang-en">LIVE INTERACTIVE APPLICATION // MAPPA DEI SOGNI</span>
-          <span class="lang-it">APPLICAZIONE INTERATTIVA LIVE // MAPPA DEI SOGNI</span>
+          <span class="lang-en" lang="en">LIVE INTERACTIVE APPLICATION // MAPPA DEI SOGNI</span>
+          <span class="lang-it" lang="it">APPLICAZIONE INTERATTIVA LIVE // MAPPA DEI SOGNI</span>
         </h2>
         <button
           id="fullscreen-btn"
           type="button"
-          class="text-xs font-mono text-neutral-300 hover:text-white bg-neutral-900/90 hover:bg-neutral-800 border border-neutral-700 px-3.5 py-1.5 rounded transition-all duration-300 flex items-center gap-2 cursor-pointer shadow-lg shrink-0"
+          class="text-xs font-mono text-neutral-300 hover:text-white bg-black hover:bg-black border border-neutral-700 px-3.5 py-1.5 transition-all duration-300 flex items-center gap-2 cursor-pointer shrink-0"
         >
-          <span class="lang-en">Open Fullscreen</span>
-          <span class="lang-it">Apri a Schermo Intero</span>
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <span class="lang-en" lang="en">Open Fullscreen</span>
+          <span class="lang-it" lang="it">Apri a Schermo Intero</span>
+          <svg aria-hidden="true" focusable="false" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
           </svg>
         </button>
       </div>
 
       <!-- Iframe Container -->
-      <div id="iframe-container" class="w-full h-[65vh] md:h-[75vh] border border-neutral-800 bg-black overflow-hidden rounded-sm relative transition-all duration-500 ease-in-out">
+      <div id="iframe-container" class="w-full h-[65vh] md:h-[75vh] border border-neutral-800 bg-black overflow-hidden relative transition-all duration-500 ease-in-out">
         <iframe loading="lazy" data-lazy-embed
           id="app-iframe"
           data-src="/progetti/dream-catalogue/index.html"
@@ -89,7 +75,6 @@ const project = projects.find((p) => p.href === "/dream-catalogue");
   <script>
     import { loadLazyEmbed } from '../utils/lazy-media';
     function setupFullscreenExpander() {
-      const heroBtn = document.getElementById("hero-fullscreen-btn");
       const btn = document.getElementById("fullscreen-btn");
       const headerBar = document.getElementById("app-header-bar");
       const section = document.getElementById("app-section");
@@ -117,8 +102,8 @@ const project = projects.find((p) => p.href === "/dream-catalogue");
           window.postMessage('force-compact-header', '*');
 
           headerBar?.classList.add("hidden");
-          container.classList.remove("border", "border-neutral-800", "rounded-sm");
-          container.classList.add("border-0", "border-none", "rounded-none");
+          container.classList.remove("border", "border-neutral-800");
+          container.classList.add("border-0", "border-none");
 
           section.classList.add("fixed", "inset-0", "top-0", "left-0", "w-screen", "h-screen", "z-40", "p-0", "m-0", "flex", "flex-col", "bg-black");
           section.classList.remove("w-full", "py-12", "border-y", "border-neutral-800");
@@ -134,8 +119,8 @@ const project = projects.find((p) => p.href === "/dream-catalogue");
           window.postMessage('reset-compact-header', '*');
 
           headerBar?.classList.remove("hidden");
-          container.classList.remove("border-0", "border-none", "rounded-none");
-          container.classList.add("border", "border-neutral-800", "rounded-sm");
+          container.classList.remove("border-0", "border-none");
+          container.classList.add("border", "border-neutral-800");
 
           section.classList.remove("fixed", "inset-0", "top-0", "left-0", "w-screen", "h-screen", "z-40", "p-0", "m-0", "flex", "flex-col", "bg-black");
           section.classList.add("w-full", "py-12", "border-y", "border-neutral-800");
@@ -151,8 +136,6 @@ const project = projects.find((p) => p.href === "/dream-catalogue");
           window.scrollTo(0, savedScrollY);
         }
       }
-
-      heroBtn?.addEventListener("click", () => toggle(true));
       btn?.addEventListener("click", () => toggle());
 
       document.addEventListener("keydown", (e) => {
@@ -167,31 +150,40 @@ const project = projects.find((p) => p.href === "/dream-catalogue");
   </script>
 
   <!-- Content & Architecture Section -->
-  <section class="max-w-5xl mx-auto px-6 py-24 md:py-32 text-neutral-300 text-lg leading-8 text-left">
-    
-    <!-- Concept & Aesthetic Language -->
-    <div class="mb-24">
-      <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
-        <span class="lang-en">Concept &amp; Visual Language</span>
-        <span class="lang-it">Concept &amp; Linguaggio Visivo</span>
-      </h2>
+  <ProjectOverview projectId="dream-catalogue">
+<div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
+        <span class="lang-en" lang="en">Concept &amp; Visual Language</span>
+        <span class="lang-it" lang="it">Concept &amp; Linguaggio Visivo</span>
+      </h2></div><div class="portfolio-project-prose">
+
       <div class="grid gap-8">
         <p>
-          <span class="lang-en"><strong>Dream Catalogue</strong> (Mappa dei Sogni) is an interactive net-art archive that investigates the clinical, aseptic, and mathematical cataloging of human subconscious dream material.</span>
-          <span class="lang-it"><strong>Dream Catalogue</strong> (Mappa dei Sogni) è un archivio di net-art interattivo che indaga la catalogazione clinica, asettica e matematica del materiale onirico del subconscio umano.</span>
+          <span class="lang-en" lang="en"><strong>Dream Catalogue</strong> (Mappa dei Sogni) is an interactive net-art archive that investigates the clinical, aseptic, and mathematical cataloging of human subconscious dream material.</span>
+          <span class="lang-it" lang="it"><strong>Dream Catalogue</strong> (Mappa dei Sogni) è un archivio di net-art interattivo che indaga la catalogazione clinica, asettica e matematica del materiale onirico del subconscio umano.</span>
         </p>
         <p>
-          <span class="lang-en">Rejecting organic or surrealist clichés typically associated with dream representation, the project recontextualizes subjective dream records into a cold, monochrome telemetry matrix powered by real-time graph kinetics.</span>
-          <span class="lang-it">Rifiutando i cliché organici o surrealisti tipicamente associati alla rappresentazione dei sogni, il progetto ricontestualizza le registrazioni soggettive dei sogni in una fredda matrice di telemetria monocromatica alimentata dalla cinetica dei grafi in tempo reale.</span>
+          <span class="lang-en" lang="en">Rejecting organic or surrealist clichés typically associated with dream representation, the project recontextualizes subjective dream records into a structured network powered by real-time graph kinetics, with colour identifying each dream’s mood.</span>
+          <span class="lang-it" lang="it">Rifiutando i cliché organici o surrealisti tipicamente associati alla rappresentazione dei sogni, il progetto ricontestualizza le registrazioni soggettive dei sogni in una rete strutturata animata dalla cinetica dei grafi, in cui il colore identifica l’umore di ogni sogno.</span>
         </p>
         <p>
-          <span class="lang-en">Each of the {dreamRecords.length} dream records contains quantitative metrics (<em>Importance</em>, <em>Weirdness</em>, <em>Memory</em>, <em>Lucidity</em>, <em>Duration</em>) and qualitative attributes (<em>Mood</em>, <em>Setting</em>, <em>Objects</em>, <em>People</em>, <em>Perspective</em>).</span>
-          <span class="lang-it">Ognuna delle {dreamRecords.length} voci oniriche contiene metriche quantitative (<em>Importanza</em>, <em>Bizzarria</em>, <em>Ricordo</em>, <em>Lucidità</em>, <em>Durata</em>) e attributi qualitativi (<em>Umore</em>, <em>Ambientazione</em>, <em>Oggetti</em>, <em>Persone</em>, <em>Prospettiva</em>).</span>
+          <span class="lang-en" lang="en">Each of the {dreamRecords.length} dream records contains quantitative metrics (<em>Importance</em>, <em>Weirdness</em>, <em>Memory</em>, <em>Lucidity</em>, <em>Duration</em>) and qualitative attributes (<em>Mood</em>, <em>Setting</em>, <em>Objects</em>, <em>People</em>, <em>Perspective</em>).</span>
+          <span class="lang-it" lang="it">Ognuna delle {dreamRecords.length} voci oniriche contiene metriche quantitative (<em>Importanza</em>, <em>Bizzarria</em>, <em>Ricordo</em>, <em>Lucidità</em>, <em>Durata</em>) e attributi qualitativi (<em>Umore</em>, <em>Ambientazione</em>, <em>Oggetti</em>, <em>Persone</em>, <em>Prospettiva</em>).</span>
         </p>
       </div>
-    </div>
+    </div></div>
+<div class="portfolio-editorial-row " id="study-1"><div class="portfolio-editorial-title"><h3 class="text-2xl font-semibold text-neutral-50" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;"><span class="lang-en" lang="en">From dream to archive</span><span class="lang-it" lang="it">Dal sogno all’archivio</span></h3></div><div class="portfolio-project-prose">
 
-    <ProjectSchematics project="dream" />
+      <AnimatedStudy kind="pipeline" />
+    </div></div>
+<div class="portfolio-editorial-row " id="study-2"><div class="portfolio-editorial-title"><h3 class="text-2xl font-semibold text-neutral-50" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;"><span class="lang-en" lang="en">How the constellation finds its shape</span><span class="lang-it" lang="it">Come prende forma la costellazione</span></h3></div><div class="portfolio-project-prose">
 
-  </section>
+      <ExplainerDiagram kind="dream-forces" animated={false} />
+    </div></div>
+<div class="portfolio-editorial-row " id="study-3"><div class="portfolio-editorial-title"><h3 class="text-2xl font-semibold text-neutral-50" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;"><span class="lang-en" lang="en">Reading the dream map</span><span class="lang-it" lang="it">Leggere la mappa dei sogni</span></h3></div><div class="portfolio-project-prose">
+
+      <ExplainerDiagram kind="dream-interface" animated={false} />
+    </div></div>
+</ProjectOverview>
+
+<NextProject projectId="dream-catalogue" />
 </BaseLayout>

@@ -1,42 +1,40 @@
 ---
-import { getProxyUrl } from "../utils/image";
+import ProjectOverview from "../components/ProjectOverview.astro";
+import NextProject from "../components/NextProject.astro";
+import ProgressiveImage from "../components/ProgressiveImage.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="Simulacra - Gabriele Radicello">
   <!-- Hero Section -->
   <section class="relative h-[100svh] md:h-[100dvh] w-full overflow-hidden flex items-center justify-center">
-    <img loading="eager" fetchpriority="high" decoding="async"
-      src={getProxyUrl("/progetti/simulacra/1.png")} data-src="/progetti/simulacra/1.png" 
+    <ProgressiveImage loading="eager" fetchpriority="high" decoding="auto"
+      src={"/progetti/simulacra/1.png"}
       alt="Primo piano del cubo fluttuante specchiato in un deserto rosso surreale, parte del test psicologico in Roblox"
       class="absolute inset-0 w-full h-full object-cover z-0 opacity-50"
     />
     <div class="absolute inset-0 bg-black/60 z-10"></div>
-    
+
     <div class="relative z-20 text-center px-6">
-      <h1 
-        class="text-5xl md:text-8xl font-semibold text-white tracking-tight" 
+      <h1
+        class="text-5xl md:text-8xl font-semibold text-white tracking-tight"
         style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;"
       >
         Simulacra
       </h1>
-      <p class="mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto">
-        <span class="lang-en">An interactive journey into oneself, in digital and dreamlike form.</span>
-        <span class="lang-it">Un viaggio interattivo dentro se stessi, in forma digitale e onirica.</span>
-      </p>
+      <p class="mt-6 text-xl text-neutral-300 max-w-2xl mx-auto"><span class="lang-en" lang="en">{"An immersive map inspired by the 'cube in the desert' psychological test. An interactive journey into oneself, in digital and dreamlike form."}</span><span class="lang-it" lang="it">{"Un viaggio in un paesaggio onirico ispirato al “cubo nel deserto”, costruito nell’ambiente di Roblox."}</span></p>
     </div>
   </section>
 
   <!-- Content Section -->
-  <section class="max-w-4xl mx-auto px-6 py-24 md:py-32 text-neutral-300 text-lg leading-8 text-left">
-    
-    <div class="mb-16 md:mb-24">
-      <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
-        <span class="lang-en">Concept</span>
-        <span class="lang-it">Concept</span>
-      </h2>
+  <ProjectOverview projectId="simulacra">
+<div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
+        <span class="lang-en" lang="en">Concept</span>
+        <span class="lang-it" lang="it">Concept</span>
+      </h2></div><div class="portfolio-project-prose">
+
       <div class="grid gap-8">
-        <div class="lang-en">
+        <div class="lang-en" lang="en">
           <p>
             An immersive map inspired by the 'cube in the desert' psychological test. The experience unfolds as an introspective journey where the player navigates a surreal landscape generated within the Roblox environment.
           </p>
@@ -44,7 +42,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             The digital simulacra become the projection of the user's unconscious, breathing life into an environment where every spatial element corresponds to a psychological state. Playful interaction transforms into a tool for self-analysis and discovery.
           </p>
         </div>
-        <div class="lang-it">
+        <div class="lang-it" lang="it">
           <p>
             Una mappa immersiva ispirata al test psicologico del 'cubo nel deserto'. L'esperienza si sviluppa come un viaggio introspettivo in cui il giocatore naviga in un paesaggio surreale generato all'interno dell'ambiente di Roblox.
           </p>
@@ -54,29 +52,27 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         </div>
         <div class="mt-4">
           <a href="https://www.roblox.com/it/games/127574761671806/Simulacra" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-3 border border-neutral-700 text-neutral-300 hover:bg-white hover:text-black transition-colors duration-300 font-medium tracking-wide text-sm uppercase">
-            <span class="lang-en">Play on Roblox</span>
-            <span class="lang-it">Gioca su Roblox</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            <span class="lang-en" lang="en">Play on Roblox</span>
+            <span class="lang-it" lang="it">Gioca su Roblox</span>
+            <svg aria-hidden="true" focusable="false" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
           </a>
         </div>
       </div>
-    </div>
-
-    <!-- Gallery Section -->
-    <div class="border-t border-neutral-800 pt-16">
+    </div></div>
+</ProjectOverview>
+<section class="portfolio-original-content text-neutral-300"><div class="border-t border-neutral-800 pt-16">
       <h2 class="text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
-        <span class="lang-en">Gallery</span>
-        <span class="lang-it">Galleria</span>
+        <span class="lang-en" lang="en">Gallery</span>
+        <span class="lang-it" lang="it">Galleria</span>
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <img decoding="async" src={getProxyUrl("/progetti/simulacra/2.png")} data-src="/progetti/simulacra/2.png" alt="Una scala metallica infinita sospesa in un cielo notturno denso di nebbia e stelle cadenti" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img decoding="async" src={getProxyUrl("/progetti/simulacra/3.png")} data-src="/progetti/simulacra/3.png" alt="Un deserto arido sotto un sole artificiale accecante, con una piramide nera che si staglia all'orizzonte" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img decoding="async" src={getProxyUrl("/progetti/simulacra/5.png")} data-src="/progetti/simulacra/5.png" alt="Un tunnel di cemento minimalista e buio, illuminato solo da un fascio di luce bianca proveniente dal fondo" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img decoding="async" src={getProxyUrl("/progetti/simulacra/7.png")} data-src="/progetti/simulacra/7.png" alt="Una tempesta di sabbia rosa che avvolge grandi sfere di pietra sospese a mezz'aria nel mondo virtuale" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img decoding="async" src={getProxyUrl("/progetti/simulacra/10.png")} data-src="/progetti/simulacra/10.png" alt="Una foresta di alberi geometrici stilizzati privi di foglie sotto una luce lunare fredda e spettrale" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img decoding="async" src={getProxyUrl("/progetti/simulacra/13.png")} data-src="/progetti/simulacra/13.png" alt="Interno di una stanza vuota con pareti specchianti che riflettono all'infinito un piccolo fiore bianco al centro" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto" src={"/progetti/simulacra/2.png"} alt="Una scala metallica infinita sospesa in un cielo notturno denso di nebbia e stelle cadenti" class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img" loading="lazy" />
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto" src={"/progetti/simulacra/3.png"} alt="Un deserto arido sotto un sole artificiale accecante, con una piramide nera che si staglia all'orizzonte" class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img" loading="lazy" />
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto" src={"/progetti/simulacra/5.png"} alt="Un tunnel di cemento minimalista e buio, illuminato solo da un fascio di luce bianca proveniente dal fondo" class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img" loading="lazy" />
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto" src={"/progetti/simulacra/7.png"} alt="Una tempesta di sabbia rosa che avvolge grandi sfere di pietra sospese a mezz'aria nel mondo virtuale" class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img" loading="lazy" />
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto" src={"/progetti/simulacra/10.png"} alt="Una foresta di alberi geometrici stilizzati privi di foglie sotto una luce lunare fredda e spettrale" class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img" loading="lazy" />
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto" src={"/progetti/simulacra/13.png"} alt="Interno di una stanza vuota con pareti specchianti che riflettono all'infinito un piccolo fiore bianco al centro" class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img" loading="lazy" />
       </div>
-    </div>
-
-  </section>
+    </div></section>
+<NextProject projectId="simulacra" />
 </BaseLayout>

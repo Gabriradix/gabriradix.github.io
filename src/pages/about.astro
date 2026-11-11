@@ -4,16 +4,19 @@ import { bioText } from "../data/about";
 ---
 
 <BaseLayout title="About - Gabriele Radicello">
+  <h1 class="sr-only"><span class="lang-en" lang="en">About Gabriele Radicello</span><span class="lang-it" lang="it">Chi è Gabriele Radicello</span></h1>
   <section class="relative min-h-[90vh] w-full pt-24 md:pt-44 pb-12 px-2 md:px-8 max-w-7xl mx-auto flex flex-col items-center justify-start">
-    
+
     <div class="about-introduction relative w-full max-w-[1024px] mx-auto mb-6 md:mb-12">
     <!-- Hero / Splat & Pretext Interactive Area -->
     <div id="about-hero" class="relative w-full max-w-[1024px] mx-auto select-none flex flex-col md:flex-row items-start md:items-center justify-start md:justify-center min-h-[320px] md:min-h-[530px]">
-      
+
       <!-- The portrait stays within the biography while all text flows past it. -->
       <div class="splat-track absolute inset-x-0 -top-16 bottom-0 min-h-[460px] md:top-0 md:min-h-[530px] pointer-events-none z-[2]">
-      <div 
-        id="splat-container" 
+      <div
+        id="splat-container"
+        role="img"
+        aria-label="3D portrait of Gabriele Radicello"
         class="sticky top-8 md:absolute md:top-0 left-0 md:left-auto right-auto md:right-0 mr-auto md:mr-0 w-[100%] md:w-full h-[460px] md:h-[530px] z-[2] self-start md:self-auto pointer-events-auto cursor-grab active:cursor-grabbing touch-pan-y flex items-center justify-center -translate-x-[110px] md:translate-x-0"
       >
         <div id="splat-canvas-wrapper" class="w-full h-full relative flex items-center justify-center touch-pan-y">
@@ -23,18 +26,18 @@ import { bioText } from "../data/about";
       </div>
 
       <!-- Pretext Carved Text Canvas: absolutely positioned spans -->
-      <div 
+      <div
         id="pretext-canvas" aria-hidden="true"
-        class="absolute inset-0 z-[3] pointer-events-none" 
+        class="absolute inset-0 z-[3] pointer-events-none"
         style="font-family: 'Apple Garamond Custom', 'Apple Garamond', 'EB Garamond', Garamond, serif; font-size: 20px; color: #d4d4d4; letter-spacing: 0.01em;"
       >
       </div>
 
-      <div class="sr-only">
+      <div class="biography-fallback">
         {(["en", "it"] as const).map(language => (
-          <div class={`lang-${language}`}>
+          <div class={`lang-${language}`} lang={language}>
             <p>{bioText[language][0]}</p>
-            <div class="hidden md:block">
+            <div>
               {bioText[language].slice(1).map(paragraph => <p>{paragraph}</p>)}
             </div>
           </div>
@@ -45,35 +48,35 @@ import { bioText } from "../data/about";
     <details class="mobile-bio absolute inset-0 pointer-events-none md:hidden">
       <summary aria-controls="mobile-bio-continuation">
         <span class="bio-open-label">
-          <span class="lang-en">read more</span>
-          <span class="lang-it">leggi di più</span>
+          <span class="lang-en" lang="en">read more</span>
+          <span class="lang-it" lang="it">leggi di più</span>
         </span>
         <span class="bio-close-label">
-          <span class="lang-en">read less</span>
-          <span class="lang-it">leggi meno</span>
+          <span class="lang-en" lang="en">read less</span>
+          <span class="lang-it" lang="it">leggi meno</span>
         </span>
       </summary>
       <div id="mobile-bio-continuation" class="sr-only">
         {(["en", "it"] as const).map(language => (
-          <div class={`lang-${language}`}>
+          <div class={`lang-${language}`} lang={language}>
             {bioText[language].slice(1).map(paragraph => <p>{paragraph}</p>)}
           </div>
         ))}
       </div>
       <button type="button" class="bio-read-less">
-        <span class="lang-en">read less</span>
-        <span class="lang-it">leggi meno</span>
+        <span class="lang-en" lang="en">read less</span>
+        <span class="lang-it" lang="it">leggi meno</span>
       </button>
     </details>
     </div>
 
     <!-- Exhibitions & Education Section (Straight border-t line, rounded-none) -->
-    <div class="grid gap-8 md:gap-12 border-t border-neutral-700 pt-4 md:pt-6 md:grid-cols-2 w-full max-w-4xl text-left z-10 bg-neutral-900/40 backdrop-blur-sm p-4 md:p-6 rounded-none">
+    <div class="grid gap-8 md:gap-12 border-t border-neutral-700 pt-4 md:pt-6 md:grid-cols-2 w-full max-w-4xl text-left z-10 bg-black p-4 md:p-6 rounded-none">
       <section>
-        <h2 class="lang-en mb-4 text-2xl md:text-3xl font-semibold text-neutral-50" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Exhibitions</h2>
-        <h2 class="lang-it mb-4 text-2xl md:text-3xl font-semibold text-neutral-50" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Mostre ed Esposizioni</h2>
-        
-        <ul class="lang-en list-inside list-disc text-base md:text-lg leading-7 md:leading-8 text-neutral-400">
+        <h2 class="lang-en mb-4 text-2xl md:text-3xl font-semibold text-neutral-50" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;" lang="en">Exhibitions</h2>
+        <h2 class="lang-it mb-4 text-2xl md:text-3xl font-semibold text-neutral-50" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;" lang="it">Mostre ed Esposizioni</h2>
+
+        <ul class="lang-en list-inside list-disc text-base md:text-lg leading-7 md:leading-8 text-neutral-400" lang="en">
           <li>
             2026 <a href="https://www.cityopenmuseum.com/la-fura-dels-baus/" target="_blank" rel="noopener noreferrer" class="underline underline-offset-4 hover:text-white transition-colors">Codice Umano</a> (La Fura dels Baus x Accademia di Belle Arti di Carrara). ex Ceramica Vaccari, Santo Stefano Magra
           </li>
@@ -86,7 +89,7 @@ import { bioText } from "../data/about";
           <li>2025 Annual Exhibition. Academy of Fine Arts Carrara</li>
         </ul>
 
-        <ul class="lang-it list-inside list-disc text-base md:text-lg leading-7 md:leading-8 text-neutral-400">
+        <ul class="lang-it list-inside list-disc text-base md:text-lg leading-7 md:leading-8 text-neutral-400" lang="it">
           <li>
             2026 <a href="https://www.cityopenmuseum.com/la-fura-dels-baus/" target="_blank" rel="noopener noreferrer" class="underline underline-offset-4 hover:text-white transition-colors">Codice Umano</a> (La Fura dels Baus x Accademia di Belle Arti di Carrara). ex Ceramica Vaccari, Santo Stefano Magra
           </li>
@@ -101,15 +104,15 @@ import { bioText } from "../data/about";
       </section>
 
       <section>
-        <h2 class="lang-en mb-4 text-2xl md:text-3xl font-semibold text-neutral-50" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Education</h2>
-        <h2 class="lang-it mb-4 text-2xl md:text-3xl font-semibold text-neutral-50" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Formazione</h2>
-        
-        <ul class="lang-en list-inside list-disc text-base md:text-lg leading-7 md:leading-8 text-neutral-400">
+        <h2 class="lang-en mb-4 text-2xl md:text-3xl font-semibold text-neutral-50" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;" lang="en">Education</h2>
+        <h2 class="lang-it mb-4 text-2xl md:text-3xl font-semibold text-neutral-50" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;" lang="it">Formazione</h2>
+
+        <ul class="lang-en list-inside list-disc text-base md:text-lg leading-7 md:leading-8 text-neutral-400" lang="en">
           <li>Multimedia Arts High School, Viareggio</li>
           <li>Academy of Fine Arts, Carrara</li>
         </ul>
 
-        <ul class="lang-it list-inside list-disc text-base md:text-lg leading-7 md:leading-8 text-neutral-400">
+        <ul class="lang-it list-inside list-disc text-base md:text-lg leading-7 md:leading-8 text-neutral-400" lang="it">
           <li>Liceo Artistico Multimediale, Viareggio</li>
           <li>Accademia di Belle Arti, Carrara</li>
         </ul>
@@ -127,6 +130,18 @@ import { bioText } from "../data/about";
       overflow-anchor: none;
     }
 
+    .biography-fallback:not(.sr-only) {
+      position: relative;
+      max-width: 65ch;
+      margin-inline: auto;
+      color: #d4d4d4;
+    }
+
+    .biography-fallback p + div p,
+    .biography-fallback p + p {
+      margin-top: 1rem;
+    }
+
     .mobile-bio summary {
       display: inline-grid;
       position: absolute;
@@ -137,7 +152,6 @@ import { bioText } from "../data/about";
       min-height: 44px;
       padding-block: 7px;
       color: #fff;
-      font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;
       font-size: 0.875rem;
       line-height: 30px;
       white-space: nowrap;
@@ -156,12 +170,18 @@ import { bioText } from "../data/about";
       border: 0;
       background: transparent;
       color: #fff;
-      font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;
       font-size: 0.875rem;
       line-height: 30px;
       white-space: nowrap;
       cursor: pointer;
       pointer-events: auto;
+    }
+
+    .mobile-bio summary,
+    .mobile-bio summary span,
+    .bio-read-less,
+    .bio-read-less span {
+      font-family: var(--font-sans);
     }
 
     .mobile-bio summary,
@@ -1095,6 +1115,9 @@ import { bioText } from "../data/about";
       for (let i = existingCount - 1; i >= newCount; i--) {
         canvas.removeChild(existingSpans[i]);
       }
+
+      // Keep server-rendered prose visible until the enhanced layout has content.
+      if (newCount > 0) hero.querySelector('.biography-fallback')?.classList.add('sr-only');
     }
 
     const triggerReflowAfterTransition = () => {
@@ -1127,5 +1150,8 @@ import { bioText } from "../data/about";
       }
     });
     observer.observe(document.documentElement, { attributes: true });
+
+    // A cached or dynamically loaded module can run after the initial page events.
+    if (document.readyState !== 'loading') handlePageLoad();
   </script>
 </BaseLayout>

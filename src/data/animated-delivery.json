@@ -1,0 +1,122 @@
+{
+  "/progetti/brainrot-pavillion/brrbrrpatapim.gif": {
+    "jxl": "/progetti/brainrot-pavillion/brrbrrpatapim.gif.jxl",
+    "fallback": "/progetti/brainrot-pavillion/brrbrrpatapim.gif.animated.webp",
+    "poster": "/progetti/brainrot-pavillion/brrbrrpatapim.gif.poster.webp",
+    "width": 800,
+    "height": 800,
+    "frames": 19,
+    "durationMs": 1100,
+    "fingerprint": "eae3ef854a11d5763769ed4c29e976abcdaeff1b0bf35f21b6d246a44883d5ee"
+  },
+  "/progetti/brainrot-pavillion/brrbrrpatapim.gif-preview.webp": {
+    "jxl": "/progetti/brainrot-pavillion/brrbrrpatapim.gif-preview.webp.jxl",
+    "fallback": "/progetti/brainrot-pavillion/brrbrrpatapim.gif-preview.webp.animated.webp",
+    "poster": "/progetti/brainrot-pavillion/brrbrrpatapim.gif-preview.webp.poster.webp",
+    "width": 640,
+    "height": 640,
+    "frames": 19,
+    "durationMs": 1100,
+    "fingerprint": "951456cc6e8babb8ca5210eb7a68b4e039dfcc5c678b6766c0e71ab7154ec74a"
+  },
+  "/progetti/brainrot-pavillion/frigocamelo.gif": {
+    "jxl": "/progetti/brainrot-pavillion/frigocamelo.gif.jxl",
+    "fallback": "/progetti/brainrot-pavillion/frigocamelo.gif.animated.webp",
+    "poster": "/progetti/brainrot-pavillion/frigocamelo.gif.poster.webp",
+    "width": 1920,
+    "height": 1080,
+    "frames": 19,
+    "durationMs": 850,
+    "fingerprint": "ea55c210dc026c06cd383b6448518b41f9038bfb55b86c33ddb3d98b89363fc0"
+  },
+  "/progetti/brainrot-pavillion/frigocamelo.gif-preview.webp": {
+    "jxl": "/progetti/brainrot-pavillion/frigocamelo.gif-preview.webp.jxl",
+    "fallback": "/progetti/brainrot-pavillion/frigocamelo.gif-preview.webp.animated.webp",
+    "poster": "/progetti/brainrot-pavillion/frigocamelo.gif-preview.webp.poster.webp",
+    "width": 640,
+    "height": 360,
+    "frames": 19,
+    "durationMs": 850,
+    "fingerprint": "a9825fb99224754de6fe289d1a6b9a17598ab6e2895b153d7302493a3898c795"
+  },
+  "/progetti/brainrot-pavillion/nugget.gif": {
+    "jxl": "/progetti/brainrot-pavillion/nugget.gif.jxl",
+    "fallback": "/progetti/brainrot-pavillion/nugget.gif.animated.webp",
+    "poster": "/progetti/brainrot-pavillion/nugget.gif.poster.webp",
+    "width": 1920,
+    "height": 1080,
+    "frames": 19,
+    "durationMs": 850,
+    "fingerprint": "445fc0de834e9beba39832fcdf3e4ae894acc8a160704f8313e4751030c81810"
+  },
+  "/progetti/brainrot-pavillion/nugget.gif-preview.webp": {
+    "jxl": "/progetti/brainrot-pavillion/nugget.gif-preview.webp.jxl",
+    "fallback": "/progetti/brainrot-pavillion/nugget.gif-preview.webp.animated.webp",
+    "poster": "/progetti/brainrot-pavillion/nugget.gif-preview.webp.poster.webp",
+    "width": 640,
+    "height": 360,
+    "frames": 19,
+    "durationMs": 850,
+    "fingerprint": "2116ffce595b9138604a2d7f5729d4f800260814e5e326759a2ab77117c57ad9"
+  },
+  "/progetti/brainrot-pavillion/thungthungsahur.gif": {
+    "jxl": "/progetti/brainrot-pavillion/thungthungsahur.gif.jxl",
+    "fallback": "/progetti/brainrot-pavillion/thungthungsahur.gif.animated.webp",
+    "poster": "/progetti/brainrot-pavillion/thungthungsahur.gif.poster.webp",
+    "width": 1920,
+    "height": 1080,
+    "frames": 14,
+    "durationMs": 820,
+    "fingerprint": "83c0ce54734c97eae63f584347eb20ad59c58061dcbb232dcf618aa585fcdb79"
+  },
+  "/progetti/brainrot-pavillion/thungthungsahur.gif-preview.webp": {
+    "jxl": "/progetti/brainrot-pavillion/thungthungsahur.gif-preview.webp.jxl",
+    "fallback": "/progetti/brainrot-pavillion/thungthungsahur.gif-preview.webp.animated.webp",
+    "poster": "/progetti/brainrot-pavillion/thungthungsahur.gif-preview.webp.poster.webp",
+    "width": 640,
+    "height": 360,
+    "frames": 14,
+    "durationMs": 820,
+    "fingerprint": "ab6723f2beaf8de1cb9eb05d3d9ef58b63def148fcfa86ad8512b8f2f0e07538"
+  },
+  "/progetti/brainrot-pavillion/trallallerotrallallà.gif": {
+    "jxl": "/progetti/brainrot-pavillion/trallallerotrallallà.gif.jxl",
+    "fallback": "/progetti/brainrot-pavillion/trallallerotrallallà.gif.animated.webp",
+    "poster": "/progetti/brainrot-pavillion/trallallerotrallallà.gif.poster.webp",
+    "width": 1920,
+    "height": 1080,
+    "frames": 19,
+    "durationMs": 850,
+    "fingerprint": "eca9538d5ca1575197f6e817cab2f0f68da0498970f68d4b6fc4d4b9a90a2f24"
+  },
+  "/progetti/brainrot-pavillion/trallallerotrallallà.gif-preview.webp": {
+    "jxl": "/progetti/brainrot-pavillion/trallallerotrallallà.gif-preview.webp.jxl",
+    "fallback": "/progetti/brainrot-pavillion/trallallerotrallallà.gif-preview.webp.animated.webp",
+    "poster": "/progetti/brainrot-pavillion/trallallerotrallallà.gif-preview.webp.poster.webp",
+    "width": 640,
+    "height": 360,
+    "frames": 19,
+    "durationMs": 850,
+    "fingerprint": "e018964e37c3bb905c956051971b4104f9a29402c8fa68e9e7a232d799dfd294"
+  },
+  "/progetti/brainrot-pavillion/trippitroppi.gif": {
+    "jxl": "/progetti/brainrot-pavillion/trippitroppi.gif.jxl",
+    "fallback": "/progetti/brainrot-pavillion/trippitroppi.gif.animated.webp",
+    "poster": "/progetti/brainrot-pavillion/trippitroppi.gif.poster.webp",
+    "width": 1920,
+    "height": 1080,
+    "frames": 19,
+    "durationMs": 850,
+    "fingerprint": "69905533a4b16f12f7392af0c72f4106d29927bce90e08a9fc8ff040fe50f831"
+  },
+  "/progetti/brainrot-pavillion/trippitroppi.gif-preview.webp": {
+    "jxl": "/progetti/brainrot-pavillion/trippitroppi.gif-preview.webp.jxl",
+    "fallback": "/progetti/brainrot-pavillion/trippitroppi.gif-preview.webp.animated.webp",
+    "poster": "/progetti/brainrot-pavillion/trippitroppi.gif-preview.webp.poster.webp",
+    "width": 640,
+    "height": 360,
+    "frames": 19,
+    "durationMs": 850,
+    "fingerprint": "3cf240e1abc4c6a0c119cd5b4dc4af5236b6366e9f60dccd841f311822672ef6"
+  }
+}

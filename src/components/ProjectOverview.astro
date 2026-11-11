@@ -1,0 +1,31 @@
+---
+import { projects } from '../data/projects';
+import { projectSummaries } from '../data/project-summaries';
+
+interface Props { projectId: string; brainrot?: boolean }
+const { projectId, brainrot = false } = Astro.props;
+const project = projects.find(p => p.href === `/${projectId}`)!;
+const brief = projectSummaries[projectId];
+---
+
+<section class:list={['portfolio-project-copy', { 'portfolio-brainrot-brief': brainrot }]} aria-labelledby="project-overview-heading">
+  <div class="portfolio-editorial-row portfolio-overview-row">
+    <div class="portfolio-editorial-title">
+      <h2 id="project-overview-heading"><span class="lang-en" lang="en">The project</span><span class="lang-it" lang="it">Il progetto</span></h2>
+    </div>
+    <div class="portfolio-project-prose">
+      <div class="lang-en" lang="en"><p>{project.text}</p></div>
+      <div class="lang-it" lang="it">{brief.paragraphs.map(paragraph => <p>{paragraph}</p>)}</div>
+    </div>
+  </div>
+  <details class="portfolio-disclosure">
+    <summary aria-controls="project-full-text">
+      <span class="portfolio-disclosure-label">
+        <span class="portfolio-more"><span class="lang-en" lang="en">Read in depth and documentation</span><span class="lang-it" lang="it">Approfondisci e documentazione</span></span>
+        <span class="portfolio-less"><span class="lang-en" lang="en">Show less</span><span class="lang-it" lang="it">Mostra meno</span></span>
+      </span>
+      <span class="portfolio-expand-icon" aria-hidden="true">+</span>
+    </summary>
+    <div class="portfolio-disclosure-body" id="project-full-text"><slot /></div>
+  </details>
+</section>

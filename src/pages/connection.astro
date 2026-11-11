@@ -1,5 +1,7 @@
 ---
-import { getProxyUrl } from "../utils/image";
+import ProjectOverview from "../components/ProjectOverview.astro";
+import NextProject from "../components/NextProject.astro";
+import ProgressiveImage from "../components/ProgressiveImage.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
@@ -7,41 +9,37 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <!-- Hero Section -->
   <section class="relative h-[100svh] md:h-[100dvh] w-full overflow-hidden flex items-center justify-center">
     <!-- Use the featured image as background -->
-    <img loading="eager" fetchpriority="high" decoding="async"
-      src={getProxyUrl("/progetti/connection/assets/copertina.jpeg")} data-src="/progetti/connection/assets/copertina.jpeg" 
+    <ProgressiveImage loading="eager" fetchpriority="high" decoding="auto"
+      src={"/progetti/connection/assets/copertina.jpeg"}
       alt="I due performer avvolti da matasse di cavi elettrici neri durante la performance Connection"
       class="absolute inset-0 w-full h-full object-cover z-0 opacity-50"
     />
     <div class="absolute inset-0 bg-black/60 z-10"></div>
-    
+
     <div class="relative z-20 text-center px-6">
-      <h1 
-        class="text-5xl md:text-8xl font-semibold text-white tracking-tight" 
+      <h1
+        class="text-5xl md:text-8xl font-semibold text-white tracking-tight"
         style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;"
       >
         Connection
       </h1>
-      <p class="mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto">
-        <span class="lang-en">Exploring human-machine connection and interaction through the fusion of performance, audio, and real-time visuals.</span>
-        <span class="lang-it">Esplorando la connessione e l'interazione uomo-macchina attraverso la fusione di performance, audio e visual in tempo reale.</span>
-      </p>
+      <p class="mt-6 text-xl text-neutral-300 max-w-2xl mx-auto"><span class="lang-en" lang="en">{"An audiovisual performance exploring human-machine interaction. Performers bind themselves with cables while a digital system processes their movements in real time."}</span><span class="lang-it" lang="it">{"Due performer si legano con cavi mentre un sistema digitale trasforma i loro movimenti in immagini dal vivo."}</span></p>
       <p class="mt-4 text-sm text-neutral-400">
-        <span class="lang-en">A project by Gabriele Radicello and Rebecca Graziu</span>
-        <span class="lang-it">Un progetto di Gabriele Radicello e Rebecca Graziu</span>
+        <span class="lang-en" lang="en">A project by Gabriele Radicello and Rebecca Graziu</span>
+        <span class="lang-it" lang="it">Un progetto di Gabriele Radicello e Rebecca Graziu</span>
       </p>
     </div>
   </section>
 
   <!-- Content Section -->
-  <section class="max-w-4xl mx-auto px-6 py-24 md:py-32 text-neutral-300 text-lg leading-8 text-left">
-    
-    <div class="mb-16 md:mb-24">
-      <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
-        <span class="lang-en">Human-Machine Interaction</span>
-        <span class="lang-it">Interazione Uomo-Macchina</span>
-      </h2>
+  <ProjectOverview projectId="connection">
+<div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
+        <span class="lang-en" lang="en">Human-Machine Interaction</span>
+        <span class="lang-it" lang="it">Interazione Uomo-Macchina</span>
+      </h2></div><div class="portfolio-project-prose">
+
       <div class="grid gap-8">
-        <div class="lang-en">
+        <div class="lang-en" lang="en">
           <p>
             Connection arises from the urgency to question the relationship between body and technology. In an era where the boundary between organic and digital is becoming increasingly thin, the performance poses an essential question: are we controlling the machine, or is the machine defining our movements?
           </p>
@@ -52,7 +50,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             Real-time visual processing closes the circle: human gestures are captured, digested, and returned by the machine in the form of an image. The audience thus witnesses a double layer of reality, the physical one on stage and the digital one of the projection—two dimensions that feed off each other without ever completely coinciding.
           </p>
         </div>
-        <div class="lang-it">
+        <div class="lang-it" lang="it">
           <p>
             Connection nasce dall'urgenza di mettere in discussione il rapporto tra corpo e tecnologia. In un'era in cui il confine tra organico e digitale diventa sempre più sottile, la performance pone una domanda essenziale: siamo noi a controllare la macchina, o è la macchina a definire i nostri movimenti?
           </p>
@@ -64,15 +62,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           </p>
         </div>
       </div>
-    </div>
+    </div></div>
+<div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
+        <span class="lang-en" lang="en">The Anatomy of the Performance</span>
+        <span class="lang-it" lang="it">L'Anatomia della Performance</span>
+      </h2></div><div class="portfolio-project-prose">
 
-    <div class="mb-16 md:mb-24">
-      <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
-        <span class="lang-en">The Anatomy of the Performance</span>
-        <span class="lang-it">L'Anatomia della Performance</span>
-      </h2>
       <div class="grid gap-8">
-        <div class="lang-en">
+        <div class="lang-en" lang="en">
           <p>
             The performance opens with the beginning of the sound component produced by Andrea Antonelli. The two performers enter simultaneously, emerging from the darkness of the environment. On stage there are two chairs and a basket of cables and electronic components positioned in the center, between the two stations.
           </p>
@@ -86,7 +83,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             At the end of the backing track, the performers leave from where they came, stumbling and crawling, still tied by the cables, while the lights go out. The visuals are created in real time with Touchdesigner and Kinect v2.
           </p>
         </div>
-        <div class="lang-it">
+        <div class="lang-it" lang="it">
           <p>
             La performance si apre con l'inizio della componente sonora prodotta da Andrea Antonelli. I due performer entrano contemporaneamente, emergendo dall'oscurità dell'ambiente. Sul palco sono posizionate due sedie e una cesta di cavi e componenti elettronici al centro, tra le due postazioni.
           </p>
@@ -101,14 +98,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           </p>
         </div>
       </div>
-    </div>
-
-    <div class="mb-24">
+    </div></div>
+</ProjectOverview>
+<section class="portfolio-original-content text-neutral-300"><div class="mb-24">
       <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
-        <span class="lang-en">Performance at EXTRABOLD festival</span>
-        <span class="lang-it">Performance al festival EXTRABOLD</span>
+        <span class="lang-en" lang="en">Performance at EXTRABOLD festival</span>
+        <span class="lang-it" lang="it">Performance al festival EXTRABOLD</span>
       </h2>
-      <div class="aspect-video w-full rounded-lg overflow-hidden bg-neutral-900 border border-neutral-800">
+      <div class="aspect-video w-full rounded-lg overflow-hidden bg-black border border-neutral-800">
         <iframe loading="lazy" data-lazy-embed
           data-src="https://www.youtube.com/embed/Ol3ywaSmCPY"
           title="Performance at EXTRABOLD festival"
@@ -118,21 +115,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         ></iframe>
       </div>
     </div>
-
-    <!-- Gallery Section -->
-    <div class="border-t border-neutral-800 pt-16">
+<div class="border-t border-neutral-800 pt-16">
       <h2 class="text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">
-        <span class="lang-en">Gallery</span>
-        <span class="lang-it">Galleria</span>
+        <span class="lang-en" lang="en">Gallery</span>
+        <span class="lang-it" lang="it">Galleria</span>
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <img decoding="async" src={getProxyUrl("/progetti/connection/assets/copertina.jpeg")} data-src="/progetti/connection/assets/copertina.jpeg" alt="I due performer seduti a terra in una luce drammatica, avvolti da un intricato groviglio di cavi" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img decoding="async" src={getProxyUrl("/progetti/connection/assets/1.jpg")} data-src="/progetti/connection/assets/1.jpg" alt="Visualizzazione sul palco della performance, con la proiezione posteriore che riflette la silhouette in tempo reale" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img decoding="async" src={getProxyUrl("/progetti/connection/assets/demo1.jpeg")} data-src="/progetti/connection/assets/demo1.jpeg" alt="Dettaglio del live visual in TouchDesigner con elaborazione ad alto contrasto dei movimenti del corpo" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img decoding="async" src={getProxyUrl("/progetti/connection/assets/demo2.jpeg")} data-src="/progetti/connection/assets/demo2.jpeg" alt="Silhouette catturate tramite Kinect rielaborate digitalmente come ombre cibernetiche sul muro di fondo" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
-        <img decoding="async" src={getProxyUrl("/progetti/connection/assets/render disegnato.png")} data-src="/progetti/connection/assets/render disegnato.png" alt="Schema tecnico e bozzetto scenografico delle postazioni dei performer e della telecamera a infrarossi" class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" loading="lazy" />
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto" src={"/progetti/connection/assets/copertina.jpeg"} alt="I due performer seduti a terra in una luce drammatica, avvolti da un intricato groviglio di cavi" class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img" loading="lazy" />
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto" src={"/progetti/connection/assets/1.jpg"} alt="Visualizzazione sul palco della performance, con la proiezione posteriore che riflette la silhouette in tempo reale" class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img" loading="lazy" />
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto" src={"/progetti/connection/assets/demo1.jpeg"} alt="Dettaglio del live visual in TouchDesigner con elaborazione ad alto contrasto dei movimenti del corpo" class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img" loading="lazy" />
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto" src={"/progetti/connection/assets/demo2.jpeg"} alt="Silhouette catturate tramite Kinect rielaborate digitalmente come ombre cibernetiche sul muro di fondo" class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img" loading="lazy" />
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto" src={"/progetti/connection/assets/render disegnato.png"} alt="Schema tecnico e bozzetto scenografico delle postazioni dei performer e della telecamera a infrarossi" class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img" loading="lazy" />
       </div>
-    </div>
-
-  </section>
+    </div></section>
+<NextProject projectId="connection" />
 </BaseLayout>

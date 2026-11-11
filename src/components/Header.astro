@@ -17,15 +17,17 @@ const isHome = pathname === "/" || pathname === "/index.html";
       href={isHome ? "#" : logoHref}
       data-scroll-top={isHome || undefined}
       data-ascii-logo={!isHome || undefined}
-      aria-label={isHome ? "Back to top" : undefined}
       aria-current={isHome ? "page" : undefined}
       style="font-family: 'Apple Garamond Custom', serif;"
     >
-      <svg 
+      <svg
         id="logo-root"
         class="w-8 h-10 md:w-12 md:h-16 transition-transform duration-500"
-        viewBox="0 10.84 27.17 35.55" 
+        viewBox="0 10.84 27.17 35.55"
         fill="currentColor"
+        aria-hidden="true"
+        role="presentation"
+        focusable="false"
       >
         <path d="M12.13 39.45L22.56 10.84L27.17 10.84L13.94 46.39L10.50 46.39L4.52 31.05L0 31.05L0 27.29L7.69 27.29L12.13 39.45Z"/>
       </svg>
@@ -42,28 +44,27 @@ const isHome = pathname === "/" || pathname === "/index.html";
       aria-label="Main navigation"
       id="header-nav"
     >
-      <a class="transition-colors hover:text-white" href={pathname === "/about" ? undefined : "/about"}
+      <a class="transition-colors hover:text-white" href="/about"
         aria-current={pathname === "/about" ? "page" : undefined}
-        aria-disabled={pathname === "/about" ? "true" : undefined}
       >
-        <span class="lang-en">about</span>
-        <span class="lang-it">chi sono</span>
+        <span class="lang-en" lang="en">about</span>
+        <span class="lang-it" lang="it">chi sono</span>
       </a>
-      <a class="transition-colors hover:text-white" href={pathname === "/contacts" ? undefined : "/contacts"}
+      <a class="transition-colors hover:text-white" href="/contacts"
         aria-current={pathname === "/contacts" ? "page" : undefined}
-        aria-disabled={pathname === "/contacts" ? "true" : undefined}
       >
-        <span class="lang-en">contacts</span>
-        <span class="lang-it">contatti</span>
+        <span class="lang-en" lang="en">contacts</span>
+        <span class="lang-it" lang="it">contatti</span>
       </a>
-      <button 
-        id="global-lang-toggle" 
-        type="button" 
+      <button
+        id="global-lang-toggle"
+        type="button"
         class="transition-colors hover:text-white cursor-pointer font-normal lowercase tracking-wide text-neutral-500 uppercase select-none border-none p-0 inline-flex items-center"
         title="Cambia lingua / Switch language"
       >
-        <span class="lang-it">IT</span>
-        <span class="lang-en">EN</span>
+        <span class="lang-it" lang="it">IT</span>
+        <span class="lang-en" lang="en">EN</span>
+        <span class="sr-only lang-en" lang="en">Switch language</span><span class="sr-only lang-it" lang="it">Cambia lingua</span>
       </button>
     </nav>
   </div>
@@ -95,6 +96,7 @@ const isHome = pathname === "/" || pathname === "/index.html";
   #main-header[data-contrast]::before {
     opacity: 1;
   }
+  #main-header:focus-within::before { opacity: 1; }
 
   #main-header[data-compact] {
     padding-block: 1rem;
@@ -170,7 +172,7 @@ const isHome = pathname === "/" || pathname === "/index.html";
   function updateHeaderState() {
     if (!header) return;
 
-    const compact = forceCompact || (getScrollY() > 50 && !scrollingUp);
+    const compact = !header.contains(document.activeElement) && (forceCompact || (getScrollY() > 50 && !scrollingUp));
     header.toggleAttribute("data-compact", compact);
     header.toggleAttribute("data-contrast", getScrollY() > 50 && !compact);
     if (nav) nav.inert = compact;
@@ -196,6 +198,7 @@ const isHome = pathname === "/" || pathname === "/index.html";
   initHeader();
   window.addEventListener("scroll", handleScroll, { passive: true });
   window.addEventListener("resize", updateHeaderState);
+  document.addEventListener('focusin', updateHeaderState);
   document.addEventListener("astro:page-load", initHeader);
 
   window.addEventListener("message", (event) => {
@@ -217,9 +220,9 @@ const isHome = pathname === "/" || pathname === "/index.html";
       if (btn) {
         e.preventDefault();
         e.stopPropagation();
-        const current = document.documentElement.getAttribute('data-lang') || localStorage.getItem('lang') || 'en';
+        const current = document.documentElement.getAttribute('data-lang') || 'en';
         const next = current === 'it' ? 'en' : 'it';
-        localStorage.setItem('lang', next);
+        try { localStorage.setItem('lang', next); } catch { /* Storage can be disabled. */ }
         document.documentElement.setAttribute('data-lang', next);
         document.documentElement.lang = next;
       }

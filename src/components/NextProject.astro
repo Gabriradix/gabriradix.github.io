@@ -1,0 +1,16 @@
+---
+import { projects } from '../data/projects';
+interface Props { projectId: string }
+const { projectId } = Astro.props;
+const index = projects.findIndex(project => project.href === `/${projectId}`);
+const next = projects[(index + 1) % projects.length];
+---
+<nav class:list={['portfolio-next-project', { 'portfolio-brainrot-next': projectId === 'brainrot-pavillion' }]} aria-label="Prossimo progetto / Next project">
+  <a href={next.href}>
+    <div>
+      <span class="portfolio-next-label"><span class="lang-en" lang="en">Next project</span><span class="lang-it" lang="it">Prossimo progetto</span></span>
+      <h2>{next.title}</h2>
+    </div>
+    <span class="portfolio-next-arrow" aria-hidden="true">→</span>
+  </a>
+</nav>

@@ -1,3 +1,4 @@
+import { isMotionPaused, motionChangeEvent } from './motion.ts';
 const originalLoads = new WeakMap<HTMLImageElement, Promise<void>>();
 
 export function mediaRetryUrl(source: string) {
@@ -11,10 +12,15 @@ export function prepareImageRetry(image: HTMLImageElement) {
   if (image.hasAttribute('data-image-retry-ready')) return;
   image.setAttribute('data-image-retry-ready', '');
   const retry = () => {
-    const source = image.getAttribute('src');
+    const source = image.currentSrc || image.getAttribute('src');
     if (!source || image.hasAttribute('data-image-retried')) return;
     image.setAttribute('data-image-retried', '');
-    image.src = mediaRetryUrl(source);
+    const jxlSource = image.closest?.('picture')?.querySelector<HTMLSourceElement>('source[type="image/jxl"]');
+    if (jxlSource && new URL(source, document.baseURI).pathname.endsWith('.jxl')) {
+      jxlSource.srcset = mediaRetryUrl(source);
+    } else {
+      image.src = mediaRetryUrl(source);
+    }
   };
   image.addEventListener('error', retry, { once: true });
   if (image.complete && image.naturalWidth === 0) retry();
@@ -109,7 +115,7 @@ export function observeAutoplayVideos() {
     'video[data-autoplay], video[data-carousel-video]',
   );
   const play = (video: HTMLVideoElement) => {
-    if (document.hidden || !visible.has(video)) {
+    if (document.hidden || isMotionPaused() || !visible.has(video)) {
       video.pause();
       return;
     }
@@ -122,7 +128,7 @@ export function observeAutoplayVideos() {
     video.play().catch(() => {}).finally(() => {
       pending.delete(video);
       if (events.signal.aborted) return;
-      if (document.hidden || !visible.has(video)) video.pause();
+      if (document.hidden || isMotionPaused() || !visible.has(video)) video.pause();
     });
   };
   const resume = () => visible.forEach(play);
@@ -140,6 +146,7 @@ export function observeAutoplayVideos() {
   });
   videos.forEach(video => observer.observe(video));
   document.addEventListener('visibilitychange', resume, { signal: events.signal });
+  document.addEventListener(motionChangeEvent, resume, { signal: events.signal });
   document.addEventListener('pointerdown', resume, { passive: true, signal: events.signal });
   window.addEventListener('pageshow', resume, { signal: events.signal });
   return () => {

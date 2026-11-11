@@ -1,4 +1,5 @@
 ---
+import ProgressiveImage from "../components/ProgressiveImage.astro";
 import { getPreviewImage } from "../utils/image";
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
   text_it?: string;
   href: string;
   images: string[];
+  images_it?: string[];
   year?: string;
   category?: string;
   category_it?: string;
@@ -14,21 +16,23 @@ interface Props {
   priority?: boolean;
 }
 
-const { title, text, text_it, href, images, year, category, category_it, brandColor, priority = false } = Astro.props;
+const { title, text, text_it, href, images, images_it, year, category, category_it, brandColor, priority = false } = Astro.props;
 const hasCarousel = images.length > 1;
 const carouselImages = hasCarousel ? [...images, ...images] : images;
 const animationDuration = images.length * 20;
 const isBrainrot = title === "Brainrot Pavilion";
+const carouselId = `carousel-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 ---
 
-<article 
+<article
   class="flex flex-col md:flex-row items-start group project-card"
   style={brandColor ? `--hover-glow: 0 0 12px ${brandColor}; --brand-glow-color: ${brandColor};` : undefined}
 >
   <!-- Text — same as original layout -->
   <div class="w-full md:w-1/3 shrink-0 pr-6 md:pr-12 flex flex-col md:items-end text-left md:text-right pt-[20px] mb-6 md:mb-0">
-    <h3
-      class="text-2xl font-normal tracking-tight text-neutral-200 mb-2 transition-colors group-hover:text-white"
+    <h2
+      id={`${carouselId}-title`}
+      class="project-title text-2xl font-normal tracking-tight text-neutral-200 mb-2 transition-colors group-hover:text-white"
       style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;"
     >
       <a
@@ -37,17 +41,21 @@ const isBrainrot = title === "Brainrot Pavilion";
         target={href.startsWith('http') ? "_blank" : undefined}
         rel={href.startsWith('http') ? "noopener noreferrer" : undefined}
       >{title}</a>
-    </h3>
+    </h2>
     <div class="flex items-center gap-2 md:justify-end text-neutral-500 text-xs lowercase">
-      <span class="lang-en">{category}</span>
-      <span class="lang-it">{category_it || category}</span>
-      <span class="text-neutral-700 opacity-50">•</span>
+      <span class="lang-en" lang="en">{category}</span>
+      <span class="lang-it" lang="it">{category_it || category}</span>
+      <span class="text-neutral-700 opacity-50" aria-hidden="true">•</span>
       <span class="font-mono">{year}</span>
     </div>
+    {hasCarousel && <p id={`${carouselId}-help`} class="sr-only"><span class="lang-en" lang="en">Use the left and right arrow keys to browse images. Press Space to pause or resume scrolling, and Enter to open the project.</span><span class="lang-it" lang="it">Usa le frecce sinistra e destra per scorrere le immagini. Premi Spazio per mettere in pausa o riprendere lo scorrimento, e Invio per aprire il progetto.</span></p>}
   </div>
 
   <!-- Carousel — extends to right viewport edge -->
   <a
+    id={carouselId}
+    aria-labelledby={`${carouselId}-title`}
+    aria-describedby={hasCarousel ? `${carouselId}-help` : undefined}
     href={href}
     target={href.startsWith('http') ? "_blank" : undefined}
     rel={href.startsWith('http') ? "noopener noreferrer" : undefined}
@@ -63,7 +71,22 @@ const isBrainrot = title === "Brainrot Pavilion";
           const isVid = img.toLowerCase().endsWith('.mp4') || img.toLowerCase().endsWith('.mov') || img.toLowerCase().endsWith('.webm');
           const webmSrc = img.replace(/\.(mp4|mov)$/i, '.webm');
           const preview = getPreviewImage(img);
-          return isVid ? (
+          const localizedPreview = images_it?.[i % images.length];
+          const italianPreview = localizedPreview ? getPreviewImage(localizedPreview) : undefined;
+          return italianPreview ? (
+            <div class="h-full shrink-0 mr-[5px]">
+              <span class="lang-en block h-full" lang="en">
+                <ProgressiveImage src={preview.src} width={preview.width} height={preview.height}
+                  alt={`${title} ${(i % images.length) + 1}`} aria-hidden={i >= images.length ? 'true' : undefined}
+                  class="h-full w-auto max-w-none object-cover" loading="lazy" decoding="auto" draggable="false" />
+              </span>
+              <span class="lang-it block h-full" lang="it">
+                <ProgressiveImage src={italianPreview.src} width={italianPreview.width} height={italianPreview.height}
+                  alt={`${title} ${(i % images.length) + 1}`} aria-hidden={i >= images.length ? 'true' : undefined}
+                  class="h-full w-auto max-w-none object-cover" loading="lazy" decoding="auto" draggable="false" />
+              </span>
+            </div>
+          ) : isVid ? (
             <video
               data-carousel-video
               loop
@@ -81,15 +104,16 @@ const isBrainrot = title === "Brainrot Pavilion";
               {webmSrc !== img && <source data-src={webmSrc} type="video/webm" />}
             </video>
           ) : (
-            <img
+            <ProgressiveImage
               src={preview.src}
               width={preview.width}
               height={preview.height}
               alt={`${title} ${(i % images.length) + 1}`}
+              aria-hidden={i >= images.length ? 'true' : undefined}
               class={isBrainrot ? 'brainrot-carousel-gif shrink-0' : 'h-full w-auto max-w-none object-cover shrink-0 mr-[5px]'}
               loading={priority && i === 0 ? "eager" : "lazy"}
               fetchpriority={priority && i === 0 ? "high" : "auto"}
-              decoding="async"
+              decoding="auto"
               draggable="false"
             />
           );
@@ -113,7 +137,7 @@ const isBrainrot = title === "Brainrot Pavilion";
             draggable="false"
           ></video>
         ) : (
-          <img
+          <ProgressiveImage
             src={getPreviewImage(images[0]).src}
             width={getPreviewImage(images[0]).width}
             height={getPreviewImage(images[0]).height}
@@ -121,7 +145,7 @@ const isBrainrot = title === "Brainrot Pavilion";
             class="w-full h-full object-cover"
             loading={priority ? "eager" : "lazy"}
             fetchpriority={priority ? "high" : "auto"}
-            decoding="async"
+            decoding="auto"
             draggable="false"
           />
         )}
@@ -133,15 +157,16 @@ const isBrainrot = title === "Brainrot Pavilion";
 <script>
   import { getGestureAxis } from '../utils/gesture';
   import { loadCarouselImages } from '../utils/carousel-images';
+  import { isMotionPaused, motionChangeEvent } from '../utils/motion';
   const carouselCleanups = new Set<() => void>();
 
   function initCarousels() {
     const containers = document.querySelectorAll('.carousel-container');
-    
+
     containers.forEach(node => {
       const container = node as HTMLElement;
       if (container.getAttribute('data-carousel-initialized')) return;
-      
+
       const strip = container.querySelector('.carousel-strip') as HTMLElement;
       if (!strip) {
         container.setAttribute('data-carousel-initialized', 'true');
@@ -176,6 +201,8 @@ const isBrainrot = title === "Brainrot Pavilion";
       animation.pause();
 
       let isDragging = false;
+      let userPaused = false;
+      let allowFocusedPlayback = false;
       let isInViewport = false;
       let startX = 0;
       let lastX = 0;
@@ -187,7 +214,8 @@ const isBrainrot = title === "Brainrot Pavilion";
       const events = new AbortController();
 
       const resumeAnimation = () => {
-        if (isInViewport && !document.hidden && !isDragging) animation.play();
+        if (isInViewport && !document.hidden && !isDragging && !userPaused && !isMotionPaused()
+          && (!container.contains(document.activeElement) || allowFocusedPlayback)) animation.play();
         else animation.pause();
       };
       const observer = new IntersectionObserver(entries => {
@@ -201,6 +229,34 @@ const isBrainrot = title === "Brainrot Pavilion";
       }, { rootMargin: '200px 0px' });
       observer.observe(container);
       document.addEventListener('visibilitychange', resumeAnimation, { signal: events.signal });
+      document.addEventListener(motionChangeEvent, resumeAnimation, { signal: events.signal });
+      container.addEventListener('focus', () => animation.pause(), { signal: events.signal });
+      container.addEventListener('blur', () => { allowFocusedPlayback = false; resumeAnimation(); }, { signal: events.signal });
+      function imagesPerLoop() { return Math.max(1, strip!.children.length / 2); }
+      function stepImage(step: number) {
+        loadCarouselImages(container);
+        if (inertiaFrameId) {
+          cancelAnimationFrame(inertiaFrameId);
+          inertiaFrameId = null;
+        }
+        const current = Number(animation.currentTime) || 0;
+        animation.currentTime = ((current + step * totalDuration / imagesPerLoop()) % totalDuration + totalDuration) % totalDuration;
+      }
+      container.addEventListener('keydown', event => {
+        if (event.key === ' ') {
+          event.preventDefault();
+          allowFocusedPlayback = animation.playState !== 'running';
+          userPaused = !allowFocusedPlayback;
+          resumeAnimation();
+          return;
+        }
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+        event.preventDefault();
+        userPaused = true;
+        allowFocusedPlayback = false;
+        animation.pause();
+        stepImage(event.key === 'ArrowRight' ? 1 : -1);
+      }, { signal: events.signal });
       carouselCleanups.add(() => {
         events.abort();
         observer.disconnect();
@@ -237,7 +293,7 @@ const isBrainrot = title === "Brainrot Pavilion";
         const deltaTime = currentTime - lastTime;
         const deltaX = x - startX;
         if (Math.abs(deltaX) > 5) wasDragged = true;
-        
+
         const halfWidth = strip.offsetWidth / 2;
         if (halfWidth <= 0) return;
 
@@ -253,10 +309,10 @@ const isBrainrot = title === "Brainrot Pavilion";
         // Invert delta because dragging left increases progress (moves towards -50%)
         const deltaProgress = -deltaX / halfWidth;
         let newProgress = startProgress + deltaProgress;
-        
+
         // Normalize progress to 0-1
         newProgress = ((newProgress % 1) + 1) % 1;
-        
+
         animation.currentTime = newProgress * totalDuration;
       };
 
@@ -368,7 +424,7 @@ const isBrainrot = title === "Brainrot Pavilion";
           const deltaProgress = wheelEvent.deltaX / halfWidth;
           let newProgress = getProgress() + deltaProgress;
           newProgress = ((newProgress % 1) + 1) % 1;
-          
+
           animation.currentTime = newProgress * totalDuration;
         }
       }, { passive: false });
@@ -392,14 +448,14 @@ const isBrainrot = title === "Brainrot Pavilion";
       if (card.hasAttribute('data-ascii-initialized')) return;
       card.setAttribute('data-ascii-initialized', 'true');
       const carousel = card.querySelector('.carousel-container') as HTMLElement;
-      const titleLink = card.querySelector('h3 a') as HTMLElement;
-      
+      const titleLink = card.querySelector('.project-title a') as HTMLElement;
+
       const handleEnterTarget = (targetEl: HTMLElement) => {
         if (Date.now() - lastTouchTime < 1000) return;
-        
+
         document.querySelectorAll('.hovered-target').forEach(el => el.classList.remove('hovered-target'));
         document.querySelectorAll('.hovered-card').forEach(el => el.classList.remove('hovered-card'));
-        
+
         targetEl.classList.add('hovered-target');
         card.classList.add('hovered-card');
         document.documentElement.classList.add('ascii-active');
@@ -417,7 +473,7 @@ const isBrainrot = title === "Brainrot Pavilion";
       const handleEnterForceTarget = (targetEl: HTMLElement) => {
         document.querySelectorAll('.hovered-target').forEach(el => el.classList.remove('hovered-target'));
         document.querySelectorAll('.hovered-card').forEach(el => el.classList.remove('hovered-card'));
-        
+
         targetEl.classList.add('hovered-target');
         card.classList.add('hovered-card');
         document.documentElement.classList.add('ascii-active');
@@ -444,7 +500,7 @@ const isBrainrot = title === "Brainrot Pavilion";
           if (touchTimeout) clearTimeout(touchTimeout);
           handleEnterForceTarget(carousel);
         }, { passive: true });
-        
+
         const handleTouchEndCarousel = () => {
           lastTouchTime = Date.now();
           const elapsed = Date.now() - touchStartVal;
@@ -475,7 +531,7 @@ const isBrainrot = title === "Brainrot Pavilion";
           if (touchTimeout) clearTimeout(touchTimeout);
           handleEnterForceTarget(titleLink);
         }, { passive: true });
-        
+
         const handleTouchEndTitle = () => {
           lastTouchTime = Date.now();
           const elapsed = Date.now() - touchStartVal;
@@ -520,14 +576,14 @@ const isBrainrot = title === "Brainrot Pavilion";
 
 <style>
   /* Buttery smooth transition for the title link */
-  .project-card h3 a {
+  .project-card .project-title a {
     transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1), text-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: color, text-shadow;
   }
 
   /* When the card is hovered or has the active hovered-card class, light up the title link hover glow! */
-  .project-card:hover h3 a,
-  .project-card.hovered-card h3 a {
+  .project-card:hover .project-title a,
+  .project-card.hovered-card .project-title a {
     color: #ffffff !important;
     text-shadow: var(--hover-glow, 0 0 12px rgba(255, 255, 255, 0.35)) !important;
   }

@@ -186,53 +186,77 @@
     "height": 720,
     "fingerprint": "f5854fae3aa9dbce75e1af593410506725e0adabd98cc2f4cdf62ba28045baca"
   },
-  "/progetti/dream-catalogue/cover.png": {
-    "src": "/progetti/dream-catalogue/cover.png-preview.webp",
-    "width": 1200,
-    "height": 601,
-    "fingerprint": "058ce0f4cd3932b7f7ec38381d6c5c021b12a2fc7afdd02cf76b6621ae9f93e1"
-  },
-  "/progetti/dream-catalogue/diagram-data-pipeline.svg": {
-    "src": "/progetti/dream-catalogue/diagram-data-pipeline.svg",
-    "width": 900,
+  "/progetti/dream-catalogue/diagram-dream-pipeline.svg": {
+    "src": "/progetti/dream-catalogue/diagram-dream-pipeline.svg",
+    "width": 960,
     "height": 600,
-    "fingerprint": "1984e68715f55a29858b216d94d67d5f43349e3a0cfbe66c403158a3882ff0eb"
+    "fingerprint": "6c766c9e17315c403f168171e0640a5647f67d87c5411791174a808f5ab6d85a"
   },
-  "/progetti/dream-catalogue/diagram-graph-mechanics.svg": {
-    "src": "/progetti/dream-catalogue/diagram-graph-mechanics.svg",
-    "width": 900,
+  "/progetti/dream-catalogue/diagram-dream-forces.svg": {
+    "src": "/progetti/dream-catalogue/diagram-dream-forces.svg",
+    "width": 960,
     "height": 600,
-    "fingerprint": "46f5d27f4c6bef614e3f9797eb2315e76610de70228ff3dcf69d91c4f92af8fa"
+    "fingerprint": "9155cc3761dd05fb3c923edc897a163a2090c2077903a330417ebb99daa9f154"
   },
-  "/progetti/dream-catalogue/diagram-ui-telemetry.svg": {
-    "src": "/progetti/dream-catalogue/diagram-ui-telemetry.svg",
-    "width": 900,
+  "/progetti/dream-catalogue/diagram-dream-interface.svg": {
+    "src": "/progetti/dream-catalogue/diagram-dream-interface.svg",
+    "width": 960,
     "height": 600,
-    "fingerprint": "a13051cba03718801d517cd68d11a381091485714da7b95e1f88ec4cd52ef8c4"
+    "fingerprint": "cdda58bd33c6353f731a2859c8b14083e43ddc86e6b7b5ad5a830cd16e64d8ec"
   },
-  "/progetti/the-cheese-prophecy/cover.png": {
-    "src": "/progetti/the-cheese-prophecy/cover.png-preview.webp",
-    "width": 913,
-    "height": 586,
-    "fingerprint": "a96f07a1beb9628700a046a7020caa732ff05970829ec5af10479a68b1c39cb4"
-  },
-  "/progetti/the-cheese-prophecy/diagram-poetic-generation.svg": {
-    "src": "/progetti/the-cheese-prophecy/diagram-poetic-generation.svg",
-    "width": 900,
+  "/progetti/dream-catalogue/diagram-dream-pipeline.it.svg": {
+    "src": "/progetti/dream-catalogue/diagram-dream-pipeline.it.svg",
+    "width": 960,
     "height": 600,
-    "fingerprint": "953c0ca438ba2fb7a8a8c6446edd52ed4afb4b789a8335840a8491421845541d"
+    "fingerprint": "0d3868c405a98e2ae007a497dcf6d786ace6f624f91ff6925992c176d16c1b38"
   },
-  "/progetti/the-cheese-prophecy/diagram-prophecy-kinetics.svg": {
-    "src": "/progetti/the-cheese-prophecy/diagram-prophecy-kinetics.svg",
-    "width": 900,
+  "/progetti/dream-catalogue/diagram-dream-forces.it.svg": {
+    "src": "/progetti/dream-catalogue/diagram-dream-forces.it.svg",
+    "width": 960,
     "height": 600,
-    "fingerprint": "0cdc724989de4807f06457fc2d2aa45ab10589bd0865834f02a5ab8077e28b56"
+    "fingerprint": "9155cc3761dd05fb3c923edc897a163a2090c2077903a330417ebb99daa9f154"
   },
-  "/progetti/the-cheese-prophecy/diagram-netart-interface.svg": {
-    "src": "/progetti/the-cheese-prophecy/diagram-netart-interface.svg",
-    "width": 900,
+  "/progetti/dream-catalogue/diagram-dream-interface.it.svg": {
+    "src": "/progetti/dream-catalogue/diagram-dream-interface.it.svg",
+    "width": 960,
     "height": 600,
-    "fingerprint": "5c567f918f6780b0d8c4f017f5ca0a25350610ba5dcc3d4901f0851d84166f5a"
+    "fingerprint": "092034105f0e20cec5a752be5ddaee68ddf89c8c37b9dbc82ed8f1f7fe29497b"
+  },
+  "/progetti/the-cheese-prophecy/diagram-cheese-generation.svg": {
+    "src": "/progetti/the-cheese-prophecy/diagram-cheese-generation.svg",
+    "width": 960,
+    "height": 600,
+    "fingerprint": "1ced6c7b97510e07e5d0b2475c95ec3a0ea556565dd706a1f584838ba062084b"
+  },
+  "/progetti/the-cheese-prophecy/diagram-cheese-revelation.svg": {
+    "src": "/progetti/the-cheese-prophecy/diagram-cheese-revelation.svg",
+    "width": 960,
+    "height": 600,
+    "fingerprint": "04aa47183b602ad520490a7c2fd1f807ccf5b98a54ec8d522bcfbfc2a1c916f3"
+  },
+  "/progetti/the-cheese-prophecy/diagram-cheese-interface.svg": {
+    "src": "/progetti/the-cheese-prophecy/diagram-cheese-interface.svg",
+    "width": 960,
+    "height": 600,
+    "fingerprint": "4604bb8223327f77c7c2f6cbaf15a70955039ab37d89b3346fb6ba80102c7a16"
+  },
+  "/progetti/the-cheese-prophecy/diagram-cheese-generation.it.svg": {
+    "src": "/progetti/the-cheese-prophecy/diagram-cheese-generation.it.svg",
+    "width": 960,
+    "height": 600,
+    "fingerprint": "7f97e2500e17c9557798d79e360c99db2cd025068470b682653dcdda50d2c06c"
+  },
+  "/progetti/the-cheese-prophecy/diagram-cheese-revelation.it.svg": {
+    "src": "/progetti/the-cheese-prophecy/diagram-cheese-revelation.it.svg",
+    "width": 960,
+    "height": 600,
+    "fingerprint": "e835bd399f6a54d9da332c4bde6c23de2d1bbeb011066f90b3e55f48beabc9d0"
+  },
+  "/progetti/the-cheese-prophecy/diagram-cheese-interface.it.svg": {
+    "src": "/progetti/the-cheese-prophecy/diagram-cheese-interface.it.svg",
+    "width": 960,
+    "height": 600,
+    "fingerprint": "bb74ee424eefabceb8e64d081ee4891b32acd3eacdae15b8f3ba78b1a475e4ce"
   },
   "/progetti/street-rendering/(6).PNG": {
     "src": "/progetti/street-rendering/(6).PNG-preview.webp",

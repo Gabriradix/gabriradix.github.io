@@ -1,0 +1,324 @@
+---
+import { explainers, type ExplainerKind } from "../data/explainers";
+import { explainersIt } from "../data/explainers-it";
+import "../styles/explainer-diagram.css";
+
+interface Props { kind: ExplainerKind; animated?: boolean }
+const { kind, animated = true } = Astro.props;
+const content = explainers[kind];
+const localized = explainersIt[kind];
+const cheese = kind.startsWith("cheese");
+const isInterface = kind.endsWith("interface");
+const isNetwork = kind === "dream-pipeline" || kind === "dream-forces";
+const id = `explainer-${kind}`;
+const colours = ["#FF5A5F", "#2EE6D6", "#9B7BFF", "#FF9F1C"];
+const staticStep = kind === "cheese-revelation" || kind === "dream-forces" ? 2 : 3;
+const notes = "notes" in content ? content.notes : [];
+const nodes = Array.from({ length: 20 }, (_, i) => {
+  const group = i % 4;
+  const angle = i * 2.39996;
+  const radius = 58 + Math.sqrt(i) * 40;
+  const x = 360 + Math.cos(angle) * radius;
+  const y = 225 + Math.sin(angle) * radius * 0.7;
+  return { x, y, group, r: 5 + (i * 7 % 13),
+    x0: 125 + (i % 5) * 116, y0: 92 + Math.floor(i / 5) * 86,
+    colour: colours[group] };
+});
+const edges = nodes.flatMap((node, i) => nodes.slice(i + 1).flatMap((other, offset) => {
+  const j = i + offset + 1;
+  return (node.group === other.group || j === i + 1) ? [{ a: i, b: j, primary: node.group === other.group }] : [];
+}));
+const targetWords = ["trust", "the", "path", "you", "cannot", "see"];
+const targetIndices = [1, 6, 15, 22, 26, 34];
+const filler = ["light", "flows", "silence", "within", "above", "time", "dream", "still", "opens", "every", "beyond", "soft", "wisdom", "rises", "after", "knows", "space", "waits"];
+const words = Array.from({ length: 36 }, (_, i) => {
+  const target = targetIndices.indexOf(i);
+  return { text: target >= 0 ? targetWords[target] : filler[i % filler.length], target,
+    x: 100 + (i % 6) * 104, y: 100 + Math.floor(i / 6) * 46 };
+});
+---
+
+<figure class:list={["explainer", { "explainer--cheese": cheese }]} id={id}
+  data-explainer={animated ? true : undefined} data-mode={animated ? "animated" : "static"}
+  data-step={animated ? "0" : String(staticStep)} data-playing="false" data-kind={kind}
+  aria-labelledby={`${id}-caption`}>
+  <div class="ed-layout">
+    <div class="ed-viewport">
+      <svg class="ed-drawing" lang="en" viewBox="0 0 720 440" role="img" aria-labelledby={`${id}-svg-title ${id}-svg-desc`}>
+        <title id={`${id}-svg-title`}>{content.title}</title>
+        <desc id={`${id}-svg-desc`}>{content.summary} Illustrative examples, not live application data. {animated ? "Use the numbered steps below to follow the explanation." : "The accompanying notes explain the drawing."}</desc>
+        <defs>
+          <marker id={`${id}-arrow`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="currentColor" stroke-width="1.2" />
+          </marker>
+          <mask id={`${id}-mask`}>
+            <rect width="720" height="440" fill="white" />
+            {words.filter(w => w.target >= 0).map(w => <circle cx={w.x} cy={w.y - 7} r={w.text.length > 5 ? 43 : 34} fill="black" />)}
+            <circle cx="450" cy="115" r="12" fill="black" /><circle cx="245" cy="300" r="14" fill="black" />
+            <circle cx="555" cy="245" r="11" fill="black" />
+          </mask>
+        </defs>
+
+        {!isInterface && !isNetwork && <>
+          <g class="ed-opening ed-phase ed-phase-0">
+            <text x="64" y="103" class="ed-svg-label">A PHRASE FROM THE ORACLE</text>
+            <text x="64" y="186" class="ed-quote">Trust the path</text>
+            <text x="64" y="246" class="ed-quote">you cannot see.</text>
+            <path d="M64 292 H290" class="ed-line ed-accent" />
+            <circle cx="290" cy="292" r="4" class="ed-fill-accent" />
+            <text x="64" y="346" class="ed-svg-note">Chosen first. Revealed later.</text>
+          </g>
+          <g class="ed-word-field">
+            {words.map(w => <text x={w.x} y={w.y} text-anchor="middle" class:list={["ed-word", {"ed-target": w.target >= 0}]}>{w.text}</text>)}
+          </g>
+          <g class="ed-cheese-mask">
+            <path d="M44 55 L658 70 L675 357 L57 371 Z" fill="var(--ed-cheese-fill)" stroke="var(--ed-accent)" stroke-width="1.4" mask={`url(#${id}-mask)`} />
+            {words.filter(w => w.target >= 0).map(w => <circle cx={w.x} cy={w.y - 7} r={w.text.length > 5 ? 43 : 34} class="ed-hole-outline" />)}
+          </g>
+          {kind === "cheese-revelation" && <g class="ed-location-marks">
+            {words.filter(w => w.target >= 0).map(w => <g>
+              <path d={`M${w.x - 9} ${w.y - 7}h18 M${w.x} ${w.y - 16}v18`} class="ed-accent ed-line" />
+              <circle cx={w.x} cy={w.y - 7} r={w.text.length > 5 ? 43 : 34} class="ed-measure-circle" />
+            </g>)}
+          </g>}
+          <g class="ed-export ed-phase ed-phase-3">
+            <rect x="220" y="38" width="280" height="350" class="ed-card" />
+            <text x="250" y="77" class="ed-svg-label">THE CHEESE PROPHECY</text>
+            <path d="M252 110 H468" class="ed-line ed-accent" />
+            <text x="252" y="170" class="ed-card-quote">Trust the path</text>
+            <text x="252" y="205" class="ed-card-quote">you cannot see.</text>
+            <path d="M255 245 L458 229 L470 323 L250 333 Z" fill="var(--ed-cheese-fill)" stroke="var(--ed-accent)" />
+            {[{x:288,y:278,r:16},{x:355,y:291,r:24},{x:425,y:260,r:12},{x:429,y:310,r:9}].map(c => <circle cx={c.x} cy={c.y} r={c.r} fill="var(--ed-bg)" stroke="var(--ed-accent)" stroke-width="0.7" />)}
+            <text x="360" y="418" text-anchor="middle" class="ed-svg-note">PNG · 1080 × 1350</text>
+          </g>
+        </>}
+
+        {isNetwork && <>
+          <g class="ed-network-links">
+            {[0, 1, 2, 3].map(phase => <g class={`ed-phase ed-phase-${phase}`}>
+              {edges.map(edge => {
+                const a = nodes[edge.a], b = nodes[edge.b];
+                const useGrid = phase < 2;
+                return <line x1={useGrid ? a.x0 : a.x} y1={useGrid ? a.y0 : a.y}
+                  x2={useGrid ? b.x0 : b.x} y2={useGrid ? b.y0 : b.y}
+                  class:list={["ed-edge", {"ed-edge-primary": edge.primary, "ed-edge-selected": edge.a === 0 || edge.b === 0}]}
+                  style={`--edge-colour:${a.colour}`} />;
+              })}
+            </g>)}
+          </g>
+          {nodes.map((node, i) => <g class:list={["ed-network-node", {"ed-node-selected": i === 0, "ed-node-neighbour": node.group === 0 || i === 1} ]}
+            style={`--x0:${node.x0}px;--y0:${node.y0}px;--x2:${node.x}px;--y2:${node.y}px;--node-colour:${node.colour}`}>
+            <circle r={node.r + 8} class="ed-node-orbit" />
+            <circle r={node.r} class="ed-node-body" />
+            <circle r="2" class="ed-node-core" />
+            {(i % 4 === 0 || i === 1) && <text y={node.r + 27} text-anchor="middle" class="ed-node-id">{String(i + 1).padStart(2,"0")}</text>}
+          </g>)}
+          <g class="ed-force-arrows ed-phase ed-phase-1">
+            <path d="M124 242 L213 236 M590 184 L509 202" class="ed-accent ed-force-path" marker-end={`url(#${id}-arrow)`} />
+            <text x="70" y="282" class="ed-svg-note">attraction</text>
+          </g>
+          <g class="ed-phase ed-phase-2 ed-repulsion">
+            <circle cx="360" cy="225" r="172" class="ed-measure-circle" />
+            <path d="M360 51 V27 M360 399 V421 M186 225 H158 M534 225 H562" class="ed-force-path ed-accent" marker-end={`url(#${id}-arrow)`} />
+          </g>
+          <g class="ed-phase ed-phase-3 ed-network-callout">
+            <path d={`M${nodes[0].x + 24} ${nodes[0].y - 24} L535 70 H645`} class="ed-accent ed-line" />
+            <text x="535" y="54" class="ed-svg-label">DREAM 01</text>
+            <text x="535" y="99" class="ed-svg-note">one record</text>
+          </g>
+        </>}
+
+        {isInterface && <>
+          <rect x="48" y="48" width="624" height="340" class="ed-ui-frame" />
+          <g class="ed-ui-header">
+            <path d="M48 100 H672" class="ed-line" />
+            <text x="72" y="80" class="ed-ui-brand">{cheese ? "Cheese Prophecies" : "Dream Catalogue"}</text>
+            <circle cx="632" cy="74" r="3" class="ed-fill-accent" />
+          </g>
+          {cheese ? <>
+            <g class="ed-ui-word-sheet">
+              {Array.from({length: 8}, (_, row) => <g>
+                {[0,1,2,3].map(col => <line x1={78 + col * 58} y1={160 + row * 23} x2={117 + col * 58} y2={160 + row * 23} class="ed-text-line" />)}
+              </g>)}
+            </g>
+            <g class="ed-ui-invoke">
+              <rect x="77" y="114" width="156" height="30" class="ed-ui-button" />
+              <text x="155" y="135" text-anchor="middle" class="ed-ui-small">Find the Prophecy</text>
+            </g>
+            <g class="ed-ui-cheese">
+              <path d="M78 160 L308 174 L316 320 L89 334 Z" fill="var(--ed-cheese-fill)" stroke="var(--ed-accent)" />
+              {[{x:120,y:200,r:18},{x:240,y:225,r:25},{x:180,y:292,r:22},{x:282,y:297,r:12}].map(c=><circle cx={c.x} cy={c.y} r={c.r} fill="var(--ed-bg)" stroke="var(--ed-accent)" />)}
+            </g>
+            <g class="ed-ui-reading">
+              <text x="396" y="176" class="ed-svg-label">THE PROPHECY</text>
+              <text x="396" y="222" class="ed-card-quote">Trust the path</text>
+              <text x="396" y="257" class="ed-card-quote">you cannot see.</text>
+              <path d="M396 286 H572" class="ed-line ed-accent" />
+            </g>
+            <g class="ed-ui-actions">
+              <rect x="396" y="316" width="114" height="34" class="ed-ui-button" />
+              <text x="453" y="339" text-anchor="middle" class="ed-ui-small">Save card</text>
+              <text x="534" y="339" class="ed-ui-small ed-accent">New ↗</text>
+            </g>
+          </> : <>
+            <g class="ed-ui-filter">
+              <path d="M48 146 H672" class="ed-line" />
+              <rect x="72" y="111" width="91" height="24" class="ed-ui-button" />
+              <text x="117" y="129" text-anchor="middle" class="ed-ui-small">Mood</text>
+              <text x="189" y="129" class="ed-ui-small">Objects</text>
+              <text x="299" y="129" class="ed-ui-small">Setting</text>
+              <text x="548" y="129" class="ed-ui-small">Size ↗</text>
+            </g>
+            <g class="ed-ui-mini-network">
+              {edges.slice(0,25).map(edge => <line x1={80 + nodes[edge.a].x * 0.55} y1={145 + nodes[edge.a].y * 0.47} x2={80 + nodes[edge.b].x * 0.55} y2={145 + nodes[edge.b].y * 0.47} class="ed-edge ed-edge-primary" style={`--edge-colour:${nodes[edge.a].colour}`} />)}
+              {nodes.map((n,i)=><g><circle cx={80 + n.x * 0.55} cy={145 + n.y * 0.47} r={i === 0 ? 10 : n.r * 0.44} fill={n.colour} opacity={i === 0 ? 1 : 0.65} />
+                {i===0 && <circle cx={80+n.x*0.55} cy={145+n.y*0.47} r="19" class="ed-selection-ring" />}</g>)}
+            </g>
+            <g class="ed-ui-inspector">
+              <rect x="466" y="146" width="206" height="242" class="ed-panel-bg" />
+              <path d="M466 146 V388" class="ed-line" />
+              <text x="488" y="181" class="ed-svg-label">DREAM 01</text>
+              <text x="488" y="218" class="ed-ui-brand">The archive</text>
+              <text x="488" y="245" class="ed-ui-small">Memory</text>
+              <path d="M488 260 H643" class="ed-line" /><path d="M488 260 H608" class="ed-line ed-accent" />
+              <text x="488" y="293" class="ed-ui-small">Importance</text>
+              <path d="M488 309 H643" class="ed-line" /><path d="M488 309 H574" class="ed-line ed-accent" />
+              <text x="488" y="355" class="ed-ui-small ed-accent">Connected dreams ↗</text>
+            </g>
+          </>}
+          <g class="ed-ui-focus">
+            {[0,1,2,3].map(phase => {
+              const box = cheese ? [[48,48,624,52],[64,108,270,239],[376,148,256,144],[380,304,252,58]][phase] : [[48,48,624,52],[48,100,624,46],[75,159,370,212],[466,146,206,242]][phase];
+              return <rect x={box[0]} y={box[1]} width={box[2]} height={box[3]} class={`ed-focus-box ed-phase ed-phase-${phase}`} />;
+            })}
+          </g>
+        </>}
+      </svg>
+    </div>
+    {animated ? <div class="ed-story" id={`${id}-story`} aria-live="off" aria-atomic="true">
+      <div class="ed-story-kicker"><span data-step-count>01 / 04</span></div>
+      {content.steps.map((step, index) => <div class="ed-story-step" data-story-step={index} hidden={index !== 0}>
+        <strong class="ed-story-title"><span class="lang-en" lang="en">{step.title}</span><span class="lang-it" lang="it">{localized.steps?.[index]?.title ?? step.title}</span></strong>
+        <div class="ed-story-text"><span class="lang-en" lang="en">{step.text}</span><span class="lang-it" lang="it">{localized.steps?.[index]?.text ?? step.text}</span></div>
+      </div>)}
+    </div> : <div class="ed-story ed-story--static">
+      <ol class="ed-notes">{notes.map((note, index) => <li><strong><span class="lang-en" lang="en">{note.label}</span><span class="lang-it" lang="it">{localized.notes?.[index]?.label}</span></strong><span><span class="lang-en" lang="en">{note.text}</span><span class="lang-it" lang="it">{localized.notes?.[index]?.text}</span></span></li>)}</ol>
+    </div>}
+  </div>
+  {animated && <div class="ed-controls">
+    <ol class="ed-steps" aria-label="Explanation steps">
+      {content.steps.map((step, index) => <li><button type="button" class="ed-step-button" data-go-step={index} data-label-en={step.label} data-label-it={localized.steps?.[index]?.label}
+        aria-pressed={index === 0 ? "true" : "false"} aria-controls={`${id}-story`} aria-label={`Step ${index + 1} of 4: ${step.label}`}>
+        <span class="ed-step-number">{String(index+1).padStart(2,"0")}</span><span><span class="lang-en" lang="en">{step.label}</span><span class="lang-it" lang="it">{localized.steps?.[index]?.label}</span></span>
+      </button></li>)}
+    </ol>
+    <div class="ed-transport">
+      <button type="button" data-action="previous" aria-label="Previous step">←</button>
+      <button type="button" data-action="play" class="ed-play" aria-label="Play explanation"><span data-play-icon aria-hidden="true">▶</span><span data-play-label>Play</span></button>
+      <button type="button" data-action="next" aria-label="Next step">→</button>
+    </div>
+  </div>}
+  {animated && <div class="ed-progress" aria-hidden="true"><span></span></div>}
+  <figcaption class="sr-only" id={`${id}-caption`}><span class="lang-en" lang="en">{content.title}</span><span class="lang-it" lang="it">{localized.title}</span></figcaption>
+  {animated && <noscript><ol class="ed-transcript">{content.steps.map(step => <li><strong>{step.title}</strong> {step.text}</li>)}</ol></noscript>}
+</figure>
+
+<script>
+  // A page can contain several independent explanations. Each owns its timer
+  // and disposes its observers when Astro navigates away.
+  function setupExplainers() {
+    document.querySelectorAll<HTMLElement>("[data-explainer]").forEach((root) => {
+      if (root.dataset.initialized) return;
+      root.dataset.initialized = "true";
+      const steps = [...root.querySelectorAll<HTMLButtonElement>("[data-go-step]")];
+      const stories = [...root.querySelectorAll<HTMLElement>("[data-story-step]")];
+      const play = root.querySelector<HTMLButtonElement>('[data-action="play"]')!;
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      let step = 0;
+      let playing = false;
+      let visible = false;
+      let manuallyControlled = false;
+      let hasAutoPlayed = false;
+      let timer: ReturnType<typeof setTimeout> | undefined;
+      const duration = 6500;
+      const italian = () => document.documentElement.dataset.lang === "it";
+
+      function clearTimer() { clearTimeout(timer); timer = undefined; }
+      function canAnimate() { return playing && visible && !document.hidden; }
+      function schedule() {
+        clearTimer();
+        const running = canAnimate();
+        root.dataset.playing = String(running);
+        if (running) timer = setTimeout(() => {
+          // Finish on the last drawing so the reader keeps a useful result.
+          if (step === steps.length - 1) setPlaying(false);
+          else { showStep(step + 1); schedule(); }
+        }, duration);
+      }
+      function showStep(next: number) {
+        step = (next + steps.length) % steps.length;
+        root.dataset.step = String(step);
+        steps.forEach((button, index) => button.setAttribute("aria-pressed", String(index === step)));
+        stories.forEach((story, index) => { story.hidden = index !== step; });
+        root.querySelector("[data-step-count]")!.textContent = `0${step + 1} / 04`;
+        root.querySelector<HTMLElement>(".ed-progress span")!.style.width = `${(step + 1) / steps.length * 100}%`;
+      }
+      function updateLabels() {
+        const it = italian();
+        play.setAttribute("aria-label", playing ? it ? "Metti in pausa" : "Pause explanation" : step === 3 ? it ? "Rivedi la spiegazione" : "Replay explanation" : it ? "Avvia la spiegazione" : "Play explanation");
+        play.querySelector("[data-play-label]")!.textContent = playing ? it ? "Pausa" : "Pause" : step === 3 ? it ? "Rivedi" : "Replay" : it ? "Avvia" : "Play";
+        root.querySelector('[data-action="previous"]')!.setAttribute("aria-label", it ? "Passaggio precedente" : "Previous step");
+        root.querySelector('[data-action="next"]')!.setAttribute("aria-label", it ? "Passaggio successivo" : "Next step");
+        root.querySelector(".ed-steps")!.setAttribute("aria-label", it ? "Passaggi della spiegazione" : "Explanation steps");
+        steps.forEach((button, index) => button.setAttribute("aria-label", it ? `Passaggio ${index + 1} di 4: ${button.dataset.labelIt}` : `Step ${index + 1} of 4: ${button.dataset.labelEn}`));
+      }
+      function setPlaying(value: boolean) {
+        playing = value;
+        play.querySelector("[data-play-icon]")!.textContent = value ? "Ⅱ" : "▶";
+        updateLabels(); schedule();
+      }
+      function selectStep(next: number) {
+        root.querySelector(".ed-story")!.setAttribute("aria-live", "polite");
+        manuallyControlled = true;
+        showStep(next); setPlaying(false);
+      }
+      steps.forEach((button, index) => button.addEventListener("click", () => selectStep(index)));
+      root.querySelector('[data-action="previous"]')!.addEventListener("click", () => selectStep(step - 1));
+      root.querySelector('[data-action="next"]')!.addEventListener("click", () => selectStep(step + 1));
+      play.addEventListener("click", () => {
+        root.querySelector(".ed-story")!.setAttribute("aria-live", "off");
+        manuallyControlled = true;
+        if (!playing && step === 3) showStep(0);
+        setPlaying(!playing);
+      });
+      root.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+          event.preventDefault(); selectStep(step + (event.key === "ArrowRight" ? 1 : -1));
+          steps[step].focus({preventScroll:true});
+        }
+      });
+      const observer = new IntersectionObserver(([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible && !hasAutoPlayed && !manuallyControlled && !reducedMotion.matches) {
+          hasAutoPlayed = true; setPlaying(true);
+        } else schedule();
+      }, {threshold: 0.35});
+      observer.observe(root);
+      const visibilityChanged = () => schedule();
+      const motionChanged = () => { if (reducedMotion.matches) setPlaying(false); };
+      document.addEventListener("visibilitychange", visibilityChanged);
+      reducedMotion.addEventListener("change", motionChanged);
+      const languageObserver = new MutationObserver(updateLabels);
+      languageObserver.observe(document.documentElement, {attributes:true, attributeFilter:["data-lang"]});
+      document.addEventListener("astro:before-swap", () => {
+        clearTimer(); observer.disconnect(); languageObserver.disconnect();
+        document.removeEventListener("visibilitychange", visibilityChanged);
+        reducedMotion.removeEventListener("change", motionChanged);
+      }, {once:true});
+      showStep(0);
+      updateLabels();
+    });
+  }
+  setupExplainers();
+  document.addEventListener("astro:page-load", setupExplainers);
+</script>

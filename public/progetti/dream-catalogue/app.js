@@ -197,6 +197,18 @@ let simulation;
 let svg, g, linkG, nodeG;
 let width, height;
 let zoom;
+const remMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const remAlpha = () => remMotion.matches ? 0 : 0.006;
+
+// Keep ticks alive after the initial layout; suspend work in hidden tabs.
+document.addEventListener('visibilitychange', () => {
+  if (!simulation) return;
+  if (document.hidden) simulation.stop();
+  else simulation.alphaTarget(remAlpha()).restart();
+});
+remMotion.addEventListener('change', () => {
+  if (simulation) simulation.alphaTarget(remAlpha()).restart();
+});
 
 const isMobile = () => window.innerWidth <= 768;
 
@@ -441,6 +453,7 @@ function startSimulation() {
       d3.forceCollide().radius((d) => getRadius(d.dream) + 8),
     )
     .alphaDecay(isMobile() ? 0.05 : 0.0228)
+    .alphaTarget(remAlpha())
     .on("tick", ticked);
 
   renderLinks();
@@ -600,6 +613,14 @@ function updateNodeSizes() {
 }
 
 function ticked() {
+  if (!remMotion.matches && !document.hidden) {
+    const time = Date.now() * 0.001;
+    nodes.forEach((node, i) => {
+      // Respect fixed positions while the user drags a node.
+      if (node.fx == null) node.x += Math.sin(time + i) * 0.15;
+      if (node.fy == null) node.y += Math.cos(time + i * 1.3) * 0.15;
+    });
+  }
   linkG
     .selectAll(".link")
     .attr("x1", (d) => d.source.x)
@@ -623,7 +644,7 @@ function dragged(event, d) {
   d.fy = event.y;
 }
 function dragEnded(event, d) {
-  if (!event.active) simulation.alphaTarget(0);
+  if (!event.active) simulation.alphaTarget(remAlpha());
   d.fx = null;
   d.fy = null;
 }

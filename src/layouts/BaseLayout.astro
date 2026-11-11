@@ -2,6 +2,7 @@
 import Header from "../components/Header.astro";
 import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
+import "../styles/portfolio.css";
 import { projects } from "../data/projects";
 
 interface Props {
@@ -16,8 +17,8 @@ interface Props {
   noindex?: boolean;
 }
 
-const { 
-  title = "Portfolio", 
+const {
+  title = "Portfolio",
   description,
   hideHeader = false,
   logoHoverColor,
@@ -142,9 +143,14 @@ const { favicon = dynamicFavicon } = Astro.props;
     <script is:inline>
       (function() {
         const setLang = () => {
-          const savedLang = localStorage.getItem('lang') || 'en';
+          let savedLang = 'en';
+          try {
+            savedLang = localStorage.getItem('lang') || 'en';
+          } catch { /* Keep the site usable when storage is blocked. */ }
+          savedLang = savedLang === 'it' ? 'it' : 'en';
           document.documentElement.setAttribute('data-lang', savedLang);
           document.documentElement.lang = savedLang;
+          document.documentElement.dataset.motion = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'paused' : 'running';
         };
         setLang();
         document.addEventListener('astro:after-swap', setLang);
@@ -191,7 +197,7 @@ const { favicon = dynamicFavicon } = Astro.props;
 
       /* Progressive Image Loader Styles */
       img {
-        transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+        transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
                     filter 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         will-change: opacity, filter;
       }
@@ -207,7 +213,15 @@ const { favicon = dynamicFavicon } = Astro.props;
         position: fixed;
         inset: 0;
         z-index: 9999;
-        display: flex;
+        display: none;
+        width: 100vw;
+        max-width: none;
+        height: 100dvh;
+        max-height: none;
+        margin: 0;
+        padding: 4rem 1rem;
+        border: 0;
+        color: #fff;
         align-items: center;
         justify-content: center;
         background: rgba(0, 0, 0, 0.9);
@@ -217,13 +231,20 @@ const { favicon = dynamicFavicon } = Astro.props;
         pointer-events: none;
         transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       }
+      #lightbox[open] { display: flex; }
+      #lightbox::backdrop { background: rgb(0 0 0 / .5); }
+      #lightbox figure { margin: 0; text-align: center; }
+      #lightbox button { position: absolute; padding: .65rem 1rem; border: 1px solid #a3a3a3; background: #000; color: #fff; cursor: pointer; z-index: 1; }
+      #lightbox [data-gallery-close] { top: 1rem; right: 1rem; }
+      #lightbox [data-gallery-step='-1'] { bottom: 1rem; left: 1rem; }
+      #lightbox [data-gallery-step='1'] { bottom: 1rem; right: 1rem; }
       #lightbox.active {
         opacity: 1;
         pointer-events: auto;
       }
       #lightbox img {
         max-width: 90vw;
-        max-height: 90vh;
+        max-height: calc(100dvh - 10rem);
         object-fit: contain;
         box-shadow: 0 0 50px rgba(0,0,0,0.5);
         transform: scale(0.9);
@@ -313,7 +334,7 @@ const { favicon = dynamicFavicon } = Astro.props;
         filter: blur(4px);
         pointer-events: none;
       }
-      
+
       /* The black canvas already masks inactive media; avoid filtering moving carousel layers. */
       html.ascii-active .project-card:not(.hovered-card),
       html.ascii-active .contact-card:not(.hovered-card) {
@@ -389,13 +410,15 @@ const { favicon = dynamicFavicon } = Astro.props;
     </style>
 
   </head>
-  <body 
-    class="bg-black text-neutral-50 antialiased font-sans"
-    style="font-family: 'Apple Garamond Custom', serif;"
+  <body
+    class:list={["bg-black text-neutral-50 antialiased font-sans", { "portfolio-typeset": pagePath === "/" || Boolean(project) }]}
+    style="font-family: 'Apple Garamond Custom', serif; background-color: #000000; color: #fafafa;"
   >
+    <a class="skip-link" href="#main-content"><span class="lang-en" lang="en">Skip to content</span><span class="lang-it" lang="it">Vai al contenuto</span></a>
     <!-- Fullscreen Generative ASCII Canvas Overlay -->
-    <canvas 
-      id="global-ascii-canvas" 
+    <canvas
+      id="global-ascii-canvas"
+      aria-hidden="true"
       class="fixed inset-0 w-full h-full pointer-events-none transition-opacity duration-700 ease-in-out"
       style="z-index: 99; opacity: 1;"
     ></canvas>
@@ -478,7 +501,7 @@ const { favicon = dynamicFavicon } = Astro.props;
           setTimeout(function() {
             if (!window._asciiIntroActive) {
                // Hover owns the opacity now; an old intro timer must not revive the overlay.
-               return; 
+               return;
             }
             canvas.style.zIndex = "2";
             window._stopAsciiIntro();
@@ -489,138 +512,39 @@ const { favicon = dynamicFavicon } = Astro.props;
 
     {!hideHeader && <Header logoHref={logoHref} />}
 
-    <main>
+    <main id="main-content" tabindex="-1">
       <slot />
     </main>
 
     <!-- Lightbox Overlay -->
-    <div id="lightbox" aria-hidden="true">
-      <img id="lightbox-img" decoding="async" alt="Visualizzazione ingrandita dell'immagine" />
-    </div>
+    <dialog id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
+      <h2 id="lightbox-title" class="sr-only"><span class="lang-en" lang="en">Image gallery</span><span class="lang-it" lang="it">Galleria immagini</span></h2>
+      <button type="button" data-gallery-close><span class="lang-en" lang="en">Close</span><span class="lang-it" lang="it">Chiudi</span> ×</button>
+      <button type="button" data-gallery-step="-1"><span aria-hidden="true">← </span><span class="lang-en" lang="en">Previous</span><span class="lang-it" lang="it">Precedente</span></button>
+      <figure><img id="lightbox-img" decoding="async" alt="" /><figcaption id="lightbox-status" role="status" aria-live="polite"></figcaption></figure>
+      <button type="button" data-gallery-step="1"><span class="lang-en" lang="en">Next</span><span class="lang-it" lang="it">Successiva</span><span aria-hidden="true"> →</span></button>
+    </dialog>
 
     <script>
-      import { getGestureAxis } from '../utils/gesture';
-      import { loadOriginalImage, loadLazyEmbed, prepareImageRetry } from '../utils/lazy-media';
-      let currentImageIndex = 0;
-      let galleryImages: HTMLImageElement[] = [];
-
-      const updateGalleryImages = () => {
-        galleryImages = Array.from(document.querySelectorAll<HTMLImageElement>('.gallery-img'));
+      import { initializeImageGallery } from '../utils/image-gallery';
+      import { initializeAnimatedImages } from '../utils/animated-images';
+      import { loadLazyEmbed, prepareImageRetry } from '../utils/lazy-media';
+      let cleanupGallery: (() => void) | undefined;
+      let cleanupAnimations: (() => void) | undefined;
+      const initGallery = () => {
+        cleanupGallery?.();
+        cleanupAnimations?.();
+        cleanupGallery = initializeImageGallery();
+        cleanupAnimations = initializeAnimatedImages();
       };
+      initGallery();
+      document.addEventListener('astro:page-load', initGallery);
+      document.addEventListener('astro:before-swap', () => { cleanupGallery?.(); cleanupAnimations?.(); });
 
-      const showImage = (index: number, direction: 'next' | 'prev' | 'none' = 'none') => {
-        const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement | null;
-        if (galleryImages.length === 0 || !lightboxImg) return;
-        
-        const oldIndex = currentImageIndex;
-        if (index < 0) index = galleryImages.length - 1;
-        if (index >= galleryImages.length) index = 0;
-        
-        if (direction !== 'none' && index !== oldIndex) {
-          const outClass = direction === 'next' ? 'slide-out' : 'slide-out-reverse';
-          const inClass = direction === 'next' ? 'slide-in' : 'slide-in-reverse';
-          
-          lightboxImg.classList.add(outClass);
-          
-          setTimeout(() => {
-            currentImageIndex = index;
-            lightboxImg.src = galleryImages[currentImageIndex].dataset.fullSrc || galleryImages[currentImageIndex].dataset.src || galleryImages[currentImageIndex].src;
-            lightboxImg.alt = galleryImages[currentImageIndex].alt || "Visualizzazione ingrandita dell'immagine";
-            lightboxImg.classList.remove(outClass);
-            lightboxImg.classList.add(inClass);
-            
-            // Force reflow
-            lightboxImg.offsetHeight;
-            
-            lightboxImg.classList.remove(inClass);
-          }, 200);
-        } else {
-          currentImageIndex = index;
-          lightboxImg.src = galleryImages[currentImageIndex].dataset.fullSrc || galleryImages[currentImageIndex].dataset.src || galleryImages[currentImageIndex].src;
-          lightboxImg.alt = galleryImages[currentImageIndex].alt || "Visualizzazione ingrandita dell'immagine";
-        }
-      };
-
-      // Swipe support via global event delegation
-      let touchStartX = 0;
-      let touchStartY = 0;
-      let touchEndX = 0;
-
-      document.addEventListener('touchstart', (e) => {
-        const lightbox = document.getElementById('lightbox');
-        if (!lightbox || !lightbox.classList.contains('active')) return;
-        touchStartX = e.changedTouches[0].screenX;
-        touchStartY = e.changedTouches[0].screenY;
-      }, { passive: true });
-
-      document.addEventListener('touchend', (e) => {
-        const lightbox = document.getElementById('lightbox');
-        if (!lightbox || !lightbox.classList.contains('active')) return;
-
-        touchEndX = e.changedTouches[0].screenX;
-        const swipeThreshold = 50;
-        if (getGestureAxis(touchEndX - touchStartX, e.changedTouches[0].screenY - touchStartY, swipeThreshold) !== 'horizontal') return;
-        if (touchEndX < touchStartX - swipeThreshold) {
-          showImage(currentImageIndex + 1, 'next');
-        } else if (touchEndX > touchStartX + swipeThreshold) {
-          showImage(currentImageIndex - 1, 'prev');
-        }
-      }, { passive: true });
-
-      // Global click listener for gallery images (Opening & Closing)
-      document.addEventListener('click', (e) => {
-        const target = e.target as HTMLElement;
-        
-        // 1. OPEN Lightbox
-        if (target instanceof HTMLImageElement && target.classList.contains('gallery-img')) {
-          updateGalleryImages();
-          currentImageIndex = galleryImages.indexOf(target);
-          showImage(currentImageIndex);
-          
-          const lightbox = document.getElementById('lightbox');
-          if (lightbox) {
-            // Prevent page jitter by padding for scrollbar width
-            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-            document.body.style.paddingRight = `${scrollbarWidth}px`;
-            document.body.style.overflow = 'hidden';
-            lightbox.classList.add('active');
-          }
-          return;
-        }
-
-        // 2. CLOSE Lightbox (click overlay or close elements inside it)
-        const lightbox = document.getElementById('lightbox');
-        if (lightbox && lightbox.classList.contains('active')) {
-          if (target.closest('#lightbox')) {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = '';
-            document.body.style.paddingRight = '';
-          }
-        }
-      });
-
-      // Keyboard navigation via global event delegation
-      document.addEventListener('keydown', (e) => {
-        const lightbox = document.getElementById('lightbox');
-        if (!lightbox || !lightbox.classList.contains('active')) return;
-        
-        if (e.key === 'Escape') {
-          lightbox.classList.remove('active');
-          document.body.style.overflow = '';
-          document.body.style.paddingRight = '';
-        } else if (e.key === 'ArrowRight') {
-          showImage(currentImageIndex + 1, 'next');
-        } else if (e.key === 'ArrowLeft') {
-          showImage(currentImageIndex - 1, 'prev');
-        }
-      });
-
-      // Progressive images and deferred embeds
-      let imageObserver: IntersectionObserver | null = null;
+      // Images stream natively through <picture>; only embeds need a JS observer.
       let embedObserver: IntersectionObserver | null = null;
       function initProgressiveImages() {
-        document.querySelectorAll<HTMLImageElement>('img[src]:not([data-src]):not(#lightbox-img)').forEach(prepareImageRetry);
-        imageObserver?.disconnect();
+        document.querySelectorAll<HTMLImageElement>('img[src]:not([data-src]):not([data-animated-image]):not(#lightbox-img)').forEach(prepareImageRetry);
         embedObserver?.disconnect();
         embedObserver = new IntersectionObserver(entries => {
           entries.forEach(entry => {
@@ -631,29 +555,19 @@ const { favicon = dynamicFavicon } = Astro.props;
           });
         }, { rootMargin: '200px 0px' });
         document.querySelectorAll('iframe[data-lazy-embed]').forEach(iframe => embedObserver?.observe(iframe));
-        imageObserver = new IntersectionObserver(entries => {
-          entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            imageObserver?.unobserve(entry.target);
-            loadOriginalImage(entry.target as HTMLImageElement);
-          });
-        }, { rootMargin: '300px 0px' });
-        document.querySelectorAll<HTMLImageElement>('img[data-src]').forEach(img => {
-          if (img.loading !== 'lazy') loadOriginalImage(img);
-          else imageObserver?.observe(img);
-        });
       }
 
       initProgressiveImages();
       document.addEventListener('astro:page-load', initProgressiveImages);
       document.addEventListener('astro:before-swap', () => {
-        imageObserver?.disconnect();
         embedObserver?.disconnect();
       });
     </script>
 
     <script>
       import { observeAutoplayVideos } from '../utils/lazy-media';
+      import { initializeMotionPreferences } from '../utils/motion';
+      initializeMotionPreferences();
       let stopVideos: (() => void) | undefined;
       function initVideos() {
         stopVideos?.();

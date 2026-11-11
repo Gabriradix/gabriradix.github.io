@@ -1,16 +1,18 @@
 ---
-import { getProxyUrl } from "../utils/image";
+import ProjectOverview from "../components/ProjectOverview.astro";
+import NextProject from "../components/NextProject.astro";
+import ProgressiveImage from "../components/ProgressiveImage.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="A Closer Look - Gabriele Radicello">
   <!-- Hero Section -->
   <section class="relative h-[100svh] md:h-[100dvh] w-full overflow-hidden flex items-center justify-center">
-    <video 
+    <video
       data-autoplay
-      muted 
-      loop 
-      playsinline 
+      muted
+      loop
+      playsinline
       webkit-playsinline
       preload="none"
       poster="/progetti/a-closer-look/assets/Tdmovieout.0-poster.jpg"
@@ -22,28 +24,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
     <div class="absolute inset-0 bg-black/60 z-10"></div>
     <div class="relative z-20 text-center px-6">
-      <h1 
-        class="text-4xl md:text-8xl font-semibold text-white tracking-tight" 
+      <h1
+        class="text-4xl md:text-8xl font-semibold text-white tracking-tight"
         style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;"
       >
         A Closer Look
       </h1>
-      <p class="lang-en mt-6 text-lg md:text-xl text-neutral-300 font-light max-w-2xl mx-auto">
-        An interactive installation that investigates censorship and access to documents of the Epstein case.
-      </p>
-      <p class="lang-it mt-6 text-lg md:text-xl text-neutral-300 font-light max-w-2xl mx-auto">
-        Un'installazione interattiva che indaga la censura e l'accesso ai documenti del caso Epstein.
-      </p>
+      <p class="lang-en mt-6 text-xl text-neutral-300 max-w-2xl mx-auto" lang="en">{"An interactive installation inviting the viewer to uncover documents from the Epstein case, reversing the dynamics of censorship through camera interaction."}</p>
+      <p class="lang-it mt-6 text-xl text-neutral-300 max-w-2xl mx-auto" lang="it">{"La silhouette del visitatore rivela porzioni di documenti e immagini del caso Epstein, invertendo la dinamica della censura."}</p>
     </div>
   </section>
 
   <!-- Content Section -->
-  <section class="max-w-4xl mx-auto px-6 py-24 md:py-32 text-neutral-300 text-lg leading-8 text-left">
-    
-    <!-- English Content -->
-    <div class="lang-en">
-      <div class="mb-16 md:mb-24">
-        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Concept</h2>
+  <ProjectOverview projectId="a-closer-look">
+<div class="lang-en" lang="en">
+      <div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Concept</h2></div><div class="portfolio-project-prose">
+
         <div class="grid gap-8">
           <p>
             Following the release of documents regarding the Epstein case by the American Department of Justice, the entire world was caught by a wave of shock and disbelief. This project aims to focus on the theme of documents drafted in an apparently random way.
@@ -52,10 +48,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             Maintaining the aesthetic but reversing the dynamics of censorship implemented by the American Department of Justice, <em>A Closer Look</em> invites the spectator to unveil portions of images coming from the Epstein files through interaction developed with a camera that records the spectator.
           </p>
         </div>
-      </div>
+      </div></div>
 
-      <div class="mb-16 md:mb-24">
-        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Structure</h2>
+      <div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Structure</h2></div><div class="portfolio-project-prose">
+
         <div class="grid gap-8">
           <p>
             A screen displays a black image. As soon as a person approaches the screen, they are recorded by a camera and their silhouette is superimposed on the black image, revealing portions of an infinite series of images coming from the Epstein files database that alternate randomly in rapid succession.
@@ -67,20 +63,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             The visual part is accompanied by a soundtrack composed of audio excerpts and testimonies coming from the Epstein files database.
           </p>
         </div>
-      </div>
+      </div></div>
 
-      <div class="mb-24">
-        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Technology</h2>
+      <div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Technology</h2></div><div class="portfolio-project-prose">
+
         <p>
           The project is developed with <strong>Touchdesigner</strong> and uses a <strong>Kinect v2</strong> for motion detection and silhouette extraction.
         </p>
-      </div>
+      </div></div>
     </div>
+<div class="lang-it" lang="it">
+      <div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Concept</h2></div><div class="portfolio-project-prose">
 
-    <!-- Italian Content -->
-    <div class="lang-it">
-      <div class="mb-16 md:mb-24">
-        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Concept</h2>
         <div class="grid gap-8">
           <p>
             A seguito della pubblicazione dei documenti relativi al caso Epstein da parte del Dipartimento della Giustizia americano, il mondo intero è stato colto da un'ondata di sconcerto e incredulità. Questo progetto si propone di mettere a fuoco il tema dei documenti redatti e censurati in modo apparentemente casuale.
@@ -89,10 +83,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             Mantenendo l'estetica ma invertendo la dinamica della censura attuata dal Dipartimento della Giustizia americano, <em>A Closer Look</em> invita lo spettatore a svelare porzioni di immagini provenienti dagli archivi Epstein attraverso un'interazione sviluppata con una telecamera che riprende il visitatore stesso.
           </p>
         </div>
-      </div>
+      </div></div>
 
-      <div class="mb-16 md:mb-24">
-        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Struttura</h2>
+      <div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Struttura</h2></div><div class="portfolio-project-prose">
+
         <div class="grid gap-8">
           <p>
             Uno schermo mostra un'immagine completamente nera. Non appena una persona si avvicina, viene ripresa da una telecamera e la sua silhouette si sovrappone all'immagine nera, rivelando porzioni di una serie infinita di immagini del database Epstein che si alternano casualmente in rapida successione.
@@ -104,65 +98,63 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             La parte visiva è accompagnata da una colonna sonora composta da estratti audio e testimonianze provenienti direttamente dal database del caso Epstein.
           </p>
         </div>
-      </div>
+      </div></div>
 
-      <div class="mb-24">
-        <h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Tecnologia</h2>
+      <div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2 class="text-3xl font-semibold text-neutral-50 mb-8" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Tecnologia</h2></div><div class="portfolio-project-prose">
+
         <p>
           Il progetto è sviluppato in <strong>TouchDesigner</strong> e utilizza un sensore <strong>Kinect v2</strong> per il tracciamento del movimento e l'estrazione della silhouette.
         </p>
-      </div>
+      </div></div>
     </div>
-
-    <!-- Gallery Section -->
-    <div class="border-t border-neutral-800 pt-16">
-      <h2 class="lang-en text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Gallery</h2>
-      <h2 class="lang-it text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;">Galleria</h2>
+</ProjectOverview>
+<section class="portfolio-original-content text-neutral-300"><div class="border-t border-neutral-800 pt-16">
+      <h2 class="lang-en text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;" lang="en">Gallery</h2>
+      <h2 class="lang-it text-3xl font-semibold text-neutral-50 mb-12" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;" lang="it">Galleria</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <img decoding="async"
-          src={getProxyUrl("/progetti/a-closer-look/assets/IMG_0010.JPG")} data-src="/progetti/a-closer-look/assets/IMG_0010.JPG" 
-          alt="Spazio espositivo dell'installazione interattiva, con lo schermo acceso e la videocamera Kinect posizionata per il tracciamento dei visitatori" 
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" 
-          loading="lazy" 
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/a-closer-look/assets/IMG_0010.JPG"}
+          alt="Spazio espositivo dell'installazione interattiva, con lo schermo acceso e la videocamera Kinect posizionata per il tracciamento dei visitatori"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
+          loading="lazy"
         />
-        <img decoding="async"
-          src={getProxyUrl("/progetti/a-closer-look/assets/IMG_0012.JPG")} data-src="/progetti/a-closer-look/assets/IMG_0012.JPG" 
-          alt="Spettatore in piedi di fronte all'installazione, la cui silhouette tracciata rivela frammenti di testo dai documenti Epstein sul display" 
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" 
-          loading="lazy" 
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/a-closer-look/assets/IMG_0012.JPG"}
+          alt="Spettatore in piedi di fronte all'installazione, la cui silhouette tracciata rivela frammenti di testo dai documenti Epstein sul display"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
+          loading="lazy"
         />
-        <img decoding="async"
-          src={getProxyUrl("/progetti/a-closer-look/assets/IMG_0013.JPG")} data-src="/progetti/a-closer-look/assets/IMG_0013.JPG" 
-          alt="Inquadratura prospettica dell'installazione a parete con un utente che sperimenta l'opera muovendo le braccia" 
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" 
-          loading="lazy" 
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/a-closer-look/assets/IMG_0013.JPG"}
+          alt="Inquadratura prospettica dell'installazione a parete con un utente che sperimenta l'opera muovendo le braccia"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
+          loading="lazy"
         />
-        <img decoding="async"
-          src={getProxyUrl("/progetti/a-closer-look/assets/TDMovieOut.0.png")} data-src="/progetti/a-closer-look/assets/TDMovieOut.0.png" 
-          alt="Esportazione video da TouchDesigner che mostra l'effetto visivo della silhouette umana che funge da maschera di decensura" 
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" 
-          loading="lazy" 
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/a-closer-look/assets/TDMovieOut.0.png"}
+          alt="Esportazione video da TouchDesigner che mostra l'effetto visivo della silhouette umana che funge da maschera di decensura"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
+          loading="lazy"
         />
-        <img decoding="async"
-          src={getProxyUrl("/progetti/a-closer-look/assets/sample.png")} data-src="/progetti/a-closer-look/assets/sample.png" 
-          alt="Esempio di documento giudiziario con pesanti censure nere rettangolari, tipiche dei file federali rilasciati" 
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" 
-          loading="lazy" 
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/a-closer-look/assets/sample.png"}
+          alt="Esempio di documento giudiziario con pesanti censure nere rettangolari, tipiche dei file federali rilasciati"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
+          loading="lazy"
         />
-        <img decoding="async"
-          src={getProxyUrl("/progetti/a-closer-look/assets/Screenshot (3).png")} data-src="/progetti/a-closer-look/assets/Screenshot (3).png" 
-          alt="Cattura di schermata ad alta risoluzione del software con la silhouette che si muove svelando le pagine dell'inchiesta" 
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" 
-          loading="lazy" 
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/a-closer-look/assets/Screenshot (3).png"}
+          alt="Cattura di schermata ad alta risoluzione del software con la silhouette che si muove svelando le pagine dell'inchiesta"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
+          loading="lazy"
         />
-        <img decoding="async"
-          src={getProxyUrl("/progetti/a-closer-look/assets/Screenshot (15).png")} data-src="/progetti/a-closer-look/assets/Screenshot (15).png" 
-          alt="Dettaglio dell'interfaccia utente con metadati, intestazioni federali e trascrizioni audio scansionate che scorrono velocemente" 
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img" 
-          loading="lazy" 
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/a-closer-look/assets/Screenshot (15).png"}
+          alt="Dettaglio dell'interfaccia utente con metadati, intestazioni federali e trascrizioni audio scansionate che scorrono velocemente"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
+          loading="lazy"
         />
       </div>
-    </div>
-
-  </section>
+    </div></section>
+<NextProject projectId="a-closer-look" />
 </BaseLayout>

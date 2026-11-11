@@ -70,6 +70,15 @@ export default defineConfig({
   site: "https://www.gabriradix.it",
   base: "/",
   vite: {
-    plugins: [tailwindcss(), progettiIndexRewrite(), mediaHeadersPlugin()],
+    plugins: [
+      // A production build must not invalidate a running dev server's dependencies.
+      {
+        name: 'separate-vite-caches',
+        config: (_config, { command }) => ({
+          cacheDir: join(process.cwd(), 'node_modules', `.vite-${command}`),
+        }),
+      },
+      tailwindcss(), progettiIndexRewrite(), mediaHeadersPlugin(),
+    ],
   },
 });

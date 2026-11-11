@@ -1,5 +1,7 @@
 ---
-import { getProxyUrl } from "../utils/image";
+import ProjectOverview from "../components/ProjectOverview.astro";
+import NextProject from "../components/NextProject.astro";
+import ProgressiveImage from "../components/ProgressiveImage.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
@@ -24,27 +26,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       >
         Street Rendering
       </h1>
-      <p class="mt-6 text-xl text-neutral-300 font-light max-w-2xl mx-auto">
-        <span class="lang-en">Exploring the limits of digital perception.</span>
-        <span class="lang-it">Esplorando i limiti della percezione digitale.</span>
-      </p>
+      <p class="mt-6 text-xl text-neutral-300 max-w-2xl mx-auto"><span class="lang-en" lang="en">{"An exploration of the limits of machine perception, transforming Google Street View 360° images into a fragmented 3D environment through Gaussian Splatting, then conducting virtual street photography from impossible viewpoints."}</span><span class="lang-it" lang="it">{"Le immagini di Google Street View diventano un mondo tridimensionale imperfetto, da fotografare attraverso prospettive impossibili."}</span></p>
     </div>
   </section>
 
   <!-- Content Section -->
-  <section
-    class="max-w-4xl mx-auto px-6 py-24 md:py-32 text-neutral-300 text-lg leading-8 text-left"
-  >
-    <div class="mb-16 md:mb-24">
-      <h2
+  <ProjectOverview projectId="street-rendering">
+<div class="portfolio-editorial-row "><div class="portfolio-editorial-title"><h2
         class="text-3xl font-semibold text-neutral-50 mb-8"
         style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;"
       >
-        <span class="lang-en">Concept</span>
-        <span class="lang-it">Concept</span>
-      </h2>
+        <span class="lang-en" lang="en">Concept</span>
+        <span class="lang-it" lang="it">Concept</span>
+      </h2></div><div class="portfolio-project-prose">
+
       <div class="grid gap-12">
-        <div class="lang-en">
+        <div class="lang-en" lang="en">
           <p>
             Street Rendering investigates the limits of machine perception by
             transforming Google Street View images into an imperfect 3D model
@@ -54,20 +51,20 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             reflecting on technology's inability to faithfully replicate reality.
           </p>
         </div>
-        <div class="lang-it">
+        <div class="lang-it" lang="it">
           <p>
             Street Rendering indaga i limiti della percezione artificiale trasformando le immagini di Google Street View in un modello 3D imperfetto utilizzando il Gaussian Splatting. Attraverso una "street photography" virtuale condotta da prospettive impossibili, il progetto eleva le distorsioni e gli errori di ricostruzione a linguaggio artistico, riflettendo sull'incapacità della tecnologia di replicare fedelmente la realtà.
           </p>
         </div>
 
-        <img decoding="async"
-          src={getProxyUrl("/progetti/street-rendering/sr1.png")} data-src="/progetti/street-rendering/sr1.png"
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/street-rendering/sr1.png"}
           alt="Modello 3D generato tramite Gaussian Splatting della piazza della scuola d'arte, con evidenti frammentazioni"
-          class="w-full h-auto bg-neutral-900 gallery-img rounded-sm shadow-md"
+          class="w-full h-auto bg-black gallery-img rounded-sm shadow-md"
           loading="lazy"
         />
 
-        <div class="lang-en">
+        <div class="lang-en" lang="en">
           <p>
             360° images of the square in front of the Academy were downloaded
             from Google Street View and transformed into a 3D model using the
@@ -77,20 +74,20 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             data.
           </p>
         </div>
-        <div class="lang-it">
+        <div class="lang-it" lang="it">
           <p>
             Le immagini a 360° della piazza di fronte all'Accademia sono state scaricate da Google Street View e trasformate in un modello 3D utilizzando la tecnica del Gaussian Splatting. Il risultato è uno spazio frammentato in cui la ricostruzione oscilla tra dettagli nitidi e gravi distorsioni, riflettendo la qualità e la coerenza dei dati disponibili.
           </p>
         </div>
 
-        <img decoding="async"
-          src={getProxyUrl("/progetti/street-rendering/sr2.png")} data-src="/progetti/street-rendering/sr2.png"
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/street-rendering/sr2.png"}
           alt="Visualizzazione dei dati tridimensionali ricavati da Google Street View, oscillante tra dettagli ed errori digitali"
-          class="w-full h-auto bg-neutral-900 gallery-img rounded-sm shadow-md"
+          class="w-full h-auto bg-black gallery-img rounded-sm shadow-md"
           loading="lazy"
         />
 
-        <div class="lang-en">
+        <div class="lang-en" lang="en">
           <p>
             Within this reconstructed world, a series of street photography
             shots were produced, choosing subjects that highlight the contrast
@@ -100,117 +97,116 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             simultaneously exaggerating the imperfections of the technology.
           </p>
         </div>
-        <div class="lang-it">
+        <div class="lang-it" lang="it">
           <p>
             All'interno di questo mondo ricostruito, sono stati prodotti una serie di scatti di street photography, scegliendo soggetti che evidenziano il contrasto tra ciò che è fedelmente reso e ciò che si dissolve nell'errore. La telecamera virtuale è stata posizionata in punti di vista impossibili da ottenere con Street View, espandendo le possibilità di osservazione ed esagerando simultaneamente le imperfezioni della tecnologia.
           </p>
         </div>
 
-        <img decoding="async"
-          src={getProxyUrl("/progetti/street-rendering/sr3.png")} data-src="/progetti/street-rendering/sr3.png"
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/street-rendering/sr3.png"}
           alt="Inquadratura virtuale da una prospettiva aerea impossibile, evidenziando il dissolvimento della geometria stradale"
-          class="w-full h-auto bg-neutral-900 gallery-img rounded-sm shadow-md"
+          class="w-full h-auto bg-black gallery-img rounded-sm shadow-md"
           loading="lazy"
         />
 
-        <div class="lang-en">
+        <div class="lang-en" lang="en">
           <p>
             The work becomes a reflection on the way machines perceive and
             reconstruct the world, exposing their limits rather than their
             capabilities.
           </p>
         </div>
-        <div class="lang-it">
+        <div class="lang-it" lang="it">
           <p>
             L'opera diventa una riflessione sul modo in cui le macchine percepiscono e ricostruiscono il mondo, esponendo i loro limiti piuttosto che le loro capacità.
           </p>
         </div>
       </div>
-    </div>
-
-    <!-- Gallery Section -->
-    <div class="border-t border-neutral-800 pt-16">
+    </div></div>
+</ProjectOverview>
+<section class="portfolio-original-content text-neutral-300"><div class="border-t border-neutral-800 pt-16">
       <h2
         class="text-3xl font-semibold text-neutral-50 mb-12"
         style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;"
       >
-        <span class="lang-en">Gallery</span>
-        <span class="lang-it">Galleria</span>
+        <span class="lang-en" lang="en">Gallery</span>
+        <span class="lang-it" lang="it">Galleria</span>
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <img decoding="async"
-          src={getProxyUrl("/progetti/street-rendering/(1).PNG")} data-src="/progetti/street-rendering/(1).PNG"
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/street-rendering/(1).PNG"}
           alt="Fotografia virtuale di un lampione deformato e frammentato che svanisce nel vuoto digitale"
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
           loading="lazy"
         />
-        <img decoding="async"
-          src={getProxyUrl("/progetti/street-rendering/(2).PNG")} data-src="/progetti/street-rendering/(2).PNG"
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/street-rendering/(2).PNG"}
           alt="Dettaglio ravvicinato della facciata del palazzo storico dell'Accademia, ricostruita con texture di nuvole di punti"
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
           loading="lazy"
         />
-        <img decoding="async"
-          src={getProxyUrl("/progetti/street-rendering/(3).PNG")} data-src="/progetti/street-rendering/(3).PNG"
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/street-rendering/(3).PNG"}
           alt="Inquadratura stradale angolata che mostra la distorsione geometrica delle auto in transito riprese da Street View"
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
           loading="lazy"
         />
-        <img decoding="async"
-          src={getProxyUrl("/progetti/street-rendering/(4).PNG")} data-src="/progetti/street-rendering/(4).PNG"
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/street-rendering/(4).PNG"}
           alt="Prospettiva rasoterra di un marciapiede i cui dettagli fisici si scompongono in macchie di colore sbiadite"
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
           loading="lazy"
         />
-        <img decoding="async"
-          src={getProxyUrl("/progetti/street-rendering/(5).PNG")} data-src="/progetti/street-rendering/(5).PNG"
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/street-rendering/(5).PNG"}
           alt="Vista astratta dell'ambiente urbano in cui le sagome delle persone si dissolvono in forme fluide e incorporee"
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
           loading="lazy"
         />
-        <img decoding="async"
-          src={getProxyUrl("/progetti/street-rendering/(6).PNG")} data-src="/progetti/street-rendering/(6).PNG"
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/street-rendering/(6).PNG"}
           alt="Inquadratura di un albero e di una panchina della piazza, con le foglie e la struttura resi come punti fluttuanti"
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
           loading="lazy"
         />
-        <img decoding="async"
-          src={getProxyUrl("/progetti/street-rendering/(7).PNG")} data-src="/progetti/street-rendering/(7).PNG"
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/street-rendering/(7).PNG"}
           alt="Prospettiva dall'interno di una distorsione tridimensionale, che crea un effetto di architettura liquida"
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
           loading="lazy"
         />
-        <img decoding="async"
-          src={getProxyUrl("/progetti/street-rendering/(8).PNG")} data-src="/progetti/street-rendering/(8).PNG"
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/street-rendering/(8).PNG"}
           alt="Particolare del selciato della piazza e delle ombre, ricostruiti con imperfezioni tipiche degli algoritmi di splatting"
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
           loading="lazy"
         />
-        <img decoding="async"
-          src={getProxyUrl("/progetti/street-rendering/(9).PNG")} data-src="/progetti/street-rendering/(9).PNG"
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/street-rendering/(9).PNG"}
           alt="Fotografia virtuale dall'alto di un vicolo adiacente alla piazza, con geometrie spezzate e texture mancanti"
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
           loading="lazy"
         />
-        <img decoding="async"
-          src={getProxyUrl("/progetti/street-rendering/(10).PNG")} data-src="/progetti/street-rendering/(10).PNG"
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/street-rendering/(10).PNG"}
           alt="Veduta prospettica in cui la luce del sole virtuale si riflette su superfici sconnesse e frammenti poligonali"
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
           loading="lazy"
         />
-        <img decoding="async"
-          src={getProxyUrl("/progetti/street-rendering/(11).PNG")} data-src="/progetti/street-rendering/(11).PNG"
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/street-rendering/(11).PNG"}
           alt="Dettaglio di un cartello stradale e di una recinzione, deformati dall'approssimazione del modello 3D"
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
           loading="lazy"
         />
-        <img decoding="async"
-          src={getProxyUrl("/progetti/street-rendering/(12).PNG")} data-src="/progetti/street-rendering/(12).PNG"
+        <ProgressiveImage tabindex="0" role="button" aria-haspopup="dialog" decoding="auto"
+          src={"/progetti/street-rendering/(12).PNG"}
           alt="Panoramica della piazza dell'Accademia ricostruita, che mostra l'intera estensione del modello generato"
-          class="w-full h-auto object-cover aspect-[4/3] bg-neutral-900 gallery-img"
+          class="w-full h-auto object-cover aspect-[4/3] bg-black gallery-img"
           loading="lazy"
         />
       </div>
-    </div>
-  </section>
+    </div></section>
+<NextProject projectId="street-rendering" />
 </BaseLayout>

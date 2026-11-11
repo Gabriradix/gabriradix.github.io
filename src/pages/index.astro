@@ -6,9 +6,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="Gabriele Radicello (gabriradix) — Multimedia Artist">
-  <main class="pt-40 pb-24 md:pt-64 md:pb-32 max-w-7xl mx-auto pl-6 md:pl-12 relative">
+  <div class="pt-40 pb-24 md:pt-64 md:pb-32 max-w-7xl mx-auto pl-6 md:pl-12 relative">
+    <h1 class="sr-only"><span class="lang-en" lang="en">Gabriele Radicello — Selected work</span><span class="lang-it" lang="it">Gabriele Radicello — Progetti selezionati</span></h1>
     <section class="flex flex-col gap-12 md:gap-20 relative" id="projects-section">
       {projects.map((project, index) => <ProjectCard {...project} priority={index === 0} />)}
     </section>
-  </main>
+  </div>
 </BaseLayout>

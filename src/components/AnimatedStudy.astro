@@ -1,0 +1,80 @@
+---
+import '../styles/animated-study.css';
+
+interface Props { kind: 'oracle' | 'pipeline' }
+const { kind } = Astro.props;
+const oracle = kind === 'oracle';
+const steps = oracle ? [
+  ['Choose', 'Scegli', 'The phrase is chosen first.', 'La frase viene scelta prima.'],
+  ['Scatter', 'Disperdi', 'Its six words are scattered among 29 others.', 'Le sue sei parole vengono disperse fra altre 29.'],
+  ['Reveal', 'Rivela', 'The holes expose only the chosen words.', 'I fori lasciano emergere solo le parole scelte.'],
+  ['Keep', 'Conserva', 'The reading becomes a card to keep.', 'La lettura diventa una carta da conservare.'],
+] : [
+  ['Raw Entry', 'Ricordo grezzo', 'A recollection enters the archive.', 'Un ricordo entra nell’archivio.'],
+  ['Feature Extraction', 'Estrazione degli attributi', 'The recollection is described through five attributes.', 'Il ricordo viene descritto attraverso cinque attributi.'],
+  ['Force Attraction', 'Attrazione delle forze', 'Shared attributes draw related dreams together.', 'Gli attributi condivisi avvicinano i sogni affini.'],
+  ['Sealed Topology', 'Topologia consolidata', 'The record finds its place in the constellation.', 'La scheda trova posto nella costellazione.'],
+];
+const targets = ['Trust', 'the', 'path', 'you', 'cannot', 'see.'];
+const targetsIt = ['Segui', 'il', 'sentiero', 'che', 'non', 'vedi.'];
+const slots = [1, 8, 16, 20, 25, 33];
+const noise = ['light', 'silence', 'within', 'above', 'time', 'still', 'opens', 'shadow', 'dream', 'milk', 'salt', 'echo', 'moon', 'dust', 'soft', 'tide', 'wait', 'seed', 'night', 'rain', 'stone', 'air', 'fall', 'rise', 'far', 'near', 'slow', 'gold', 'mist'];
+const noiseIt = ['luce', 'silenzio', 'dentro', 'sopra', 'tempo', 'fermo', 'apre', 'ombra', 'sogno', 'latte', 'sale', 'eco', 'luna', 'polvere', 'lieve', 'marea', 'attesa', 'seme', 'notte', 'pioggia', 'pietra', 'aria', 'cade', 'sale', 'oltre', 'vicino', 'lento', 'oro', 'nebbia'];
+let noiseIndex = 0;
+const words = Array.from({ length: 35 }, (_, index) => {
+  const target = slots.indexOf(index);
+  const filler = target < 0 ? noiseIndex++ : 0;
+  return { target, en: target >= 0 ? targets[target] : noise[filler], it: target >= 0 ? targetsIt[target] : noiseIt[filler] };
+});
+const features = [['Mood', 'Umore'], ['Setting', 'Ambientazione'], ['Objects', 'Oggetti'], ['Weirdness', 'Assurdità'], ['Recall', 'Memoria']];
+---
+
+<figure class="animated-study relative z-10 bg-black border border-neutral-800" data-animated-study={kind} data-stage="0" data-playing="true" style={`--study-accent: ${oracle ? '#efbf48' : '#2EE6D6'}`} aria-labelledby={`${kind}-study-caption`}>
+  <div class="study-toolbar font-mono text-xs uppercase tracking-wider">
+    <button type="button" data-study-play aria-pressed="true" aria-controls={oracle ? 'oracleCanvas' : 'pipelineCanvas'}>
+      <span data-play-label hidden><span class="lang-en" lang="en">Play</span><span class="lang-it" lang="it">Riprendi</span></span>
+      <span data-pause-label><span class="lang-en" lang="en">Pause</span><span class="lang-it" lang="it">Pausa</span></span>
+    </button>
+    <button type="button" data-study-prev><span aria-hidden="true">←</span><span class="sr-only"><span class="lang-en" lang="en">Previous step</span><span class="lang-it" lang="it">Passaggio precedente</span></span></button>
+    <button type="button" data-study-next><span aria-hidden="true">→</span><span class="sr-only"><span class="lang-en" lang="en">Next step</span><span class="lang-it" lang="it">Passaggio successivo</span></span></button>
+    <span class="study-time"><span class="lang-en" lang="en" data-study-time>00:00</span><span class="lang-it" lang="it" data-study-time>00:00</span></span>
+  </div>
+  <div class="study-steps font-mono text-xs uppercase tracking-wider" role="group">
+    {steps.map((step, index) => <button type="button" data-study-step={index} aria-pressed={index === 0}>
+      <span class="lang-en" lang="en">{String(index + 1).padStart(2, '0')} {step[0]}</span><span class="lang-it" lang="it">{String(index + 1).padStart(2, '0')} {step[1]}</span>
+    </button>)}
+  </div>
+  <div class="study-stage">
+    <canvas id={oracle ? 'oracleCanvas' : 'pipelineCanvas'} width="960" height="380" aria-hidden="true"></canvas>
+    <div class="study-telemetry font-mono text-xs uppercase tracking-wider">
+      <span class="lang-en" lang="en">{oracle ? 'Tyromancy / 06 target words' : 'REM 04:18 / DC-001'}</span><span class="lang-it" lang="it">{oracle ? 'Tiromanzia / 06 parole bersaglio' : 'REM 04:18 / DC-001'}</span>
+    </div>
+    {oracle ? <>
+      <div class="study-phrase"><span class="lang-en" lang="en">Trust the path you cannot see.</span><span class="lang-it" lang="it">Segui il sentiero che non vedi.</span></div>
+      <div class="study-token-key font-mono text-xs uppercase tracking-wider"><span class="lang-en" lang="en">01 Trust · 02 the · 03 path · 04 you · 05 cannot · 06 see</span><span class="lang-it" lang="it">01 Segui · 02 il · 03 sentiero · 04 che · 05 non · 06 vedi</span></div>
+      <div class="study-word-field" aria-hidden="true">{words.map(word => <span class:list={['study-word', { 'is-target': word.target >= 0 }]} data-target={word.target}>
+        <span class="lang-en" lang="en">{word.en}</span><span class="lang-it" lang="it">{word.it}</span>
+      </span>)}</div>
+      <p class="study-reading sr-only"><span class="lang-en" lang="en">Revealed prophecy: Trust the path you cannot see.</span><span class="lang-it" lang="it">Profezia rivelata: Segui il sentiero che non vedi.</span></p>
+      <div class="study-receipt">
+        <strong><span class="lang-en" lang="en">Oracle Card Receipt</span><span class="lang-it" lang="it">Ricevuta della carta oracolare</span></strong>
+        <span class="receipt-meta"><span class="lang-en" lang="en" data-receipt-time>UTC —</span><span class="lang-it" lang="it" data-receipt-time>UTC —</span></span>
+        <span class="receipt-meta"><span class="lang-en" lang="en" data-receipt-hash>Study provenance / SHA-256 —</span><span class="lang-it" lang="it" data-receipt-hash>Provenienza studio / SHA-256 —</span></span>
+      </div>
+    </> : <>
+      <span class="study-node-label font-mono text-xs uppercase tracking-wider"><span class="lang-en" lang="en">Raw entry / DC-001</span><span class="lang-it" lang="it">Ricordo grezzo / DC-001</span></span>
+      <div class="study-features font-mono text-xs uppercase tracking-wider">{features.map(feature => <span data-feature><span class="lang-en" lang="en">{feature[0]}</span><span class="lang-it" lang="it">{feature[1]}</span></span>)}</div>
+      <div class="study-dimensions font-mono text-xs uppercase tracking-wider">{[['Anxiety', 'Ansia'], ['Lucidity', 'Lucidità'], ['Weirdness', 'Assurdità'], ['Recall', 'Memoria']].map((dimension, index) => <span style={`--dimension-color: ${['#FF5A5F', '#2EE6D6', '#9B7BFF', '#FF9F1C'][index]}`}><i></i><span class="lang-en" lang="en">{dimension[0]}</span><span class="lang-it" lang="it">{dimension[1]}</span></span>)}</div>
+      <div class="study-indexed font-mono text-xs uppercase tracking-wider"><span class="lang-en" lang="en">Status: Indexed (DC-001)</span><span class="lang-it" lang="it">Stato: Indicizzato (DC-001)</span></div>
+    </>}
+  </div>
+  <figcaption id={`${kind}-study-caption`} class="study-caption text-neutral-300 text-lg leading-8">
+    {steps.map((step, index) => <p data-study-caption={index} hidden={index !== 0}><span class="lang-en" lang="en">{step[2]}</span><span class="lang-it" lang="it">{step[3]}</span></p>)}
+  </figcaption>
+</figure>
+
+<script>
+  import { setupAnimatedStudies } from '../scripts/animated-studies';
+  setupAnimatedStudies();
+  document.addEventListener('astro:page-load', setupAnimatedStudies);
+</script>

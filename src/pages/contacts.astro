@@ -9,8 +9,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         class="mb-12 text-4xl md:text-6xl font-normal leading-none"
         style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;"
       >
-        <span class="lang-en">MORE ON:</span>
-        <span class="lang-it">CONTATTI & LINK:</span>
+        <span class="lang-en" lang="en">MORE ON:</span>
+        <span class="lang-it" lang="it">CONTATTI & LINK:</span>
       </h1>
 
       <div class="grid gap-4 md:grid-cols-4 w-full">
@@ -77,11 +77,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
   <style>
     .contact-card {
-      transition: border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                  box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                  transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+      transition: border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                  box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
                   background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                  opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                  opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
                   filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       will-change: border-color, box-shadow, transform, background-color, opacity, filter;
     }
@@ -89,7 +89,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     /* When a card is hovered or has the active hovered-card class, light up with premium white borders and white glows! */
     .contact-card:hover,
     .contact-card.hovered-card {
-      background-color: rgba(38, 38, 38, 0.7) !important;
+      background-color: #000000 !important;
       border-color: #ffffff !important;
       box-shadow: 0 0 12px rgba(255, 255, 255, 0.35) !important;
       transform: scale(1.02); /* premium scale effect */
@@ -118,7 +118,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         const card = node as HTMLElement;
         if (card.hasAttribute('data-ascii-initialized')) return;
         card.setAttribute('data-ascii-initialized', 'true');
-        
+
         const handleEnter = () => {
           if (Date.now() - lastTouchTime < 1000) return;
           card.classList.add('hovered-target', 'hovered-card');
@@ -162,7 +162,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           lastTouchTime = Date.now();
           const elapsed = Date.now() - touchStartVal;
           const minDuration = 500; // Guarantee at least half a second of active ASCII waves
-          
+
           if (elapsed < minDuration) {
             const remaining = minDuration - elapsed;
             if (touchTimeout) clearTimeout(touchTimeout);

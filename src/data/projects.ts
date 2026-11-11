@@ -83,14 +83,19 @@ export const projects = [
     text_it: "Un archivio web interattivo per la catalogazione dei sogni, presentato attraverso un'interfaccia clinica e asettica.",
     href: "/dream-catalogue",
     images: [
-      "/progetti/dream-catalogue/cover.png",
-      "/progetti/dream-catalogue/diagram-data-pipeline.svg",
-      "/progetti/dream-catalogue/diagram-graph-mechanics.svg",
-      "/progetti/dream-catalogue/diagram-ui-telemetry.svg"
+      "/progetti/dream-catalogue/diagram-dream-pipeline.svg",
+      "/progetti/dream-catalogue/diagram-dream-forces.svg",
+      "/progetti/dream-catalogue/diagram-dream-interface.svg"
+    ],
+    images_it: [
+      "/progetti/dream-catalogue/diagram-dream-pipeline.it.svg",
+      "/progetti/dream-catalogue/diagram-dream-forces.it.svg",
+      "/progetti/dream-catalogue/diagram-dream-interface.it.svg"
     ],
     year: "2026",
     category: "Archive / Web",
-    category_it: "Archivio / Web"
+    category_it: "Archivio / Web",
+    brandColor: "#2EE6D6"
   },
   {
     title: "The Cheese Prophecy",
@@ -98,15 +103,19 @@ export const projects = [
     text_it: "Un progetto web sperimentale basato sulla generazione poetica e testuale, che si sviluppa come un'enigmatica profezia.",
     href: "/cheese-prophecy",
     images: [
-      "/progetti/the-cheese-prophecy/cover.png",
-      "/progetti/the-cheese-prophecy/diagram-poetic-generation.svg",
-      "/progetti/the-cheese-prophecy/diagram-prophecy-kinetics.svg",
-      "/progetti/the-cheese-prophecy/diagram-netart-interface.svg"
+      "/progetti/the-cheese-prophecy/diagram-cheese-generation.svg",
+      "/progetti/the-cheese-prophecy/diagram-cheese-revelation.svg",
+      "/progetti/the-cheese-prophecy/diagram-cheese-interface.svg"
+    ],
+    images_it: [
+      "/progetti/the-cheese-prophecy/diagram-cheese-generation.it.svg",
+      "/progetti/the-cheese-prophecy/diagram-cheese-revelation.it.svg",
+      "/progetti/the-cheese-prophecy/diagram-cheese-interface.it.svg"
     ],
     year: "2026",
     category: "Net Art",
     category_it: "Net Art",
-    brandColor: "#f5c842"
+    brandColor: "#efbf48"
   },
 
   // 2025

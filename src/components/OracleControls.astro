@@ -1,0 +1,21 @@
+---
+const parameters = [
+  { key: 'radius', en: 'Hole radius', it: 'Raggio dei fori', value: 28, unit: ' px', step: 1 },
+  { key: 'opacity', en: 'Opacity', it: 'Opacità', value: 85, unit: '%', step: 5 },
+];
+---
+
+<div class="study-geometry relative z-10 bg-black border border-neutral-800 mb-8">
+  {parameters.map(parameter => <fieldset class="study-adjustment font-mono text-xs uppercase tracking-wider">
+    <legend><span class="lang-en" lang="en">{parameter.en}</span><span class="lang-it" lang="it">{parameter.it}</span></legend>
+    <div class="study-stepper">
+      <button type="button" data-oracle-adjust={parameter.key} data-adjustment={-parameter.step} aria-controls="oracleCanvas">
+        <span aria-hidden="true">−</span><span class="sr-only"><span class="lang-en" lang="en">Decrease {parameter.en.toLowerCase()}</span><span class="lang-it" lang="it">Riduci {parameter.it.toLowerCase()}</span></span>
+      </button>
+      <output aria-live="polite"><span class="lang-en" lang="en" data-oracle-output={parameter.key}>{parameter.value}{parameter.unit}</span><span class="lang-it" lang="it" data-oracle-output={parameter.key}>{parameter.value}{parameter.unit}</span></output>
+      <button type="button" data-oracle-adjust={parameter.key} data-adjustment={parameter.step} aria-controls="oracleCanvas">
+        <span aria-hidden="true">+</span><span class="sr-only"><span class="lang-en" lang="en">Increase {parameter.en.toLowerCase()}</span><span class="lang-it" lang="it">Aumenta {parameter.it.toLowerCase()}</span></span>
+      </button>
+    </div>
+  </fieldset>)}
+</div>

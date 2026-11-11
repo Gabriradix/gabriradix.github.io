@@ -6,7 +6,7 @@ export function loadCarouselImages(container: ParentNode) {
     if (image.hasAttribute('data-carousel-image-managed')) return;
     image.setAttribute('data-carousel-image-managed', '');
 
-    prepareImageRetry(image);
+    if (!image.hasAttribute('data-animated-image')) prepareImageRetry(image);
     image.loading = 'eager';
   });
 }

@@ -1,0 +1,1528 @@
+{
+  "/assets/aboutphoto.JPEG": {
+    "jxl": "/assets/aboutphoto.JPEG.jxl",
+    "fallback": "/assets/aboutphoto.JPEG.progressive.jpg",
+    "width": 1536,
+    "height": 2048,
+    "fingerprint": "2dc4fb745d4c755e15f1ea6bd4bd07424bcedfa4265b91ffd16cd79e970a4222"
+  },
+  "/progetti/a-closer-look/assets/IMG_0010.JPG": {
+    "jxl": "/progetti/a-closer-look/assets/IMG_0010.JPG.jxl",
+    "fallback": "/progetti/a-closer-look/assets/IMG_0010.JPG.progressive.jpg",
+    "width": 8268,
+    "height": 5906,
+    "fingerprint": "39c021a30092de6e4360d0cf1b9a08372ce2feb723b55d2c6def92383000130a"
+  },
+  "/progetti/a-closer-look/assets/IMG_0010.JPG-preview.webp": {
+    "jxl": "/progetti/a-closer-look/assets/IMG_0010.JPG-preview.webp.jxl",
+    "fallback": "/progetti/a-closer-look/assets/IMG_0010.JPG-preview.webp.progressive.jpg",
+    "width": 1008,
+    "height": 720,
+    "fingerprint": "de6f69cafe20f2dab4c62ad90da3c32812742394842f300fc28d7b52dfd8d618"
+  },
+  "/progetti/a-closer-look/assets/IMG_0012.JPG": {
+    "jxl": "/progetti/a-closer-look/assets/IMG_0012.JPG.jxl",
+    "fallback": "/progetti/a-closer-look/assets/IMG_0012.JPG.progressive.jpg",
+    "width": 2657,
+    "height": 1898,
+    "fingerprint": "0b5c1201c63d8b92c4a68a07fb7ff6f8d6655557220c216e5569eddc61f789d7"
+  },
+  "/progetti/a-closer-look/assets/IMG_0012.JPG-preview.webp": {
+    "jxl": "/progetti/a-closer-look/assets/IMG_0012.JPG-preview.webp.jxl",
+    "fallback": "/progetti/a-closer-look/assets/IMG_0012.JPG-preview.webp.progressive.jpg",
+    "width": 1008,
+    "height": 720,
+    "fingerprint": "37664b505546632b89213358e1535ce9971b135869bbc234e5a5af4092c01118"
+  },
+  "/progetti/a-closer-look/assets/IMG_0013.JPG": {
+    "jxl": "/progetti/a-closer-look/assets/IMG_0013.JPG.jxl",
+    "fallback": "/progetti/a-closer-look/assets/IMG_0013.JPG.progressive.jpg",
+    "width": 2657,
+    "height": 1898,
+    "fingerprint": "31e2c490f9eeb98fc08a946a14ae023b51dca9ad8f393537885e31bf37724b56"
+  },
+  "/progetti/a-closer-look/assets/IMG_0013.JPG-preview.webp": {
+    "jxl": "/progetti/a-closer-look/assets/IMG_0013.JPG-preview.webp.jxl",
+    "fallback": "/progetti/a-closer-look/assets/IMG_0013.JPG-preview.webp.progressive.jpg",
+    "width": 1008,
+    "height": 720,
+    "fingerprint": "d28859f96b4fcf5d893811b026f448f013dda2dd9bd973f509f5ced99adf2f57"
+  },
+  "/progetti/a-closer-look/assets/sample.png": {
+    "jxl": "/progetti/a-closer-look/assets/sample.png.jxl",
+    "fallback": "/progetti/a-closer-look/assets/sample.png.fallback.webp",
+    "width": 2816,
+    "height": 1536,
+    "fingerprint": "3bd8fc4f370c66e5e9f6ca18debbe8448f04d4b7f2eed7741a07805ced6712f7"
+  },
+  "/progetti/a-closer-look/assets/sample.png-preview.webp": {
+    "jxl": "/progetti/a-closer-look/assets/sample.png-preview.webp.jxl",
+    "fallback": "/progetti/a-closer-look/assets/sample.png-preview.webp.progressive.jpg",
+    "width": 1200,
+    "height": 655,
+    "fingerprint": "4ac0c76d1ee2fb9b3243cdf98ecd25fb09e8be7bab9495d8f91b4c8c562acd44"
+  },
+  "/progetti/a-closer-look/assets/Screenshot (15).png": {
+    "jxl": "/progetti/a-closer-look/assets/Screenshot (15).png.jxl",
+    "fallback": "/progetti/a-closer-look/assets/Screenshot (15).png.fallback.webp",
+    "width": 1920,
+    "height": 1002,
+    "fingerprint": "8d741d85a8c64606dbc0585b4e6ce69967f48c18563abfc49f1d5aace7fd1858"
+  },
+  "/progetti/a-closer-look/assets/Screenshot （15）.png": {
+    "jxl": "/progetti/a-closer-look/assets/Screenshot （15）.png.jxl",
+    "fallback": "/progetti/a-closer-look/assets/Screenshot （15）.png.fallback.webp",
+    "width": 1920,
+    "height": 1002,
+    "fingerprint": "8d741d85a8c64606dbc0585b4e6ce69967f48c18563abfc49f1d5aace7fd1858"
+  },
+  "/progetti/a-closer-look/assets/Screenshot (3).png": {
+    "jxl": "/progetti/a-closer-look/assets/Screenshot (3).png.jxl",
+    "fallback": "/progetti/a-closer-look/assets/Screenshot (3).png.fallback.webp",
+    "width": 1920,
+    "height": 1006,
+    "fingerprint": "1ae074e43f026d2d1df2818b4a73b9f21bd637cc380d66a186e706af29d46bc4"
+  },
+  "/progetti/a-closer-look/assets/Screenshot （3）.png": {
+    "jxl": "/progetti/a-closer-look/assets/Screenshot （3）.png.jxl",
+    "fallback": "/progetti/a-closer-look/assets/Screenshot （3）.png.fallback.webp",
+    "width": 1920,
+    "height": 1006,
+    "fingerprint": "1ae074e43f026d2d1df2818b4a73b9f21bd637cc380d66a186e706af29d46bc4"
+  },
+  "/progetti/a-closer-look/assets/Tdmovieout.0-poster.jpg": {
+    "jxl": "/progetti/a-closer-look/assets/Tdmovieout.0-poster.jpg.jxl",
+    "fallback": "/progetti/a-closer-look/assets/Tdmovieout.0-poster.jpg.progressive.jpg",
+    "width": 1268,
+    "height": 710,
+    "fingerprint": "f77516c0deaa8b2a65ce936b874682d76e04ff7a34edbf4bdbcf01bef4c30bf9"
+  },
+  "/progetti/a-closer-look/assets/TDMovieOut.0.png": {
+    "jxl": "/progetti/a-closer-look/assets/TDMovieOut.0.png.jxl",
+    "fallback": "/progetti/a-closer-look/assets/TDMovieOut.0.png.fallback.webp",
+    "width": 4096,
+    "height": 2160,
+    "fingerprint": "44faa345d4278a4aab77bfddf5219bb643fb51698000dd62c0abee66634a0e30"
+  },
+  "/progetti/codice-umano/1.jpg": {
+    "jxl": "/progetti/codice-umano/1.jpg.jxl",
+    "fallback": "/progetti/codice-umano/1.jpg.progressive.jpg",
+    "width": 1200,
+    "height": 800,
+    "fingerprint": "c8539775a4ab02d2e4ecccdd3d2d6403fe2f8db725ff67b4a799e5e8df13e278"
+  },
+  "/progetti/codice-umano/1.jpg-preview.webp": {
+    "jxl": "/progetti/codice-umano/1.jpg-preview.webp.jxl",
+    "fallback": "/progetti/codice-umano/1.jpg-preview.webp.progressive.jpg",
+    "width": 1080,
+    "height": 720,
+    "fingerprint": "c27a7746c972bd4148012bf13d82704bf7da15f779266116841141176b7dde6c"
+  },
+  "/progetti/codice-umano/10.jpg": {
+    "jxl": "/progetti/codice-umano/10.jpg.jxl",
+    "fallback": "/progetti/codice-umano/10.jpg.progressive.jpg",
+    "width": 1200,
+    "height": 800,
+    "fingerprint": "15e3f2179f6a3c03b7a569707151189cecb98d3a50adcf8f9de581d4eea9f93b"
+  },
+  "/progetti/codice-umano/10.jpg-preview.webp": {
+    "jxl": "/progetti/codice-umano/10.jpg-preview.webp.jxl",
+    "fallback": "/progetti/codice-umano/10.jpg-preview.webp.progressive.jpg",
+    "width": 1080,
+    "height": 720,
+    "fingerprint": "865545b2cfcc006c920c61fe4754dccfe7182e5098248366681dc233f39aa8f4"
+  },
+  "/progetti/codice-umano/11.jpg": {
+    "jxl": "/progetti/codice-umano/11.jpg.jxl",
+    "fallback": "/progetti/codice-umano/11.jpg.progressive.jpg",
+    "width": 1200,
+    "height": 800,
+    "fingerprint": "2601644b15125ee4de97d725a1e121e85f15988a77e6c31771bb08b6c36bd365"
+  },
+  "/progetti/codice-umano/11.jpg-preview.webp": {
+    "jxl": "/progetti/codice-umano/11.jpg-preview.webp.jxl",
+    "fallback": "/progetti/codice-umano/11.jpg-preview.webp.progressive.jpg",
+    "width": 1080,
+    "height": 720,
+    "fingerprint": "552899821ae43e41a4687d83cee7752be06f0ad77d7d42942229e9d7b3a5adae"
+  },
+  "/progetti/codice-umano/12.jpg": {
+    "jxl": "/progetti/codice-umano/12.jpg.jxl",
+    "fallback": "/progetti/codice-umano/12.jpg.progressive.jpg",
+    "width": 1200,
+    "height": 800,
+    "fingerprint": "eee5e7e970b1d1fb779a93c703ce62991cac1d99cfd45ab85ddade9a03178644"
+  },
+  "/progetti/codice-umano/12.jpg-preview.webp": {
+    "jxl": "/progetti/codice-umano/12.jpg-preview.webp.jxl",
+    "fallback": "/progetti/codice-umano/12.jpg-preview.webp.progressive.jpg",
+    "width": 1080,
+    "height": 720,
+    "fingerprint": "24105ce35e6a4cc9ca78ea5718d1de55ca7847299843388513de7f5ee4af8571"
+  },
+  "/progetti/codice-umano/13.jpg": {
+    "jxl": "/progetti/codice-umano/13.jpg.jxl",
+    "fallback": "/progetti/codice-umano/13.jpg.progressive.jpg",
+    "width": 1200,
+    "height": 800,
+    "fingerprint": "1146d67c003eb6cb5925e8436eb9e5b6f5c698feade5c870ac3a6e3198e6f51d"
+  },
+  "/progetti/codice-umano/13.jpg-preview.webp": {
+    "jxl": "/progetti/codice-umano/13.jpg-preview.webp.jxl",
+    "fallback": "/progetti/codice-umano/13.jpg-preview.webp.progressive.jpg",
+    "width": 1080,
+    "height": 720,
+    "fingerprint": "d65bf2705e4ce9f7936879a14c7bed16b4403a86095dac6027106f84edc19a63"
+  },
+  "/progetti/codice-umano/14.jpg": {
+    "jxl": "/progetti/codice-umano/14.jpg.jxl",
+    "fallback": "/progetti/codice-umano/14.jpg.progressive.jpg",
+    "width": 1200,
+    "height": 800,
+    "fingerprint": "e914191aa71663b344c2ec72981748f7dac09aee00f1a7251dd8ad58a3339533"
+  },
+  "/progetti/codice-umano/14.jpg-preview.webp": {
+    "jxl": "/progetti/codice-umano/14.jpg-preview.webp.jxl",
+    "fallback": "/progetti/codice-umano/14.jpg-preview.webp.progressive.jpg",
+    "width": 1080,
+    "height": 720,
+    "fingerprint": "241c7e7fb50c6b264156a314929fc6fed5805b7455c937e51bccde7b955a4233"
+  },
+  "/progetti/codice-umano/15.jpg": {
+    "jxl": "/progetti/codice-umano/15.jpg.jxl",
+    "fallback": "/progetti/codice-umano/15.jpg.progressive.jpg",
+    "width": 1200,
+    "height": 800,
+    "fingerprint": "15b76d419176378341c336be902fb159a7201c2cf0b4aa73712ac97323eccf28"
+  },
+  "/progetti/codice-umano/15.jpg-preview.webp": {
+    "jxl": "/progetti/codice-umano/15.jpg-preview.webp.jxl",
+    "fallback": "/progetti/codice-umano/15.jpg-preview.webp.progressive.jpg",
+    "width": 1080,
+    "height": 720,
+    "fingerprint": "ff877d7a83bacf61fb38f3f6ac337202a44954e906c5fb4840b42f55ee3b0177"
+  },
+  "/progetti/codice-umano/2.jpg": {
+    "jxl": "/progetti/codice-umano/2.jpg.jxl",
+    "fallback": "/progetti/codice-umano/2.jpg.progressive.jpg",
+    "width": 1200,
+    "height": 800,
+    "fingerprint": "58777be00850656a4dd3ffe5bff21d25926ed8c2eba88d8308b53777dfd1a3cf"
+  },
+  "/progetti/codice-umano/2.jpg-preview.webp": {
+    "jxl": "/progetti/codice-umano/2.jpg-preview.webp.jxl",
+    "fallback": "/progetti/codice-umano/2.jpg-preview.webp.progressive.jpg",
+    "width": 1080,
+    "height": 720,
+    "fingerprint": "2136a3e8e588f88881dc19985a814f32b6eb3e4e5fdf2bcd42f41a53e6ac4dd9"
+  },
+  "/progetti/codice-umano/3.jpg": {
+    "jxl": "/progetti/codice-umano/3.jpg.jxl",
+    "fallback": "/progetti/codice-umano/3.jpg.progressive.jpg",
+    "width": 1200,
+    "height": 800,
+    "fingerprint": "c4e0bde91d66356cce15333e529d3dc7e92bfb6ed0e3d47ad992e333d50e1251"
+  },
+  "/progetti/codice-umano/3.jpg-preview.webp": {
+    "jxl": "/progetti/codice-umano/3.jpg-preview.webp.jxl",
+    "fallback": "/progetti/codice-umano/3.jpg-preview.webp.progressive.jpg",
+    "width": 1080,
+    "height": 720,
+    "fingerprint": "934aa7f9c9a1c321fd2209896adec402cb19ae7043fce132bd2df6d68134f45c"
+  },
+  "/progetti/codice-umano/4.jpg": {
+    "jxl": "/progetti/codice-umano/4.jpg.jxl",
+    "fallback": "/progetti/codice-umano/4.jpg.progressive.jpg",
+    "width": 1200,
+    "height": 800,
+    "fingerprint": "d69f334d15daccd0a346306796f0bffdcf3d49d2f3cdfbdb27855b0edf117050"
+  },
+  "/progetti/codice-umano/4.jpg-preview.webp": {
+    "jxl": "/progetti/codice-umano/4.jpg-preview.webp.jxl",
+    "fallback": "/progetti/codice-umano/4.jpg-preview.webp.progressive.jpg",
+    "width": 1080,
+    "height": 720,
+    "fingerprint": "6209a7287a8cdb4bd01a45ef6f7c7014ee060917e87501ac77836b942b8eb7c8"
+  },
+  "/progetti/codice-umano/5.jpg": {
+    "jxl": "/progetti/codice-umano/5.jpg.jxl",
+    "fallback": "/progetti/codice-umano/5.jpg.progressive.jpg",
+    "width": 1200,
+    "height": 800,
+    "fingerprint": "e6d4119d3fb835744c442b1ef64ddb973d923bd069ab75a10234ba7012af0b70"
+  },
+  "/progetti/codice-umano/5.jpg-preview.webp": {
+    "jxl": "/progetti/codice-umano/5.jpg-preview.webp.jxl",
+    "fallback": "/progetti/codice-umano/5.jpg-preview.webp.progressive.jpg",
+    "width": 1080,
+    "height": 720,
+    "fingerprint": "de363dae26dc022d9b21a223162c6be47e5816eab177ee71199921632c54f654"
+  },
+  "/progetti/codice-umano/6.jpg": {
+    "jxl": "/progetti/codice-umano/6.jpg.jxl",
+    "fallback": "/progetti/codice-umano/6.jpg.progressive.jpg",
+    "width": 533,
+    "height": 800,
+    "fingerprint": "5b1e78e8655975c4ddca97ed81104d66536012f72469bd90fa9b2499657dc0b8"
+  },
+  "/progetti/codice-umano/6.jpg-preview.webp": {
+    "jxl": "/progetti/codice-umano/6.jpg-preview.webp.jxl",
+    "fallback": "/progetti/codice-umano/6.jpg-preview.webp.progressive.jpg",
+    "width": 480,
+    "height": 720,
+    "fingerprint": "a7880f59a49989f0bb92e9ac8fc8523b8e1c6240538790a8e83705e754b74d5a"
+  },
+  "/progetti/codice-umano/7.jpg": {
+    "jxl": "/progetti/codice-umano/7.jpg.jxl",
+    "fallback": "/progetti/codice-umano/7.jpg.progressive.jpg",
+    "width": 1200,
+    "height": 800,
+    "fingerprint": "0a470f8fb5ca2f144bf39c1e21a9ff3120063a4e3823e186ea2d73a63509dd8e"
+  },
+  "/progetti/codice-umano/7.jpg-preview.webp": {
+    "jxl": "/progetti/codice-umano/7.jpg-preview.webp.jxl",
+    "fallback": "/progetti/codice-umano/7.jpg-preview.webp.progressive.jpg",
+    "width": 1080,
+    "height": 720,
+    "fingerprint": "ff92a0fbae32e4dbb84bb6b1cb1b9731aebcf05614a9c312ba01a65d5078cb8b"
+  },
+  "/progetti/codice-umano/8.jpg": {
+    "jxl": "/progetti/codice-umano/8.jpg.jxl",
+    "fallback": "/progetti/codice-umano/8.jpg.progressive.jpg",
+    "width": 1200,
+    "height": 800,
+    "fingerprint": "73e6f416ad37ac069c06e600b2d7585c62e8fe92a433859e3c921bc67e1f2cfe"
+  },
+  "/progetti/codice-umano/8.jpg-preview.webp": {
+    "jxl": "/progetti/codice-umano/8.jpg-preview.webp.jxl",
+    "fallback": "/progetti/codice-umano/8.jpg-preview.webp.progressive.jpg",
+    "width": 1080,
+    "height": 720,
+    "fingerprint": "d6467ba66069cef425ffd6ce7c0ac217da4cb0a5c1b7b3c2abb81691e108782f"
+  },
+  "/progetti/codice-umano/9.jpg": {
+    "jxl": "/progetti/codice-umano/9.jpg.jxl",
+    "fallback": "/progetti/codice-umano/9.jpg.progressive.jpg",
+    "width": 1200,
+    "height": 800,
+    "fingerprint": "d0cbc2cb38b7499c0f35212c4c464afd883f2f784c6e81ffc574b3914ccd98b2"
+  },
+  "/progetti/codice-umano/9.jpg-preview.webp": {
+    "jxl": "/progetti/codice-umano/9.jpg-preview.webp.jxl",
+    "fallback": "/progetti/codice-umano/9.jpg-preview.webp.progressive.jpg",
+    "width": 1080,
+    "height": 720,
+    "fingerprint": "e5d8679709647a510b1add7dbfcaba0086e0d32c36443178d27bd7b6cf8e1843"
+  },
+  "/progetti/codice-umano/cover.jpg": {
+    "jxl": "/progetti/codice-umano/cover.jpg.jxl",
+    "fallback": "/progetti/codice-umano/cover.jpg.progressive.jpg",
+    "width": 1080,
+    "height": 1080,
+    "fingerprint": "174d463aef08b62c96b00b53e9312d9a644a74ad4d222192683d3e36a17fae44"
+  },
+  "/progetti/codice-umano/cover.jpg-preview.webp": {
+    "jxl": "/progetti/codice-umano/cover.jpg-preview.webp.jxl",
+    "fallback": "/progetti/codice-umano/cover.jpg-preview.webp.progressive.jpg",
+    "width": 720,
+    "height": 720,
+    "fingerprint": "d0eb8eca1cd0de22bbaa278c408f389d7169dcc82438cd8db159831a04f09bdd"
+  },
+  "/progetti/codice-umano/fura-dels-1080-1350.jpg": {
+    "jxl": "/progetti/codice-umano/fura-dels-1080-1350.jpg.jxl",
+    "fallback": "/progetti/codice-umano/fura-dels-1080-1350.jpg.progressive.jpg",
+    "width": 1080,
+    "height": 1350,
+    "fingerprint": "0fd50223c51140f4a43e71919640b3c69da723335252bdf911e190f16403e406"
+  },
+  "/progetti/connection/assets/1.jpg": {
+    "jxl": "/progetti/connection/assets/1.jpg.jxl",
+    "fallback": "/progetti/connection/assets/1.jpg.progressive.jpg",
+    "width": 1280,
+    "height": 720,
+    "fingerprint": "8fbda5a64e6312f0be73f5d801f1cd255b2d786360225f55baea0028932b0881"
+  },
+  "/progetti/connection/assets/1.jpg-preview.webp": {
+    "jxl": "/progetti/connection/assets/1.jpg-preview.webp.jxl",
+    "fallback": "/progetti/connection/assets/1.jpg-preview.webp.progressive.jpg",
+    "width": 1200,
+    "height": 675,
+    "fingerprint": "299c3c92bfd65c6c8e7dc74e0e2f21f264d44a4dcb4a70c48485dc0c7007b4e2"
+  },
+  "/progetti/connection/assets/copertina.jpeg": {
+    "jxl": "/progetti/connection/assets/copertina.jpeg.jxl",
+    "fallback": "/progetti/connection/assets/copertina.jpeg.progressive.jpg",
+    "width": 960,
+    "height": 930,
+    "fingerprint": "698c85c8aa93f8897011298176bbf0de8078d0362ca21feabf624c19a3a21bcd"
+  },
+  "/progetti/connection/assets/copertina.jpeg-preview.webp": {
+    "jxl": "/progetti/connection/assets/copertina.jpeg-preview.webp.jxl",
+    "fallback": "/progetti/connection/assets/copertina.jpeg-preview.webp.progressive.jpg",
+    "width": 743,
+    "height": 720,
+    "fingerprint": "4df922d7aade43b1e020e55d0749677d4137dfc126b0b8edd4afbd33326d5bd7"
+  },
+  "/progetti/connection/assets/demo1.jpeg": {
+    "jxl": "/progetti/connection/assets/demo1.jpeg.jxl",
+    "fallback": "/progetti/connection/assets/demo1.jpeg.progressive.jpg",
+    "width": 456,
+    "height": 456,
+    "fingerprint": "b3c667c29863862352e95110abe91a8401631a687b2f705cefda31df93ec2f88"
+  },
+  "/progetti/connection/assets/demo1.jpeg-preview.webp": {
+    "jxl": "/progetti/connection/assets/demo1.jpeg-preview.webp.jxl",
+    "fallback": "/progetti/connection/assets/demo1.jpeg-preview.webp.progressive.jpg",
+    "width": 456,
+    "height": 456,
+    "fingerprint": "757a0e2e91e3ace7db72c911e90bcb3d8a9752d6afd725ef6c593d15f2e0f42b"
+  },
+  "/progetti/connection/assets/demo2.jpeg": {
+    "jxl": "/progetti/connection/assets/demo2.jpeg.jxl",
+    "fallback": "/progetti/connection/assets/demo2.jpeg.progressive.jpg",
+    "width": 946,
+    "height": 946,
+    "fingerprint": "84ae1615907b2ef3ce93692ff2b37abf9663697304551c2a2f5ba6a391fc3d03"
+  },
+  "/progetti/connection/assets/demo2.jpeg-preview.webp": {
+    "jxl": "/progetti/connection/assets/demo2.jpeg-preview.webp.jxl",
+    "fallback": "/progetti/connection/assets/demo2.jpeg-preview.webp.progressive.jpg",
+    "width": 720,
+    "height": 720,
+    "fingerprint": "e7cf14b7172d8d4c1b7d194654c81c553de04cd88a0bbb9b62b5e0f9fe8b4e6b"
+  },
+  "/progetti/connection/assets/render disegnato.png": {
+    "jxl": "/progetti/connection/assets/render disegnato.png.jxl",
+    "fallback": "/progetti/connection/assets/render disegnato.png.progressive.jpg",
+    "width": 1920,
+    "height": 1080,
+    "fingerprint": "24f4c22565f32aff4f94798a349a4838c1654de634ed46167aab049f44234e6f"
+  },
+  "/progetti/connection/assets/render disegnato.png-preview.webp": {
+    "jxl": "/progetti/connection/assets/render disegnato.png-preview.webp.jxl",
+    "fallback": "/progetti/connection/assets/render disegnato.png-preview.webp.progressive.jpg",
+    "width": 1200,
+    "height": 675,
+    "fingerprint": "549ee5789b21910dd3b374f4507c35f801970c2d978870d48b0dfd6ce69cc66f"
+  },
+  "/progetti/dream-catalogue/1.png": {
+    "jxl": "/progetti/dream-catalogue/1.png.jxl",
+    "fallback": "/progetti/dream-catalogue/1.png.fallback.webp",
+    "width": 1159,
+    "height": 580,
+    "fingerprint": "2592b889f8a338c29e377c785477b8da1805a0e67c0c069e6d1a5780c91e8e01"
+  },
+  "/progetti/dream-catalogue/2.png": {
+    "jxl": "/progetti/dream-catalogue/2.png.jxl",
+    "fallback": "/progetti/dream-catalogue/2.png.fallback.webp",
+    "width": 1082,
+    "height": 541,
+    "fingerprint": "1f40916f5c724be4fcdd37ad83f5216d17fa9087c90ddd8372fd5230dc93100c"
+  },
+  "/progetti/dream-catalogue/3.png": {
+    "jxl": "/progetti/dream-catalogue/3.png.jxl",
+    "fallback": "/progetti/dream-catalogue/3.png.fallback.webp",
+    "width": 1159,
+    "height": 580,
+    "fingerprint": "eef57b39dd83848f5b8648ecf7440184108907c0ed7db1693659b328ec959f46"
+  },
+  "/progetti/dream-catalogue/4.png": {
+    "jxl": "/progetti/dream-catalogue/4.png.jxl",
+    "fallback": "/progetti/dream-catalogue/4.png.fallback.webp",
+    "width": 1236,
+    "height": 541,
+    "fingerprint": "ee5190e46cd957233b3a41fa5883a5d5e28ed1223b3a1423b305841ec43c921e"
+  },
+  "/progetti/dream-catalogue/cover.png": {
+    "jxl": "/progetti/dream-catalogue/cover.png.jxl",
+    "fallback": "/progetti/dream-catalogue/cover.png.fallback.webp",
+    "width": 1546,
+    "height": 774,
+    "fingerprint": "1a368ed6fa5e043780d36f48b85160b55255387aa10f29257846aa1ed5eaa8b0"
+  },
+  "/progetti/dream-catalogue/cover.png-preview.webp": {
+    "jxl": "/progetti/dream-catalogue/cover.png-preview.webp.jxl",
+    "fallback": "/progetti/dream-catalogue/cover.png-preview.webp.progressive.jpg",
+    "width": 1200,
+    "height": 601,
+    "fingerprint": "f51d2bd4db786db5e9564aaa507baff7c56d450a0483c797f37ab77e120000cc"
+  },
+  "/progetti/fuori-posto/1.PNG": {
+    "jxl": "/progetti/fuori-posto/1.PNG.jxl",
+    "fallback": "/progetti/fuori-posto/1.PNG.fallback.webp",
+    "width": 1920,
+    "height": 1919,
+    "fingerprint": "49b5ac80ddbdd6bfa629536fb34acf63c29e2598ba52a84e047e4eaa791b751e"
+  },
+  "/progetti/fuori-posto/1.PNG-preview.webp": {
+    "jxl": "/progetti/fuori-posto/1.PNG-preview.webp.jxl",
+    "fallback": "/progetti/fuori-posto/1.PNG-preview.webp.fallback.webp",
+    "width": 720,
+    "height": 720,
+    "fingerprint": "f6bae155111f803e3d2251883ca442f444a324b09f8f38f395566893988eae9f"
+  },
+  "/progetti/fuori-posto/cover-fuori-posto.png": {
+    "jxl": "/progetti/fuori-posto/cover-fuori-posto.png.jxl",
+    "fallback": "/progetti/fuori-posto/cover-fuori-posto.png.fallback.webp",
+    "width": 1024,
+    "height": 527,
+    "fingerprint": "3e9289c5a43f5bd22c8d2782575e3f463367517d2769a564138417d426f2a2c0"
+  },
+  "/progetti/fuori-posto/cover-fuori-posto.png-preview.webp": {
+    "jxl": "/progetti/fuori-posto/cover-fuori-posto.png-preview.webp.jxl",
+    "fallback": "/progetti/fuori-posto/cover-fuori-posto.png-preview.webp.progressive.jpg",
+    "width": 1024,
+    "height": 527,
+    "fingerprint": "d05ffe92a655802f7ef821a7969a0d6fc702e10ec049caca9be086976935c510"
+  },
+  "/progetti/fuori-posto/gallery-1.png": {
+    "jxl": "/progetti/fuori-posto/gallery-1.png.jxl",
+    "fallback": "/progetti/fuori-posto/gallery-1.png.fallback.webp",
+    "width": 1024,
+    "height": 676,
+    "fingerprint": "85a9b084ff385b210800bc959c2a9a1b1fce49609d6c382c1dce46f85c6060c9"
+  },
+  "/progetti/fuori-posto/gallery-1.png-preview.webp": {
+    "jxl": "/progetti/fuori-posto/gallery-1.png-preview.webp.jxl",
+    "fallback": "/progetti/fuori-posto/gallery-1.png-preview.webp.progressive.jpg",
+    "width": 1024,
+    "height": 676,
+    "fingerprint": "4e0aaf85af97a4e54a9370043c0fb8981c316f226f904d539920070c43d41b84"
+  },
+  "/progetti/fuori-posto/gallery-2.png": {
+    "jxl": "/progetti/fuori-posto/gallery-2.png.jxl",
+    "fallback": "/progetti/fuori-posto/gallery-2.png.fallback.webp",
+    "width": 1024,
+    "height": 740,
+    "fingerprint": "ba84adf123dcbdb4976008827f434629016b32cb790254f8f54f3b73855f3c88"
+  },
+  "/progetti/fuori-posto/gallery-2.png-preview.webp": {
+    "jxl": "/progetti/fuori-posto/gallery-2.png-preview.webp.jxl",
+    "fallback": "/progetti/fuori-posto/gallery-2.png-preview.webp.progressive.jpg",
+    "width": 996,
+    "height": 720,
+    "fingerprint": "7d1243eb10c3b5cb4a810a57dc72b9883a500056401a0ce5834c686511fdae21"
+  },
+  "/progetti/fuori-posto/gallery-3.png": {
+    "jxl": "/progetti/fuori-posto/gallery-3.png.jxl",
+    "fallback": "/progetti/fuori-posto/gallery-3.png.fallback.webp",
+    "width": 1024,
+    "height": 785,
+    "fingerprint": "9597c73d178adb20d13a779d675f86fd79e7f38f85c51ac52d1944f3dc338aa0"
+  },
+  "/progetti/fuori-posto/gallery-3.png-preview.webp": {
+    "jxl": "/progetti/fuori-posto/gallery-3.png-preview.webp.jxl",
+    "fallback": "/progetti/fuori-posto/gallery-3.png-preview.webp.progressive.jpg",
+    "width": 939,
+    "height": 720,
+    "fingerprint": "232eecc81abe7f055ddbf857d905f3b17990cbe92e025bfbcbc6adfadd3612f9"
+  },
+  "/progetti/fuori-posto/gallery-4.png": {
+    "jxl": "/progetti/fuori-posto/gallery-4.png.jxl",
+    "fallback": "/progetti/fuori-posto/gallery-4.png.fallback.webp",
+    "width": 1024,
+    "height": 815,
+    "fingerprint": "f93fcb2a9f642f394eaed0db04391c9cacca76353881895dbd7ca9c6c8e273a3"
+  },
+  "/progetti/fuori-posto/gallery-4.png-preview.webp": {
+    "jxl": "/progetti/fuori-posto/gallery-4.png-preview.webp.jxl",
+    "fallback": "/progetti/fuori-posto/gallery-4.png-preview.webp.progressive.jpg",
+    "width": 905,
+    "height": 720,
+    "fingerprint": "12cfa2fbb3a33b232f1ceb418e7cf4f1cd9f25e1ecf6a6d0c49b898cb6f977c4"
+  },
+  "/progetti/homo-deus/1.png": {
+    "jxl": "/progetti/homo-deus/1.png.jxl",
+    "fallback": "/progetti/homo-deus/1.png.fallback.webp",
+    "width": 1280,
+    "height": 720,
+    "fingerprint": "25fe2d3df64216b3734be5b88f546b0ef4fc9569eff6350f3d25b239831a6850"
+  },
+  "/progetti/homo-deus/1.png-preview.webp": {
+    "jxl": "/progetti/homo-deus/1.png-preview.webp.jxl",
+    "fallback": "/progetti/homo-deus/1.png-preview.webp.progressive.jpg",
+    "width": 1200,
+    "height": 675,
+    "fingerprint": "174aabb28b0761013b9e76429dfaf1890af95a64e7c89a120eadba801cba6d4b"
+  },
+  "/progetti/homo-deus/2.png": {
+    "jxl": "/progetti/homo-deus/2.png.jxl",
+    "fallback": "/progetti/homo-deus/2.png.fallback.webp",
+    "width": 1920,
+    "height": 2560,
+    "fingerprint": "d6669ad118998cfd84f94a6cadaed2450e8aadf8c94b9999f5cb1caad9efa627"
+  },
+  "/progetti/homo-deus/2.png-preview.webp": {
+    "jxl": "/progetti/homo-deus/2.png-preview.webp.jxl",
+    "fallback": "/progetti/homo-deus/2.png-preview.webp.progressive.jpg",
+    "width": 540,
+    "height": 720,
+    "fingerprint": "38722b3d425e205b8013815a905d21064bde1cf3dd2e1fa2d8bd32ca839eba85"
+  },
+  "/progetti/homo-deus/3.png": {
+    "jxl": "/progetti/homo-deus/3.png.jxl",
+    "fallback": "/progetti/homo-deus/3.png.fallback.webp",
+    "width": 1920,
+    "height": 2560,
+    "fingerprint": "99acf851b9695fe9aee9fb5f7242690b7571ade9fad68231a6d95849ebfc2565"
+  },
+  "/progetti/homo-deus/3.png-preview.webp": {
+    "jxl": "/progetti/homo-deus/3.png-preview.webp.jxl",
+    "fallback": "/progetti/homo-deus/3.png-preview.webp.progressive.jpg",
+    "width": 540,
+    "height": 720,
+    "fingerprint": "262166ceed97571d6a962179354cd5036268f157cddee543c0453a5493de51c0"
+  },
+  "/progetti/homo-deus/4.png": {
+    "jxl": "/progetti/homo-deus/4.png.jxl",
+    "fallback": "/progetti/homo-deus/4.png.fallback.webp",
+    "width": 1920,
+    "height": 1440,
+    "fingerprint": "da6cf164b95ea6ea7ef83032f5426cab8d3ce2ce4255b8846dc2fd5afc8bc919"
+  },
+  "/progetti/homo-deus/4.png-preview.webp": {
+    "jxl": "/progetti/homo-deus/4.png-preview.webp.jxl",
+    "fallback": "/progetti/homo-deus/4.png-preview.webp.progressive.jpg",
+    "width": 960,
+    "height": 720,
+    "fingerprint": "6f44993dd2ec538c9a02391efc9b780cd2586883ef33e154d61b783a23daa561"
+  },
+  "/progetti/homo-deus/5.png": {
+    "jxl": "/progetti/homo-deus/5.png.jxl",
+    "fallback": "/progetti/homo-deus/5.png.fallback.webp",
+    "width": 1920,
+    "height": 2560,
+    "fingerprint": "a788442adfa603a51b3fb7a49aa4730c29b888b77abcfddd45c85e709563f6df"
+  },
+  "/progetti/homo-deus/5.png-preview.webp": {
+    "jxl": "/progetti/homo-deus/5.png-preview.webp.jxl",
+    "fallback": "/progetti/homo-deus/5.png-preview.webp.progressive.jpg",
+    "width": 540,
+    "height": 720,
+    "fingerprint": "a402461ea5cd968ad4a12440733a7b3ad08d8b4ea21a346790545ee08deb9a78"
+  },
+  "/progetti/homo-deus/video-poster.jpg": {
+    "jxl": "/progetti/homo-deus/video-poster.jpg.jxl",
+    "fallback": "/progetti/homo-deus/video-poster.jpg.progressive.jpg",
+    "width": 1280,
+    "height": 720,
+    "fingerprint": "8b76a7599b64bf3c54a52df283992e709be26fd957d8e9b6966ccee64def8786"
+  },
+  "/progetti/il verme umano/assets/images/cast_detective.png": {
+    "jxl": "/progetti/il verme umano/assets/images/cast_detective.png.jxl",
+    "fallback": "/progetti/il verme umano/assets/images/cast_detective.png.progressive.jpg",
+    "width": 640,
+    "height": 640,
+    "fingerprint": "eaa57a8937ff66668dab553f42f3541f0e203d9319397d062f7c7806a0ae9b3a"
+  },
+  "/progetti/il verme umano/assets/images/cast_nurse.png": {
+    "jxl": "/progetti/il verme umano/assets/images/cast_nurse.png.jxl",
+    "fallback": "/progetti/il verme umano/assets/images/cast_nurse.png.progressive.jpg",
+    "width": 640,
+    "height": 640,
+    "fingerprint": "be5b8f802fa056094409ae82a57d0b6387434db1be18ffb867e10953ca7f5996"
+  },
+  "/progetti/il verme umano/assets/images/cast_surgeon.png": {
+    "jxl": "/progetti/il verme umano/assets/images/cast_surgeon.png.jxl",
+    "fallback": "/progetti/il verme umano/assets/images/cast_surgeon.png.progressive.jpg",
+    "width": 640,
+    "height": 640,
+    "fingerprint": "0bee4a0ad85aa73924f12ba8dae79d901227ace77ff54b6a4cee397c85a32a3a"
+  },
+  "/progetti/il verme umano/assets/images/cast_victim.png": {
+    "jxl": "/progetti/il verme umano/assets/images/cast_victim.png.jxl",
+    "fallback": "/progetti/il verme umano/assets/images/cast_victim.png.progressive.jpg",
+    "width": 640,
+    "height": 640,
+    "fingerprint": "b360b0e201e0fcca41fbee8b22911f81c87b9aa358a4bed5539ca0c85479c755"
+  },
+  "/progetti/il verme umano/assets/images/gallery_1.png": {
+    "jxl": "/progetti/il verme umano/assets/images/gallery_1.png.jxl",
+    "fallback": "/progetti/il verme umano/assets/images/gallery_1.png.progressive.jpg",
+    "width": 640,
+    "height": 640,
+    "fingerprint": "dcc530e9982d71afee1e1bddf0522e3faba77096b58f08ef810421abe189122e"
+  },
+  "/progetti/il verme umano/assets/images/gallery_2.png": {
+    "jxl": "/progetti/il verme umano/assets/images/gallery_2.png.jxl",
+    "fallback": "/progetti/il verme umano/assets/images/gallery_2.png.progressive.jpg",
+    "width": 640,
+    "height": 640,
+    "fingerprint": "b3492f226c5281b999eb4bcc7f5611caf1b5e51cf6513cd8ae241894d373745a"
+  },
+  "/progetti/il verme umano/assets/images/gallery_3.png": {
+    "jxl": "/progetti/il verme umano/assets/images/gallery_3.png.jxl",
+    "fallback": "/progetti/il verme umano/assets/images/gallery_3.png.progressive.jpg",
+    "width": 640,
+    "height": 640,
+    "fingerprint": "f36070033896da02b317bcb773184fe969a7bf7d07b4d99820747ace491264c3"
+  },
+  "/progetti/il verme umano/assets/images/Gemini_Generated_Image_4zi0fk4zi0fk4zi0.png": {
+    "jxl": "/progetti/il verme umano/assets/images/Gemini_Generated_Image_4zi0fk4zi0fk4zi0.png.jxl",
+    "fallback": "/progetti/il verme umano/assets/images/Gemini_Generated_Image_4zi0fk4zi0fk4zi0.png.fallback.webp",
+    "width": 2048,
+    "height": 2048,
+    "fingerprint": "01382b0eb68b5dbe4ee44cdbdf80624ae347375a15cdfabd4ed11615bdbaec69"
+  },
+  "/progetti/il verme umano/assets/images/Gemini_Generated_Image_f1wnusf1wnusf1wn.png": {
+    "jxl": "/progetti/il verme umano/assets/images/Gemini_Generated_Image_f1wnusf1wnusf1wn.png.jxl",
+    "fallback": "/progetti/il verme umano/assets/images/Gemini_Generated_Image_f1wnusf1wnusf1wn.png.fallback.webp",
+    "width": 2048,
+    "height": 2048,
+    "fingerprint": "fed149403698072d78c3578891f1469bf5c521f35af4bfd080b9522f2601140a"
+  },
+  "/progetti/il verme umano/assets/images/worm_hero.png": {
+    "jxl": "/progetti/il verme umano/assets/images/worm_hero.png.jxl",
+    "fallback": "/progetti/il verme umano/assets/images/worm_hero.png.progressive.jpg",
+    "width": 640,
+    "height": 640,
+    "fingerprint": "866b0d1b80d59616101fba0641bf2c5a3d9034a281d3dfee6eb58cc2bcac0c18"
+  },
+  "/progetti/il verme umano/assets/images/worm_plot.png": {
+    "jxl": "/progetti/il verme umano/assets/images/worm_plot.png.jxl",
+    "fallback": "/progetti/il verme umano/assets/images/worm_plot.png.progressive.jpg",
+    "width": 640,
+    "height": 640,
+    "fingerprint": "d9ff7aa9ed8284b727ab262083075e34551d05d44985e68778782866d616355b"
+  },
+  "/progetti/il verme umano/assets/images/worm_poster.png": {
+    "jxl": "/progetti/il verme umano/assets/images/worm_poster.png.jxl",
+    "fallback": "/progetti/il verme umano/assets/images/worm_poster.png.progressive.jpg",
+    "width": 640,
+    "height": 640,
+    "fingerprint": "d9bcbf67d49c0739ea3b50703537ae9a47c3204a8577afdd62254663f0fc3d41"
+  },
+  "/progetti/schiavi/image.png": {
+    "jxl": "/progetti/schiavi/image.png.jxl",
+    "fallback": "/progetti/schiavi/image.png.fallback.webp",
+    "width": 3840,
+    "height": 1758,
+    "fingerprint": "aea539e36631269f82e2a8f79e35fd72b02938988009fb1d419f480aacf12c3d"
+  },
+  "/progetti/schiavi/Screenshot 2026-05-18 160354.png": {
+    "jxl": "/progetti/schiavi/Screenshot 2026-05-18 160354.png.jxl",
+    "fallback": "/progetti/schiavi/Screenshot 2026-05-18 160354.png.fallback.webp",
+    "width": 1338,
+    "height": 595,
+    "fingerprint": "5249de228ac88d77564c10828c50d230a71a7e47150ac62cbcc8b39e69a1dea0"
+  },
+  "/progetti/simulacra (1)/1.png": {
+    "jxl": "/progetti/simulacra (1)/1.png.jxl",
+    "fallback": "/progetti/simulacra (1)/1.png.progressive.jpg",
+    "width": 1024,
+    "height": 1008,
+    "fingerprint": "d7fdea6c797bd0b8df267041ec3f54220c1e81cd10398d8a80b5776367756df4"
+  },
+  "/progetti/simulacra (1)/10.png": {
+    "jxl": "/progetti/simulacra (1)/10.png.jxl",
+    "fallback": "/progetti/simulacra (1)/10.png.progressive.jpg",
+    "width": 1920,
+    "height": 1525,
+    "fingerprint": "8e92b9c983d4a87d80acbad492e1a6488cbf370685112e5ec76824fb4dde2725"
+  },
+  "/progetti/simulacra (1)/11.png": {
+    "jxl": "/progetti/simulacra (1)/11.png.jxl",
+    "fallback": "/progetti/simulacra (1)/11.png.progressive.jpg",
+    "width": 1920,
+    "height": 1545,
+    "fingerprint": "894ff7fcd6de5e1954841e1a666824c31544e04f811a26ad725311f1e0be2099"
+  },
+  "/progetti/simulacra (1)/12.png": {
+    "jxl": "/progetti/simulacra (1)/12.png.jxl",
+    "fallback": "/progetti/simulacra (1)/12.png.progressive.jpg",
+    "width": 1920,
+    "height": 1160,
+    "fingerprint": "d495cf06d06cd1b6cea59a53751168a5b6acb4b33a0ce6e94ca80ba8d5cde139"
+  },
+  "/progetti/simulacra (1)/13.png": {
+    "jxl": "/progetti/simulacra (1)/13.png.jxl",
+    "fallback": "/progetti/simulacra (1)/13.png.progressive.jpg",
+    "width": 1920,
+    "height": 1464,
+    "fingerprint": "da6cde30845e70f7aebbffb9ebab11fb56c151935d3a0e5a7796580e86dca8d2"
+  },
+  "/progetti/simulacra (1)/14.png": {
+    "jxl": "/progetti/simulacra (1)/14.png.jxl",
+    "fallback": "/progetti/simulacra (1)/14.png.progressive.jpg",
+    "width": 1920,
+    "height": 1493,
+    "fingerprint": "eeb1e475c76e06ec144c3b8d7cc9e55945ac2f4ad3f99ffaf867fcbdd17c9532"
+  },
+  "/progetti/simulacra (1)/15.png": {
+    "jxl": "/progetti/simulacra (1)/15.png.jxl",
+    "fallback": "/progetti/simulacra (1)/15.png.fallback.webp",
+    "width": 1920,
+    "height": 1546,
+    "fingerprint": "ed9c1312c69c00611d24f3baccab33036b4f268bae5974d2191ab7892bdea49f"
+  },
+  "/progetti/simulacra (1)/16.png": {
+    "jxl": "/progetti/simulacra (1)/16.png.jxl",
+    "fallback": "/progetti/simulacra (1)/16.png.fallback.webp",
+    "width": 1920,
+    "height": 1292,
+    "fingerprint": "68649efbc9e680dab4f2d76cee80a71f1276da9dec912f659ddcbe60df4ce80d"
+  },
+  "/progetti/simulacra (1)/2.png": {
+    "jxl": "/progetti/simulacra (1)/2.png.jxl",
+    "fallback": "/progetti/simulacra (1)/2.png.progressive.jpg",
+    "width": 1828,
+    "height": 1280,
+    "fingerprint": "ebe80c7e4e088cb3467ee34b6ceacc171e12a353d5828c0f8f921f89a952a037"
+  },
+  "/progetti/simulacra (1)/3.png": {
+    "jxl": "/progetti/simulacra (1)/3.png.jxl",
+    "fallback": "/progetti/simulacra (1)/3.png.progressive.jpg",
+    "width": 1920,
+    "height": 1539,
+    "fingerprint": "c31d88d80f510454a3e5d8529cd1f1c4832336b2370a8ad5cac1333bab4f198f"
+  },
+  "/progetti/simulacra (1)/4.png": {
+    "jxl": "/progetti/simulacra (1)/4.png.jxl",
+    "fallback": "/progetti/simulacra (1)/4.png.progressive.jpg",
+    "width": 1920,
+    "height": 1249,
+    "fingerprint": "edb6ffa6cda25ecc627f85b75fa131db992f801e0944ab5195a82798abc2dbff"
+  },
+  "/progetti/simulacra (1)/5.png": {
+    "jxl": "/progetti/simulacra (1)/5.png.jxl",
+    "fallback": "/progetti/simulacra (1)/5.png.progressive.jpg",
+    "width": 1920,
+    "height": 1189,
+    "fingerprint": "1d5e86b1909b6db610eea33adc39f9125503f80f5836b7c56990126114519f39"
+  },
+  "/progetti/simulacra (1)/6.png": {
+    "jxl": "/progetti/simulacra (1)/6.png.jxl",
+    "fallback": "/progetti/simulacra (1)/6.png.progressive.jpg",
+    "width": 1920,
+    "height": 1251,
+    "fingerprint": "9d96fa99db69f0504e2dc86a45ba452e35dc9ce8ff388c0a03636114c89807ef"
+  },
+  "/progetti/simulacra (1)/7.png": {
+    "jxl": "/progetti/simulacra (1)/7.png.jxl",
+    "fallback": "/progetti/simulacra (1)/7.png.progressive.jpg",
+    "width": 1920,
+    "height": 1376,
+    "fingerprint": "dba415b0fa23f9cd719e79b5ad172c601db80fd4919bf48347700ca57825a055"
+  },
+  "/progetti/simulacra (1)/8.png": {
+    "jxl": "/progetti/simulacra (1)/8.png.jxl",
+    "fallback": "/progetti/simulacra (1)/8.png.progressive.jpg",
+    "width": 1920,
+    "height": 1182,
+    "fingerprint": "8e24b2affead8743cbf197f35cecf555e05509604d59a7f7331c3b636c617d3c"
+  },
+  "/progetti/simulacra (1)/9.png": {
+    "jxl": "/progetti/simulacra (1)/9.png.jxl",
+    "fallback": "/progetti/simulacra (1)/9.png.progressive.jpg",
+    "width": 1920,
+    "height": 1186,
+    "fingerprint": "089e38db37c080e6fd80d7b10c59fb492effe7cf5dccd0b8aaab1a5d0e45b296"
+  },
+  "/progetti/simulacra/1.png": {
+    "jxl": "/progetti/simulacra/1.png.jxl",
+    "fallback": "/progetti/simulacra/1.png.progressive.jpg",
+    "width": 1024,
+    "height": 1008,
+    "fingerprint": "d7fdea6c797bd0b8df267041ec3f54220c1e81cd10398d8a80b5776367756df4"
+  },
+  "/progetti/simulacra/1.png-preview.webp": {
+    "jxl": "/progetti/simulacra/1.png-preview.webp.jxl",
+    "fallback": "/progetti/simulacra/1.png-preview.webp.progressive.jpg",
+    "width": 731,
+    "height": 720,
+    "fingerprint": "f16b30bb7bd193fa30a9f6f61efc917267170eb6ff0034d40999255dac730209"
+  },
+  "/progetti/simulacra/10.png": {
+    "jxl": "/progetti/simulacra/10.png.jxl",
+    "fallback": "/progetti/simulacra/10.png.progressive.jpg",
+    "width": 1920,
+    "height": 1525,
+    "fingerprint": "8e92b9c983d4a87d80acbad492e1a6488cbf370685112e5ec76824fb4dde2725"
+  },
+  "/progetti/simulacra/10.png-preview.webp": {
+    "jxl": "/progetti/simulacra/10.png-preview.webp.jxl",
+    "fallback": "/progetti/simulacra/10.png-preview.webp.progressive.jpg",
+    "width": 906,
+    "height": 720,
+    "fingerprint": "d1a3ea2c0369fe2749f3bce8bf65ed3241eb02e41dfd6059ec8bdf5d9a9c53e3"
+  },
+  "/progetti/simulacra/11.png": {
+    "jxl": "/progetti/simulacra/11.png.jxl",
+    "fallback": "/progetti/simulacra/11.png.progressive.jpg",
+    "width": 1920,
+    "height": 1545,
+    "fingerprint": "894ff7fcd6de5e1954841e1a666824c31544e04f811a26ad725311f1e0be2099"
+  },
+  "/progetti/simulacra/12.png": {
+    "jxl": "/progetti/simulacra/12.png.jxl",
+    "fallback": "/progetti/simulacra/12.png.progressive.jpg",
+    "width": 1920,
+    "height": 1160,
+    "fingerprint": "d495cf06d06cd1b6cea59a53751168a5b6acb4b33a0ce6e94ca80ba8d5cde139"
+  },
+  "/progetti/simulacra/13.png": {
+    "jxl": "/progetti/simulacra/13.png.jxl",
+    "fallback": "/progetti/simulacra/13.png.progressive.jpg",
+    "width": 1920,
+    "height": 1464,
+    "fingerprint": "da6cde30845e70f7aebbffb9ebab11fb56c151935d3a0e5a7796580e86dca8d2"
+  },
+  "/progetti/simulacra/13.png-preview.webp": {
+    "jxl": "/progetti/simulacra/13.png-preview.webp.jxl",
+    "fallback": "/progetti/simulacra/13.png-preview.webp.progressive.jpg",
+    "width": 944,
+    "height": 720,
+    "fingerprint": "29fef3f5bf22dfa37ad543c3033de8fc4a37dfdea406903e1767c5d66d90984d"
+  },
+  "/progetti/simulacra/14.png": {
+    "jxl": "/progetti/simulacra/14.png.jxl",
+    "fallback": "/progetti/simulacra/14.png.progressive.jpg",
+    "width": 1920,
+    "height": 1493,
+    "fingerprint": "eeb1e475c76e06ec144c3b8d7cc9e55945ac2f4ad3f99ffaf867fcbdd17c9532"
+  },
+  "/progetti/simulacra/15.png": {
+    "jxl": "/progetti/simulacra/15.png.jxl",
+    "fallback": "/progetti/simulacra/15.png.fallback.webp",
+    "width": 1920,
+    "height": 1546,
+    "fingerprint": "ed9c1312c69c00611d24f3baccab33036b4f268bae5974d2191ab7892bdea49f"
+  },
+  "/progetti/simulacra/16.png": {
+    "jxl": "/progetti/simulacra/16.png.jxl",
+    "fallback": "/progetti/simulacra/16.png.fallback.webp",
+    "width": 1920,
+    "height": 1292,
+    "fingerprint": "68649efbc9e680dab4f2d76cee80a71f1276da9dec912f659ddcbe60df4ce80d"
+  },
+  "/progetti/simulacra/2.png": {
+    "jxl": "/progetti/simulacra/2.png.jxl",
+    "fallback": "/progetti/simulacra/2.png.progressive.jpg",
+    "width": 1828,
+    "height": 1280,
+    "fingerprint": "ebe80c7e4e088cb3467ee34b6ceacc171e12a353d5828c0f8f921f89a952a037"
+  },
+  "/progetti/simulacra/2.png-preview.webp": {
+    "jxl": "/progetti/simulacra/2.png-preview.webp.jxl",
+    "fallback": "/progetti/simulacra/2.png-preview.webp.progressive.jpg",
+    "width": 1028,
+    "height": 720,
+    "fingerprint": "1fb15ceb7dd133ab1c75cb38d408cb3bd656cc156f18a280f9771d61d360b36f"
+  },
+  "/progetti/simulacra/3.png": {
+    "jxl": "/progetti/simulacra/3.png.jxl",
+    "fallback": "/progetti/simulacra/3.png.progressive.jpg",
+    "width": 1920,
+    "height": 1539,
+    "fingerprint": "c31d88d80f510454a3e5d8529cd1f1c4832336b2370a8ad5cac1333bab4f198f"
+  },
+  "/progetti/simulacra/3.png-preview.webp": {
+    "jxl": "/progetti/simulacra/3.png-preview.webp.jxl",
+    "fallback": "/progetti/simulacra/3.png-preview.webp.progressive.jpg",
+    "width": 898,
+    "height": 720,
+    "fingerprint": "d5f1fd51444ce8b2654de91d478acdb1677b90f84fc77381513e683d00898037"
+  },
+  "/progetti/simulacra/4.png": {
+    "jxl": "/progetti/simulacra/4.png.jxl",
+    "fallback": "/progetti/simulacra/4.png.progressive.jpg",
+    "width": 1920,
+    "height": 1249,
+    "fingerprint": "edb6ffa6cda25ecc627f85b75fa131db992f801e0944ab5195a82798abc2dbff"
+  },
+  "/progetti/simulacra/5.png": {
+    "jxl": "/progetti/simulacra/5.png.jxl",
+    "fallback": "/progetti/simulacra/5.png.progressive.jpg",
+    "width": 1920,
+    "height": 1189,
+    "fingerprint": "1d5e86b1909b6db610eea33adc39f9125503f80f5836b7c56990126114519f39"
+  },
+  "/progetti/simulacra/5.png-preview.webp": {
+    "jxl": "/progetti/simulacra/5.png-preview.webp.jxl",
+    "fallback": "/progetti/simulacra/5.png-preview.webp.progressive.jpg",
+    "width": 1163,
+    "height": 720,
+    "fingerprint": "f0f89d326f6fec8343059f869a3cacbbb0230587f853bdf39ae8ff8dd885143b"
+  },
+  "/progetti/simulacra/6.png": {
+    "jxl": "/progetti/simulacra/6.png.jxl",
+    "fallback": "/progetti/simulacra/6.png.progressive.jpg",
+    "width": 1920,
+    "height": 1251,
+    "fingerprint": "9d96fa99db69f0504e2dc86a45ba452e35dc9ce8ff388c0a03636114c89807ef"
+  },
+  "/progetti/simulacra/7.png": {
+    "jxl": "/progetti/simulacra/7.png.jxl",
+    "fallback": "/progetti/simulacra/7.png.progressive.jpg",
+    "width": 1920,
+    "height": 1376,
+    "fingerprint": "dba415b0fa23f9cd719e79b5ad172c601db80fd4919bf48347700ca57825a055"
+  },
+  "/progetti/simulacra/7.png-preview.webp": {
+    "jxl": "/progetti/simulacra/7.png-preview.webp.jxl",
+    "fallback": "/progetti/simulacra/7.png-preview.webp.progressive.jpg",
+    "width": 1005,
+    "height": 720,
+    "fingerprint": "0dec2120b0f96559b54975ecfcfd4e6aa97c1c5ae47d15eea18160122eece910"
+  },
+  "/progetti/simulacra/8.png": {
+    "jxl": "/progetti/simulacra/8.png.jxl",
+    "fallback": "/progetti/simulacra/8.png.progressive.jpg",
+    "width": 1920,
+    "height": 1182,
+    "fingerprint": "8e24b2affead8743cbf197f35cecf555e05509604d59a7f7331c3b636c617d3c"
+  },
+  "/progetti/simulacra/9.png": {
+    "jxl": "/progetti/simulacra/9.png.jxl",
+    "fallback": "/progetti/simulacra/9.png.progressive.jpg",
+    "width": 1920,
+    "height": 1186,
+    "fingerprint": "089e38db37c080e6fd80d7b10c59fb492effe7cf5dccd0b8aaab1a5d0e45b296"
+  },
+  "/progetti/street-rendering/(1).PNG": {
+    "jxl": "/progetti/street-rendering/(1).PNG.jxl",
+    "fallback": "/progetti/street-rendering/(1).PNG.fallback.webp",
+    "width": 1920,
+    "height": 1920,
+    "fingerprint": "f02f79c94c8ece193f3b937696a93f51dcaf65f09af8cdd63cf3964a1e44a8c3"
+  },
+  "/progetti/street-rendering/(1).PNG-preview.webp": {
+    "jxl": "/progetti/street-rendering/(1).PNG-preview.webp.jxl",
+    "fallback": "/progetti/street-rendering/(1).PNG-preview.webp.fallback.webp",
+    "width": 720,
+    "height": 720,
+    "fingerprint": "5084e7ea3058185baa2bf7b487bc22779e08c16273d806c07968a78bcd3fd4f7"
+  },
+  "/progetti/street-rendering/(10).PNG": {
+    "jxl": "/progetti/street-rendering/(10).PNG.jxl",
+    "fallback": "/progetti/street-rendering/(10).PNG.progressive.jpg",
+    "width": 1920,
+    "height": 1920,
+    "fingerprint": "b91c194f5ab7e4c132265fd27372fea05e22707b37b6c5b29ab96d0ecb185d1a"
+  },
+  "/progetti/street-rendering/(10).PNG-preview.webp": {
+    "jxl": "/progetti/street-rendering/(10).PNG-preview.webp.jxl",
+    "fallback": "/progetti/street-rendering/(10).PNG-preview.webp.progressive.jpg",
+    "width": 720,
+    "height": 720,
+    "fingerprint": "54fa42c6de22db8652bed4e72a7476523286e922415b160887d76fb716d975d3"
+  },
+  "/progetti/street-rendering/(11).PNG": {
+    "jxl": "/progetti/street-rendering/(11).PNG.jxl",
+    "fallback": "/progetti/street-rendering/(11).PNG.progressive.jpg",
+    "width": 1854,
+    "height": 1854,
+    "fingerprint": "2074b1c663b4c34f18adbbf7d44f3d389877678682c02465826f2168ae323b7e"
+  },
+  "/progetti/street-rendering/(12).PNG": {
+    "jxl": "/progetti/street-rendering/(12).PNG.jxl",
+    "fallback": "/progetti/street-rendering/(12).PNG.progressive.jpg",
+    "width": 1882,
+    "height": 1882,
+    "fingerprint": "6b4386855eb8a654b5b3d527e99e550ed73080296e116ed31cdf17262ab204b9"
+  },
+  "/progetti/street-rendering/(2).PNG": {
+    "jxl": "/progetti/street-rendering/(2).PNG.jxl",
+    "fallback": "/progetti/street-rendering/(2).PNG.progressive.jpg",
+    "width": 1920,
+    "height": 1920,
+    "fingerprint": "979939c7ab3176caebd40b5176be3cb2ac59d4678a129e1f8a3a2497c3028c3e"
+  },
+  "/progetti/street-rendering/(2).PNG-preview.webp": {
+    "jxl": "/progetti/street-rendering/(2).PNG-preview.webp.jxl",
+    "fallback": "/progetti/street-rendering/(2).PNG-preview.webp.progressive.jpg",
+    "width": 720,
+    "height": 720,
+    "fingerprint": "658104fe8f6aaf1248b762ec838907dad87765d5ba2da6055e76ed6a1697f378"
+  },
+  "/progetti/street-rendering/(3).PNG": {
+    "jxl": "/progetti/street-rendering/(3).PNG.jxl",
+    "fallback": "/progetti/street-rendering/(3).PNG.progressive.jpg",
+    "width": 1920,
+    "height": 1080,
+    "fingerprint": "556b038be89d733f84c6e6016a309d564c9f5a15a59009880f7ebde64c5fe29b"
+  },
+  "/progetti/street-rendering/(4).PNG": {
+    "jxl": "/progetti/street-rendering/(4).PNG.jxl",
+    "fallback": "/progetti/street-rendering/(4).PNG.fallback.webp",
+    "width": 1920,
+    "height": 1080,
+    "fingerprint": "5ecac651aa32d56dd8338ce4befb74a005e05868f34fc8d4c75cc201037fa90d"
+  },
+  "/progetti/street-rendering/(5).PNG": {
+    "jxl": "/progetti/street-rendering/(5).PNG.jxl",
+    "fallback": "/progetti/street-rendering/(5).PNG.fallback.webp",
+    "width": 1920,
+    "height": 1080,
+    "fingerprint": "2eff3ffd8756eab4ddc3320ddc7d3ad422153db8ddf1d05753abaa36207f0d30"
+  },
+  "/progetti/street-rendering/(5).PNG-preview.webp": {
+    "jxl": "/progetti/street-rendering/(5).PNG-preview.webp.jxl",
+    "fallback": "/progetti/street-rendering/(5).PNG-preview.webp.fallback.webp",
+    "width": 1200,
+    "height": 675,
+    "fingerprint": "20bde27e5fedead6ceb743ff4e3ea3ad30aa312360f27be7e49a2af404e8b090"
+  },
+  "/progetti/street-rendering/(6).PNG": {
+    "jxl": "/progetti/street-rendering/(6).PNG.jxl",
+    "fallback": "/progetti/street-rendering/(6).PNG.progressive.jpg",
+    "width": 1920,
+    "height": 1920,
+    "fingerprint": "e7b078f43de0ed98918c854e8e6479ead6c9afc9f53b8832b03ff6ffaab19802"
+  },
+  "/progetti/street-rendering/(6).PNG-preview.webp": {
+    "jxl": "/progetti/street-rendering/(6).PNG-preview.webp.jxl",
+    "fallback": "/progetti/street-rendering/(6).PNG-preview.webp.progressive.jpg",
+    "width": 720,
+    "height": 720,
+    "fingerprint": "50cd68ea9451cf9e91326aa3a366446f45e0924f295a6a7f273c521b3d8c73b5"
+  },
+  "/progetti/street-rendering/(7).PNG": {
+    "jxl": "/progetti/street-rendering/(7).PNG.jxl",
+    "fallback": "/progetti/street-rendering/(7).PNG.progressive.jpg",
+    "width": 1857,
+    "height": 1044,
+    "fingerprint": "8aa064f419b2732a19da42e82c77b092c4fb41b6b497eb20323b8e1781c42778"
+  },
+  "/progetti/street-rendering/(8).PNG": {
+    "jxl": "/progetti/street-rendering/(8).PNG.jxl",
+    "fallback": "/progetti/street-rendering/(8).PNG.progressive.jpg",
+    "width": 1826,
+    "height": 1826,
+    "fingerprint": "59757425ea52a1c3cf0657ff9e9bf0e85c82a65f2d7bca56441aaf99e0adac8b"
+  },
+  "/progetti/street-rendering/(9).PNG": {
+    "jxl": "/progetti/street-rendering/(9).PNG.jxl",
+    "fallback": "/progetti/street-rendering/(9).PNG.progressive.jpg",
+    "width": 1920,
+    "height": 1920,
+    "fingerprint": "61ded37b237a9dfc6ab0760a6672f16e609bb3880610673875103e97981bdb20"
+  },
+  "/progetti/street-rendering/(9).PNG-preview.webp": {
+    "jxl": "/progetti/street-rendering/(9).PNG-preview.webp.jxl",
+    "fallback": "/progetti/street-rendering/(9).PNG-preview.webp.progressive.jpg",
+    "width": 720,
+    "height": 720,
+    "fingerprint": "991cca597af57a75156a662fcf91235140059b362845f405bbcfa821f4379285"
+  },
+  "/progetti/street-rendering/assets/(1).PNG": {
+    "jxl": "/progetti/street-rendering/assets/(1).PNG.jxl",
+    "fallback": "/progetti/street-rendering/assets/(1).PNG.fallback.webp",
+    "width": 1920,
+    "height": 1920,
+    "fingerprint": "7863b2aacfe3c9cc768889f301785672cff2da1eea0f9645b82be2862d5fb921"
+  },
+  "/progetti/street-rendering/assets/(10).PNG": {
+    "jxl": "/progetti/street-rendering/assets/(10).PNG.jxl",
+    "fallback": "/progetti/street-rendering/assets/(10).PNG.progressive.jpg",
+    "width": 1920,
+    "height": 1920,
+    "fingerprint": "57ce03b700d979a2cf5b1873ee60a4c4fb31f893100e123a3f119a4da3567534"
+  },
+  "/progetti/street-rendering/assets/(11).PNG": {
+    "jxl": "/progetti/street-rendering/assets/(11).PNG.jxl",
+    "fallback": "/progetti/street-rendering/assets/(11).PNG.progressive.jpg",
+    "width": 1854,
+    "height": 1854,
+    "fingerprint": "8cad54a5d31bcb97147df9be83a658db19de2adbb0636243a50e19f6a5f00ed7"
+  },
+  "/progetti/street-rendering/assets/(12).PNG": {
+    "jxl": "/progetti/street-rendering/assets/(12).PNG.jxl",
+    "fallback": "/progetti/street-rendering/assets/(12).PNG.progressive.jpg",
+    "width": 1882,
+    "height": 1882,
+    "fingerprint": "9c2a6d9f737fe737e6b4d4df67103fc8d4544dcb516ca3f44f66f9096471616f"
+  },
+  "/progetti/street-rendering/assets/(2).PNG": {
+    "jxl": "/progetti/street-rendering/assets/(2).PNG.jxl",
+    "fallback": "/progetti/street-rendering/assets/(2).PNG.progressive.jpg",
+    "width": 1920,
+    "height": 1920,
+    "fingerprint": "88ad7f5966e7415538174502a9fce8945637f163e6e7072a5bb38ac6c03c7447"
+  },
+  "/progetti/street-rendering/assets/(3).PNG": {
+    "jxl": "/progetti/street-rendering/assets/(3).PNG.jxl",
+    "fallback": "/progetti/street-rendering/assets/(3).PNG.progressive.jpg",
+    "width": 1920,
+    "height": 1080,
+    "fingerprint": "0c3804fa7540d936a53847efdbd1880d0e438e1e93f701229e1017bac5facf9e"
+  },
+  "/progetti/street-rendering/assets/(4).PNG": {
+    "jxl": "/progetti/street-rendering/assets/(4).PNG.jxl",
+    "fallback": "/progetti/street-rendering/assets/(4).PNG.fallback.webp",
+    "width": 1920,
+    "height": 1080,
+    "fingerprint": "e0d37fddd871228b34e3a8901d91886793e1a29220c209b96f3c5c2951c7438e"
+  },
+  "/progetti/street-rendering/assets/(5).PNG": {
+    "jxl": "/progetti/street-rendering/assets/(5).PNG.jxl",
+    "fallback": "/progetti/street-rendering/assets/(5).PNG.fallback.webp",
+    "width": 1920,
+    "height": 1080,
+    "fingerprint": "df080704972116be2d9d2f305dca58641d85a50658605dee81c4fe5c52a2bbc5"
+  },
+  "/progetti/street-rendering/assets/(6).PNG": {
+    "jxl": "/progetti/street-rendering/assets/(6).PNG.jxl",
+    "fallback": "/progetti/street-rendering/assets/(6).PNG.progressive.jpg",
+    "width": 1920,
+    "height": 1920,
+    "fingerprint": "34238718bb8726163a2104764ca20fe3343f4413f71c6469c99c6c466933626f"
+  },
+  "/progetti/street-rendering/assets/(7).PNG": {
+    "jxl": "/progetti/street-rendering/assets/(7).PNG.jxl",
+    "fallback": "/progetti/street-rendering/assets/(7).PNG.progressive.jpg",
+    "width": 1857,
+    "height": 1044,
+    "fingerprint": "a778b3a2feefacab7d7988b39db24e59b7bf717b94095a102f2d4e5bb5f85f08"
+  },
+  "/progetti/street-rendering/assets/(8).PNG": {
+    "jxl": "/progetti/street-rendering/assets/(8).PNG.jxl",
+    "fallback": "/progetti/street-rendering/assets/(8).PNG.progressive.jpg",
+    "width": 1826,
+    "height": 1826,
+    "fingerprint": "9e5437af0bd67bd4495e4761f4f636e19282f8e08e20f636a1a1f7474b561357"
+  },
+  "/progetti/street-rendering/assets/(9).PNG": {
+    "jxl": "/progetti/street-rendering/assets/(9).PNG.jxl",
+    "fallback": "/progetti/street-rendering/assets/(9).PNG.progressive.jpg",
+    "width": 1920,
+    "height": 1920,
+    "fingerprint": "c047edd73872c47b4b50b41b50c3303ee8100620485ebd87951a373e6e083ce9"
+  },
+  "/progetti/street-rendering/sr1.png": {
+    "jxl": "/progetti/street-rendering/sr1.png.jxl",
+    "fallback": "/progetti/street-rendering/sr1.png.fallback.webp",
+    "width": 2801,
+    "height": 1401,
+    "fingerprint": "4d6b3260ff6407a0077e4d536f57eef2ed6ea23e70342a39fca3e1b84be31f18"
+  },
+  "/progetti/street-rendering/sr2.png": {
+    "jxl": "/progetti/street-rendering/sr2.png.jxl",
+    "fallback": "/progetti/street-rendering/sr2.png.fallback.webp",
+    "width": 2801,
+    "height": 1507,
+    "fingerprint": "c567cff1f7970019817d085f9b6888a7f5eee21bee8dd78346edbd4022293cc3"
+  },
+  "/progetti/street-rendering/sr3.png": {
+    "jxl": "/progetti/street-rendering/sr3.png.jxl",
+    "fallback": "/progetti/street-rendering/sr3.png.fallback.webp",
+    "width": 2801,
+    "height": 1507,
+    "fingerprint": "66018d3034d52369bcfbb8fcfbcafedccd1ac244298d21201e784027338974f9"
+  },
+  "/progetti/surreal-splat-void/assets/splash.png": {
+    "jxl": "/progetti/surreal-splat-void/assets/splash.png.jxl",
+    "fallback": "/progetti/surreal-splat-void/assets/splash.png.fallback.webp",
+    "width": 1653,
+    "height": 935,
+    "fingerprint": "e21df4ae1a0f43c39e3752bd882deb4c247f76fdc5b306cc78d432f1b7152f05"
+  },
+  "/progetti/the-cheese-prophecy/1.png": {
+    "jxl": "/progetti/the-cheese-prophecy/1.png.jxl",
+    "fallback": "/progetti/the-cheese-prophecy/1.png.fallback.webp",
+    "width": 730,
+    "height": 468,
+    "fingerprint": "3bb7b295653b7e07506eed32a32c1aa54e36ace046aeed7face185dcfef80ef4"
+  },
+  "/progetti/the-cheese-prophecy/2.png": {
+    "jxl": "/progetti/the-cheese-prophecy/2.png.jxl",
+    "fallback": "/progetti/the-cheese-prophecy/2.png.fallback.webp",
+    "width": 730,
+    "height": 468,
+    "fingerprint": "e5018ca3f29a866dc6dd28968ba72ad3f20ecf66fb7865745947dfa8dc48a7a3"
+  },
+  "/progetti/the-cheese-prophecy/3.png": {
+    "jxl": "/progetti/the-cheese-prophecy/3.png.jxl",
+    "fallback": "/progetti/the-cheese-prophecy/3.png.fallback.webp",
+    "width": 684,
+    "height": 439,
+    "fingerprint": "043bd7b42850b36bb7db5e69f131d86096c3bbd91011074bde821f91a1725698"
+  },
+  "/progetti/the-cheese-prophecy/4.png": {
+    "jxl": "/progetti/the-cheese-prophecy/4.png.jxl",
+    "fallback": "/progetti/the-cheese-prophecy/4.png.fallback.webp",
+    "width": 776,
+    "height": 439,
+    "fingerprint": "31e02ed04203dbb3a4a0be9c33b4823434445f942ce9df3e63808dc56dbca1a1"
+  },
+  "/progetti/the-cheese-prophecy/cover.png": {
+    "jxl": "/progetti/the-cheese-prophecy/cover.png.jxl",
+    "fallback": "/progetti/the-cheese-prophecy/cover.png.fallback.webp",
+    "width": 913,
+    "height": 586,
+    "fingerprint": "b92af2653f76a20b23281738169a192e9bb09306eeefaf35f1e61ed3b799d0cf"
+  },
+  "/progetti/the-cheese-prophecy/cover.png-preview.webp": {
+    "jxl": "/progetti/the-cheese-prophecy/cover.png-preview.webp.jxl",
+    "fallback": "/progetti/the-cheese-prophecy/cover.png-preview.webp.progressive.jpg",
+    "width": 913,
+    "height": 586,
+    "fingerprint": "5e90e8e4c563fe9d96d9b3ffc243d4883c587eba754e4ea1e0b48d72e3f44b62"
+  },
+  "/progetti/the-innovation-dilemma/1.jpg": {
+    "jxl": "/progetti/the-innovation-dilemma/1.jpg.jxl",
+    "fallback": "/progetti/the-innovation-dilemma/1.jpg.progressive.jpg",
+    "width": 3840,
+    "height": 2160,
+    "fingerprint": "dbccc70c725c21ae912ca38a73aff0a889e220baed92d0015c9d6f560cfeae00"
+  },
+  "/progetti/the-innovation-dilemma/1.jpg-preview.webp": {
+    "jxl": "/progetti/the-innovation-dilemma/1.jpg-preview.webp.jxl",
+    "fallback": "/progetti/the-innovation-dilemma/1.jpg-preview.webp.progressive.jpg",
+    "width": 1200,
+    "height": 675,
+    "fingerprint": "4d1e0c45fc0e3591017dc1363b9ec333ac66d7194026f13ae427812447d49a33"
+  },
+  "/progetti/the-innovation-dilemma/2.jpg": {
+    "jxl": "/progetti/the-innovation-dilemma/2.jpg.jxl",
+    "fallback": "/progetti/the-innovation-dilemma/2.jpg.progressive.jpg",
+    "width": 3840,
+    "height": 2160,
+    "fingerprint": "2c6eb20bb6b23347d231574aa9fc4435a891a9063d0251bf5fdf8e0d1cd961df"
+  },
+  "/progetti/the-innovation-dilemma/2.jpg-preview.webp": {
+    "jxl": "/progetti/the-innovation-dilemma/2.jpg-preview.webp.jxl",
+    "fallback": "/progetti/the-innovation-dilemma/2.jpg-preview.webp.progressive.jpg",
+    "width": 1200,
+    "height": 675,
+    "fingerprint": "28011a679646877bdb6e183dce00999f08a6a9dfc5a39a1d79b633a20f24b746"
+  },
+  "/progetti/the-innovation-dilemma/3.jpg": {
+    "jxl": "/progetti/the-innovation-dilemma/3.jpg.jxl",
+    "fallback": "/progetti/the-innovation-dilemma/3.jpg.progressive.jpg",
+    "width": 3840,
+    "height": 2160,
+    "fingerprint": "4f8d15b71ff4bcf4379dd4cc3ea3b456914b4ce7d83a490ceefb57528a5bfa63"
+  },
+  "/progetti/the-innovation-dilemma/3.jpg-preview.webp": {
+    "jxl": "/progetti/the-innovation-dilemma/3.jpg-preview.webp.jxl",
+    "fallback": "/progetti/the-innovation-dilemma/3.jpg-preview.webp.progressive.jpg",
+    "width": 1200,
+    "height": 675,
+    "fingerprint": "07367f92a18ba8f7aa4d5554835cef39222beec2067cb1e507e1ea8165083640"
+  },
+  "/progetti/the-innovation-dilemma/4.jpg": {
+    "jxl": "/progetti/the-innovation-dilemma/4.jpg.jxl",
+    "fallback": "/progetti/the-innovation-dilemma/4.jpg.progressive.jpg",
+    "width": 3840,
+    "height": 2160,
+    "fingerprint": "29f30ac5a8f5ea60baac515c295b80f3223e095eb890445d2e83b66f32d1689e"
+  },
+  "/progetti/the-innovation-dilemma/4.jpg-preview.webp": {
+    "jxl": "/progetti/the-innovation-dilemma/4.jpg-preview.webp.jxl",
+    "fallback": "/progetti/the-innovation-dilemma/4.jpg-preview.webp.progressive.jpg",
+    "width": 1200,
+    "height": 675,
+    "fingerprint": "5c6e9dc7e1000d314af8d3cdc02d4b5a45478969280e9e752601f12870f210ed"
+  },
+  "/progetti/the-innovation-dilemma/Last-gesture-new1080-1080-aff8f91e.jpeg": {
+    "jxl": "/progetti/the-innovation-dilemma/Last-gesture-new1080-1080-aff8f91e.jpeg.jxl",
+    "fallback": "/progetti/the-innovation-dilemma/Last-gesture-new1080-1080-aff8f91e.jpeg.progressive.jpg",
+    "width": 1080,
+    "height": 1080,
+    "fingerprint": "b67b97c373654502414f39e6faf40ff0e1948147ee8d0a0d44c688ff5bfef814"
+  },
+  "/progetti/the-innovation-dilemma/Last-gesture-new1080-1080-aff8f91e.jpeg-preview.webp": {
+    "jxl": "/progetti/the-innovation-dilemma/Last-gesture-new1080-1080-aff8f91e.jpeg-preview.webp.jxl",
+    "fallback": "/progetti/the-innovation-dilemma/Last-gesture-new1080-1080-aff8f91e.jpeg-preview.webp.progressive.jpg",
+    "width": 720,
+    "height": 720,
+    "fingerprint": "1e7eff4820f471a55535008e6842edc99da793253853742cf774234e8fd04a6f"
+  },
+  "/progetti/whats-an-artist/0D067275-4C18-4FF6-8D18-E710DD493A53.png": {
+    "jxl": "/progetti/whats-an-artist/0D067275-4C18-4FF6-8D18-E710DD493A53.png.jxl",
+    "fallback": "/progetti/whats-an-artist/0D067275-4C18-4FF6-8D18-E710DD493A53.png.progressive.jpg",
+    "width": 1023,
+    "height": 1437,
+    "fingerprint": "51210cdeed352cde7d796e591add4ce222085a6c13d773f0cbf61f72592b1a53"
+  },
+  "/progetti/whats-an-artist/1.png": {
+    "jxl": "/progetti/whats-an-artist/1.png.jxl",
+    "fallback": "/progetti/whats-an-artist/1.png.fallback.webp",
+    "width": 1920,
+    "height": 2715,
+    "fingerprint": "eac364f25a2361123772a64c48cfc6e15924bc46aae7ec9bbedd5145ff279340"
+  },
+  "/progetti/whats-an-artist/1.png-preview.webp": {
+    "jxl": "/progetti/whats-an-artist/1.png-preview.webp.jxl",
+    "fallback": "/progetti/whats-an-artist/1.png-preview.webp.fallback.webp",
+    "width": 509,
+    "height": 720,
+    "fingerprint": "5988bae3194165baf9430ea193a8140d01a31819c529ce6a42c90178778c85dd"
+  },
+  "/progetti/whats-an-artist/14FBF64A-E966-4178-95D5-2E91DF3244CE.png": {
+    "jxl": "/progetti/whats-an-artist/14FBF64A-E966-4178-95D5-2E91DF3244CE.png.jxl",
+    "fallback": "/progetti/whats-an-artist/14FBF64A-E966-4178-95D5-2E91DF3244CE.png.progressive.jpg",
+    "width": 1023,
+    "height": 1510,
+    "fingerprint": "5e8fad58e1695f4d59467e97f442fb4237fb4f1918c14ec5d202d2cf73668012"
+  },
+  "/progetti/whats-an-artist/471F9DA0-9ABF-47F8-B405-03D73ED0030E.png": {
+    "jxl": "/progetti/whats-an-artist/471F9DA0-9ABF-47F8-B405-03D73ED0030E.png.jxl",
+    "fallback": "/progetti/whats-an-artist/471F9DA0-9ABF-47F8-B405-03D73ED0030E.png.progressive.jpg",
+    "width": 1015,
+    "height": 1339,
+    "fingerprint": "fe3dee98f86705451b60006e46833529738fdf4de6bc665fa5c9c0f3cf56e8b8"
+  },
+  "/progetti/whats-an-artist/6E3A4B0C-0F75-4759-A5F1-785940E6CA53.png": {
+    "jxl": "/progetti/whats-an-artist/6E3A4B0C-0F75-4759-A5F1-785940E6CA53.png.jxl",
+    "fallback": "/progetti/whats-an-artist/6E3A4B0C-0F75-4759-A5F1-785940E6CA53.png.progressive.jpg",
+    "width": 1004,
+    "height": 1352,
+    "fingerprint": "2bf3946528010bb9bba7a686c777a9918df71f716326018051a52d3182fea37f"
+  },
+  "/progetti/whats-an-artist/AAFAAD0B-28FC-4457-BDCF-34373FB37345.png": {
+    "jxl": "/progetti/whats-an-artist/AAFAAD0B-28FC-4457-BDCF-34373FB37345.png.jxl",
+    "fallback": "/progetti/whats-an-artist/AAFAAD0B-28FC-4457-BDCF-34373FB37345.png.progressive.jpg",
+    "width": 1024,
+    "height": 1024,
+    "fingerprint": "9a77cc27d115dfb81a13be00b315a7c060661e8585080be93bc8ab875cbda765"
+  },
+  "/progetti/whats-an-artist/AAFAAD0B-28FC-4457-BDCF-34373FB37345.png-preview.webp": {
+    "jxl": "/progetti/whats-an-artist/AAFAAD0B-28FC-4457-BDCF-34373FB37345.png-preview.webp.jxl",
+    "fallback": "/progetti/whats-an-artist/AAFAAD0B-28FC-4457-BDCF-34373FB37345.png-preview.webp.progressive.jpg",
+    "width": 720,
+    "height": 720,
+    "fingerprint": "aa6a88888fbb9c52e04e51ececd3034f37b8af8276a6375f5c5d22507cccb4ba"
+  },
+  "/progetti/whats-an-artist/AF85FC86-BFD8-4F69-AB02-9584586EB2F6.png": {
+    "jxl": "/progetti/whats-an-artist/AF85FC86-BFD8-4F69-AB02-9584586EB2F6.png.jxl",
+    "fallback": "/progetti/whats-an-artist/AF85FC86-BFD8-4F69-AB02-9584586EB2F6.png.progressive.jpg",
+    "width": 1024,
+    "height": 1024,
+    "fingerprint": "30efdc7f3c98df6c53a3ffcacb3f7c146d31379856c0141e7211a50d3fc513c8"
+  },
+  "/progetti/whats-an-artist/AF85FC86-BFD8-4F69-AB02-9584586EB2F6.png-preview.webp": {
+    "jxl": "/progetti/whats-an-artist/AF85FC86-BFD8-4F69-AB02-9584586EB2F6.png-preview.webp.jxl",
+    "fallback": "/progetti/whats-an-artist/AF85FC86-BFD8-4F69-AB02-9584586EB2F6.png-preview.webp.progressive.jpg",
+    "width": 720,
+    "height": 720,
+    "fingerprint": "48a3162e37ac772ce8dc0efee0053d56e95c2f891ea5d0d5e0778e3051829d7f"
+  },
+  "/progetti/whats-an-artist/B2672E30-3055-4F34-92F4-4163FB2CC586.png": {
+    "jxl": "/progetti/whats-an-artist/B2672E30-3055-4F34-92F4-4163FB2CC586.png.jxl",
+    "fallback": "/progetti/whats-an-artist/B2672E30-3055-4F34-92F4-4163FB2CC586.png.progressive.jpg",
+    "width": 1024,
+    "height": 1536,
+    "fingerprint": "9e5f8d8da39d6da2fb0ff493f06cb5b8c9afacd86716982a7ace3906c63f0ffb"
+  },
+  "/progetti/whats-an-artist/B2672E30-3055-4F34-92F4-4163FB2CC586.png-preview.webp": {
+    "jxl": "/progetti/whats-an-artist/B2672E30-3055-4F34-92F4-4163FB2CC586.png-preview.webp.jxl",
+    "fallback": "/progetti/whats-an-artist/B2672E30-3055-4F34-92F4-4163FB2CC586.png-preview.webp.progressive.jpg",
+    "width": 480,
+    "height": 720,
+    "fingerprint": "86e89ee2857d804d54917fd0f4ecfc806cee792482c73aa182cf7347b76f72a4"
+  },
+  "/progetti/whats-an-artist/copertina.png": {
+    "jxl": "/progetti/whats-an-artist/copertina.png.jxl",
+    "fallback": "/progetti/whats-an-artist/copertina.png.fallback.webp",
+    "width": 1920,
+    "height": 1440,
+    "fingerprint": "e602cbf7616fa6a9dc62337f01edfbfb12fd830e9248c6b865ee0dbce2e27217"
+  },
+  "/progetti/whats-an-artist/D9BF978C-1A56-4357-923F-DC6312F30E61.png": {
+    "jxl": "/progetti/whats-an-artist/D9BF978C-1A56-4357-923F-DC6312F30E61.png.jxl",
+    "fallback": "/progetti/whats-an-artist/D9BF978C-1A56-4357-923F-DC6312F30E61.png.progressive.jpg",
+    "width": 1024,
+    "height": 1536,
+    "fingerprint": "136cf66b47973ac704a8673fc1bccffcb1e7ae80d4e16ef909da5ab4942f4e56"
+  },
+  "/progetti/whats-an-artist/F01D18EE-AFBA-458A-BF82-D77CFCAFAF00.png": {
+    "jxl": "/progetti/whats-an-artist/F01D18EE-AFBA-458A-BF82-D77CFCAFAF00.png.jxl",
+    "fallback": "/progetti/whats-an-artist/F01D18EE-AFBA-458A-BF82-D77CFCAFAF00.png.progressive.jpg",
+    "width": 1024,
+    "height": 1024,
+    "fingerprint": "bca86637ebf010b6b8da02ddf104c16b87320d4a588024a18ccb52149ff7c2c4"
+  },
+  "/progetti/whats-an-artist/F6C76D9D-85A5-4D06-BA61-4207C459A3EA.png": {
+    "jxl": "/progetti/whats-an-artist/F6C76D9D-85A5-4D06-BA61-4207C459A3EA.png.jxl",
+    "fallback": "/progetti/whats-an-artist/F6C76D9D-85A5-4D06-BA61-4207C459A3EA.png.progressive.jpg",
+    "width": 1024,
+    "height": 1536,
+    "fingerprint": "f332bd3ae441c8968777926f1127554d70479854a43c66cc49c96e6496abbde9"
+  },
+  "/progetti/whats-an-artist/IMG_5200.JPG": {
+    "jxl": "/progetti/whats-an-artist/IMG_5200.JPG.jxl",
+    "fallback": "/progetti/whats-an-artist/IMG_5200.JPG.progressive.jpg",
+    "width": 1024,
+    "height": 1536,
+    "fingerprint": "23886cddbcb093262c8c8bfb38b32007703a6b73de99168e441b83148a99f379"
+  },
+  "/progetti/whats-an-artist/IMG_5200.JPG-preview.webp": {
+    "jxl": "/progetti/whats-an-artist/IMG_5200.JPG-preview.webp.jxl",
+    "fallback": "/progetti/whats-an-artist/IMG_5200.JPG-preview.webp.progressive.jpg",
+    "width": 480,
+    "height": 720,
+    "fingerprint": "93f78177e376ef0b737800be8ab77d4eed83189fd75a331b04a3a71a08f6563f"
+  },
+  "/progetti/whats-an-artist/IMG_5210.JPG": {
+    "jxl": "/progetti/whats-an-artist/IMG_5210.JPG.jxl",
+    "fallback": "/progetti/whats-an-artist/IMG_5210.JPG.progressive.jpg",
+    "width": 1024,
+    "height": 1536,
+    "fingerprint": "f8e1f3da2c3580dccd9f3e00720f19d0b5618ad2d8d6539399f586034eeaeec6"
+  },
+  "/progetti/whats-an-artist/IMG_5210.JPG-preview.webp": {
+    "jxl": "/progetti/whats-an-artist/IMG_5210.JPG-preview.webp.jxl",
+    "fallback": "/progetti/whats-an-artist/IMG_5210.JPG-preview.webp.progressive.jpg",
+    "width": 480,
+    "height": 720,
+    "fingerprint": "69b5805b9d0484674c6e8511d6a64f9020e593d155449f5efd143d46bdd1497f"
+  },
+  "/progetti/whats-an-artist/IMG_5217.JPG": {
+    "jxl": "/progetti/whats-an-artist/IMG_5217.JPG.jxl",
+    "fallback": "/progetti/whats-an-artist/IMG_5217.JPG.progressive.jpg",
+    "width": 939,
+    "height": 939,
+    "fingerprint": "b50c3287a66a4d67924d28e24eeb361769c15bf393fcb947e2999b29bf71d596"
+  },
+  "/progetti/whats-an-artist/IMG_5217.JPG-preview.webp": {
+    "jxl": "/progetti/whats-an-artist/IMG_5217.JPG-preview.webp.jxl",
+    "fallback": "/progetti/whats-an-artist/IMG_5217.JPG-preview.webp.progressive.jpg",
+    "width": 720,
+    "height": 720,
+    "fingerprint": "db1a32052b386c8d3e31457487de9639fecadf017889bbb63117d97992cc348a"
+  },
+  "/progetti/whats-an-artist/IMG_5220.JPG": {
+    "jxl": "/progetti/whats-an-artist/IMG_5220.JPG.jxl",
+    "fallback": "/progetti/whats-an-artist/IMG_5220.JPG.progressive.jpg",
+    "width": 1023,
+    "height": 1442,
+    "fingerprint": "3a3d99592d1e9beec3383f4fa3bc12e60d290e9b5535e6a8e824a65e58b8c623"
+  },
+  "/progetti/whats-an-artist/IMG_5221.JPG": {
+    "jxl": "/progetti/whats-an-artist/IMG_5221.JPG.jxl",
+    "fallback": "/progetti/whats-an-artist/IMG_5221.JPG.progressive.jpg",
+    "width": 1024,
+    "height": 1024,
+    "fingerprint": "bc0d835037ab5c1d5ff3842551de5c952dcd629bdcacb5456ee098e8b3fd30bc"
+  },
+  "/progetti/whats-an-artist/IMG_5226.JPG": {
+    "jxl": "/progetti/whats-an-artist/IMG_5226.JPG.jxl",
+    "fallback": "/progetti/whats-an-artist/IMG_5226.JPG.progressive.jpg",
+    "width": 1024,
+    "height": 1536,
+    "fingerprint": "e8a11655c2e2a1e5702ab4b79707fd0bdb81c6b5a721bddbedf96a7b193076fa"
+  },
+  "/progetti/whats-an-artist/IMG_5226.JPG-preview.webp": {
+    "jxl": "/progetti/whats-an-artist/IMG_5226.JPG-preview.webp.jxl",
+    "fallback": "/progetti/whats-an-artist/IMG_5226.JPG-preview.webp.progressive.jpg",
+    "width": 480,
+    "height": 720,
+    "fingerprint": "3c7430bca50083f539c70c40fe1896e841affe7f03f7ba4287bde8c620cbff3c"
+  },
+  "/progetti/whats-an-artist/IMG_5229.JPG": {
+    "jxl": "/progetti/whats-an-artist/IMG_5229.JPG.jxl",
+    "fallback": "/progetti/whats-an-artist/IMG_5229.JPG.progressive.jpg",
+    "width": 1024,
+    "height": 1024,
+    "fingerprint": "a583520ea9274777684d263ae2cd583d3b898f74cd99e002d0fd70aa4727b063"
+  },
+  "/progetti/whats-an-artist/IMG_5229.JPG-preview.webp": {
+    "jxl": "/progetti/whats-an-artist/IMG_5229.JPG-preview.webp.jxl",
+    "fallback": "/progetti/whats-an-artist/IMG_5229.JPG-preview.webp.progressive.jpg",
+    "width": 720,
+    "height": 720,
+    "fingerprint": "6f8bb13bd18040f61775a1885a4371317e4df5879919574b12e4268ea2d6ccce"
+  }
+}
