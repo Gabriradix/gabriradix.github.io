@@ -77,8 +77,8 @@
 }
 
 /* Disclosure / Deep-dive - Spans full centered width */
-.portfolio-disclosure{width:100%;max-width:1140px;margin:28px 0 0;border:none!important;color:inherit}
-.portfolio-disclosure>summary{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:48px;padding:12px 0;cursor:pointer;list-style:none;font:14px/1.4 var(--portfolio-ui);color:inherit}
+.portfolio-disclosure{width:100%;max-width:1140px;margin:28px 0 0;border-top:1px solid var(--portfolio-line);border-bottom:1px solid var(--portfolio-line);color:inherit}
+.portfolio-disclosure>summary{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:56px;padding:16px 0;cursor:pointer;list-style:none;font:14px/1.4 var(--portfolio-ui);color:inherit}
 .portfolio-disclosure>summary::-webkit-details-marker{display:none}
 .portfolio-disclosure>summary:hover .portfolio-disclosure-label{text-decoration:underline;text-underline-offset:4px}
 .portfolio-disclosure .portfolio-less{display:none}.portfolio-disclosure[open] .portfolio-more{display:none}.portfolio-disclosure[open] .portfolio-less{display:inline}
