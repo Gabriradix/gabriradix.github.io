@@ -91,11 +91,14 @@
   max-width:1140px!important;
   margin-inline:auto!important;
   padding:48px 32px 0!important;
+  border-top:none!important;
 }
 .portfolio-original-content:empty{
   display:none!important;
 }
-.portfolio-original-content .border-t{
+.portfolio-original-content > div,
+.portfolio-original-content .border-t,
+.portfolio-original-content [class*="border-t"]{
   border-top:none!important;
   padding-top:0!important;
 }
