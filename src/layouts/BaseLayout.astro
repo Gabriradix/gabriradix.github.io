@@ -1,9 +1,15 @@
 ---
+import fs from "node:fs";
+import path from "node:path";
 import Header from "../components/Header.astro";
 import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 import "../styles/portfolio.css";
 import { projects } from "../data/projects";
+
+const alteHaasRegularBase64 = fs.readFileSync(path.resolve("./public/fonts/AlteHaasGroteskRegular.ttf")).toString("base64");
+const alteHaasBoldBase64 = fs.readFileSync(path.resolve("./public/fonts/AlteHaasGroteskBold.ttf")).toString("base64");
+const appleGaramondBase64 = fs.readFileSync(path.resolve("./public/fonts/AppleGaramond.ttf")).toString("base64");
 
 interface Props {
   title: string;
@@ -129,12 +135,49 @@ const { favicon = dynamicFavicon } = Astro.props;
     {!noindex && <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')} />}
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" type="image/svg+xml" href={favicon} />
+    <link rel="preload" href="/fonts/AlteHaasGroteskBold.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="/fonts/AlteHaasGroteskRegular.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="/fonts/AppleGaramond.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <style is:inline set:html={`
+      @font-face {
+        font-family: 'Alte Haas Grotesk';
+        src: url('data:font/ttf;charset=utf-8;base64,${alteHaasRegularBase64}') format('truetype'),
+             url('/fonts/AlteHaasGroteskRegular.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Alte Haas Grotesk';
+        src: url('data:font/ttf;charset=utf-8;base64,${alteHaasBoldBase64}') format('truetype'),
+             url('/fonts/AlteHaasGroteskBold.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Apple Garamond Custom';
+        src: url('data:font/ttf;charset=utf-8;base64,${appleGaramondBase64}') format('truetype'),
+             url('/fonts/AppleGaramond.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Apple Garamond Custom';
+        src: url('data:font/ttf;charset=utf-8;base64,${appleGaramondBase64}') format('truetype'),
+             url('/fonts/AppleGaramond.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+    `}></style>
     <title>{title}</title>
     <ClientRouter />
     {finalLogoHover && (
@@ -157,13 +200,6 @@ const { favicon = dynamicFavicon } = Astro.props;
       })();
     </script>
     <style is:global>
-      @font-face {
-        font-family: 'Apple Garamond Custom';
-        src: url('/fonts/AppleGaramond.ttf') format('truetype');
-        font-weight: bold;
-        font-style: normal;
-        font-display: swap;
-      }
       h1, h2, h3, h4, h5, h6 {
         text-transform: uppercase;
         font-feature-settings: "ss05";

@@ -90,10 +90,14 @@
 .portfolio-original-content{
   max-width:1140px!important;
   margin-inline:auto!important;
-  padding:56px 32px 0!important;
+  padding:48px 32px 0!important;
 }
 .portfolio-original-content:empty{
   display:none!important;
+}
+.portfolio-original-content .border-t{
+  border-top:none!important;
+  padding-top:0!important;
 }
 
 /* Gallery on 2 Columns */
