@@ -29,10 +29,73 @@ const {
 
 const pagePath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const project = projects.find(project => project.href === pagePath);
-const pageDescription = description || project?.text || "Gabriele Radicello, multimedia artist. Selected work in performance, installations, audiovisual art and virtual worlds.";
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
-const shareImage = project?.images.find(image => /\.(png|jpe?g|webp)$/i.test(image)) || '/assets/aboutphoto.JPEG';
+const siteDescription = "Gabriele Radicello (gabriradix), multimedia artist. Explore installations, audiovisual performances, digital art and virtual worlds.";
+const pageDescriptions: Record<string, string> = {
+  '/': siteDescription,
+  '/about': "Discover Gabriele Radicello (gabriradix), multimedia artist exploring human sensitivity, algorithms and virtual worlds. Biography, exhibitions and education.",
+  '/contacts': "Contact Gabriele Radicello (gabriradix), multimedia artist. Find his email and official Instagram, TikTok and X profiles.",
+};
+const pageDescription = description || pageDescriptions[pagePath] || (project ? `${project.title} — ${project.text}` : siteDescription);
+// GitHub Pages serves directory routes with a trailing slash. Match the sitemap.
+const canonicalUrl = new URL(pagePath === '/' ? '/' : `${pagePath}/`, Astro.site);
+const shareImage = project?.images.find(image => /\.(png|jpe?g|webp|gif)$/i.test(image)) || '/assets/aboutphoto.JPEG';
 const shareImageUrl = new URL(shareImage, Astro.site);
+const siteUrl = new URL('/', Astro.site).href;
+const personId = `${siteUrl}#person`;
+const websiteId = `${siteUrl}#website`;
+const personReference = { '@id': personId };
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': personId,
+      name: 'Gabriele Radicello',
+      alternateName: 'gabriradix',
+      url: siteUrl,
+      image: new URL('/assets/aboutphoto.JPEG', Astro.site).href,
+      jobTitle: 'Multimedia artist',
+      sameAs: [
+        'https://instagram.com/gabriradix',
+        'https://tiktok.com/@gabriradix',
+        'https://x.com/gabriradix',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': websiteId,
+      name: 'Gabriele Radicello',
+      alternateName: 'gabriradix',
+      url: siteUrl,
+      description: siteDescription,
+      creator: personReference,
+      inLanguage: ['en', 'it'],
+    },
+    {
+      '@type': pagePath === '/about' ? 'ProfilePage' : pagePath === '/contacts' ? 'ContactPage' : 'WebPage',
+      '@id': `${canonicalUrl.href}#webpage`,
+      url: canonicalUrl.href,
+      name: title,
+      description: pageDescription,
+      isPartOf: { '@id': websiteId },
+      about: personReference,
+      ...(pagePath === '/about' ? { mainEntity: personReference } : {}),
+      ...(project ? {
+        mainEntity: {
+          '@type': 'CreativeWork',
+          '@id': `${canonicalUrl.href}#work`,
+          name: project.title,
+          description: project.text,
+          url: canonicalUrl.href,
+          image: shareImageUrl.href,
+          genre: project.category,
+          // Participation also covers collaborative projects without claiming sole authorship.
+          contributor: personReference,
+        },
+      } : {}),
+    },
+  ],
+};
 
 // Standardized branding logic
 const finalLogoHover = brandColor || logoHoverColor;
@@ -57,7 +120,12 @@ const { favicon = dynamicFavicon } = Astro.props;
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={shareImageUrl} />
+    <meta property="og:image:alt" content={project ? `${project.title} — Gabriele Radicello` : 'Gabriele Radicello (gabriradix)'} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={shareImageUrl} />
+    {!noindex && <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')} />}
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" type="image/svg+xml" href={favicon} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
