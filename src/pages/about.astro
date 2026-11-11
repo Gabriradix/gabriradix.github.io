@@ -17,7 +17,7 @@ import { bioText } from "../data/about";
         id="splat-container"
         role="img"
         aria-label="3D portrait of Gabriele Radicello"
-        class="sticky top-8 md:absolute md:top-0 left-0 md:left-auto right-auto md:right-0 mr-auto md:mr-0 w-[100%] md:w-full h-[460px] md:h-[530px] z-[2] self-start md:self-auto pointer-events-auto cursor-grab active:cursor-grabbing touch-pan-y flex items-center justify-center -translate-x-[110px] md:translate-x-0"
+        class="top-0 md:absolute md:top-0 left-0 md:left-auto right-auto md:right-0 mr-auto md:mr-0 w-[100%] md:w-full h-[460px] md:h-[530px] z-[2] self-start md:self-auto pointer-events-auto cursor-grab active:cursor-grabbing touch-pan-y flex items-center justify-center -translate-x-[110px] translate-y-[12px] md:translate-x-0 md:translate-y-0"
       >
         <div id="splat-canvas-wrapper" class="w-full h-full relative flex items-center justify-center touch-pan-y">
         </div>
@@ -47,14 +47,10 @@ import { bioText } from "../data/about";
 
     <details class="mobile-bio absolute inset-0 pointer-events-none md:hidden">
       <summary aria-controls="mobile-bio-continuation">
-        <span class="bio-open-label">
-          <span class="lang-en" lang="en">read more</span>
-          <span class="lang-it" lang="it">leggi di più</span>
+        <span class="bio-toggle-label">
+          <span class="bio-open-label"><span class="lang-en" lang="en">Read more</span><span class="lang-it" lang="it">Leggi di più</span></span>
         </span>
-        <span class="bio-close-label">
-          <span class="lang-en" lang="en">read less</span>
-          <span class="lang-it" lang="it">leggi meno</span>
-        </span>
+        <span class="bio-expand-icon" aria-hidden="true">+</span>
       </summary>
       <div id="mobile-bio-continuation" class="sr-only">
         {(["en", "it"] as const).map(language => (
@@ -63,15 +59,16 @@ import { bioText } from "../data/about";
           </div>
         ))}
       </div>
-      <button type="button" class="bio-read-less">
-        <span class="lang-en" lang="en">read less</span>
-        <span class="lang-it" lang="it">leggi meno</span>
-      </button>
     </details>
+    <button type="button" class="bio-read-less md:hidden">
+      <span class="bio-toggle-label"><span class="lang-en" lang="en">Show less</span><span class="lang-it" lang="it">Mostra meno</span></span>
+      <span class="bio-expand-icon" aria-hidden="true">+</span>
+    </button>
     </div>
 
-    <!-- Exhibitions & Education Section (Straight border-t line, rounded-none) -->
-    <div class="grid gap-8 md:gap-12 border-t border-neutral-700 pt-4 md:pt-6 md:grid-cols-2 w-full max-w-4xl text-left z-10 bg-black p-4 md:p-6 rounded-none">
+    <!-- Exhibitions, Experience & Education Section -->
+    <div class="grid gap-8 md:gap-12 pt-4 md:pt-6 w-full max-w-4xl text-left z-10 bg-black p-4 md:p-6 rounded-none">
+      <!-- Exhibitions Section -->
       <section>
         <h2 class="lang-en mb-4 text-2xl md:text-3xl font-semibold text-neutral-50" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;" lang="en">Exhibitions</h2>
         <h2 class="lang-it mb-4 text-2xl md:text-3xl font-semibold text-neutral-50" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;" lang="it">Mostre ed Esposizioni</h2>
@@ -101,6 +98,36 @@ import { bioText } from "../data/about";
           </li>
           <li>2025 Esposizione Annuale. Accademia di Belle Arti di Carrara</li>
         </ul>
+      </section>
+
+      <!-- Experience Section -->
+      <section>
+        <h2 class="lang-en mb-4 text-2xl md:text-3xl font-semibold text-neutral-50" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;" lang="en">Experience</h2>
+        <h2 class="lang-it mb-4 text-2xl md:text-3xl font-semibold text-neutral-50" style="font-family: 'Alte Haas Grotesk', Helvetica, Arial, sans-serif;" lang="it">Esperienza</h2>
+
+        <div class="lang-it text-base md:text-lg leading-7 md:leading-8 text-neutral-400" lang="it">
+          <div class="text-neutral-200 font-medium">
+            Software Developer &amp; Broadcast Media Specialist
+            <span class="text-neutral-500 font-normal"> — EasySport srl (2021 – Presente)</span>
+          </div>
+          <ul class="list-inside list-disc text-neutral-400 mt-2 space-y-1">
+            <li>Sviluppo di software custom per la gestione di competizioni sportive in tempo reale e l'automazione dei flussi video.</li>
+            <li>Regia e gestione tecnica delle trasmissioni live streaming broadcast e delle grafiche televisive / dati in sovrimpressione per gare ufficiali di sollevamento pesi.</li>
+            <li>Gestione e supervisione tecnica dei sistemi digitali di gara.</li>
+          </ul>
+        </div>
+
+        <div class="lang-en text-base md:text-lg leading-7 md:leading-8 text-neutral-400" lang="en">
+          <div class="text-neutral-200 font-medium">
+            Software Developer &amp; Broadcast Media Specialist
+            <span class="text-neutral-500 font-normal"> — EasySport srl (2021 – Present)</span>
+          </div>
+          <ul class="list-inside list-disc text-neutral-400 mt-2 space-y-1">
+            <li>Development of custom software for real-time sports competition management and video pipeline automation.</li>
+            <li>Technical direction of live streaming broadcasts and on-screen TV graphics / telemetry integration for official weightlifting events.</li>
+            <li>Technical management and on-site operation of competition digital infrastructure.</li>
+          </ul>
+        </div>
       </section>
 
       <section>
@@ -142,39 +169,41 @@ import { bioText } from "../data/about";
       margin-top: 1rem;
     }
 
-    .mobile-bio summary {
-      display: inline-grid;
-      position: absolute;
-      top: var(--bio-toggle-y, 0px);
-      left: var(--bio-toggle-x, 12px);
+    .mobile-bio summary,
+    .bio-read-less {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
       z-index: 4;
-      width: max-content;
-      min-height: 44px;
-      padding-block: 7px;
+      width: calc(100% - 24px);
+      min-height: 56px;
+      padding: 16px 0;
+      border-top: 1px solid #404040;
+      border-bottom: 1px solid #404040;
       color: #fff;
       font-size: 0.875rem;
-      line-height: 30px;
-      white-space: nowrap;
+      line-height: 1.4;
       cursor: pointer;
       pointer-events: auto;
       list-style: none;
+      background: transparent;
+      text-align: left;
+    }
+
+    .mobile-bio summary {
+      position: absolute;
+      top: var(--bio-toggle-y, 0px);
+      left: var(--bio-toggle-x, 12px);
     }
 
     .bio-read-less {
-      position: absolute;
-      top: var(--bio-end-y, 0px);
-      left: var(--bio-end-x, 12px);
-      z-index: 4;
-      min-height: 44px;
-      padding: 7px 0;
-      border: 0;
-      background: transparent;
-      color: #fff;
-      font-size: 0.875rem;
-      line-height: 30px;
-      white-space: nowrap;
-      cursor: pointer;
-      pointer-events: auto;
+      margin: 0 12px;
+      display: none;
+    }
+
+    .mobile-bio[open] summary {
+      display: none;
     }
 
     .mobile-bio summary,
@@ -184,19 +213,16 @@ import { bioText } from "../data/about";
       font-family: var(--font-sans);
     }
 
-    .mobile-bio summary,
-    .bio-read-less {
+    .bio-toggle-label {
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      font-kerning: normal;
-      text-shadow: 0 0 8px rgb(255 255 255 / 35%);
     }
 
-    .mobile-bio summary:hover,
-    .bio-read-less:hover {
+    .mobile-bio summary:hover .bio-toggle-label,
+    .bio-read-less:hover .bio-toggle-label {
       text-decoration: underline;
       text-decoration-thickness: 1px;
-      text-underline-offset: 3px;
+      text-underline-offset: 4px;
     }
 
     .mobile-bio summary::-webkit-details-marker {
@@ -209,18 +235,34 @@ import { bioText } from "../data/about";
       outline-offset: 4px;
     }
 
-    .mobile-bio .bio-open-label,
-    .mobile-bio .bio-close-label {
-      grid-area: 1 / 1;
+    .bio-expand-icon {
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1;
+      transition: transform 250ms ease;
     }
 
-    .mobile-bio .bio-close-label,
-    .mobile-bio[open] .bio-open-label {
-      visibility: hidden;
+    .mobile-bio[open] .bio-expand-icon {
+      transform: rotate(45deg);
     }
 
-    .mobile-bio[open] .bio-close-label {
-      visibility: visible;
+    @media (max-width: 767px) {
+      .mobile-bio[open] + .bio-read-less {
+        display: flex;
+      }
+
+      .about-introduction:not(:has(.mobile-bio[open])) #splat-container {
+        position: absolute;
+      }
+
+      .about-introduction:has(.mobile-bio[open]) #splat-container {
+        position: sticky;
+        top: 8px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bio-expand-icon { transition: none; }
     }
 
   </style>
@@ -289,18 +331,15 @@ import { bioText } from "../data/about";
       const disclosure = document.querySelector<HTMLDetailsElement>('.mobile-bio');
       if (disclosure) disclosure.ontoggle = () => {
         maxObservedHeroHeight = 0;
+        invalidateLayoutCache();
         renderPretextLayout();
       };
-      document.querySelectorAll<HTMLButtonElement>('.bio-read-less').forEach(button => {
-        button.onclick = () => {
-          const disclosure = button.closest('details');
-          if (!disclosure) return;
-          disclosure.open = false;
-          maxObservedHeroHeight = 0;
-          renderPretextLayout();
-          disclosure.querySelector('summary')?.focus();
-        };
-      });
+      const endButton = document.querySelector<HTMLButtonElement>('.bio-read-less');
+      if (endButton) endButton.onclick = () => {
+        if (!disclosure) return;
+        disclosure.open = false;
+        disclosure.querySelector('summary')?.focus({ preventScroll: true });
+      };
 
       const wrapper = document.getElementById('splat-canvas-wrapper');
       if (!wrapper) return;
@@ -488,8 +527,10 @@ import { bioText } from "../data/about";
               }
               startReflowLoop();
             }
-            // Stream high LOD
-            app.assets.load(highAsset);
+            // Stream high LOD only on desktop (saves 10.3MB download and prevents mobile WebGL crashes)
+            if (!isMobile) {
+              app.assets.load(highAsset);
+            }
           });
 
           // Step 3: Stream High LOD (~10.3MB)
@@ -746,7 +787,6 @@ import { bioText } from "../data/about";
     let cachedLang = '';
     let cachedFontSpec = '';
     let maxObservedHeroHeight = 0;
-    let textMeasureContext: CanvasRenderingContext2D | null = null;
 
     // Cached layout rect (updated in sampleSilhouette, used in renderPretextLayout without getBoundingClientRect)
     let cachedGlOffsetX = 0;
@@ -792,11 +832,13 @@ import { bioText } from "../data/about";
     let cachedFullWidthLines = new Map();
 
     function getFullWidthLines(text, width, prepared, fontSpecKey) {
+      if (width <= 0) return [];
       const key = fontSpecKey + '_' + width + '_' + text;
       if (!cachedFullWidthLines.has(key)) {
         let cursor = { segmentIndex: 0, graphemeIndex: 0 };
         const lines = [];
-        while (true) {
+        let maxLines = 200;
+        while (--maxLines > 0) {
           const line = layoutNextLine(prepared, cursor, width);
           if (!line) break;
           lines.push(line.text);
@@ -804,7 +846,7 @@ import { bioText } from "../data/about";
         }
         cachedFullWidthLines.set(key, lines);
       }
-      return cachedFullWidthLines.get(key);
+      return cachedFullWidthLines.get(key) || [];
     }
 
     /**
@@ -812,9 +854,10 @@ import { bioText } from "../data/about";
      * Uses span diffing (no innerHTML = '') for zero DOM churn on scroll/drag.
      */
     function renderPretextLayout() {
-      const canvas = document.getElementById('pretext-canvas');
-      const hero = document.getElementById('about-hero');
-      if (!canvas || !hero) return;
+      try {
+        const canvas = document.getElementById('pretext-canvas');
+        const hero = document.getElementById('about-hero');
+        if (!canvas || !hero) return;
 
       if (!layoutCacheValid) {
         updateLayoutCache();
@@ -824,7 +867,6 @@ import { bioText } from "../data/about";
       const biography = bioText[currentLang] || bioText.en;
       const disclosure = document.querySelector<HTMLDetailsElement>('.mobile-bio');
       const summary = disclosure?.querySelector('summary');
-      const endButton = disclosure?.querySelector<HTMLButtonElement>('.bio-read-less');
       const expanded = Boolean(disclosure?.open);
       const paragraphs = cachedIsMobile && !expanded ? biography.slice(0, 1) : biography;
 
@@ -853,6 +895,10 @@ import { bioText } from "../data/about";
 
       const heroW = cachedHeroW || hero.offsetWidth;
       const heroH = cachedHeroH || hero.offsetHeight;
+      if (heroW < 200) {
+        // Hero is not yet laid out in viewport; avoid computing with 0/negative dimensions.
+        return;
+      }
       const cx = heroW / 2;
 
       const margin = isMobile ? 12 : 20;
@@ -950,27 +996,12 @@ import { bioText } from "../data/about";
         ? restOffsetY + rawSilhouetteRows[rawSilhouetteRows.length - 1].yRatio * liveGlH + 12
         : restOffsetY + liveGlH;
       const startY = isMobile ? Math.max(24, restPortraitTop + 12) : 20;
-      let introControl = null;
-      let endControl = null;
-
-      if (!textMeasureContext) textMeasureContext = document.createElement('canvas').getContext('2d');
-      if (textMeasureContext) textMeasureContext.font = fontSpec;
-      function placeControl(line, width) {
-        const textWidth = (textMeasureContext?.measureText(line.text).width ?? 0) + line.text.length * 0.2;
-        let x = line.x + textWidth + 8;
-        let y = line.y;
-        if (x + width > heroW - margin) {
-          do {
-            y += lineHeight;
-            x = Math.max(margin, getMobileSilhouetteRight(y) ?? margin);
-          } while (x + width > heroW - margin);
-        }
-        return { x, y };
-      }
+      let toggleY = 0;
+      let textBottom = 0;
 
       if (isMobile) {
         let y = startY;
-        const fullW = heroW - margin * 2;
+        const fullW = Math.max(40, heroW - margin * 2);
 
         paragraphs.forEach((text, paragraphIndex) => {
           const prepared = getPrep(text);
@@ -985,7 +1016,8 @@ import { bioText } from "../data/about";
             }
           } else {
             let cursor = { segmentIndex: 0, graphemeIndex: 0 };
-            while (true) {
+            let maxLineAttempts = 200;
+            while (--maxLineAttempts > 0) {
               let lineX = margin;
               let availW = fullW;
               const silRight = getMobileSilhouetteRight(y);
@@ -1004,17 +1036,16 @@ import { bioText } from "../data/about";
               y += lineHeight;
             }
           }
-          const lastLine = newLines[newLines.length - 1];
-          if (paragraphIndex === 0 && summary && lastLine) {
-            introControl = placeControl(lastLine, summary.offsetWidth);
-            y = Math.max(y, introControl.y + lineHeight);
-          }
-          if (expanded && paragraphIndex === paragraphs.length - 1 && endButton && lastLine) {
-            endControl = placeControl(lastLine, endButton.offsetWidth);
-            y = Math.max(y, endControl.y + lineHeight);
-          }
           y += lineHeight;
+          if (paragraphIndex === 0) {
+            toggleY = y + 8;
+          }
         });
+
+        if (expanded) {
+          const lastLine = newLines[newLines.length - 1];
+          textBottom = (lastLine?.y ?? y) + lineHeight + 16;
+        }
 
       } else {
         let yLeft = startY;
@@ -1094,17 +1125,10 @@ import { bioText } from "../data/about";
         }
       }
 
-      // Both disclosure controls share the same moving exclusion as the text.
-      if (isMobile && disclosure && introControl) {
-        disclosure.style.setProperty('--bio-toggle-x', introControl.x + 'px');
-        disclosure.style.setProperty('--bio-toggle-y', (introControl.y - 7) + 'px');
-        if (endControl) {
-          disclosure.style.setProperty('--bio-end-x', endControl.x + 'px');
-          disclosure.style.setProperty('--bio-end-y', (endControl.y - 7) + 'px');
-        }
-        const lastLine = newLines[newCount - 1];
-        const bottomY = Math.max(lastLine?.y ?? 0, introControl.y, endControl?.y ?? 0);
-        const requiredHeight = Math.ceil(Math.max(320, restPortraitBottom, bottomY + lineHeight + 8));
+      if (isMobile && disclosure && summary) {
+        disclosure.style.setProperty('--bio-toggle-x', margin + 'px');
+        disclosure.style.setProperty('--bio-toggle-y', toggleY + 'px');
+        const requiredHeight = Math.ceil(Math.max(320, restPortraitBottom, expanded ? textBottom : toggleY + 56 + 24));
         // Keep the bottom of the page steady as text rewraps during scrolling.
         maxObservedHeroHeight = Math.max(maxObservedHeroHeight, requiredHeight);
         const heightPx = maxObservedHeroHeight + 'px';
@@ -1118,6 +1142,11 @@ import { bioText } from "../data/about";
 
       // Keep server-rendered prose visible until the enhanced layout has content.
       if (newCount > 0) hero.querySelector('.biography-fallback')?.classList.add('sr-only');
+      } catch (err) {
+        console.error("renderPretextLayout layout error:", err);
+        const hero = document.getElementById('about-hero');
+        hero?.querySelector('.biography-fallback')?.classList.remove('sr-only');
+      }
     }
 
     const triggerReflowAfterTransition = () => {
